@@ -23,6 +23,7 @@ class Home extends Auth
         return view();
     }
 
+    /* ========== 控制台 ========== */
     public function console(){
         return view();
     }
