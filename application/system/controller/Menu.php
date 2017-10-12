@@ -1,14 +1,14 @@
 <?php
 /* |------------------------------------------------------
- * | 后台导航框架
+ * | 功能与菜单
  * |------------------------------------------------------
  * | 初始化操作
- * | 框架主页
- * | 控制台
+ * | 列表
+ * | 添加
  * */
 namespace app\system\controller;
 
-class Role extends Auth
+class Menu extends Auth
 {
     /* ========== 初始化 ========== */
     public function _initialize()
@@ -17,14 +17,14 @@ class Role extends Auth
 
     }
 
-    /* ========== 框架主页 ========== */
+    /* ========== 列表 ========== */
     public function index()
     {
         return view();
     }
 
-    /* ========== 控制台 ========== */
-    public function console(){
+    /* ========== 添加 ========== */
+    public function add(){
         return view();
     }
 }
