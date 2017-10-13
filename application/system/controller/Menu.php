@@ -30,7 +30,7 @@ class Menu extends Auth
     /* ========== 列表 ========== */
     public function index()
     {
-        $menus=Menus::field(['id','parent_id','name','level','icon','sort','url','display','status'])->where('status',1)->select();
+        $menus=Menus::field(['id','parent_id','name','icon','sort','url','display','status'])->where('status',1)->order('sort asc')->select();
         $table_menus='';
         if($menus){
             $array=[];
@@ -54,7 +54,7 @@ class Menu extends Auth
                         <td>\$display | \$status</td>
                         <td>
                             <button type='button' class='btn' onclick='layerIfWindow(&apos;添加菜单&apos;,&apos;\$add_url&apos;,&apos;&apos;,&apos;335&apos;)' >添加子菜单</button>
-                            <button type='button' class='btn' onclick='layerIfWindow(&apos;菜单信息&apos;,	&apos;\$detail_url&apos;,&apos;&apos;,&apos;335&apos;)' >菜单信息</button>
+                            <button type='button' class='btn' onclick='layerIfWindow(&apos;菜单信息&apos;,	&apos;\$detail_url&apos;,&apos;&apos;,&apos;400&apos;)' >菜单信息</button>
                             <button type='button' data-action='\$delete_url' class='btn js-ajax-form-btn' data-notice='确定要删除吗？'>删除</button>
                         </td>
                     </tr>
@@ -67,7 +67,6 @@ class Menu extends Auth
     /* ========== 添加 ========== */
     public function add($id=0){
         if(request()->isPost()){
-            $datas=input();
             $rules=[
                 'name'=>'require|unique:menu',
                 'url'=>'require|unique:menu',
@@ -79,16 +78,17 @@ class Menu extends Auth
                 'url.unique'=>'路由地址已存在',
             ];
 
-            $result=$this->validate($datas,$rules,$msg);
+            $result=$this->validate(input(),$rules,$msg);
             if(true !== $result){
                 $this->error($result);
             }
 
-            $menu_model=new Menus($datas);
-            $menu_model->other_data($datas);
-            $menu_model->save();
+            $menu_model=new Menus();
+            $other_datas=$menu_model->other_data(input());
+            $datas=array_merge(input(),$other_datas);
+            $menu_model->save($datas);
             if($menu_model !== false){
-                return $this->success('保存成功');
+                return $this->success('保存成功','');
             }else{
                 return $this->error('保存失败');
             }
@@ -111,13 +111,63 @@ class Menu extends Auth
     }
 
     /* ========== 详情 ========== */
-    public function detail(){
+    public function detail($id=null){
+        if(!$id){
+            return $this->error('至少选择一项');
+        }
+        $infos=Menus::withTrashed()->find($id);
+        if(!$infos){
+            return $this->error('选择项目不存在');
+        }
 
+        $menus=Menus::field(['id','parent_id','name','sort','status'])->where('status',1)->select();
+        $options_menus='';
+        if($menus){
+            $array=[];
+            foreach ($menus as $menu){
+                $menu->selected=$menu->id==$infos->parent_id?'selected':'';
+                $array[]=$menu;
+            }
+            $options_menus=get_tree($array);
+        }
+        return view('modify',[
+            'infos'=>$infos,
+            'options_menus'=>$options_menus,
+        ]);
     }
 
     /* ========== 修改 ========== */
     public function edit(){
+        $id=input('id');
+        if(!$id){
+            return $this->error('错误操作');
+        }
+        $datas=input();
+        $rules=[
+            'name'=>'require|unique:menu,name,'.$id.',id',
+            'url'=>'require|unique:menu,url,'.$id.',id',
+        ];
+        $msg=[
+            'name.require'=>'名称不能为空',
+            'name.unique'=>'名称已存在',
+            'url.require'=>'路由地址不能为空',
+            'url.unique'=>'路由地址已存在',
+        ];
 
+        $result=$this->validate($datas,$rules,$msg);
+        if(true !== $result){
+            $this->error($result);
+        }
+
+        $menu_model=new Menus();
+        $other_datas=$menu_model->other_data(input());
+        $datas=array_merge(input(),$other_datas);
+        $menu_model->isUpdate(true)->save($datas);
+        if($menu_model !== false){
+            return $this->success('保存成功','');
+        }else{
+            return $this->error('保存失败');
+        }
     }
 
     /* ========== 排序 ========== */
