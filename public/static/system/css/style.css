@@ -103,7 +103,7 @@ h4{background: url(../img/bg_repeat.png) repeat-x 0 0;height: 28px;border-bottom
 .table.xqTable td:first-child{ background: none;}
 .table.xqTable td{ white-space: inherit;}
 /*iframe 页码*/
-.pageCon{width: 100%;height: 26px;line-height: 26px;display: flex;}
+.pageCon{width: 100%;height: 26px;line-height: 26px;}
 .pageCon .btn{display: block; width: 24px; height: 22px;border: 1px solid #F5F5F5;border-radius: 3px;cursor: pointer;margin: 2px 0 0 4px;}
 .pageCon .btn i{display: block;width: 16px;height: 16px;margin: 2px 3px; background: url(../img/pagination_icons.png)no-repeat;}
 .pageCon .btn.no{opacity: .4;cursor: default;border-color: #F5F5F5!important;}
@@ -731,8 +731,10 @@ fieldset[disabled] .btn-link:focus {
 }
 
 /*  分页条 */
-.pageCon{margin: 0 auto;overflow: hidden;height: 26px;}
-.pageCon a,.pageCon span{margin: 0 1px;display: inline-block;width: 30px;height: 26px;text-align: center;line-height:26px; border-left: 1px solid #ddd;border-right: 1px solid #ddd;float: left;position: relative;}
-.pageCon a{color: #4A5B79;}
-.pageCon span.current{color: #FFFFFF;background-color: #4A5B79;}
-.pageCon span.rows,a.first,a.end,a.prev,a.next{width: auto;padding:0 1px;}
+.pageCon{margin: 0 auto;overflow: hidden;height: 30px;}
+.pageCon li>a,li>span{margin: 0 1px;display: inline-block;padding: 0 8px;height: 30px;text-align: center;line-height:26px; border-left: 1px solid #ddd;border-right: 1px solid #ddd;float: left;position: relative;}
+.pageCon li{color: #4A5B79;}
+.pageCon ul li span:hover{background-color: red !important;}
+.pageCon ul li a:hover{background-color: #2D93CA !important;}
+.pageCon ul li.active span{background-color: #6B7C93 !important;}
+

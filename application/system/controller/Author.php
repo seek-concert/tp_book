@@ -15,6 +15,12 @@ class Author extends Controller
     /* ========== 列表 ========== */
     public function index()
     {
+        $author_model = db('author');
+        $where = [];
+        $author_list = $author_model
+            ->where($where)
+            ->paginate();
+        $this->assign('author_list',$author_list);
         return view();
     }
 }
