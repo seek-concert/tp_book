@@ -12,5 +12,15 @@ use think\Model;
 
 class Authors extends Model
 {
-
+    protected $table = 'author';
+    protected $field = true;
+    public function add(){
+        $model = new Authors;
+        $model->data = input('');
+        if($model->save()){
+            return true;
+        }else{
+           return false;
+        }
+    }
 }

@@ -15,11 +15,11 @@
                 <img src="__STATIC__/system/img/arrow_refresh.png"/>
                 刷新</a>
         </li>
-        <li class="fgf" onclick="layerPage('作者查询',$('#search'),'500','150')" >
+        <li class="fgf" onclick="layerPage('作者查询',$('#search'),'500','200')" >
             <img src="__STATIC__/system/img/page_white_magnify.png"/>
             查询
         </li>
-        <li class="fgf" onclick="layerIfWindow('添加作者','','400','200')">
+        <li class="fgf" onclick="layerIfWindow('添加作者','{:url(\'insert\')}','450','230')">
             <img src="__STATIC__/system/img/add.png"/>
             添加
         </li>
@@ -34,9 +34,9 @@
                 <input class="va_m" type="checkbox" name="" id="allCheck" value="" data-falg="allCheck" onclick="checkBoxOp(this)"/>
             </th>
             <th>ID号</th>
-            <th>笔名<i class="stretch"></i></th>
+            <th>作者笔名<i class="stretch"></i></th>
             <th>真实姓名<i class="stretch"></i></th>
-            <th>电话<i class="stretch"></i></th>
+            <th>作者电话<i class="stretch"></i></th>
             <th>操作<i class="stretch"></i></th>
         </tr>
         {volist name='author_list' id='info'}
@@ -65,8 +65,12 @@
     <form action="" method="post" id="search-form">
         <table class="layerTable">
             <tr class="h70">
-                <td>名称：</td>
-                <td><input type="text" name="name" id="name" value="" placeholder="请输入查询的作者名称"/></td>
+                <td>作者笔名：</td>
+                <td><input type="text" name="name" id="name" value="{:isset($name)?$name:''}" placeholder="请输入查询的作者笔名"/></td>
+            </tr>
+            <tr class="h70">
+                <td>真实姓名：</td>
+                <td><input type="text" name="realname" id="realname" value="{:isset($realname)?$realname:''}" placeholder="请输入查询的真实姓名"/></td>
             </tr>
         </table>
         <div class="layerBtns">

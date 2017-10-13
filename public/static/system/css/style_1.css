@@ -789,8 +789,8 @@ fieldset[disabled] .btn-link:focus {
 }
 
 /*  分页条 */
-.pageCon{margin: 0 auto;overflow: hidden;height: 30px;}
-.pageCon li>a,li>span{margin: 0 1px;display: inline-block;padding: 0 8px;height: 30px;text-align: center;line-height:26px; border-left: 1px solid #ddd;border-right: 1px solid #ddd;float: left;position: relative;}
+.pageCon{margin: 0 auto;overflow: hidden;height: 26px;}
+.pageCon li>a,li>span{margin: 0 1px;display: inline-block;padding: 0 8px;height: 26px;text-align: center;line-height:26px; border-left: 1px solid #ddd;border-right: 1px solid #ddd;float: left;position: relative;}
 .pageCon li{color: #4A5B79;}
 .pageCon ul li span:hover{background-color: red !important;}
 .pageCon ul li a:hover{background-color: #2D93CA !important;}
