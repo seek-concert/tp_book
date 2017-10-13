@@ -30,11 +30,42 @@ class Menu extends Auth
     /* ========== 列表 ========== */
     public function index()
     {
-        return view();
+        $menus=Menus::field(['id','parent_id','name','level','icon','sort','url','display','status'])->where('status',1)->select();
+        $table_menus='';
+        if($menus){
+            $array=[];
+            foreach ($menus as $menu){
+                $menu->display=$menu->show($menu->display);
+                $menu->status=$menu->status($menu->status);
+                $menu->add_url=url('add',['id'=>$menu->id]);
+                $menu->detail_url=url('detail',['id'=>$menu->id]);
+                $menu->delete_url=url('delete',['id'=>$menu->id]);
+                $array[]=$menu;
+            }
+            $str = "
+                    <tr data-tt-id='\$id' data-tt-parent-id='\$parent_id' >
+                        <td>
+                            <input class='va_m' type='checkbox' name='ids[]' value='\$id' onclick='checkBoxOp(this)' id='check-\$id'/>
+                        </td>
+                        <td><input style='width: 50px;' type='text' name='sort[\$id]' value='\$sort' id='input-\$id' data-id='\$id'></td>
+                        <td>\$id</td>
+                        <td>\$space \$icon \$name</td>
+                        <td>\$url</td>
+                        <td>\$display | \$status</td>
+                        <td>
+                            <button type='button' class='btn' onclick='layerIfWindow(&apos;添加菜单&apos;,&apos;\$add_url&apos;,&apos;&apos;,&apos;335&apos;)' >添加子菜单</button>
+                            <button type='button' class='btn' onclick='layerIfWindow(&apos;菜单信息&apos;,	&apos;\$detail_url&apos;,&apos;&apos;,&apos;335&apos;)' >菜单信息</button>
+                            <button type='button' data-action='\$delete_url' class='btn js-ajax-form-btn' data-notice='确定要删除吗？'>删除</button>
+                        </td>
+                    </tr>
+                    ";
+            $table_menus=get_tree($array,$str,0,1,['&nbsp;&nbsp;┃┅','&nbsp;&nbsp;┣┅','&nbsp;&nbsp;┗┅'],'&nbsp;&nbsp;');
+        }
+        return view('index',['table_menus'=>$table_menus]);
     }
 
     /* ========== 添加 ========== */
-    public function add(){
+    public function add($id=0){
         if(request()->isPost()){
             $datas=input();
             $rules=[
@@ -57,9 +88,9 @@ class Menu extends Auth
             $menu_model->other_data($datas);
             $menu_model->save();
             if($menu_model !== false){
-                $this->success('保存成功');
+                return $this->success('保存成功');
             }else{
-                $this->error('保存失败');
+                return $this->error('保存失败');
             }
         }else{
             $menus=Menus::field(['id','parent_id','name','sort','status'])->where('status',1)->select();
@@ -67,7 +98,7 @@ class Menu extends Auth
             if($menus){
                 $array=[];
                 foreach ($menus as $menu){
-                    $menu->selected=$menu->id==input('id')?'selected':'';
+                    $menu->selected=$menu->id==$id?'selected':'';
                     $array[]=$menu;
                 }
                 $options_menus=get_tree($array);

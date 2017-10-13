@@ -32,7 +32,7 @@ class Menus extends Model
 
     public function show($key=null){
         $array=[0=>'隐藏',1=>'显示'];
-        if($key && in_array($key,[0,1])){
+        if(in_array($key,[0,1])){
             return $array[$key];
         }else{
             return $array;
@@ -41,7 +41,7 @@ class Menus extends Model
 
     public function status($key=null){
         $array=[0=>'禁用',1=>'启用'];
-        if($key && in_array($key,[0,1])){
+        if(in_array($key,[0,1])){
             return $array[$key];
         }else{
             return $array;
