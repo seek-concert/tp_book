@@ -54,5 +54,6 @@ return [
         // 是否需要进行SQL性能分析
         'sql_explain'     => false,
     ],
-
+    // 开启自动写入时间戳字段
+    'auto_timestamp' => true,
 ];

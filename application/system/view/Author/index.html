@@ -42,14 +42,14 @@
         {volist name='author_list' id='info'}
         <tr>
             <td>
-                <input class="va_m" type="checkbox" name="ids[]"  value="" onclick="checkBoxOp(this)" />
+                <input class="va_m" type="checkbox" name="ids[]"  value="{$info.id}" onclick="checkBoxOp(this)" />
             </td>
             <td>{$info.id}</td>
             <td>{$info.name}</td>
             <td>{$info.realname}</td>
             <td>{$info.phone}</td>
             <td>
-                <button type="button" class="btn" onclick="layerIfWindow('作者详情','','400','200')">详情</button>
+                <button type="button" class="btn" onclick="layerIfWindow('作者详情','{:url(\'detail\',array(\'id\'=>$info[\'id\']))}','450','230')">详情</button>
                 <button type="button" class="btn js-ajax-form-btn" data-action="" data-notice="确定删除吗？" data-formdata="">删除</button>
             </td>
         </tr>
