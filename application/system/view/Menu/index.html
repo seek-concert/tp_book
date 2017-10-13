@@ -14,9 +14,14 @@
     <!--fgf为工具栏分隔符，刷新没有，离开都有。中间工具每一类第一个添加fgf-->
     <ul>
         <li>
+            <a href="{:url('all')}">
+                <img src="__STATIC__/system/img/web_disk.png"/>
+                所有菜单</a>
+        </li>
+        <li class="fgf">
             <a href="{:url('index')}">
                 <img src="__STATIC__/system/img/arrow_refresh.png"/>
-                刷新</a>
+                重置</a>
         </li>
         <li class="fgf" onclick="layerIfWindow('添加菜单','{:url('add')}','','335')">
             <img src="__STATIC__/system/img/add.png"/>
@@ -26,13 +31,25 @@
             <img src="__STATIC__/system/img/text_list_numbers.png"/>
             排序
         </li>
-        <li class="fgf js-ajax-form-btn" data-form="js-ajax-form" data-action="{:url('status',array('action'=>'on'))}">
+        <li class="fgf js-ajax-form-btn" data-form="js-ajax-form" data-action="{:url('show',array('display'=>'1'))}">
             <img src="__STATIC__/system/img/monitor_window_3d.png"/>
             显示
         </li>
-        <li class="fgf js-ajax-form-btn" data-form="js-ajax-form" data-action="{:url('status',array('action'=>'off'))}">
+        <li class="fgf js-ajax-form-btn" data-form="js-ajax-form" data-action="{:url('show',array('display'=>'0'))}">
             <img src="__STATIC__/system/img/insert_element.png"/>
             隐藏
+        </li>
+        <li class="fgf js-ajax-form-btn" data-form="js-ajax-form" data-action="{:url('status',array('status'=>'1'))}">
+            <img src="__STATIC__/system/img/checked.png"/>
+            启用
+        </li>
+        <li class="fgf js-ajax-form-btn" data-form="js-ajax-form" data-action="{:url('status',array('status'=>'0'))}">
+            <img src="__STATIC__/system/img/disabled.png"/>
+            禁用
+        </li>
+        <li class="fgf js-ajax-form-btn" data-form="js-ajax-form" data-action="{:url('delete')}">
+            <img src="__STATIC__/system/img/broom.png"/>
+            删除
         </li>
     </ul>
 </div>
