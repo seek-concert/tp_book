@@ -32,7 +32,7 @@ class Menus extends Model
 
     public function show($key=null){
         $array=[0=>'隐藏',1=>'显示'];
-        if($key && in_array($key,[0,1])){
+        if(in_array($key,[0,1])){
             return $array[$key];
         }else{
             return $array;
@@ -41,7 +41,7 @@ class Menus extends Model
 
     public function status($key=null){
         $array=[0=>'禁用',1=>'启用'];
-        if($key && in_array($key,[0,1])){
+        if(in_array($key,[0,1])){
             return $array[$key];
         }else{
             return $array;
@@ -49,11 +49,13 @@ class Menus extends Model
     }
 
     public function other_data($input){
+        $data=[];
         if($input['parent_id']){
-            $parent_menu=$this->field(['id','parent_id','level'])->get($input['parent_id']);
-            $this->data['level']=$parent_menu->getAttr('level')+1;
+            $parent_menu=$this->field(['id','parent_id','level'])->find($input['parent_id']);
+            $data['level']=$parent_menu->getAttr('level')+1;
         }else{
-            $this->data['level']=1;
+            $data['level']=1;
         }
+        return $data;
     }
 }

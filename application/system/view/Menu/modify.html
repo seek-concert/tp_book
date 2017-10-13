@@ -19,7 +19,7 @@
                 <td>
                     <select name="parent_id" id="parent_id">
                         <option value="0">--作为一级菜单--</option>
-                        
+                        {$options_menus}
                     </select>
                 </td>
             </tr>
@@ -43,7 +43,7 @@
                 {if condition="isset($infos)"}
                 <td colspan="3" style="text-align: left;">当前图标：{$infos.icon}，代码：{$infos.icon|htmlspecialchars}</td>
                 {else /}
-                <td colspan="3" style="text-align: left;">填图标代码，如<img src="__STATIC__/system/img/house.png"/>填入&lt;img src=&quot;/Public/app/img/house.png&quot;/&gt;</td>
+                <td colspan="3" style="text-align: left;">填图标代码，如<img src="__STATIC__/system/img/house.png"/>填入&lt;img src=&quot;/static/system/img/house.png&quot;/&gt;</td>
                 {/if}
             </tr>
             <tr class="h50">
@@ -63,6 +63,18 @@
                     <label><input class="va_m" name="status" type="radio"  value="1" {if condition="empty($infos) or $infos['status'] eq 1"}checked{/if}>启用</label>
                     <label><input class="va_m" name="status" type="radio"  value="0"{if condition="isset($infos) and $infos['status'] eq 0"}checked{/if}>禁用</label>
             </tr>
+            {if condition="isset($infos)"}
+            <tr class="h50">
+                <td>操作时间：</td>
+                <td>
+                    创建于：{$infos->created_at}<br/>
+                    更新于：{$infos->updated_at}<br/>
+                    {if condition="$infos->deleted_at"}
+                    删除于：{$infos->deleted_at}
+                    {/if}
+                </td>
+            </tr>
+            {/if}
         </table>
         <div class="layerBtns">
             <a class="btn js-ajax-form-btn" data-layer="true" >立即提交</a>
