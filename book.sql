@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50554
 File Encoding         : 65001
 
-Date: 2017-10-13 15:26:11
+Date: 2017-10-13 15:45:01
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -129,7 +129,7 @@ CREATE TABLE `menu` (
   `updated_at` int(11) DEFAULT NULL,
   `deleted_at` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='功能与菜单';
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='功能与菜单';
 
 -- ----------------------------
 -- Records of menu
@@ -139,6 +139,9 @@ INSERT INTO `menu` VALUES ('2', '1', '功能与菜单', '2', '<img src=\"/static
 INSERT INTO `menu` VALUES ('3', '1', '权限与角色', '2', '<img src=\"/static/system/img/role.png\"/>', '0', '/system/role', '', '1', '1', '1507865414', '1507865414', null);
 INSERT INTO `menu` VALUES ('4', '1', '系统用户', '2', '<img src=\"/static/system/img/folder_user.png\"/>', '0', '/system/user', '', '1', '1', '1507866165', '1507866165', null);
 INSERT INTO `menu` VALUES ('5', '2', '添加菜单', '3', '<img src=\"/static/system/img/add.png\"/>', '0', '/system/menu/add', '', '0', '1', '1507872000', '1507877976', null);
+INSERT INTO `menu` VALUES ('6', '2', '菜单详情', '3', '<img src=\"/static/system/img/page_white_paste.png\"/>', '0', '/system/menu/detail', '', '0', '1', '1507880446', '1507880446', null);
+INSERT INTO `menu` VALUES ('7', '2', '菜单修改', '3', '<img src=\"/static/system/img/edit.png\"/>', '0', '/system/edit', '', '0', '1', '1507880485', '1507880485', null);
+INSERT INTO `menu` VALUES ('8', '0', '内容管理', '1', '<img src=\"/static/system/img/bricks.png\"/>', '0', '/system/content#', '', '1', '1', '1507880673', '1507880673', null);
 
 -- ----------------------------
 -- Table structure for reader

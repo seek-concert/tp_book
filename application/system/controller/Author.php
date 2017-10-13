@@ -53,9 +53,9 @@ class Author extends Controller
             $author_model = new Authors;
             $rs = $author_model->add();
             if ($rs) {
-                $this->success('添加成功', '');
+                return $this->success('添加成功', '');
             } else {
-                $this->error('添加失败', '');
+                return $this->error('添加失败', '');
             }
         }else{
             return view('modify');
