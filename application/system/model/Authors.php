@@ -5,11 +5,12 @@
  * | 笔名去空
  * | 真实姓名去空
  * | 添加
- * | 删除
+ * | 修改
  * */
 namespace app\system\model;
 use think\Model;
 use traits\model\SoftDelete;
+
 class Authors extends Model
 {
     use SoftDelete;

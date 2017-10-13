@@ -9,9 +9,9 @@
  * | 删除
  * */
 namespace app\system\controller;
-use think\Controller;
 use \app\system\Model\Authors;
-class Author extends Controller
+
+class Author extends Auth
 {
     /* ========== 列表 ========== */
     public function index()
@@ -53,9 +53,9 @@ class Author extends Controller
             $author_model = new Authors;
             $rs = $author_model->add();
             if ($rs) {
-                $this->success('添加成功', '');
+                return  $this->success('添加成功', '');
             } else {
-                $this->error('添加失败', '');
+                return  $this->error('添加失败', '');
             }
         }else{
             return view('modify');
@@ -66,7 +66,7 @@ class Author extends Controller
     public function detail(){
         $id = input('id');
         if(empty($id)){
-            $this->error('非法操作','');
+            return $this->error('非法操作','');
         }
         $where['id'] = $id;
         $info = db('author')->where($where)->find();
@@ -76,25 +76,31 @@ class Author extends Controller
 
     /* ========== 修改 ========== */
     public function modify(){
-        if(request()->isPost()){
-            $datas = input();
-            $id = input('id');
-            $rule = [
-                ['name', 'require|unique:author,name,'.$id.',id|max:15', '名称必须填写|笔名已经存在|名称最多不能超过15个字符'],
-                ['realname', 'require|max:15', '真实姓名必须填写|真实姓名最多不能超过15个字符'],
-                ['phone', 'require|number','电话必须填写|电话必须是数字']
-            ];
-            $result = $this->validate($datas, $rule);
-            if (true !== $result) {
-                $this->error($result);
-            }
-            $author_model = new Authors;
-            $rs = $author_model->updata();
-            if ($rs) {
-                $this->success('更新成功', '');
-            } else {
-                $this->error('更新失败', '');
-            }
+        $id = input('id');
+        if(empty($id)){
+           return $this->error('非法操作','');
+        }
+        $datas = input();
+        $rule = [
+            ['name', 'require|unique:author,name,'.$id.',id|max:15', '名称必须填写|笔名已经存在|名称最多不能超过15个字符'],
+            ['realname', 'require|max:15', '真实姓名必须填写|真实姓名最多不能超过15个字符'],
+            ['phone', 'require|number','电话必须填写|电话必须是数字']
+        ];
+        $result = $this->validate($datas, $rule);
+        if (true !== $result) {
+            $this->error($result);
+        }
+        $author_model = new Authors;
+        $rs = $author_model->updata();
+        if ($rs) {
+            return  $this->success('更新成功', '');
+        } else {
+            return  $this->error('更新失败', '');
         }
     }
+
+
+
+
+
 }
