@@ -6,6 +6,7 @@
  * | 真实姓名去空
  * | 添加
  * | 修改
+ * | 删除
  * */
 namespace app\system\model;
 use think\Model;
@@ -43,6 +44,16 @@ class Authors extends Model
         $model = new Authors;
         $id = input('id');
         $rs = $model->allowField(['name','realname','phone'])->save($_POST, ['id' => $id]);
+        if($rs){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    public function dels(){
+        $id = input('id');
+        $model = Authors::get($id);
+        $rs = $model->delete();
         if($rs){
             return true;
         }else{

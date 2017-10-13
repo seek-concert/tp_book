@@ -36,6 +36,7 @@ class Author extends Auth
         $this->assign('author_list',$author_list);
         return view();
     }
+
     /* ========== 添加 ========== */
     public function insert()
     {
@@ -99,8 +100,20 @@ class Author extends Auth
         }
     }
 
-
-
+    /* ========== 删除 ========== */
+    public function del(){
+        $id = input('id');
+        if(empty($id)){
+            return $this->error('非法操作','');
+        }
+        $author_model = new Authors;
+        $rs = $author_model->dels();
+        if ($rs) {
+            return  $this->success('删除成功', '');
+        } else {
+            return  $this->error('删除失败', '');
+        }
+    }
 
 
 }
