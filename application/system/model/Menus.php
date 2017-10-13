@@ -1,0 +1,59 @@
+<?php
+namespace app\system\model;
+
+use think\Model;
+use traits\model\SoftDelete;
+
+class Menus extends Model
+{
+    use SoftDelete;
+    protected $table='menu';
+    protected $pk='id';
+    protected $createTime='created_at';
+    protected $updateTime='updated_at';
+    protected $deleteTime='deleted_at';
+    protected $autoWriteTimestamp = true;
+    protected $field=true;
+
+    public function setNameAttr($value)
+    {
+        return trim($value);
+    }
+
+    public function setUrlAttr($value)
+    {
+        return trim($value);
+    }
+
+    public function setSortAttr($value)
+    {
+         return is_null($value)?0:(integer)$value;
+    }
+
+    public function show($key=null){
+        $array=[0=>'隐藏',1=>'显示'];
+        if($key && in_array($key,[0,1])){
+            return $array[$key];
+        }else{
+            return $array;
+        }
+    }
+
+    public function status($key=null){
+        $array=[0=>'禁用',1=>'启用'];
+        if($key && in_array($key,[0,1])){
+            return $array[$key];
+        }else{
+            return $array;
+        }
+    }
+
+    public function other_data($input){
+        if($input['parent_id']){
+            $parent_menu=$this->field(['id','parent_id','level'])->get($input['parent_id']);
+            $this->data['level']=$parent_menu->getAttr('level')+1;
+        }else{
+            $this->data['level']=1;
+        }
+    }
+}

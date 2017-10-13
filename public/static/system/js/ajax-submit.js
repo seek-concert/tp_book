@@ -25,8 +25,8 @@ $(function () {
             },
             success:function (data) {
                 btn.data("loading",false).prop('disabled',false).removeClass('disabled');
-                layer.msg(data.info);
-                if(data.status){
+                layer.msg(data.msg);
+                if(data.code){
                     window.location.href=data.url;
                 }else{
                     $('input[name=name]').focus();
@@ -92,7 +92,7 @@ function js_ajax_form_action(btn,url,data,msg,is_layer) {
         },
         success:function (data) {
             btn.data("loading",false).prop('disabled',false).removeClass('disabled');
-            layer.msg(data.info,function () {});
+            layer.msg(data.msg,function () {});
             $('input[name=name]').focus();
             if(data.url){
                 if(is_layer){
@@ -102,7 +102,7 @@ function js_ajax_form_action(btn,url,data,msg,is_layer) {
                 }
                 return false;
             }
-            if(data.status){
+            if(data.code){
                 if(is_layer){
                     window.parent.location.reload();
                 }else{
