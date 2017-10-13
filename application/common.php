@@ -250,8 +250,10 @@ function get_nav_li_list($menus, $level=1, $parent_id=0){
 
             $data_src='data-src="'.$child['url'].'" data-tit="'.$child['name'].'"';
 
-
-            $str_childs=get_nav_li_list($new_list,$level+1,$child->id);
+            $str_childs='';
+            if(count($new_list)){
+                $str_childs=get_nav_li_list($new_list,$level+1,$child['id']);
+            }
             $str .= '<li '.$onclick.$data_src.'>'.$div.$str_childs.'</li>';
         }
         /* ul标签class */

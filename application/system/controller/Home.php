@@ -20,7 +20,15 @@ class Home extends Auth
     /* ========== 框架主页 ========== */
     public function index()
     {
-        return view();
+        $menus=model('Menus')->field(['id','parent_id','name','icon','url','display','status'])->where('display',1)->select();
+        $nav_menus='';
+        if($menus){
+            $nav_menus=get_nav_li_list($menus);
+        }
+
+        return view('index',[
+            'nav_menus'=>$nav_menus,
+        ]);
     }
 
     /* ========== 控制台 ========== */
