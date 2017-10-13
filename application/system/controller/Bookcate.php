@@ -1,6 +1,6 @@
 <?php
 /* |------------------------------------------------------
- * | 作者管理
+ * | 小说分类管理
  * |------------------------------------------------------
  * | 列表
  * | 添加
@@ -8,32 +8,28 @@
  * | 修改
  * | 删除
  * */
-namespace app\system\controller;
-use \app\system\Model\Authors;
 
-class Author extends Auth
+namespace app\system\controller;
+use \app\system\Model\Bookcates;
+
+class Bookcate extends Auth
 {
     /* ========== 列表 ========== */
     public function index()
     {
-        $author_model = model('Authors');
+        $bookcate_model = model('bookcates');
         $where = [];
-        /* ----- 查询条件(作者笔名) -----*/
+        /* ----- 查询条件(分类名称) -----*/
         $name = input('name');
         if($name){
             $where['name'] = array('LIKE',"%$name%");
             $this->assign('name',$name);
         }
-        /* ----- 查询条件(作者真实姓名) -----*/
-        $realname = input('realname');
-        if($realname){
-            $where['realname'] = array('LIKE',"%$realname%");
-            $this->assign('realname',$realname);
-        }
-        $author_list = $author_model
+
+        $bookcate_list = $bookcate_model
             ->where($where)
             ->paginate();
-        $this->assign('author_list',$author_list);
+        $this->assign('bookcate_list',$bookcate_list);
         return view();
     }
 
@@ -43,16 +39,14 @@ class Author extends Auth
         if(request()->isPost()){
             $datas = input();
             $rule = [
-                ['name', 'require|unique:author|max:15', '名称必须填写|笔名已经存在|名称最多不能超过15个字符'],
-                ['realname', 'require|max:15', '真实姓名必须填写|真实姓名最多不能超过15个字符'],
-                ['phone', 'require|number','电话必须填写|电话必须是数字']
+                ['name', 'require|unique:book_cate|max:15', '分类名称必须填写|分类已经存在|名称最多不能超过15个字符']
             ];
             $result = $this->validate($datas, $rule);
             if (true !== $result) {
                 $this->error($result);
             }
-            $author_model = new Authors;
-            $rs = $author_model->add();
+            $bookcate_model = new Bookcates;
+            $rs = $bookcate_model->add();
             if ($rs) {
                 return  $this->success('添加成功', '');
             } else {
@@ -70,7 +64,7 @@ class Author extends Auth
             return $this->error('非法操作','');
         }
         $where['id'] = $id;
-        $info = db('author')->where($where)->find();
+        $info = db('book_cate')->where($where)->find();
         $this->assign('info',$info);
         return view('modify');
     }
@@ -79,20 +73,18 @@ class Author extends Auth
     public function modify(){
         $id = input('id');
         if(empty($id)){
-           return $this->error('非法操作','');
+            return $this->error('非法操作','');
         }
         $datas = input();
         $rule = [
-            ['name', 'require|unique:author,name,'.$id.',id|max:15', '名称必须填写|笔名已经存在|名称最多不能超过15个字符'],
-            ['realname', 'require|max:15', '真实姓名必须填写|真实姓名最多不能超过15个字符'],
-            ['phone', 'require|number','电话必须填写|电话必须是数字']
+            ['name', 'require|unique:book_cate,name,'.$id.',id|max:15', '名称必须填写|笔名已经存在|名称最多不能超过15个字符']
         ];
         $result = $this->validate($datas, $rule);
         if (true !== $result) {
             $this->error($result);
         }
-        $author_model = new Authors;
-        $rs = $author_model->updata();
+        $bookcate_model = new Bookcates;
+        $rs = $bookcate_model->updata();
         if ($rs) {
             return  $this->success('更新成功', '');
         } else {
@@ -106,14 +98,12 @@ class Author extends Auth
         if(empty($id)){
             return $this->error('非法操作','');
         }
-        $author_model = new Authors;
-        $rs = $author_model->dels();
+        $bookcate_model = new Bookcates;
+        $rs = $bookcate_model->dels();
         if ($rs) {
             return  $this->success('删除成功', '');
         } else {
             return  $this->error('删除失败', '');
         }
     }
-
-
 }
