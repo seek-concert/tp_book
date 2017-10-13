@@ -50,7 +50,7 @@ class Menus extends Model
 
     public function other_data($input){
         if($input['parent_id']){
-            $parent_menu=$this->field(['id','parent_id','level'])->get($input['parent_id']);
+            $parent_menu=$this->field(['id','parent_id','level'])->find($input['parent_id']);
             $this->data['level']=$parent_menu->getAttr('level')+1;
         }else{
             $this->data['level']=1;

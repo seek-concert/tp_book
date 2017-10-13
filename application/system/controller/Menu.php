@@ -62,8 +62,20 @@ class Menu extends Auth
                 $this->error('保存失败');
             }
         }else{
-            $menus=Menus::field(['id','parent_id','name','sort','status'])->where('status',1)->all();
-            return view('modify');
+            $menus=Menus::field(['id','parent_id','name','sort','status'])->where('status',1)->select();
+            $options_menus='';
+            if($menus){
+                $array=[];
+                foreach ($menus as $menu){
+                    $menu->selected=$menu->id==input('id')?'selected':'';
+                    $array[]=$menu;
+                }
+                $options_menus=get_tree($array);
+            }
+
+            return view('modify',[
+                'options_menus'=>$options_menus
+            ]);
         }
     }
 
