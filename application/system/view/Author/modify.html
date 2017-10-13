@@ -25,6 +25,15 @@ $form_action=isset($info)?url('modify'):url('insert');
                 <td>作者电话：</td>
                 <td><input class="must" type="text" name="phone" id="phone" value="{:isset($info['phone'])?$info['phone']:''}" placeholder="请输入电话" /></td>
             </tr>
+            {if condition="$form_action eq url('modify')"}
+            <tr class="h50">
+                <td>操作时间：</td>
+                <td>
+                    创建时间:{$info->created_at}<br/>
+                    更新时间:{$info->updated_at}<br/>
+                </td>
+            </tr>
+            {/if}
         </table>
     </div>
     <div class="layerBtns">

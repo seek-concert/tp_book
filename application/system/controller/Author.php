@@ -70,7 +70,7 @@ class Author extends Auth
             return $this->error('非法操作','');
         }
         $where['id'] = $id;
-        $info = db('author')->where($where)->find();
+        $info = model('Authors')->where($where)->find();
         $this->assign('info',$info);
         return view('modify');
     }

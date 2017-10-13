@@ -49,7 +49,7 @@
             <td>{$info.realname}</td>
             <td>{$info.phone}</td>
             <td>
-                <button type="button" class="btn" onclick="layerIfWindow('作者详情','{:url(\'detail\',array(\'id\'=>$info[\'id\']))}','450','230')">详情</button>
+                <button type="button" class="btn" onclick="layerIfWindow('作者详情','{:url(\'detail\',array(\'id\'=>$info[\'id\']))}','450','280')">详情</button>
                 <button type="button" class="btn js-ajax-form-btn" data-action="{:url('del')}" data-notice="确定删除吗？" data-formdata="id={$info['id']}">删除</button>
             </td>
         </tr>

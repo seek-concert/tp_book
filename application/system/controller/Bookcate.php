@@ -64,7 +64,7 @@ class Bookcate extends Auth
             return $this->error('非法操作','');
         }
         $where['id'] = $id;
-        $info = db('book_cate')->where($where)->find();
+        $info = model('Bookcates')->where($where)->find();
         $this->assign('info',$info);
         return view('modify');
     }
