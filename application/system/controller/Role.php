@@ -8,7 +8,6 @@
  * | 添加
  * | 详情
  * | 修改
- * | 排序
  * | 状态
  * | 删除
  * | 恢复
@@ -136,7 +135,7 @@ class Role extends Auth
 
             $result=$this->validate(input(),$rules,$msg);
             if(true !== $result){
-                $this->error($result);
+                return $this->error($result);
             }
 
             $role_model=new Roles();
@@ -259,7 +258,7 @@ class Role extends Auth
 
         $result=$this->validate($datas,$rules,$msg);
         if(true !== $result){
-            $this->error($result);
+            return $this->error($result);
         }
 
         $role_model=new Roles();
@@ -346,7 +345,7 @@ class Role extends Auth
             return $this->error('至少选择一项');
         }
 
-        $res=Db::table('role')->whereIn('id',$ids)->where('`deleted_at` is not null')->update(['deleted_at'=>null,'updated_at'=>time()]);
+        $res=Db::table('role')->whereIn('id',$ids)->update(['deleted_at'=>null,'updated_at'=>time()]);
         if($res){
             return $this->success('恢复成功','');
         }else{
