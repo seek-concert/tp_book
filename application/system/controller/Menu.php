@@ -17,7 +17,7 @@
  * */
 namespace app\system\controller;
 
-use \app\system\model\Menus;
+use app\system\model\Menus;
 use think\Db;
 
 class Menu extends Auth
@@ -112,16 +112,16 @@ class Menu extends Auth
         $datas['display_num']=$display_num;
         /* ++++++++++ 是否删除 ++++++++++ */
         $deleted=request()->param('deleted');
+        $menu_model=new Menus();
         if(is_numeric($deleted) && in_array($deleted,[0,1])){
             $datas['deleted']=$deleted;
             if($deleted==1){
-                $menus=Menus::onlyTrashed()->where($where)->field($field)->order([$ordername=>$orderby])->paginate($display_num);
-            }else{
-                $menus=Menus::where($where)->field($field)->order([$ordername=>$orderby])->paginate($display_num);
+                $menu_model=$menu_model->onlyTrashed();
             }
         }else{
-            $menus=Menus::withTrashed()->where($where)->field($field)->order([$ordername=>$orderby])->paginate($display_num);
+            $menu_model=$menu_model->withTrashed();
         }
+        $menus=$menu_model->where($where)->field($field)->order([$ordername=>$orderby])->paginate($display_num);
 
         $datas['menus']=$menus;
 
@@ -281,7 +281,7 @@ class Menu extends Auth
         if(!in_array($display,[0,1])){
             return $this->error('错误操作');
         }
-        $res=Menus::withTrashed()->whereIn('id',$ids)->update(['display'=>$display,'updated_at'=>time()]);
+        $res=model('Menus')->save(['display'=>$display],['id'=>['in',$ids]]);
         if($res){
             return $this->success('修改成功','');
         }else{
@@ -301,7 +301,7 @@ class Menu extends Auth
         if(!in_array($status,[0,1])){
             return $this->error('错误操作');
         }
-        $res=Menus::withTrashed()->whereIn('id',$ids)->update(['status'=>$status,'updated_at'=>time()]);
+        $res=model('Menus')->save(['status'=>$status],['id'=>['in',$ids]]);
         if($res){
             return $this->success('修改成功','');
         }else{

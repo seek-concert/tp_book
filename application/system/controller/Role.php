@@ -16,7 +16,8 @@
  * */
 namespace app\system\controller;
 
-use \app\system\model\Roles;
+use app\system\model\Menus;
+use app\system\model\Roles;
 use think\Db;
 
 class Role extends Auth
@@ -31,11 +32,12 @@ class Role extends Auth
     /* ========== 列表 ========== */
     public function index()
     {
-        $roles=Roles::field(['id','parent_id','name','status'])->order('sort asc')->select();
+        $roles=Roles::field(['id','parent_id','name','is_admin','status'])->select();
         $table_roles='';
         if($roles){
             $array=[];
             foreach ($roles as $role){
+                $role->is_admin=$role->type($role->is_admin);
                 $role->status=$role->status($role->status);
                 $role->add_url=url('add',['id'=>$role->id]);
                 $role->detail_url=url('detail',['id'=>$role->id]);
@@ -47,14 +49,13 @@ class Role extends Auth
                         <td>
                             <input class='va_m' type='checkbox' name='ids[]' value='\$id' onclick='checkBoxOp(this)' id='check-\$id'/>
                         </td>
-                        <td><input style='width: 50px;' type='text' name='sorts[\$id]' value='\$sort' id='input-\$id' data-id='\$id'></td>
                         <td>\$id</td>
-                        <td>\$space \$icon \$name</td>
-                        <td>\$url</td>
-                        <td>\$display | \$status</td>
+                        <td>\$space \$name</td>
+                        <td>\$is_admin</td>
+                        <td>\$status</td>
                         <td>
-                            <button type='button' class='btn' onclick='layerIfWindow(&apos;添加角色&apos;,&apos;\$add_url&apos;,&apos;&apos;,&apos;335&apos;)' >添加下级</button>
-                            <button type='button' class='btn' onclick='layerIfWindow(&apos;角色信息&apos;,	&apos;\$detail_url&apos;,&apos;&apos;,&apos;400&apos;)' >角色信息</button>
+                            <button type='button' class='btn' onclick='layerIfWindow(&apos;添加角色&apos;,&apos;\$add_url&apos;,&apos;&apos;,&apos;500&apos;)' >添加下级</button>
+                            <button type='button' class='btn' onclick='layerIfWindow(&apos;角色信息&apos;,	&apos;\$detail_url&apos;,&apos;&apos;,&apos;600&apos;)' >角色信息</button>
                             <button type='button' data-action='\$delete_url' class='btn js-ajax-form-btn' data-notice='确定要删除吗？'>删除</button>
                         </td>
                     </tr>
@@ -69,12 +70,18 @@ class Role extends Auth
         /* ********** 查询条件 ********** */
         $datas=[];
         $where=[];
-        $field=['id','name','parent_id','icon','url','display','status','sort','deleted_at'];
+        $field=['id','parent_id','name','is_admin','status','deleted_at'];
         /* ++++++++++ 角色名称 ++++++++++ */
         $name=trim(request()->param('name'));
         if($name){
             $where['name']=['like','%'.$name.'%'];
             $datas['name']=$name;
+        }
+        /* ++++++++++ 类型 ++++++++++ */
+        $type=request()->param('type');
+        if(is_numeric($type) && in_array($type,[0,1])){
+            $where['is_admin']=$type;
+            $datas['type']=$type;
         }
         /* ++++++++++ 状态 ++++++++++ */
         $status=request()->param('status');
@@ -84,7 +91,7 @@ class Role extends Auth
         }
         /* ++++++++++ 排序 ++++++++++ */
         $ordername=request()->param('ordername');
-        $ordername=$ordername?$ordername:'sort';
+        $ordername=$ordername?$ordername:'id';
         $datas['ordername']=$ordername;
         $orderby=request()->param('orderby');
         $orderby=$orderby?$orderby:'asc';
@@ -98,16 +105,16 @@ class Role extends Auth
         $datas['display_num']=$display_num;
         /* ++++++++++ 是否删除 ++++++++++ */
         $deleted=request()->param('deleted');
+        $role_model=new Roles();
         if(is_numeric($deleted) && in_array($deleted,[0,1])){
             $datas['deleted']=$deleted;
             if($deleted==1){
-                $roles=Roles::onlyTrashed()->where($where)->field($field)->order([$ordername=>$orderby])->paginate($display_num);
-            }else{
-                $roles=Roles::where($where)->field($field)->order([$ordername=>$orderby])->paginate($display_num);
+                $role_model=$role_model->onlyTrashed();
             }
         }else{
-            $roles=Roles::withTrashed()->where($where)->field($field)->order([$ordername=>$orderby])->paginate($display_num);
+            $role_model=$role_model->withTrashed();
         }
+        $roles=$role_model->where($where)->field($field)->order([$ordername=>$orderby])->paginate($display_num);
 
         $datas['roles']=$roles;
 
@@ -121,13 +128,10 @@ class Role extends Auth
         if(request()->isPost()){
             $rules=[
                 'name'=>'require|unique:role',
-                'url'=>'require|unique:role',
             ];
             $msg=[
                 'name.require'=>'名称不能为空',
                 'name.unique'=>'名称已存在',
-                'url.require'=>'路由地址不能为空',
-                'url.unique'=>'路由地址已存在',
             ];
 
             $result=$this->validate(input(),$rules,$msg);
@@ -145,7 +149,8 @@ class Role extends Auth
                 return $this->error('保存失败');
             }
         }else{
-            $roles=Roles::field(['id','parent_id','name','sort','status'])->where('status',1)->select();
+            /* ++++++++++ 角色列表 ++++++++++ */
+            $roles=Roles::field(['id','parent_id','name','status'])->where('status',1)->select();
             $options_roles='';
             if($roles){
                 $array=[];
@@ -156,8 +161,29 @@ class Role extends Auth
                 $options_roles=get_tree($array);
             }
 
+            /* ++++++++++ 菜单列表 ++++++++++ */
+            $menus=Menus::field(['id','parent_id','name','icon','status','sort'])
+                ->where('status',1)
+                ->order('sort','asc')
+                ->select();
+            $tree_menus='';
+            if($menus){
+                $str = "
+                        <tr data-tt-id='\$id' data-tt-parent-id='\$parent_id'>
+                            <td>
+                                <input id='id-\$id' data-id='\$id' data-parent-id='\$parent_id' onclick='checkBoxOp(this)' class='va_m priv_detail' type='checkbox' name='menuids[]' value='\$id'/>
+                            </td>
+                            <td>
+                                <span>\$space \$icon \$name</span>
+                            </td>
+                        </tr>
+                        ";
+                $tree_menus=get_tree($menus,$str,0,1,['&nbsp;&nbsp;┃&nbsp;','&nbsp;&nbsp;┣┅','&nbsp;&nbsp;┗┅'],'&nbsp;&nbsp;');
+            }
+
             return view('modify',[
-                'options_roles'=>$options_roles
+                'options_roles'=>$options_roles,
+                'tree_menus'=>$tree_menus,
             ]);
         }
     }
@@ -172,7 +198,8 @@ class Role extends Auth
             return $this->error('选择项目不存在');
         }
 
-        $roles=Roles::field(['id','parent_id','name','sort','status'])->where('status',1)->select();
+        /* ++++++++++ 角色列表 ++++++++++ */
+        $roles=Roles::field(['id','parent_id','name','status'])->where('status',1)->select();
         $options_roles='';
         if($roles){
             $array=[];
@@ -182,9 +209,34 @@ class Role extends Auth
             }
             $options_roles=get_tree($array);
         }
+
+        /* ++++++++++ 菜单列表 ++++++++++ */
+        $menus=Menus::field(['id','parent_id','name','icon','status','sort'])
+            ->where('status',1)
+            ->order('sort','asc')
+            ->select();
+        $tree_menus='';
+        if($menus){
+            $array=[];
+            foreach ($menus as $menu){
+                $menu->checked=in_array($menu->id,$infos->menu_ids) || $infos->is_admin?'checked':'';
+            }
+            $str = "
+                        <tr data-tt-id='\$id' data-tt-parent-id='\$parent_id'>
+                            <td>
+                                <input id='id-\$id' data-id='\$id' data-parent-id='\$parent_id' onclick='checkBoxOp(this)' class='va_m priv_detail' type='checkbox' name='menuids[]' value='\$id' \$checked/>
+                            </td>
+                            <td>
+                                <span>\$space \$icon \$name</span>
+                            </td>
+                        </tr>
+                        ";
+            $tree_menus=get_tree($menus,$str,0,1,['&nbsp;&nbsp;┃&nbsp;','&nbsp;&nbsp;┣┅','&nbsp;&nbsp;┗┅'],'&nbsp;&nbsp;');
+        }
         return view('modify',[
             'infos'=>$infos,
             'options_roles'=>$options_roles,
+            'tree_menus'=>$tree_menus,
         ]);
     }
 
@@ -198,14 +250,11 @@ class Role extends Auth
         $rules=[
             'parent_id'=>'notIn:'.$id,
             'name'=>'require|unique:role,name,'.$id.',id',
-            'url'=>'require|unique:role,url,'.$id.',id',
         ];
         $msg=[
             'parent_id.notIn'=>'上级角色不能为本身',
             'name.require'=>'名称不能为空',
             'name.unique'=>'名称已存在',
-            'url.require'=>'路由地址不能为空',
-            'url.unique'=>'路由地址已存在',
         ];
 
         $result=$this->validate($datas,$rules,$msg);
@@ -236,7 +285,7 @@ class Role extends Auth
         if(!in_array($status,[0,1])){
             return $this->error('错误操作');
         }
-        $res=Roles::withTrashed()->whereIn('id',$ids)->update(['status'=>$status,'updated_at'=>time()]);
+        $res=model('Roles')->save(['status'=>$status],['id'=>['in',$ids]]);
         if($res){
             return $this->success('修改成功','');
         }else{

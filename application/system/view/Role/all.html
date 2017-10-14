@@ -2,12 +2,12 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>功能与菜单|后台管理系统</title>
+    <title>权限与角色|后台管理系统</title>
     {include file="Public/head" /}
 
 </head>
 <body>
-<h4>菜单管理</h4>
+<h4>角色管理</h4>
 <div class="toolsBar">
     <!--fgf为工具栏分隔符，刷新没有，离开都有。中间工具每一类第一个添加fgf-->
     <ul>
@@ -25,21 +25,9 @@
             <img src="__STATIC__/system/img/page_white_magnify.png"/>
             查询
         </li>
-        <li class="fgf" onclick="layerIfWindow('添加菜单','{:url('add')}','','335')">
+        <li class="fgf" onclick="layerIfWindow('添加角色','{:url('add')}','','500')">
             <img src="__STATIC__/system/img/add.png"/>
             添加
-        </li>
-        <li class="fgf js-ajax-form-btn" data-form="js-ajax-form">
-            <img src="__STATIC__/system/img/text_list_numbers.png"/>
-            排序
-        </li>
-        <li class="fgf js-ajax-form-btn" data-form="js-ajax-form" data-action="{:url('show',array('display'=>'1'))}">
-            <img src="__STATIC__/system/img/monitor_window_3d.png"/>
-            显示
-        </li>
-        <li class="fgf js-ajax-form-btn" data-form="js-ajax-form" data-action="{:url('show',array('display'=>'0'))}">
-            <img src="__STATIC__/system/img/insert_element.png"/>
-            隐藏
         </li>
         <li class="fgf js-ajax-form-btn" data-form="js-ajax-form" data-action="{:url('status',array('status'=>'1'))}">
             <img src="__STATIC__/system/img/checked.png"/>
@@ -63,7 +51,7 @@
         </li>
     </ul>
 </div>
-<form action="{:url('sort')}" method="post" id="js-ajax-form">
+<form action="{:url('status')}" method="post" id="js-ajax-form">
     <div class="tableCon">
         <em class="xian"></em>
         <table class="table" border="0" >
@@ -72,27 +60,25 @@
                 <th class="tc" width="35px">
                     <input class="va_m" type="checkbox" name="" id="allCheck" value="" data-falg="allCheck" onclick="checkBoxOp(this)"/>
                 </th>
-                <th>排序</th>
                 <th>ID</th>
-                <th>菜单名称</th>
-                <th>应用URL</th>
+                <th>名称</th>
+                <th>类型</th>
                 <th>状态</th>
                 <th>操作</th>
             </tr>
-            {volist name="menus" id="menu"}
-            <tr data-tt-id="{$menu->id}" data-tt-parent-id="{$menu->parent_id}" >
+            {volist name="roles" id="role"}
+            <tr data-tt-id="{$role->id}" data-tt-parent-id="{$role->parent_id}" >
                 <td>
-                    <input class="va_m" type="checkbox" name="ids[]" value="{$menu->id}" onclick="checkBoxOp(this)" id="check-{$menu->id}"/>
+                    <input class="va_m" type="checkbox" name="ids[]" value="{$role->id}" onclick="checkBoxOp(this)" id="check-{$role->id}"/>
                 </td>
-                <td><input style="width: 50px;" type="text" name="sorts[{$menu->id}]" value="{$menu->sort}" id="input-{$menu->id}" data-id="{$menu->id}"></td>
-                <td>{$menu->id}</td>
-                <td>{$menu->icon}{if condition="$menu->deleted_at"} <del>{$menu->name}</del>{else /}{$menu->name}{/if}</td>
-                <td>{if condition="$menu->deleted_at"} <del>{$menu->url}</del>{else /}{$menu->url}{/if}</td>
-                <td>{$menu->show($menu->display)} | {$menu->status($menu->status)}</td>
+                <td>{$role->id}</td>
+                <td>{if condition="$role->deleted_at"} <del>{$role->name}</del>{else /}{$role->name}{/if}</td>
+                <td>{if condition="$role->deleted_at"} <del>{$role->type($role->is_admin)}</del>{else /}{$role->type($role->is_admin)}{/if}</td>
+                <td>{$role->status($role->status)}</td>
                 <td>
-                    <button type="button" class="btn" onclick="layerIfWindow('添加菜单','{:url('add',['id'=>$menu->id])}','','335')" >添加子菜单</button>
-                    <button type="button" class="btn" onclick="layerIfWindow('菜单信息',	'{:url('detail',['id'=>$menu->id])}','','400')" >菜单信息</button>
-                    <button type="button" data-action="{:url('delete',['ids'=>$menu->id])}" class="btn js-ajax-form-btn" data-notice="确定要删除吗？">删除</button>
+                    <button type="button" class="btn" onclick="layerIfWindow('添加角色','{:url('add',['id'=>$role->id])}','','500')" >添加下级</button>
+                    <button type="button" class="btn" onclick="layerIfWindow('角色信息',	'{:url('detail',['id'=>$role->id])}','','600')" >角色信息</button>
+                    <button type="button" data-action="{:url('delete',['ids'=>$role->id])}" class="btn js-ajax-form-btn" data-notice="确定要删除吗？">删除</button>
                 </td>
             </tr>
             {/volist}
@@ -101,7 +87,7 @@
     </div>
 </form>
 <div class="pageCon">
-    {$menus->render()}
+    {$roles->render()}
 </div>
 <!-- 查询 -->
 <div id="search" class="layerCon bg_f hide">
@@ -109,25 +95,23 @@
         <table class="layerTable">
             <tr class="h50">
                 <td>名称：</td>
-                <td><input type="text" name="name" id="name" value="{$name?:''}" placeholder="请输入菜单名称"/></td>
-                <td>路由地址：</td>
-                <td><input type="text" name="url" id="url" value="{$url?:''}" placeholder="请输入路由地址"/></td>
-            </tr>
-            <tr class="h50">
-                <td>显示状态：</td>
-                <td>
-                    <select name="display" id="display">
-                        <option value="">--全部--</option>
-                        <option value="1" {if condition="isset($display) and $display==1"}selected{/if}>--显示--</option>
-                        <option value="0" {if condition="isset($display) and $display==0"}selected{/if}>--隐藏--</option>
-                    </select>
-                </td>
+                <td><input type="text" name="name" id="name" value="{$name?:''}" placeholder="请输入角色名称"/></td>
                 <td>状态：</td>
                 <td>
                     <select name="status" id="status">
                         <option value="">--全部--</option>
                         <option value="1" {if condition="isset($status) and $status==1"}selected{/if}>--启用--</option>
                         <option value="0" {if condition="isset($status) and $status==0"}selected{/if}>--禁用--</option>
+                    </select>
+                </td>
+            </tr>
+            <tr class="h50">
+                <td>类型：</td>
+                <td colspan="3">
+                    <select name="type" id="type">
+                        <option value="">--全部--</option>
+                        <option value="0" {if condition="isset($type) and $type==0"}selected{/if}>--受约束角色--</option>
+                        <option value="1" {if condition="isset($type) and $type==1"}selected{/if}>--超级管理员--</option>
                     </select>
                 </td>
             </tr>
@@ -153,8 +137,7 @@
                 <td>排序：</td>
                 <td>
                     <select name="ordername" id="ordername">
-                        <option value="sort">--默认--</option>
-                        <option value="id" {if condition="isset($ordername) and $ordername=='id'"}selected{/if}>--ID--</option>
+                        <option value="id">--默认--</option>
                         <option value="level" {if condition="isset($ordername) and $ordername=='level'"}selected{/if}>--层级--</option>
                         <option value="created_at" {if condition="isset($ordername) and $ordername=='created_at'"}selected{/if}>--创建时间--</option>
                         <option value="updated_at" {if condition="isset($ordername) and $ordername=='updated_at'"}selected{/if}>--更新时间--</option>

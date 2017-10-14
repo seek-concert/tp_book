@@ -18,10 +18,22 @@ class Roles extends Model
     protected $deleteTime='deleted_at';
     protected $autoWriteTimestamp = true;
     protected $field=true;
+    protected $type = [
+        'menu_ids'      =>  'array',
+    ];
 
     public function setNameAttr($value)
     {
         return trim($value);
+    }
+
+    public function type($key=null){
+        $array=[0=>'受约束角色',1=>'超级管理员'];
+        if(in_array($key,[0,1])){
+            return $array[$key];
+        }else{
+            return $array;
+        }
     }
 
     public function status($key=null){
@@ -35,12 +47,20 @@ class Roles extends Model
 
     public function other_data($input){
         $data=[];
+        $parent_role=null;
         if($input['parent_id']){
-            $parent_role=$this->field(['id','parent_id','level'])->find($input['parent_id']);
+            $parent_role=$this->field(['id','parent_id','level','is_admin','menu_ids'])->find($input['parent_id']);
             $data['level']=$parent_role->getAttr('level')+1;
         }else{
             $data['level']=1;
         }
+
+        if($input['is_admin']){
+            $data['menu_ids']=[];
+        }else{
+            $data['menu_ids']=isset($input['menuids'])?$input['menuids']:[];
+        }
+
         return $data;
     }
 }
