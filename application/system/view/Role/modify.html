@@ -11,12 +11,12 @@
 <body>
 <form action="{:isset($infos)?url('edit'):url('add')}" method="post" class="js-ajax-form" onsubmit="return false;">
     <div class="layerCon bg_f">
-        <input type="hidden" name="id" value="{:isset($infos)?$infos['id']:''}">
+        <input type="hidden" name="id" value="{:isset($infos)?$infos->id:''}">
         <table class="layerTable" border="0">
             <tr class="h50">
                 <td><label for="name">角色名称：</label></td>
                 <td>
-                    <input id="name" class="must" type="text" name="name" value="{:isset($infos)?$infos['name']:''}" required placeholder="输入唯一名称"/>
+                    <input id="name" class="must" type="text" name="name" value="{:isset($infos)?$infos->name:''}" required placeholder="输入唯一名称"/>
                 </td>
                 <td><label for="parent_id">上级角色：</label></td>
                 <td>
@@ -29,19 +29,20 @@
             <tr class="h50">
                 <td><label for="infos">角色描述：</label></td>
                 <td colspan="3">
-                    <textarea id="infos" name="infos">{:isset($infos)?$infos['infos']:''}</textarea>
+                    <textarea id="infos" name="infos">{:isset($infos)?$infos->infos:''}</textarea>
                 </td>
             </tr>
             <tr class="h30">
                 <td>类型：</td>
                 <td>
-                    <label><input class="va_m" name="is_admin" type="radio"  value="0" {if condition="!isset($infos) or $infos['is_admin'] eq 0"}checked{/if}>受约束角色</label>
-                    <label><input class="va_m" name="is_admin" type="radio"  value="1"{if condition="isset($infos) and $infos['is_admin'] eq 1"}checked{/if}>超级管理员</label>
+                    <label><input class="va_m" name="is_admin" type="radio"  value="0" {if condition="!isset($infos) or $infos->is_admin eq 0"}checked{/if}>受约束角色</label>
+                    <label><input class="va_m" name="is_admin" type="radio"  value="1" {if condition="isset($infos) and $infos->is_admin eq 1"}checked{/if}>超级管理员</label>
                 </td>
                 <td>状态：</td>
                 <td>
-                    <label><input class="va_m" name="status" type="radio"  value="1" {if condition="empty($infos) or $infos['status'] eq 1"}checked{/if}>启用</label>
-                    <label><input class="va_m" name="status" type="radio"  value="0"{if condition="isset($infos) and $infos['status'] eq 0"}checked{/if}>禁用</label>
+                    <label><input class="va_m" name="status" type="radio"  value="1" {if condition="empty($infos) or $infos->status eq 1"}checked{/if}>启用</label>
+                    <label><input class="va_m" name="status" type="radio"  value="0" {if condition="isset($infos) and $infos->status eq 0"}checked{/if}>禁用</label>
+                </td>
             </tr>
             <tr class="h50">
                 <td>权限设置：</td>
@@ -63,7 +64,7 @@
             {if condition="isset($infos)"}
             <tr class="h50">
                 <td>操作时间：</td>
-                <td>
+                <td colspan="3">
                     创建于：{$infos->created_at}<br/>
                     更新于：{$infos->updated_at}<br/>
                     {if condition="$infos->deleted_at"}
