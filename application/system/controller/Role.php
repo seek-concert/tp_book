@@ -1,6 +1,6 @@
 <?php
 /* |------------------------------------------------------
- * | 功能与菜单
+ * | 权限与角色
  * |------------------------------------------------------
  * | 初始化操作
  * | 列表
@@ -9,7 +9,6 @@
  * | 详情
  * | 修改
  * | 排序
- * | 显示状态
  * | 状态
  * | 删除
  * | 恢复
@@ -18,9 +17,10 @@
 namespace app\system\controller;
 
 use app\system\model\Menus;
+use app\system\model\Roles;
 use think\Db;
 
-class Menu extends Auth
+class Role extends Auth
 {
     /* ========== 初始化 ========== */
     public function _initialize()
@@ -32,38 +32,37 @@ class Menu extends Auth
     /* ========== 列表 ========== */
     public function index()
     {
-        $menus=Menus::field(['id','parent_id','name','icon','sort','url','display','status'])->order('sort asc')->select();
-        $table_menus='';
-        if($menus){
+        $roles=Roles::field(['id','parent_id','name','is_admin','status'])->select();
+        $table_roles='';
+        if($roles){
             $array=[];
-            foreach ($menus as $menu){
-                $menu->display=$menu->show($menu->display);
-                $menu->status=$menu->status($menu->status);
-                $menu->add_url=url('add',['id'=>$menu->id]);
-                $menu->detail_url=url('detail',['id'=>$menu->id]);
-                $menu->delete_url=url('delete',['ids'=>$menu->id]);
-                $array[]=$menu;
+            foreach ($roles as $role){
+                $role->is_admin=$role->type($role->is_admin);
+                $role->status=$role->status($role->status);
+                $role->add_url=url('add',['id'=>$role->id]);
+                $role->detail_url=url('detail',['id'=>$role->id]);
+                $role->delete_url=url('delete',['ids'=>$role->id]);
+                $array[]=$role;
             }
             $str = "
                     <tr data-tt-id='\$id' data-tt-parent-id='\$parent_id' >
                         <td>
                             <input class='va_m' type='checkbox' name='ids[]' value='\$id' onclick='checkBoxOp(this)' id='check-\$id'/>
                         </td>
-                        <td><input style='width: 50px;' type='text' name='sorts[\$id]' value='\$sort' id='input-\$id' data-id='\$id'></td>
                         <td>\$id</td>
-                        <td>\$space \$icon \$name</td>
-                        <td>\$url</td>
-                        <td>\$display | \$status</td>
+                        <td>\$space \$name</td>
+                        <td>\$is_admin</td>
+                        <td>\$status</td>
                         <td>
-                            <button type='button' class='btn' onclick='layerIfWindow(&apos;添加菜单&apos;,&apos;\$add_url&apos;,&apos;&apos;,&apos;335&apos;)' >添加子菜单</button>
-                            <button type='button' class='btn' onclick='layerIfWindow(&apos;菜单信息&apos;,	&apos;\$detail_url&apos;,&apos;&apos;,&apos;400&apos;)' >菜单信息</button>
+                            <button type='button' class='btn' onclick='layerIfWindow(&apos;添加角色&apos;,&apos;\$add_url&apos;,&apos;&apos;,&apos;500&apos;)' >添加下级</button>
+                            <button type='button' class='btn' onclick='layerIfWindow(&apos;角色信息&apos;,	&apos;\$detail_url&apos;,&apos;&apos;,&apos;600&apos;)' >角色信息</button>
                             <button type='button' data-action='\$delete_url' class='btn js-ajax-form-btn' data-notice='确定要删除吗？'>删除</button>
                         </td>
                     </tr>
                     ";
-            $table_menus=get_tree($array,$str,0,1,['&nbsp;&nbsp;┃┅','&nbsp;&nbsp;┣┅','&nbsp;&nbsp;┗┅'],'&nbsp;&nbsp;');
+            $table_roles=get_tree($array,$str,0,1,['&nbsp;&nbsp;┃┅','&nbsp;&nbsp;┣┅','&nbsp;&nbsp;┗┅'],'&nbsp;&nbsp;');
         }
-        return view('index',['table_menus'=>$table_menus]);
+        return view('index',['table_roles'=>$table_roles]);
     }
 
     /* ========== 列表全部 ========== */
@@ -71,26 +70,20 @@ class Menu extends Auth
         /* ********** 查询条件 ********** */
         $datas=[];
         $where=[];
-        $field=['id','name','parent_id','icon','url','display','status','sort','deleted_at'];
-        /* ++++++++++ 菜单名称 ++++++++++ */
+        $field=['id','parent_id','name','is_admin','status','deleted_at'];
+        /* ++++++++++ 角色名称 ++++++++++ */
         $name=trim(request()->param('name'));
         if($name){
             $where['name']=['like','%'.$name.'%'];
             $datas['name']=$name;
         }
-        /* ++++++++++ 路由地址 ++++++++++ */
-        $url=trim(request()->param('url'));
-        if($url){
-            $where['url']=['like','%'.$url.'%'];
-            $datas['url']=$url;
+        /* ++++++++++ 类型 ++++++++++ */
+        $type=request()->param('type');
+        if(is_numeric($type) && in_array($type,[0,1])){
+            $where['is_admin']=$type;
+            $datas['type']=$type;
         }
-        /* ++++++++++ 显示状态 ++++++++++ */
-        $display=request()->param('display');
-        if(is_numeric($display) && in_array($display,[0,1])){
-            $where['display']=$display;
-            $datas['display']=$display;
-        }
-        /* ++++++++++ 使用状态 ++++++++++ */
+        /* ++++++++++ 状态 ++++++++++ */
         $status=request()->param('status');
         if(is_numeric($status) && in_array($status,[0,1])){
             $where['status']=$status;
@@ -98,7 +91,7 @@ class Menu extends Auth
         }
         /* ++++++++++ 排序 ++++++++++ */
         $ordername=request()->param('ordername');
-        $ordername=$ordername?$ordername:'sort';
+        $ordername=$ordername?$ordername:'id';
         $datas['ordername']=$ordername;
         $orderby=request()->param('orderby');
         $orderby=$orderby?$orderby:'asc';
@@ -112,18 +105,18 @@ class Menu extends Auth
         $datas['display_num']=$display_num;
         /* ++++++++++ 是否删除 ++++++++++ */
         $deleted=request()->param('deleted');
-        $menu_model=new Menus();
+        $role_model=new Roles();
         if(is_numeric($deleted) && in_array($deleted,[0,1])){
             $datas['deleted']=$deleted;
             if($deleted==1){
-                $menu_model=$menu_model->onlyTrashed();
+                $role_model=$role_model->onlyTrashed();
             }
         }else{
-            $menu_model=$menu_model->withTrashed();
+            $role_model=$role_model->withTrashed();
         }
-        $menus=$menu_model->where($where)->field($field)->order([$ordername=>$orderby])->paginate($display_num);
+        $roles=$role_model->where($where)->field($field)->order([$ordername=>$orderby])->paginate($display_num);
 
-        $datas['menus']=$menus;
+        $datas['roles']=$roles;
 
         $this->assign($datas);
 
@@ -134,14 +127,11 @@ class Menu extends Auth
     public function add($id=0){
         if(request()->isPost()){
             $rules=[
-                'name'=>'require|unique:menu',
-                'url'=>'require|unique:menu',
+                'name'=>'require|unique:role',
             ];
             $msg=[
                 'name.require'=>'名称不能为空',
                 'name.unique'=>'名称已存在',
-                'url.require'=>'路由地址不能为空',
-                'url.unique'=>'路由地址已存在',
             ];
 
             $result=$this->validate(input(),$rules,$msg);
@@ -149,29 +139,51 @@ class Menu extends Auth
                 $this->error($result);
             }
 
-            $menu_model=new Menus();
-            $other_datas=$menu_model->other_data(input());
+            $role_model=new Roles();
+            $other_datas=$role_model->other_data(input());
             $datas=array_merge(input(),$other_datas);
-            $menu_model->save($datas);
-            if($menu_model !== false){
+            $role_model->save($datas);
+            if($role_model !== false){
                 return $this->success('保存成功','');
             }else{
                 return $this->error('保存失败');
             }
         }else{
-            $menus=Menus::field(['id','parent_id','name','sort','status'])->where('status',1)->select();
-            $options_menus='';
-            if($menus){
+            /* ++++++++++ 角色列表 ++++++++++ */
+            $roles=Roles::field(['id','parent_id','name','status'])->where('status',1)->select();
+            $options_roles='';
+            if($roles){
                 $array=[];
-                foreach ($menus as $menu){
-                    $menu->selected=$menu->id==$id?'selected':'';
-                    $array[]=$menu;
+                foreach ($roles as $role){
+                    $role->selected=$role->id==$id?'selected':'';
+                    $array[]=$role;
                 }
-                $options_menus=get_tree($array);
+                $options_roles=get_tree($array);
+            }
+
+            /* ++++++++++ 菜单列表 ++++++++++ */
+            $menus=Menus::field(['id','parent_id','name','icon','status','sort'])
+                ->where('status',1)
+                ->order('sort','asc')
+                ->select();
+            $tree_menus='';
+            if($menus){
+                $str = "
+                        <tr data-tt-id='\$id' data-tt-parent-id='\$parent_id'>
+                            <td>
+                                <input id='id-\$id' data-id='\$id' data-parent-id='\$parent_id' onclick='checkBoxOp(this)' class='va_m priv_detail' type='checkbox' name='menuids[]' value='\$id'/>
+                            </td>
+                            <td>
+                                <span>\$space \$icon \$name</span>
+                            </td>
+                        </tr>
+                        ";
+                $tree_menus=get_tree($menus,$str,0,1,['&nbsp;&nbsp;┃&nbsp;','&nbsp;&nbsp;┣┅','&nbsp;&nbsp;┗┅'],'&nbsp;&nbsp;');
             }
 
             return view('modify',[
-                'options_menus'=>$options_menus
+                'options_roles'=>$options_roles,
+                'tree_menus'=>$tree_menus,
             ]);
         }
     }
@@ -181,24 +193,50 @@ class Menu extends Auth
         if(!$id){
             return $this->error('至少选择一项');
         }
-        $infos=Menus::withTrashed()->find($id);
+        $infos=Roles::withTrashed()->find($id);
         if(!$infos){
             return $this->error('选择项目不存在');
         }
 
-        $menus=Menus::field(['id','parent_id','name','sort','status'])->where('status',1)->select();
-        $options_menus='';
+        /* ++++++++++ 角色列表 ++++++++++ */
+        $roles=Roles::field(['id','parent_id','name','status'])->where('status',1)->select();
+        $options_roles='';
+        if($roles){
+            $array=[];
+            foreach ($roles as $role){
+                $role->selected=$role->id==$infos->parent_id?'selected':'';
+                $array[]=$role;
+            }
+            $options_roles=get_tree($array);
+        }
+
+        /* ++++++++++ 菜单列表 ++++++++++ */
+        $menus=Menus::field(['id','parent_id','name','icon','status','sort'])
+            ->where('status',1)
+            ->order('sort','asc')
+            ->select();
+        $tree_menus='';
         if($menus){
             $array=[];
             foreach ($menus as $menu){
-                $menu->selected=$menu->id==$infos->parent_id?'selected':'';
-                $array[]=$menu;
+                $menu->checked=in_array($menu->id,$infos->menu_ids) || $infos->is_admin?'checked':'';
             }
-            $options_menus=get_tree($array);
+            $str = "
+                        <tr data-tt-id='\$id' data-tt-parent-id='\$parent_id'>
+                            <td>
+                                <input id='id-\$id' data-id='\$id' data-parent-id='\$parent_id' onclick='checkBoxOp(this)' class='va_m priv_detail' type='checkbox' name='menuids[]' value='\$id' \$checked/>
+                            </td>
+                            <td>
+                                <span>\$space \$icon \$name</span>
+                            </td>
+                        </tr>
+                        ";
+            $tree_menus=get_tree($menus,$str,0,1,['&nbsp;&nbsp;┃&nbsp;','&nbsp;&nbsp;┣┅','&nbsp;&nbsp;┗┅'],'&nbsp;&nbsp;');
         }
         return view('modify',[
             'infos'=>$infos,
-            'options_menus'=>$options_menus,
+            'options_roles'=>$options_roles,
+            'tree_menus'=>$tree_menus,
         ]);
     }
 
@@ -211,15 +249,12 @@ class Menu extends Auth
         $datas=input();
         $rules=[
             'parent_id'=>'notIn:'.$id,
-            'name'=>'require|unique:menu,name,'.$id.',id',
-            'url'=>'require|unique:menu,url,'.$id.',id',
+            'name'=>'require|unique:role,name,'.$id.',id',
         ];
         $msg=[
-            'parent_id.notIn'=>'上级菜单不能为本身',
+            'parent_id.notIn'=>'上级角色不能为本身',
             'name.require'=>'名称不能为空',
             'name.unique'=>'名称已存在',
-            'url.require'=>'路由地址不能为空',
-            'url.unique'=>'路由地址已存在',
         ];
 
         $result=$this->validate($datas,$rules,$msg);
@@ -227,62 +262,11 @@ class Menu extends Auth
             $this->error($result);
         }
 
-        $menu_model=new Menus();
-        $other_datas=$menu_model->other_data(input());
+        $role_model=new Roles();
+        $other_datas=$role_model->other_data(input());
         $datas=array_merge(input(),$other_datas);
-        $menu_model->isUpdate(true)->save($datas);
-        if($menu_model !== false){
-            return $this->success('修改成功','');
-        }else{
-            return $this->error('修改失败');
-        }
-    }
-
-    /* ========== 排序 ========== */
-    public function sort(){
-        $inputs=input();
-        $ids=isset($inputs['ids'])?$inputs['ids']:'';
-        $sorts=$inputs['sorts'];
-        if(empty($ids)){
-            return $this->error('至少选择一项');
-        }
-        $datas=[];
-        $i=0;
-        $time=time();
-        foreach ($ids as $id){
-            $datas[$i]['id']=$id;
-            $datas[$i]['sort']=(int)$sorts[$id];
-            $datas[$i]['updated_at']=$time;
-            $i++;
-        }
-        $sqls=batch_update_sql('menu',['id','sort','updated_at'],$datas,['sort','updated_at'],'id');
-        $res=false;
-        if($sqls){
-            foreach ($sqls as $sql){
-                $res=db()->execute($sql);
-            }
-        }
-        if($res){
-            return $this->success('修改成功','');
-        }else{
-            return $this->error('修改失败');
-        }
-    }
-
-    /* ========== 显示状态 ========== */
-    public function show(){
-        $inputs=input();
-        $ids=isset($inputs['ids'])?$inputs['ids']:'';
-        $display=$inputs['display'];
-
-        if(empty($ids)){
-            return $this->error('至少选择一项');
-        }
-        if(!in_array($display,[0,1])){
-            return $this->error('错误操作');
-        }
-        $res=model('Menus')->save(['display'=>$display],['id'=>['in',$ids]]);
-        if($res){
+        $role_model->isUpdate(true)->save($datas);
+        if($role_model !== false){
             return $this->success('修改成功','');
         }else{
             return $this->error('修改失败');
@@ -301,7 +285,7 @@ class Menu extends Auth
         if(!in_array($status,[0,1])){
             return $this->error('错误操作');
         }
-        $res=model('Menus')->save(['status'=>$status],['id'=>['in',$ids]]);
+        $res=model('Roles')->save(['status'=>$status],['id'=>['in',$ids]]);
         if($res){
             return $this->success('修改成功','');
         }else{
@@ -321,18 +305,18 @@ class Menu extends Auth
             $fail_ids=[];
             $del_ids[]='0';
             foreach ($ids as $id){
-                $count=Menus::field('id')->where('parent_id',$id)->count();
+                $count=Roles::field('id')->where('parent_id',$id)->count();
                 if($count){
                     $fail_ids[]=$id;
                 }else{
                     $del_ids[]=$id;
                 }
             }
-            $res=Menus::destroy($del_ids);
+            $res=Roles::destroy($del_ids);
             $fail_num=count($fail_ids);
             if($res){
                 if($fail_num){
-                    return $this->success('部分删除成功！部分存在子菜单，请先删除其全部子菜单后重试！','');
+                    return $this->success('部分删除成功！部分存在下级角色，请先删除其全部下级角色后重试！','');
                 }else{
                     return $this->success('删除成功','');
                 }
@@ -340,11 +324,11 @@ class Menu extends Auth
                 return $this->error('删除失败');
             }
         }else{
-            $count=Menus::field('id')->where('parent_id',$ids)->count();
+            $count=Roles::field('id')->where('parent_id',$ids)->count();
             if($count){
-                return $this->error('其下存在子菜单，请先删除全部子菜单后重试！');
+                return $this->error('其下存在下级角色，请先删除全部下级角色后重试！');
             }
-            $res=Menus::destroy($ids);
+            $res=Roles::destroy($ids);
             if($res){
                 return $this->success('删除成功','');
             }else{
@@ -362,7 +346,7 @@ class Menu extends Auth
             return $this->error('至少选择一项');
         }
 
-        $res=Db::table('menu')->whereIn('id',$ids)->where('`deleted_at` is not null')->update(['deleted_at'=>null,'updated_at'=>time()]);
+        $res=Db::table('role')->whereIn('id',$ids)->where('`deleted_at` is not null')->update(['deleted_at'=>null,'updated_at'=>time()]);
         if($res){
             return $this->success('恢复成功','');
         }else{
@@ -378,7 +362,7 @@ class Menu extends Auth
         if(empty($ids)){
             return $this->error('至少选择一项');
         }
-        $res=Menus::onlyTrashed()->whereIn('id',$ids)->delete(true);
+        $res=Roles::onlyTrashed()->whereIn('id',$ids)->delete(true);
         if($res){
             return $this->success('销毁成功','');
         }else{
