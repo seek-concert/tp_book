@@ -17,7 +17,7 @@ class Bookcate extends Auth
     /* ========== 列表 ========== */
     public function index()
     {
-        $bookcate_model = model('bookcates');
+        $bookcate_model = model('Bookcates');
         $where = [];
         /* ----- 查询条件(分类名称) -----*/
         $name = input('name');

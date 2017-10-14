@@ -18,11 +18,11 @@ class Book extends Auth
     {
         $book_model = model('books');
         $where = [];
-        /* ----- 查询条件(分类名称) -----*/
-        $name = input('name');
-        if($name){
-            $where['name'] = array('LIKE',"%$name%");
-            $this->assign('name',$name);
+        /* ----- 查询条件(小说名称) -----*/
+        $title = input('title');
+        if($title){
+            $where['title'] = array('LIKE',"%$title%");
+            $this->assign('title',$title);
         }
 
         $book_list = $book_model

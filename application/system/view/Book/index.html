@@ -11,7 +11,7 @@
     <!--fgf为工具栏分隔符，刷新没有，离开都有。中间工具每一类第一个添加fgf-->
     <ul>
         <li>
-            <a href="javascript:void(0)" onclick="refreshIframe()">
+            <a href="" onclick="refreshIframe()">
                 <img src="__STATIC__/system/img/arrow_refresh.png"/>
                 刷新</a>
         </li>
@@ -45,18 +45,18 @@
         {volist name='book_list' id='info'}
         <tr>
             <td>
-                <input class="va_m" type="checkbox" name="ids[]"  value="{$info.id}" onclick="checkBoxOp(this)" />
+                <input class="va_m" type="checkbox" name="ids[]"  value="{$info->id}" onclick="checkBoxOp(this)" />
             </td>
-            <td>{$info.id}</td>
-            <td>{$info.title}</td>
+            <td>{$info->id}</td>
+            <td>{$info->title}</td>
             <td>{$info->Bookcates->name}</td>
-            <td>{$info.status}</td>
-            <td>{$info.type}</td>
-            <td>{$info.free_status}</td>
-            <td>{$info.is_recommend}</td>
+            <td>{$info->status}</td>
+            <td>{$info->type}</td>
+            <td>{$info->free_status}</td>
+            <td>{$info->is_recommend}</td>
             <td>
-                <button type="button" class="btn" onclick="layerIfWindow('小说详情','{:url(\'detail\',array(\'id\'=>$info[\'id\']))}','650','550')">详情</button>
-                <button type="button" class="btn js-ajax-form-btn" data-action="{:url('del')}" data-notice="确定删除吗？" data-formdata="id={$info['id']}">删除</button>
+                <button type="button" class="btn" onclick="layerIfWindow('小说详情','{:url(\'detail\',array(\'id\'=>$info->id))}','650','550')">详情</button>
+                <button type="button" class="btn js-ajax-form-btn" data-action="{:url('del')}" data-notice="确定删除吗？" data-formdata="id={$info->id}">删除</button>
             </td>
         </tr>
         {/volist}
