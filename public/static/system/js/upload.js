@@ -29,8 +29,8 @@ $('input.upload_files').on('change',function (e) {
                     if(!_multiple){
                         img_box.remove();
                     }
-                    if(info.error==0){
-                        img_url=info.url;
+                    if(info.code==1){
+                        img_url=info.data;
                         img_preview ='<div class="img"><img src="'+img_url+'" class="w_100 h_100" onclick="bigimg(this)"><p><span onclick="picremove(this);">删除</span></p>';
                         img_preview +='<input type="hidden" name="'+hidden_name+'" value="'+img_url+'"/></div>';
                         _this.parent().before(img_preview);
