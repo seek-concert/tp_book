@@ -109,8 +109,8 @@ function bigimg(obj){
         area:[width+'px',height+'px'],//宽高
         fix:false,
         shadeClose:true,
-        maxmin: true, //开启最大化最小化按钮
-        title:imgobj.src,
+        maxmin: false, //开启最大化最小化按钮
+        title:false,
         resize:true,
         content:dom
     });

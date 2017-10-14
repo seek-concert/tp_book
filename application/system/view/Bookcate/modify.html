@@ -10,16 +10,16 @@
 $form_action=isset($info)?url('modify'):url('insert');
 {/php}
 <form action="{$form_action}" method="post" class="js-ajax-form" onsubmit="return false;">
-    <input type="hidden" name="id" value="{:isset($info['id'])?$info['id']:''}">
+    <input type="hidden" name="id" value="{:isset($info->id)?$info->id:''}">
     <div class="layerCon bg_f">
         <table class="layerTable" border="0">
             <tr class="h50">
                 <td>分类名称：</td>
-                <td><input class="must" type="text" name="name" id="name" value="{:isset($info['name'])?$info['name']:''}" placeholder="请输入分类名称" /></td>
+                <td><input class="must" type="text" name="name" id="name" value="{:isset($info->name)?$info->name:''}" placeholder="请输入分类名称" /></td>
             </tr>
             <tr class="h50">
                 <td>排序：</td>
-                <td><input class="must" type="text" name="sort" id="sort" value="{:isset($info['sort'])?$info['sort']:0}" placeholder="请输入排序" /></td>
+                <td><input class="must" type="text" name="sort" id="sort" value="{:isset($info->sort)?$info->sort:0}" placeholder="请输入排序" /></td>
             </tr>
             {if condition="$form_action eq url('modify')"}
             <tr class="h50">

@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>小说分类管理</title>
+    <title>小说管理</title>
     {include file="Public/head" /}
 </head>
 <body>
-<h4>小说分类管理</h4>
+<h4>小说管理</h4>
 <div class="toolsBar">
     <!--fgf为工具栏分隔符，刷新没有，离开都有。中间工具每一类第一个添加fgf-->
     <ul>
@@ -15,11 +15,11 @@
                 <img src="__STATIC__/system/img/arrow_refresh.png"/>
                 刷新</a>
         </li>
-        <li class="fgf" onclick="layerPage('分类查询',$('#search'),'500','150')" >
+        <li class="fgf" onclick="layerPage('小说查询',$('#search'),'500','150')" >
             <img src="__STATIC__/system/img/page_white_magnify.png"/>
             查询
         </li>
-        <li class="fgf" onclick="layerIfWindow('添加分类','{:url(\'insert\')}','450','200')">
+        <li class="fgf" onclick="layerIfWindow('添加小说','{:url(\'insert\')}','650','550')">
             <img src="__STATIC__/system/img/add.png"/>
             添加
         </li>
@@ -34,18 +34,28 @@
                 <input class="va_m" type="checkbox" name="" id="allCheck" value="" data-falg="allCheck" onclick="checkBoxOp(this)"/>
             </th>
             <th>ID号</th>
-            <th>分类名称<i class="stretch"></i></th>
+            <th>小说名称<i class="stretch"></i></th>
+            <th>小说分类<i class="stretch"></i></th>
+            <th>小说状态<i class="stretch"></i></th>
+            <th>小说类型<i class="stretch"></i></th>
+            <th>免费状态<i class="stretch"></i></th>
+            <th>推荐状态<i class="stretch"></i></th>
             <th>操作<i class="stretch"></i></th>
         </tr>
-        {volist name='bookcate_list' id='info'}
+        {volist name='book_list' id='info'}
         <tr>
             <td>
                 <input class="va_m" type="checkbox" name="ids[]"  value="{$info.id}" onclick="checkBoxOp(this)" />
             </td>
             <td>{$info.id}</td>
-            <td>{$info.name}</td>
+            <td>{$info.title}</td>
+            <td>{$info->Bookcates->name}</td>
+            <td>{$info.status}</td>
+            <td>{$info.type}</td>
+            <td>{$info.free_status}</td>
+            <td>{$info.is_recommend}</td>
             <td>
-                <button type="button" class="btn" onclick="layerIfWindow('分类详情','{:url(\'detail\',array(\'id\'=>$info[\'id\']))}','450','240')">详情</button>
+                <button type="button" class="btn" onclick="layerIfWindow('小说详情','{:url(\'detail\',array(\'id\'=>$info[\'id\']))}','650','550')">详情</button>
                 <button type="button" class="btn js-ajax-form-btn" data-action="{:url('del')}" data-notice="确定删除吗？" data-formdata="id={$info['id']}">删除</button>
             </td>
         </tr>
@@ -54,15 +64,15 @@
     </table>
 </div>
 <div class="pageCon">
-    {$bookcate_list->render()}
+    {$book_list->render()}
 </div>
 <!-- 查询 -->
 <div id="search" class="layerCon bg_f hide">
     <form action="" method="post" id="search-form">
         <table class="layerTable">
             <tr class="h70">
-                <td>分类名称：</td>
-                <td><input type="text" name="name" id="name" value="{:isset($name)?$name:''}" placeholder="请输入查询的分类名称"/></td>
+                <td>小说名称：</td>
+                <td><input type="text" name="title" id="title" value="{:isset($title)?$title:''}" placeholder="请输入查询的小说名称"/></td>
             </tr>
         </table>
         <div class="layerBtns">
