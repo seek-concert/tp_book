@@ -110,8 +110,8 @@
 
     function delcache() {
         $.get("{:url('delete_cache')}",function (e) {
-            if(e.status){
-                layer.msg(e.info,function () {});
+            if(e.code){
+                layer.msg(e.msg,function () {});
             }
         },'json');
     }

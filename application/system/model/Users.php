@@ -49,4 +49,10 @@ class Users extends Model
         }
         return $data;
     }
+
+    public function login_data(){
+        $data['login_at']=time();
+        $data['login_ip']=request()->ip();
+        return $data;
+    }
 }

@@ -218,7 +218,8 @@ class Role extends Auth
         if($menus){
             $array=[];
             foreach ($menus as $menu){
-                $menu->checked=in_array($menu->id,$infos->menu_ids) || $infos->is_admin?'checked':'';
+                $menu->checked=(in_array($menu->id,$infos->menu_ids) || $infos->getData('is_admin'))?'checked':'';
+                $array[]=$menu;
             }
             $str = "
                         <tr data-tt-id='\$id' data-tt-parent-id='\$parent_id'>
@@ -230,7 +231,7 @@ class Role extends Auth
                             </td>
                         </tr>
                         ";
-            $tree_menus=get_tree($menus,$str,0,1,['&nbsp;&nbsp;┃&nbsp;','&nbsp;&nbsp;┣┅','&nbsp;&nbsp;┗┅'],'&nbsp;&nbsp;');
+            $tree_menus=get_tree($array,$str,0,1,['&nbsp;&nbsp;┃&nbsp;','&nbsp;&nbsp;┣┅','&nbsp;&nbsp;┗┅'],'&nbsp;&nbsp;');
         }
         return view('modify',[
             'model'=>$model,

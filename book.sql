@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50554
 File Encoding         : 65001
 
-Date: 2017-10-13 15:45:01
+Date: 2017-10-16 16:00:18
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -134,14 +134,14 @@ CREATE TABLE `menu` (
 -- ----------------------------
 -- Records of menu
 -- ----------------------------
-INSERT INTO `menu` VALUES ('1', '0', '系统设置', '1', '<img src=\"/static/system/img/setting_tools.png\"/>', '0', '/system/setting#', '', '1', '1', '1507862534', '1507876492', null);
-INSERT INTO `menu` VALUES ('2', '1', '功能与菜单', '2', '<img src=\"/static/system/img/monitor_window_3d.png\"/>', '0', '/system/menu', '', '1', '1', '1507865210', '1507877960', null);
-INSERT INTO `menu` VALUES ('3', '1', '权限与角色', '2', '<img src=\"/static/system/img/role.png\"/>', '0', '/system/role', '', '1', '1', '1507865414', '1507865414', null);
-INSERT INTO `menu` VALUES ('4', '1', '系统用户', '2', '<img src=\"/static/system/img/folder_user.png\"/>', '0', '/system/user', '', '1', '1', '1507866165', '1507866165', null);
-INSERT INTO `menu` VALUES ('5', '2', '添加菜单', '3', '<img src=\"/static/system/img/add.png\"/>', '0', '/system/menu/add', '', '0', '1', '1507872000', '1507877976', null);
+INSERT INTO `menu` VALUES ('1', '0', '系统设置', '1', '<img src=\"/static/system/img/setting_tools.png\"/>', '0', '/system/setting#', '', '1', '1', '1507862534', '1507941905', null);
+INSERT INTO `menu` VALUES ('2', '1', '功能与菜单', '2', '<img src=\"/static/system/img/monitor_window_3d.png\"/>', '0', '/system/menu/index', '', '1', '1', '1507865210', '1507898297', null);
+INSERT INTO `menu` VALUES ('3', '1', '权限与角色', '2', '<img src=\"/static/system/img/role.png\"/>', '0', '/system/role/index', '', '1', '1', '1507865414', '1507888531', null);
+INSERT INTO `menu` VALUES ('4', '1', '系统用户', '2', '<img src=\"/static/system/img/folder_user.png\"/>', '0', '/system/user/index', '', '1', '1', '1507866165', '1507889575', null);
+INSERT INTO `menu` VALUES ('5', '2', '添加菜单', '3', '<img src=\"/static/system/img/add.png\"/>', '0', '/system/menu/add', '', '0', '1', '1507872000', '1507897493', null);
 INSERT INTO `menu` VALUES ('6', '2', '菜单详情', '3', '<img src=\"/static/system/img/page_white_paste.png\"/>', '0', '/system/menu/detail', '', '0', '1', '1507880446', '1507880446', null);
-INSERT INTO `menu` VALUES ('7', '2', '菜单修改', '3', '<img src=\"/static/system/img/edit.png\"/>', '0', '/system/edit', '', '0', '1', '1507880485', '1507880485', null);
-INSERT INTO `menu` VALUES ('8', '0', '内容管理', '1', '<img src=\"/static/system/img/bricks.png\"/>', '0', '/system/content#', '', '1', '1', '1507880673', '1507880673', null);
+INSERT INTO `menu` VALUES ('7', '2', '菜单修改', '3', '<img src=\"/static/system/img/richtext_editor.png\"/>', '0', '/system/menu/edit', '', '0', '1', '1507880485', '1507896298', null);
+INSERT INTO `menu` VALUES ('8', '0', '内容管理', '1', '<img src=\"/static/system/img/bricks.png\"/>', '0', '/system/content#', '', '1', '1', '1507880673', '1507946878', null);
 
 -- ----------------------------
 -- Table structure for reader
@@ -158,7 +158,7 @@ CREATE TABLE `reader` (
   `login_at` int(11) DEFAULT NULL COMMENT ' 最近登录时间',
   `login_ip` varchar(255) DEFAULT NULL COMMENT ' 最近登录IP',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=100000 DEFAULT CHARSET=utf8 COMMENT='读者 基本信息';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='读者 基本信息';
 
 -- ----------------------------
 -- Records of reader
@@ -273,18 +273,22 @@ CREATE TABLE `role` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `parent_id` int(11) DEFAULT NULL COMMENT '上级 ID',
   `name` varchar(255) DEFAULT NULL COMMENT ' 名称',
+  `is_admin` tinyint(1) DEFAULT '0' COMMENT '角色类型，0受约束角色，1超级管理员',
   `level` int(11) DEFAULT NULL COMMENT ' 层级',
   `infos` text COMMENT ' 描述',
+  `menu_ids` text COMMENT '授权菜单ID集合',
   `status` tinyint(1) DEFAULT '1' COMMENT '状态，0禁用，1启用',
   `created_at` int(11) DEFAULT NULL,
   `updated_at` int(11) DEFAULT NULL,
   `deleted_at` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='权限与角色';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='权限与角色';
 
 -- ----------------------------
 -- Records of role
 -- ----------------------------
+INSERT INTO `role` VALUES ('1', '0', '内置超级管理员', '1', '1', '', '[]', '1', '1507947384', '1508117290', null);
+INSERT INTO `role` VALUES ('2', '1', '内置管理员', '0', '2', '', '[\"1\",\"4\",\"8\"]', '1', '1507947460', '1508139275', null);
 
 -- ----------------------------
 -- Table structure for system
@@ -315,13 +319,17 @@ CREATE TABLE `user` (
   `username` varchar(255) DEFAULT NULL COMMENT '用户名',
   `password` varchar(255) DEFAULT NULL COMMENT ' 密码',
   `secret_key` varchar(255) DEFAULT NULL COMMENT ' 密钥',
-  `status` tinyint(255) DEFAULT '1' COMMENT '状态，0禁用，1启用',
-  `created_at` int(255) DEFAULT NULL,
+  `login_at` int(11) DEFAULT NULL COMMENT '最近登录时间',
+  `login_ip` varchar(255) DEFAULT NULL COMMENT '最近登录IP',
+  `status` tinyint(1) DEFAULT '1' COMMENT '状态，0禁用，1启用',
+  `created_at` int(11) DEFAULT NULL,
   `updated_at` int(11) DEFAULT NULL,
-  `deleted_at` int(255) DEFAULT NULL,
+  `deleted_at` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='系统用户';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='系统用户';
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
+INSERT INTO `user` VALUES ('1', '1', '', '', '', '', 'demo', 'e10adc3949ba59abbe56e057f20f883e', '76354bac01c8f5e3475dbef177415a2d', '1508140758', '127.0.0.1', '1', '1507970329', '1508140723', null);
+INSERT INTO `user` VALUES ('2', '2', '', '', '', '', 'admin', 'e10adc3949ba59abbe56e057f20f883e', '9df991ab8755df426239cef0afa87077', null, null, '1', '1507971362', '1508139201', '1508139201');

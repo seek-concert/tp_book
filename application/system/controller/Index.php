@@ -9,9 +9,9 @@
 
 namespace app\system\controller;
 
-use app\system\model\Users;
 use think\Controller;
 use think\Session;
+use app\system\model\Users;
 
 class Index extends Controller
 {
@@ -54,17 +54,17 @@ class Index extends Controller
         if(md5($password) != $user->password){
             return $this->error('密码错误');
         }
-        if(!$user->status){
+        if(!$user->getData('status')){
             return $this->error('用户已禁用');
         }
         if(!$user->r_status){
             return $this->error('没有权限');
         }
         $userinfo=[
-            'id'=>$user->id,
+            'user_id'=>$user->id,
+            'role_id'=>$user->role_id,
             'username'=>$user->username,
             'secret_key'=>$user->secret_key,
-            'role_id'=>$user->role_id,
             'is_admin'=>$user->is_admin,
             'menu_ids'=>$user->menu_ids,
             'time'=>time(),
@@ -72,11 +72,16 @@ class Index extends Controller
 
         Session::set('userinfo',$userinfo);
 
+        $user_model=new Users();
+        $data=$user_model->login_data();
+        $user_model->where('id',$user->id)->update($data);
+
        return $this->success('登录成功',url('Home/index'));
     }
 
     /* ========== 退出 ========== */
     public function logout(){
-
+        Session::clear();
+        $this->redirect('index');
     }
 }

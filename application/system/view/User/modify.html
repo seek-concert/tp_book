@@ -78,7 +78,9 @@
             <tr class="h50">
                 <td>操作时间：</td>
                 <td colspan="3">
-                    最近：{$infos->created_at}<br/>
+                    最近登录时间： {if condition="$infos->getData('login_at')"}{$infos->login_at}{/if}<br/>
+                    最近登录IP：{$infos->login_ip}<br/>
+                    用户密钥：{$infos->secret_key}<br/>
                     创建于：{$infos->created_at}<br/>
                     更新于：{$infos->updated_at}<br/>
                     {if condition="$infos->deleted_at"}
@@ -91,6 +93,9 @@
         <div class="layerBtns">
             <a class="btn js-ajax-form-btn" data-layer="true" >立即提交</a>
             <button class="btn" type="reset">重置</button>
+            {if condition="isset($infos)"}
+            <button type="button" class="btn" onclick="layerIfWindow('修改密码',	'{:url('password',['id'=>$infos->id])}','500','250')" >修改密码</button>
+            {/if}
         </div>
     </div>
 </form>
