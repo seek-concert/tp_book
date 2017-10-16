@@ -12,12 +12,14 @@
  * | 删除
  * | 恢复
  * | 销毁
+ * | 个人中心
  * */
 namespace app\system\controller;
 
 use app\system\model\Roles;
 use app\system\model\Users;
 use think\Db;
+use think\Session;
 
 class User extends Auth
 {
@@ -35,7 +37,7 @@ class User extends Auth
         $datas=[];
         $where=[];
         /* ++++++++++ 角色 ++++++++++ */
-        $role_id=request()->param('role_id');
+        $role_id=input('role_id');
         if(is_numeric($role_id)){
             $where['role_id']=$role_id;
         }
@@ -51,39 +53,39 @@ class User extends Auth
         }
         $datas['roles']=$options_roles;
         /* ++++++++++ 姓名 ++++++++++ */
-        $name=trim(request()->param('name'));
+        $name=trim(input('name'));
         if($name){
             $where['user.name']=['like','%'.$name.'%'];
             $datas['name']=$name;
         }
         /* ++++++++++ 用户名 ++++++++++ */
-        $username=trim(request()->param('username'));
+        $username=trim(input('username'));
         if($username){
             $where['user.username']=['like','%'.$username.'%'];
             $datas['username']=$username;
         }
         /* ++++++++++ 状态 ++++++++++ */
-        $status=request()->param('status');
+        $status=input('status');
         if(is_numeric($status) && in_array($status,[0,1])){
             $where['user.status']=$status;
             $datas['status']=$status;
         }
         /* ++++++++++ 排序 ++++++++++ */
-        $ordername=request()->param('ordername');
+        $ordername=input('ordername');
         $ordername=$ordername?$ordername:'id';
         $datas['ordername']=$ordername;
-        $orderby=request()->param('orderby');
+        $orderby=input('orderby');
         $orderby=$orderby?$orderby:'asc';
         $datas['orderby']=$orderby;
         /* ++++++++++ 每页条数 ++++++++++ */
         $nums=[config('paginate.list_rows'),30,50,100,200,500];
         sort($nums);
         $datas['nums']=$nums;
-        $display_num=request()->param('display_num');
+        $display_num=input('display_num');
         $display_num=$display_num?$display_num:config('paginate.list_rows');
         $datas['display_num']=$display_num;
         /* ++++++++++ 是否删除 ++++++++++ */
-        $deleted=request()->param('deleted');
+        $deleted=input('deleted');
         $user_model=new Users();
         if(is_numeric($deleted) && in_array($deleted,[0,1])){
             $datas['deleted']=$deleted;
@@ -119,6 +121,7 @@ class User extends Auth
                 'username'=>'require|alphaDash|length:4,20|unique:user',
                 'password'=>'require|length:4,20|confirm',
                 'password_confirm'=>'require|length:4,20',
+                'name'=>'length:2,20',
                 'email'=>'email',
                 'phone'=>['regex'=>'/^1[3-9]\d{9}/'],
             ];
@@ -133,6 +136,7 @@ class User extends Auth
                 'password.confirm'=>'重复密码不一致',
                 'password_confirm.require'=>'重复密码不能为空',
                 'password_confirm.length'=>'重复密码长度为4-20位',
+                'name.length'=>'姓名格式错误',
                 'email.email'=>'邮箱格式错误',
                 'phone.regex'=>'手机格式错误',
             ];
@@ -201,6 +205,7 @@ class User extends Auth
         $rules=[
             'role_id'=>'require',
             'username'=>'require|alphaDash|length:4,20|unique:user,username,'.$id.',id',
+            'name'=>'length:2,20',
             'email'=>'email',
             'phone'=>['regex'=>'/^1[3-9]\d{9}/'],
         ];
@@ -210,6 +215,7 @@ class User extends Auth
             'username.alphaDash'=>'用户名只能为字母和数字，下划线（_）及破折号（-）',
             'username.length'=>'用户名长度为4-20位',
             'username.unique'=>'用户名已存在',
+            'name.length'=>'姓名格式错误',
             'email.email'=>'邮箱格式错误',
             'phone.regex'=>'手机格式错误',
         ];
@@ -347,6 +353,53 @@ class User extends Auth
             return $this->success('销毁成功','');
         }else{
             return $this->error('销毁失败');
+        }
+    }
+
+    /* ========== 个人中心 ========== */
+    public function info(){
+        if(request()->isPost()){
+            $datas=input();
+            $rules=[
+                'username'=>'require|alphaDash|length:4,20|unique:user,username,'.$datas['id'].',id',
+                'name'=>'length:2,20',
+                'email'=>'email',
+                'phone'=>['regex'=>'/^1[3-9]\d{9}/'],
+            ];
+            $msg=[
+                'username.require'=>'用户名不能为空',
+                'username.alphaDash'=>'用户名只能为字母和数字，下划线（_）及破折号（-）',
+                'username.length'=>'用户名长度为4-20位',
+                'username.unique'=>'用户名已存在',
+                'name.length'=>'姓名格式错误',
+                'email.email'=>'邮箱格式错误',
+                'phone.regex'=>'手机格式错误',
+            ];
+
+            $result=$this->validate($datas,$rules,$msg);
+            if(true !== $result){
+                return $this->error($result);
+            }
+
+            $user_model=new Users();
+            $other_datas=$user_model->other_data(input());
+            $datas=array_merge(input(),$other_datas);
+            $user_model->isUpdate(true)->save($datas);
+            if($user_model !== false){
+                return $this->success('修改成功','');
+            }else{
+                return $this->error('修改失败');
+            }
+        }else{
+            $infos=Users::field(['u.*','is_admin','r.name as role_name'])
+                ->alias('u')
+                ->join('role r','r.id = u.role_id','left')
+                ->where(['u.id'=>Session::get('userinfo.user_id')])
+                ->find();
+
+            return view('',[
+                'infos'=>$infos,
+            ]);
         }
     }
 }

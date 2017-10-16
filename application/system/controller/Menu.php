@@ -55,7 +55,7 @@ class Menu extends Auth
                         <td>
                             <button type='button' class='btn' onclick='layerIfWindow(&apos;添加菜单&apos;,&apos;\$add_url&apos;,&apos;&apos;,&apos;335&apos;)' >添加子菜单</button>
                             <button type='button' class='btn' onclick='layerIfWindow(&apos;菜单信息&apos;,	&apos;\$detail_url&apos;,&apos;&apos;,&apos;400&apos;)' >菜单信息</button>
-                            <button type='button' data-action='\$delete_url' class='btn js-ajax-form-btn' data-notice='确定要删除吗？'>删除</button>
+                            <button type='button' data-action='\$delete_url' class='btn js-ajax-form-btn'>删除</button>
                         </td>
                     </tr>
                     ";
@@ -71,45 +71,45 @@ class Menu extends Auth
         $where=[];
         $field=['id','name','parent_id','icon','url','display','status','sort','deleted_at'];
         /* ++++++++++ 菜单名称 ++++++++++ */
-        $name=trim(request()->param('name'));
+        $name=trim(input('name'));
         if($name){
             $where['name']=['like','%'.$name.'%'];
             $datas['name']=$name;
         }
         /* ++++++++++ 路由地址 ++++++++++ */
-        $url=trim(request()->param('url'));
+        $url=trim(input('url'));
         if($url){
             $where['url']=['like','%'.$url.'%'];
             $datas['url']=$url;
         }
         /* ++++++++++ 显示状态 ++++++++++ */
-        $display=request()->param('display');
+        $display=input('display');
         if(is_numeric($display) && in_array($display,[0,1])){
             $where['display']=$display;
             $datas['display']=$display;
         }
         /* ++++++++++ 使用状态 ++++++++++ */
-        $status=request()->param('status');
+        $status=input('status');
         if(is_numeric($status) && in_array($status,[0,1])){
             $where['status']=$status;
             $datas['status']=$status;
         }
         /* ++++++++++ 排序 ++++++++++ */
-        $ordername=request()->param('ordername');
+        $ordername=input('ordername');
         $ordername=$ordername?$ordername:'sort';
         $datas['ordername']=$ordername;
-        $orderby=request()->param('orderby');
+        $orderby=input('orderby');
         $orderby=$orderby?$orderby:'asc';
         $datas['orderby']=$orderby;
         /* ++++++++++ 每页条数 ++++++++++ */
         $nums=[config('paginate.list_rows'),30,50,100,200,500];
         sort($nums);
         $datas['nums']=$nums;
-        $display_num=request()->param('display_num');
+        $display_num=input('display_num');
         $display_num=$display_num?$display_num:config('paginate.list_rows');
         $datas['display_num']=$display_num;
         /* ++++++++++ 是否删除 ++++++++++ */
-        $deleted=request()->param('deleted');
+        $deleted=input('deleted');
         $menu_model=new Menus();
         if(is_numeric($deleted) && in_array($deleted,[0,1])){
             $datas['deleted']=$deleted;
