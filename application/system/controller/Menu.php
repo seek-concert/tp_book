@@ -37,8 +37,6 @@ class Menu extends Auth
         if($menus){
             $array=[];
             foreach ($menus as $menu){
-                $menu->display=$menu->show($menu->display);
-                $menu->status=$menu->status($menu->status);
                 $menu->add_url=url('add',['id'=>$menu->id]);
                 $menu->detail_url=url('detail',['id'=>$menu->id]);
                 $menu->delete_url=url('delete',['ids'=>$menu->id]);
@@ -132,6 +130,7 @@ class Menu extends Auth
 
     /* ========== 添加 ========== */
     public function add($id=0){
+        $model=new Menus();
         if(request()->isPost()){
             $rules=[
                 'name'=>'require|unique:menu',
@@ -149,11 +148,10 @@ class Menu extends Auth
                 return $this->error($result);
             }
 
-            $menu_model=new Menus();
-            $other_datas=$menu_model->other_data(input());
+            $other_datas=$model->other_data(input());
             $datas=array_merge(input(),$other_datas);
-            $menu_model->save($datas);
-            if($menu_model !== false){
+            $model->save($datas);
+            if($model !== false){
                 return $this->success('保存成功','');
             }else{
                 return $this->error('保存失败');
@@ -171,6 +169,7 @@ class Menu extends Auth
             }
 
             return view('modify',[
+                'model'=>$model,
                 'options_menus'=>$options_menus
             ]);
         }
@@ -181,6 +180,8 @@ class Menu extends Auth
         if(!$id){
             return $this->error('至少选择一项');
         }
+
+        $model=new Menus();
         $infos=Menus::withTrashed()->find($id);
         if(!$infos){
             return $this->error('选择项目不存在');
@@ -197,6 +198,7 @@ class Menu extends Auth
             $options_menus=get_tree($array);
         }
         return view('modify',[
+            'model'=>$model,
             'infos'=>$infos,
             'options_menus'=>$options_menus,
         ]);

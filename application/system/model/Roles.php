@@ -27,7 +27,7 @@ class Roles extends Model
         return trim($value);
     }
 
-    public function type($key=null){
+    public function getIsAdminAttr($key=null){
         $array=[0=>'受约束角色',1=>'超级管理员'];
         if(is_numeric($key) && in_array($key,[0,1])){
             return $array[$key];
@@ -36,8 +36,8 @@ class Roles extends Model
         }
     }
 
-    public function status($key=null){
-        $array=[0=>'禁用',1=>'启用'];
+    public function getStatusAttr($key=null){
+        $array=[1=>'启用',0=>'禁用'];
         if(is_numeric($key) && in_array($key,[0,1])){
             return $array[$key];
         }else{

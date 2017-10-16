@@ -25,7 +25,7 @@ $(function () {
             },
             success:function (data) {
                 btn.data("loading",false).prop('disabled',false).removeClass('disabled');
-                layer.msg(data.msg);
+                layer.msg(data.msg,function () {});
                 if(data.code){
                     window.location.href=data.url;
                 }else{

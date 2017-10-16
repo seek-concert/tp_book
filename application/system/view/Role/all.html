@@ -73,8 +73,8 @@
                 </td>
                 <td>{$role->id}</td>
                 <td>{if condition="$role->deleted_at"} <del>{$role->name}</del>{else /}{$role->name}{/if}</td>
-                <td>{if condition="$role->deleted_at"} <del>{$role->type($role->is_admin)}</del>{else /}{$role->type($role->is_admin)}{/if}</td>
-                <td>{$role->status($role->status)}</td>
+                <td>{if condition="$role->deleted_at"} <del>{$role->is_admin}</del>{else /}{$role->is_admin}{/if}</td>
+                <td>{$role->status}</td>
                 <td>
                     <button type="button" class="btn" onclick="layerIfWindow('添加角色','{:url('add',['id'=>$role->id])}','','500')" >添加下级</button>
                     <button type="button" class="btn" onclick="layerIfWindow('角色信息',	'{:url('detail',['id'=>$role->id])}','','600')" >角色信息</button>

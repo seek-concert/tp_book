@@ -33,8 +33,8 @@ class Users extends Model
         return date('Y-m-d H:i:s',$value);
     }
 
-    public function status($key=null){
-        $array=[0=>'禁用',1=>'启用'];
+    public function getStatusAttr($key=null){
+        $array=[1=>'启用',0=>'禁用'];
         if(is_numeric($key) && in_array($key,[0,1])){
             return $array[$key];
         }else{
