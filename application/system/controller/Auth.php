@@ -28,7 +28,7 @@ class Auth extends Controller
             if(request()->isAjax()){
                 $this->error('没有权限！');
             }else{
-                die('没有权限！');
+                die('没有权限！ <a href="javascript:window.history.back();">返回</a>');
             }
         }
     }
