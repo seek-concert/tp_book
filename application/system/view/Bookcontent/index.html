@@ -23,10 +23,23 @@
             <img src="__STATIC__/system/img/add.png"/>
             添加
         </li>
+        <li class="fgf js-ajax-form-btn" data-form="js-ajax-form" data-action="{:url('del')}">
+            <img src="__STATIC__/system/img/broom.png"/>
+            删除
+        </li>
+        <li class="fgf js-ajax-form-btn" data-form="js-ajax-form" data-action="{:url('restore')}">
+            <img src="__STATIC__/system/img/recycle.png"/>
+            恢复
+        </li>
+        <li class="fgf js-ajax-form-btn" data-form="js-ajax-form" data-action="{:url('destroy')}">
+            <img src="__STATIC__/system/img/destroy.png"/>
+            销毁
+        </li>
     </ul>
 </div>
 <div class="tableCon">
     <em class="xian"></em>
+    <form action="{:url('status')}" method="post" id="js-ajax-form">
     <table class="table" border="0">
         <tbody>
         <tr class="noSelect">
@@ -44,18 +57,19 @@
             <td>
                 <input class="va_m" type="checkbox" name="ids[]"  value="{$info->id}" onclick="checkBoxOp(this)" />
             </td>
-            <td>{$info->id}</td>
-            <td>{$info->order_num}</td>
-            <td>{$info->name}</td>
-            <td>{$info->price}</td>
+            <td>{if condition="$info->deleted_at"} <del>{$info->id}</del>{else /}{$info->id}{/if}</td>
+            <td>{if condition="$info->deleted_at"} <del>{$info->order_num}</del>{else /}{$info->order_num}{/if}</td>
+            <td>{if condition="$info->deleted_at"} <del>{$info->name}</del>{else /}{$info->name}{/if}</td>
+            <td>{if condition="$info->deleted_at"} <del>{$info->price}</del>{else /}{$info->price}{/if}</td>
             <td>
                 <button type="button" class="btn" onclick="layerIfWindow('小说章节内容详情','{:url(\'detail\',array(\'id\'=>$info->id,\'book_id\'=>input(\'book_id\')))}','650','550')">详情</button>
-                <button type="button" class="btn js-ajax-form-btn" data-action="{:url('del')}" data-notice="确定删除吗？" data-formdata="id={$info->id}">删除</button>
+                <button type="button" class="btn js-ajax-form-btn" data-action="{:url('del')}" data-notice="确定删除吗？" data-formdata="ids={$info->id}">删除</button>
             </td>
         </tr>
         {/volist}
         </tbody>
     </table>
+    </form>
 </div>
 <div class="pageCon">
     {$bookcontent_list->render()}
@@ -65,8 +79,46 @@
     <form action="" method="post" id="search-form">
         <table class="layerTable">
             <tr class="h70">
-                <td>分类名称：</td>
-                <td><input type="text" name="name" id="name" value="{:isset($name)?$name:''}" placeholder="请输入查询的分类名称"/></td>
+                <td>章节号：</td>
+                <td><input type="text" name="order_num" id="order_num" value="{:isset($order_num)?$order_num:''}" placeholder="请输入查询的章节号"/></td>
+                <td>章节标题：</td>
+                <td><input type="text" name="name" id="name" value="{:isset($name)?$name:''}" placeholder="请输入查询的章节标题"/></td>
+            </tr>
+            <tr class="h50">
+                <td>是否删除：</td>
+                <td>
+                    <select name="deleted" id="deleted">
+                        <option value="">--全部--</option>
+                        <option value="1" {if condition="isset($deleted) and $deleted==1"}selected{/if}>--是--</option>
+                        <option value="0" {if condition="isset($deleted) and $deleted==0"}selected{/if}>--否--</option>
+                    </select>
+                </td>
+                <td>每页条数：</td>
+                <td>
+                    <select name="display_num" id="display_num">
+                        {volist name="nums" id="num"}
+                        <option value="{$num}" {if condition="isset($display_num) and $display_num==$num"}selected{/if}>--{$num}--</option>
+                        {/volist}
+                    </select>
+                </td>
+            </tr>
+            <tr class="h50">
+                <td>排序：</td>
+                <td>
+                    <select name="ordername" id="ordername">
+                        <option value="id">--默认--</option>
+                        <option value="created_at" {if condition="isset($ordername) and $ordername=='created_at'"}selected{/if}>--创建时间--</option>
+                        <option value="updated_at" {if condition="isset($ordername) and $ordername=='updated_at'"}selected{/if}>--更新时间--</option>
+                        <option value="deleted_at" {if condition="isset($ordername) and $ordername=='deleted_at'"}selected{/if}>--删除时间--</option>
+                    </select>
+                </td>
+                <td>方式：</td>
+                <td>
+                    <select name="orderby" id="orderby">
+                        <option value="asc">--升序--</option>
+                        <option value="desc" {if condition="isset($orderby) and $orderby=='desc'"}selected{/if}>--降序--</option>
+                    </select>
+                </td>
             </tr>
         </table>
         <div class="layerBtns">

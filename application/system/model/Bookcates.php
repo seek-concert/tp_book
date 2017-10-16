@@ -42,14 +42,4 @@ class Bookcates extends Model
             return false;
         }
     }
-    public function dels(){
-        $id = input('id');
-        $model = Bookcates::get($id);
-        $rs = $model->delete();
-        if($rs){
-            return true;
-        }else{
-            return false;
-        }
-    }
 }
