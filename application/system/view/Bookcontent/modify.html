@@ -14,12 +14,16 @@ $form_action=isset($info)?url('modify'):url('insert');
     <div class="layerCon bg_f">
         <table class="layerTable" border="0">
             <tr class="h50">
-                <td>分类名称：</td>
-                <td><input class="must" type="text" name="name" id="name" value="{:isset($info->name)?$info->name:''}" placeholder="请输入分类名称" /></td>
+                <td>章节号：</td>
+                <td><input class="must" type="text" name="order_num" id="order_num" value="{:isset($info->order_num)?$info->order_num:''}" placeholder="请输入章节号" /></td>
             </tr>
             <tr class="h50">
-                <td>排序：</td>
-                <td><input class="must" type="text" name="sort" id="sort" value="{:isset($info->sort)?$info->sort:0}" placeholder="请输入排序" /></td>
+                <td>章节标题：</td>
+                <td><input class="must" type="text" name="name" id="name" value="{:isset($info->name)?$info->name:''}" placeholder="请输入章节标题" /></td>
+            </tr>
+            <tr class="h70">
+                <td>章节内容：</td>
+                <td> <textarea name="content" id="content" placeholder="请输入章节内容">{:isset($info->content)?$info->content:''}</textarea></td>
             </tr>
             {if condition="$form_action eq url('modify')"}
             <tr class="h50">
@@ -36,6 +40,33 @@ $form_action=isset($info)?url('modify'):url('insert');
         <a class="btn js-ajax-form-btn" data-layer="true" >立即提交</a>
         <button class="btn" type="reset">重置</button>
     </div></form>
-<script src="__STATIC__/system/js/ajax-submit.js" type="text/javascript" charset="utf-8"></script>
+<link rel="stylesheet" type="text/css" href="__STATIC__/system/kindeditor/themes/default/default.css"/>
+<script type="text/javascript" src="__STATIC__/system/js/ajax-submit.js" charset="utf-8"></script>
+<script type="text/javascript" src="__STATIC__/system/kindeditor/kindeditor-all-min.js" charset="utf-8"></script>
+<script type="text/javascript" src="__STATIC__/system/kindeditor/lang/zh_CN.js" charset="utf-8"></script>
+<script type="text/javascript" src="__STATIC__/system/kindeditor/plugins/code/prettify.js" charset="utf-8"></script>
+<script>
+    KindEditor.ready(function(K) {
+        window.editor = K.create('#content',{
+            width : '100%',
+            height:'440',
+            cssPath: '/static/system/kindeditor/plugins/code/prettify.css',
+            uploadJson: "",
+            fileManagerJson: '/static/system/kindeditor/php/file_manager_json.php',
+            allowFileManager : true,
+            items:['source', '|', 'undo', 'redo', '|', 'preview', 'print', 'template', 'code', 'cut', 'copy', 'paste',
+                'plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright',
+                'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript',
+                'superscript', 'clearhtml', 'quickformat', 'selectall', '/',
+                'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold',
+                'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'image', 'multiimage',
+                'flash', 'media', 'insertfile', 'table', 'hr', 'emoticons', 'baidumap', 'pagebreak',
+                'anchor', 'link', 'unlink', '|', 'about'],
+            afterBlur:function () {
+                $('#content').val(editor.html());
+            }
+        });
+    });
+</script>
 </body>
 </html>

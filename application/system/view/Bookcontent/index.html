@@ -40,7 +40,7 @@
             <th>章节价格<i class="stretch"></i></th>
             <th>操作<i class="stretch"></i></th>
         </tr>
-        {volist name='bookcontents_list' id='info'}
+        {volist name='bookcontent_list' id='info'}
         <tr>
             <td>
                 <input class="va_m" type="checkbox" name="ids[]"  value="{$info->id}" onclick="checkBoxOp(this)" />
@@ -60,7 +60,7 @@
     </table>
 </div>
 <div class="pageCon">
-    {$bookcate_list->render()}
+    {$bookcontent_list->render()}
 </div>
 <!-- 查询 -->
 <div id="search" class="layerCon bg_f hide">
