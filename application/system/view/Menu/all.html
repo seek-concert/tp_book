@@ -88,7 +88,7 @@
                 <td>{$menu->id}</td>
                 <td>{$menu->icon}{if condition="$menu->deleted_at"} <del>{$menu->name}</del>{else /}{$menu->name}{/if}</td>
                 <td>{if condition="$menu->deleted_at"} <del>{$menu->url}</del>{else /}{$menu->url}{/if}</td>
-                <td>{$menu->show($menu->display)} | {$menu->status($menu->status)}</td>
+                <td>{$menu->display} | {$menu->status}</td>
                 <td>
                     <button type="button" class="btn" onclick="layerIfWindow('添加菜单','{:url('add',['id'=>$menu->id])}','','335')" >添加子菜单</button>
                     <button type="button" class="btn" onclick="layerIfWindow('菜单信息',	'{:url('detail',['id'=>$menu->id])}','','400')" >菜单信息</button>

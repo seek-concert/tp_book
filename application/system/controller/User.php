@@ -112,6 +112,7 @@ class User extends Auth
 
     /* ========== 添加 ========== */
     public function add($id=0){
+        $model=new Users();
         if(request()->isPost()){
             $rules=[
                 'role_id'=>'require',
@@ -141,11 +142,10 @@ class User extends Auth
                 return $this->error($result);
             }
 
-            $user_model=new Users();
-            $other_datas=$user_model->other_data(input());
+            $other_datas=$model->other_data(input());
             $datas=array_merge(input(),$other_datas);
-            $user_model->save($datas);
-            if($user_model !== false){
+            $model->save($datas);
+            if($model !== false){
                 return $this->success('保存成功','');
             }else{
                 return $this->error('保存失败');
@@ -157,6 +157,7 @@ class User extends Auth
                 $options_roles=get_tree($roles,"<option value='\$id'>\$space \$name</option>");
             }
             return view('modify',[
+                'model'=>$model,
                 'options_roles'=>$options_roles,
             ]);
         }
@@ -167,6 +168,7 @@ class User extends Auth
         if(!$id){
             return $this->error('至少选择一项');
         }
+        $model=new Users();
         $infos=Users::withTrashed()->find($id);
         if(!$infos){
             return $this->error('选择项目不存在');
@@ -184,6 +186,7 @@ class User extends Auth
         }
         return view('modify',[
             'infos'=>$infos,
+            'model'=>$model,
             'options_roles'=>$options_roles,
         ]);
     }

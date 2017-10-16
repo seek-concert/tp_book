@@ -55,13 +55,15 @@
             <tr class="h30">
                 <td>显示状态：</td>
                 <td>
-                    <label><input class="va_m" name="display" type="radio"  value="1" {if condition="!isset($infos) or $infos->display eq 1"}checked{/if}>显示</label>
-                    <label><input class="va_m" name="display" type="radio"  value="0"{if condition="isset($infos) and $infos->display eq 0"}checked{/if}>隐藏</label>
+                    {volist name="model->display" id="display"}
+                    <label><input class="va_m" name="display" type="radio"  value="{$key}" {if condition="(!isset($infos) and $key eq 0) or (isset($infos) and $infos->display eq $display)"}checked{/if}>{$display}</label>
+                    {/volist}
                 </td>
                 <td>状态：</td>
                 <td>
-                    <label><input class="va_m" name="status" type="radio"  value="1" {if condition="empty($infos) or $infos->status eq 1"}checked{/if}>启用</label>
-                    <label><input class="va_m" name="status" type="radio"  value="0"{if condition="isset($infos) and $infos->status eq 0"}checked{/if}>禁用</label>
+                    {volist name="model->status" id="status"}
+                    <label><input class="va_m" name="status" type="radio"  value="{$key}" {if condition="(!isset($infos) and $key eq 1) or (isset($infos) and $infos->status eq $status)"}checked{/if}>{$status}</label>
+                    {/volist}
                 </td>
             </tr>
             {if condition="isset($infos)"}

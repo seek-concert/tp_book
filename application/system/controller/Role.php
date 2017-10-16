@@ -36,8 +36,6 @@ class Role extends Auth
         if($roles){
             $array=[];
             foreach ($roles as $role){
-                $role->is_admin=$role->type($role->is_admin);
-                $role->status=$role->status($role->status);
                 $role->add_url=url('add',['id'=>$role->id]);
                 $role->detail_url=url('detail',['id'=>$role->id]);
                 $role->delete_url=url('delete',['ids'=>$role->id]);
@@ -124,6 +122,7 @@ class Role extends Auth
 
     /* ========== 添加 ========== */
     public function add($id=0){
+        $model=new Roles();
         if(request()->isPost()){
             $rules=[
                 'name'=>'require|unique:role',
@@ -138,11 +137,10 @@ class Role extends Auth
                 return $this->error($result);
             }
 
-            $role_model=new Roles();
-            $other_datas=$role_model->other_data(input());
+            $other_datas=$model->other_data(input());
             $datas=array_merge(input(),$other_datas);
-            $role_model->save($datas);
-            if($role_model !== false){
+            $model->save($datas);
+            if($model !== false){
                 return $this->success('保存成功','');
             }else{
                 return $this->error('保存失败');
@@ -181,6 +179,7 @@ class Role extends Auth
             }
 
             return view('modify',[
+                'model'=>$model,
                 'options_roles'=>$options_roles,
                 'tree_menus'=>$tree_menus,
             ]);
@@ -197,6 +196,7 @@ class Role extends Auth
             return $this->error('选择项目不存在');
         }
 
+        $model=new Roles();
         /* ++++++++++ 角色列表 ++++++++++ */
         $roles=Roles::field(['id','parent_id','name','status'])->where('status',1)->select();
         $options_roles='';
@@ -233,6 +233,7 @@ class Role extends Auth
             $tree_menus=get_tree($menus,$str,0,1,['&nbsp;&nbsp;┃&nbsp;','&nbsp;&nbsp;┣┅','&nbsp;&nbsp;┗┅'],'&nbsp;&nbsp;');
         }
         return view('modify',[
+            'model'=>$model,
             'infos'=>$infos,
             'options_roles'=>$options_roles,
             'tree_menus'=>$tree_menus,

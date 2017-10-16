@@ -75,7 +75,7 @@
                 <td>{if condition="$user->deleted_at"} <del>{$user->username}</del>{else /}{$user->username}{/if}</td>
                 <td>{if condition="$user->deleted_at"} <del>{$user->phone}</del>{else /}{$user->phone}{/if}</td>
                 <td>{if condition="$user->deleted_at"} <del>{$user->email}</del>{else /}{$user->email}{/if}</td>
-                <td>{$user->status($user->status)}</td>
+                <td>{$user->status}</td>
                 <td>
                     <button type="button" class="btn" onclick="layerIfWindow('用户信息',	'{:url('detail',['id'=>$user->id])}','','450')" >用户信息</button>
                     <button type="button" data-action="{:url('delete',['ids'=>$user->id])}" class="btn js-ajax-form-btn" data-notice="确定要删除吗？">删除</button>

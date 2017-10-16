@@ -34,7 +34,7 @@ class Menus extends Model
          return is_null($value)?0:(integer)$value;
     }
 
-    public function show($key=null){
+    public function getDisplayAttr($key=null){
         $array=[0=>'隐藏',1=>'显示'];
         if(is_numeric($key) && in_array($key,[0,1])){
             return $array[$key];
@@ -43,8 +43,8 @@ class Menus extends Model
         }
     }
 
-    public function status($key=null){
-        $array=[0=>'禁用',1=>'启用'];
+    public function getStatusAttr($key=null){
+        $array=[1=>'启用',0=>'禁用'];
         if(is_numeric($key) && in_array($key,[0,1])){
             return $array[$key];
         }else{

@@ -16,7 +16,7 @@ class Auth extends Controller
     {
         /* ++++++++++ 未登录或操作超时 ++++++++++ */
         $userinfo=Session::get('userinfo');
-        if(!$userinfo || time()-$userinfo['time']>5){
+        if(!$userinfo || time()-$userinfo['time']>1800){
             $this->redirect('system/Index/index');
         }else{
             Session::set('userinfo.time',time());
