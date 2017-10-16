@@ -57,18 +57,16 @@ class Books extends Model
         return $this->belongsTo('Bookcates','cate_id');
     }
     public function add(){
-        $model = new Books;
-        $model->data = input();
-        if($model->save()){
+        $this->data = input();
+        if($this->save()){
             return true;
         }else{
             return false;
         }
     }
     public function updata(){
-        $model = new Books;
         $id = input('id');
-        $rs = $model
+        $rs = $this
             ->allowField(['cate_id','status','type','picture','title','author_id','summary','click_num','submit_num','buy_num','amount','free_status','free_start','free_end','is_hot','is_recommend','sort'])
             ->save($_POST, ['id' => $id]);
         if($rs){
