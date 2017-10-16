@@ -40,7 +40,7 @@
             <th>小说类型<i class="stretch"></i></th>
             <th>免费状态<i class="stretch"></i></th>
             <th>推荐状态<i class="stretch"></i></th>
-            <th>操作<i class="stretch"></i></th>
+            <th style="text-align: center;">操作<i class="stretch"></i></th>
         </tr>
         {volist name='book_list' id='info'}
         <tr>
@@ -55,7 +55,8 @@
             <td>{$info->free_status}</td>
             <td>{$info->is_recommend}</td>
             <td>
-                <button type="button" class="btn" onclick="layerIfWindow('小说详情','{:url(\'detail\',array(\'id\'=>$info->id))}','650','550')">详情</button>
+                <button type="button" class="btn" onclick="layerIfWindow('章节列表','{:url(\'bookcontent/index\',array(\'book_id\'=>$info->id))}','650','550',true)">章节列表</button>
+                <button type="button" class="btn" onclick="layerIfWindow('小说详情','{:url(\'detail\',array(\'id\'=>$info->id))}','650','550')">小说详情</button>
                 <button type="button" class="btn js-ajax-form-btn" data-action="{:url('del')}" data-notice="确定删除吗？" data-formdata="id={$info->id}">删除</button>
             </td>
         </tr>

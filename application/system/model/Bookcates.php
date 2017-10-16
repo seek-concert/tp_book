@@ -26,18 +26,16 @@ class Bookcates extends Model
     }
 
     public function add(){
-        $model = new Bookcates;
-        $model->data = input();
-        if($model->save()){
+        $this->data = input();
+        if($this->save()){
             return true;
         }else{
             return false;
         }
     }
     public function updata(){
-        $model = new Bookcates;
         $id = input('id');
-        $rs = $model->allowField(['name','sort'])->save($_POST, ['id' => $id]);
+        $rs = $this->allowField(['name','sort'])->save($_POST, ['id' => $id]);
         if($rs){
             return true;
         }else{

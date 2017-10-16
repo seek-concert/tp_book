@@ -19,7 +19,7 @@
             <img src="__STATIC__/system/img/page_white_magnify.png"/>
             查询
         </li>
-        <li class="fgf" onclick="layerIfWindow('添加小说章节内容','{:url(\'insert\')}','450','200')">
+        <li class="fgf" onclick="layerIfWindow('添加小说章节内容','{:url(\'insert\',array(\'book_id\'=>input(\'book_id\')))}','650','550')">
             <img src="__STATIC__/system/img/add.png"/>
             添加
         </li>
@@ -34,24 +34,22 @@
                 <input class="va_m" type="checkbox" name="" id="allCheck" value="" data-falg="allCheck" onclick="checkBoxOp(this)"/>
             </th>
             <th>ID号</th>
-            <th>小说名称<i class="stretch"></i></th>
             <th>章节序号<i class="stretch"></i></th>
             <th>章节标题<i class="stretch"></i></th>
             <th>章节价格<i class="stretch"></i></th>
             <th>操作<i class="stretch"></i></th>
         </tr>
-        {volist name='bookcontents_list' id='info'}
+        {volist name='bookcontent_list' id='info'}
         <tr>
             <td>
                 <input class="va_m" type="checkbox" name="ids[]"  value="{$info->id}" onclick="checkBoxOp(this)" />
             </td>
             <td>{$info->id}</td>
-            <td>{$info->book_id}</td>
             <td>{$info->order_num}</td>
             <td>{$info->name}</td>
             <td>{$info->price}</td>
             <td>
-                <button type="button" class="btn" onclick="layerIfWindow('小说章节内容详情','{:url(\'detail\',array(\'id\'=>$info->id))}','450','240')">详情</button>
+                <button type="button" class="btn" onclick="layerIfWindow('小说章节内容详情','{:url(\'detail\',array(\'id\'=>$info->id,\'book_id\'=>input(\'book_id\')))}','650','550')">详情</button>
                 <button type="button" class="btn js-ajax-form-btn" data-action="{:url('del')}" data-notice="确定删除吗？" data-formdata="id={$info->id}">删除</button>
             </td>
         </tr>
@@ -60,7 +58,7 @@
     </table>
 </div>
 <div class="pageCon">
-    {$bookcate_list->render()}
+    {$bookcontent_list->render()}
 </div>
 <!-- 查询 -->
 <div id="search" class="layerCon bg_f hide">

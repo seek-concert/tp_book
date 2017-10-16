@@ -32,18 +32,16 @@ class Authors extends Model
     }
 
     public function add(){
-        $model = new Authors;
-        $model->data = input();
-        if($model->save()){
+        $this->data = input();
+        if($this->save()){
             return true;
         }else{
            return false;
         }
     }
     public function updata(){
-        $model = new Authors;
         $id = input('id');
-        $rs = $model->allowField(['name','realname','phone'])->save($_POST, ['id' => $id]);
+        $rs = $this->allowField(['name','realname','phone'])->save($_POST, ['id' => $id]);
         if($rs){
             return true;
         }else{

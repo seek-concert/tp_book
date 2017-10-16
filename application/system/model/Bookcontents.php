@@ -20,11 +20,30 @@ class Bookcontents extends Model
     protected $deleteTime='deleted_at';
     protected $autoWriteTimestamp = true;
     protected $field = true;
-
+    /*----- 关联小说 -----*/
+    public function Books()
+    {
+        return $this->belongsTo('Books','book_id');
+    }
     public function add(){
-        $model = new Bookcontents;
-        $model->data = input();
-        if($model->save()){
+        $data = input();
+        $data['edited_at']= time();
+        return $data;
+    }
+    public function updata(){
+        $id = input('id');
+        $rs = $this->save($_POST, ['id' => $id]);
+        if($rs){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    public function dels(){
+        $id = input('id');
+        $model = Bookcontents::get($id);
+        $rs = $model->delete();
+        if($rs){
             return true;
         }else{
             return false;
