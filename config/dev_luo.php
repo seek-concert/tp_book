@@ -57,4 +57,5 @@ return [
 
     // 开启自动写入时间戳字段
     'auto_timestamp' => true,
+
 ];
