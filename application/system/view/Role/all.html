@@ -45,7 +45,7 @@
             <img src="__STATIC__/system/img/recycle.png"/>
             恢复
         </li>
-        <li class="fgf js-ajax-form-btn" data-form="js-ajax-form" data-action="{:url('destroy')}">
+        <li class="fgf js-ajax-form-btn" data-form="js-ajax-form" data-action="{:url('destroy')}" data-notice="确定要彻底删除吗？">
             <img src="__STATIC__/system/img/destroy.png"/>
             销毁
         </li>
@@ -78,7 +78,7 @@
                 <td>
                     <button type="button" class="btn" onclick="layerIfWindow('添加角色','{:url('add',['id'=>$role->id])}','','500')" >添加下级</button>
                     <button type="button" class="btn" onclick="layerIfWindow('角色信息',	'{:url('detail',['id'=>$role->id])}','','600')" >角色信息</button>
-                    <button type="button" data-action="{:url('delete',['ids'=>$role->id])}" class="btn js-ajax-form-btn" data-notice="确定要删除吗？">删除</button>
+                    <button type="button" data-action="{:url('delete',['ids'=>$role->id])}" class="btn js-ajax-form-btn">删除</button>
                 </td>
             </tr>
             {/volist}

@@ -57,7 +57,7 @@
             <img src="__STATIC__/system/img/recycle.png"/>
             恢复
         </li>
-        <li class="fgf js-ajax-form-btn" data-form="js-ajax-form" data-action="{:url('destroy')}">
+        <li class="fgf js-ajax-form-btn" data-form="js-ajax-form" data-action="{:url('destroy')}" data-notice="确定要彻底删除吗？">
             <img src="__STATIC__/system/img/destroy.png"/>
             销毁
         </li>
@@ -92,7 +92,7 @@
                 <td>
                     <button type="button" class="btn" onclick="layerIfWindow('添加菜单','{:url('add',['id'=>$menu->id])}','','335')" >添加子菜单</button>
                     <button type="button" class="btn" onclick="layerIfWindow('菜单信息',	'{:url('detail',['id'=>$menu->id])}','','400')" >菜单信息</button>
-                    <button type="button" data-action="{:url('delete',['ids'=>$menu->id])}" class="btn js-ajax-form-btn" data-notice="确定要删除吗？">删除</button>
+                    <button type="button" data-action="{:url('delete',['ids'=>$menu->id])}" class="btn js-ajax-form-btn">删除</button>
                 </td>
             </tr>
             {/volist}
