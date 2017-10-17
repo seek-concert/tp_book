@@ -7,11 +7,10 @@
 </head>
 <body>
 {php}
-$form_action=isset($info)?url('detail'):url('insert');
+$form_action=isset($info)?url('detail'):'';
 {/php}
 <form action="{$form_action}" method="post" class="js-ajax-form" onsubmit="return false;">
     <input type="hidden" name="id" value="{:isset($info->id)?$info->id:''}">
-    <div class="layerCon bg_f">
         <table class="layerTable" border="0">
             <tr class="h50">
                 <td>微信openid：</td>
@@ -29,7 +28,7 @@ $form_action=isset($info)?url('detail'):url('insert');
             {/if}
             <tr class="h50">
                 <td>最近登录时间：</td>
-                <td>{:isset($info->login_at)?$info->login_at|date='Y-m-d H:i:s',###:''}</td>
+                <td>{:isset($info->login_at)?$info->login_at:''}</td>
             </tr>
             <tr class="h50">
                 <td>最近登录IP：</td>
@@ -51,7 +50,6 @@ $form_action=isset($info)?url('detail'):url('insert');
             </tr>
             {/if}
         </table>
-    </div>
    </form>
 <script src="__STATIC__/system/js/ajax-submit.js" type="text/javascript" charset="utf-8"></script>
 </body>

@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>读者管理</title>
+    <title>读者书签管理</title>
     {include file="Public/head" /}
 </head>
 <body>
-<h4>读者管理</h4>
+<h4>读者书签管理</h4>
 <div class="toolsBar">
     <!--fgf为工具栏分隔符，刷新没有，离开都有。中间工具每一类第一个添加fgf-->
     <ul>
@@ -15,7 +15,7 @@
                 <img src="__STATIC__/system/img/arrow_refresh.png"/>
                 刷新</a>
         </li>
-        <li class="fgf" onclick="layerPage('读者查询',$('#search'),'500','240')" >
+        <li class="fgf" onclick="layerPage('查询',$('#search'),'500','180')" >
             <img src="__STATIC__/system/img/page_white_magnify.png"/>
             查询
         </li>
@@ -31,30 +31,23 @@
                 <input class="va_m" type="checkbox" name="" id="allCheck" value="" data-falg="allCheck" onclick="checkBoxOp(this)"/>
             </th>
             <th>ID号</th>
-            <th>微信openid<i class="stretch"></i></th>
-            <th>书币<i class="stretch"></i></th>
-            <th>会员到期时间<i class="stretch"></i></th>
-            <th>最近登录时间<i class="stretch"></i></th>
-            <th>最近登录IP<i class="stretch"></i></th>
-            <th style="text-align: center;">操作<i class="stretch"></i></th>
+            <th>小说名称<i class="stretch"></i></th>
+            <th>小说章节<i class="stretch"></i></th>
+            <th>最近阅读时间<i class="stretch"></i></th>
+            <th>创建时间<i class="stretch"></i></th>
+            <th>更新时间<i class="stretch"></i></th>
         </tr>
-        {volist name='reader_list' id='info'}
+        {volist name='readerbookmark_list' id='info'}
         <tr>
             <td>
                 <input class="va_m" type="checkbox" name="ids[]"  value="{$info->id}" onclick="checkBoxOp(this)" />
             </td>
             <td>{$info->id}</td>
-            <td>{$info->openid}</td>
-            <td>{$info->book_money}</td>
-            <td>{$info->vip_end}</td>
-            <td>{$info->login_at}</td>
-            <td>{$info->login_ip}</td>
-            <td>
-                <button type="button" class="btn" onclick="layerIfWindow('读者信息','{:url(\'detail\',array(\'id\'=>$info->id))}','510','400')">读者信息</button>
-                <button type="button" class="btn" onclick="layerIfWindow('读者书签','{:url(\'bookmark\',array(\'id\'=>$info->id))}','600','400',true)">读者书签</button>
-                <button type="button" class="btn" onclick="layerIfWindow('读者书架','{:url(\'bookshelf\',array(\'id\'=>$info->id))}','600','400',true)">读者书架</button>
-                <button type="button" class="btn" onclick="layerIfWindow('最近阅读','{:url(\'readlast\',array(\'id\'=>$info->id))}','600','400',true)">最近阅读</button>
-            </td>
+            <td>{$info->Books->title}</td>
+            <td>第{$info->Bookcontents->order_num}章 {$info->Bookcontents->name}</td>
+            <td>{$info->read_at}</td>
+            <td>{$info->created_at}</td>
+            <td>{$info->updated_at}</td>
         </tr>
         {/volist}
         </tbody>
@@ -62,16 +55,12 @@
     </form>
 </div>
 <div class="pageCon">
-    {$reader_list->render()}
+    {$readerbookmark_list->render()}
 </div>
 <!-- 查询 -->
 <div id="search" class="layerCon bg_f hide">
     <form action="" method="post" id="search-form">
         <table class="layerTable">
-            <tr class="h50">
-                <td>微信openid：</td>
-                <td colspan="3"><input type="text" name="openid" id="openid" value="{:isset($openid)?$openid:''}" placeholder="请输入查询的微信openid"/></td>
-            </tr>
             <tr class="h50">
                 <td>每页条数：</td>
                 <td colspan="3">

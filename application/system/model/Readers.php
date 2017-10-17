@@ -11,6 +11,9 @@ class Readers extends Model
     protected $table = 'reader';
     protected $createTime = 'created_at';
     protected $updateTime = 'updated_at';
-    protected $deleteTime='deleted_at';
     protected $autoWriteTimestamp = true;
+    protected $type = [
+        'login_at'  =>  'timestamp',
+        'vip_end'  =>  'timestamp'
+    ];
 }
