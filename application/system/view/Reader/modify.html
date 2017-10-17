@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>读者管理</title>
+    {include file="Public/head" /}
+</head>
+<body>
+{php}
+$form_action=isset($info)?url('detail'):url('insert');
+{/php}
+<form action="{$form_action}" method="post" class="js-ajax-form" onsubmit="return false;">
+    <input type="hidden" name="id" value="{:isset($info->id)?$info->id:''}">
+    <div class="layerCon bg_f">
+        <table class="layerTable" border="0">
+            <tr class="h50">
+                <td>微信openid：</td>
+                <td>{:isset($info->openid)?$info->openid:''}</td>
+            </tr>
+            <tr class="h50">
+                <td>书币：</td>
+                <td>{:isset($info->book_money)?$info->book_money:''}</td>
+            </tr>
+            {if condition="$info->vip_end"}
+            <tr class="h50">
+                <td>会员结束时间：</td>
+                <td>{$info->vip_end}</td>
+            </tr>
+            {/if}
+            <tr class="h50">
+                <td>最近登录时间：</td>
+                <td>{:isset($info->login_at)?$info->login_at|date='Y-m-d H:i:s',###:''}</td>
+            </tr>
+            <tr class="h50">
+                <td>最近登录IP：</td>
+                <td>{:isset($info->login_ip)?$info->login_ip:''}</td>
+            </tr>
+            {if condition="$info->parent_id"}
+            <tr class="h50">
+                <td>邀请人ID：</td>
+                <td>{$info->parent_id}</td>
+            </tr>
+            {/if}
+            {if condition="$form_action eq url('detail')"}
+            <tr class="h50">
+                <td>操作时间：</td>
+                <td>
+                    创建时间:{$info->created_at}<br/>
+                    更新时间:{$info->updated_at}<br/>
+                </td>
+            </tr>
+            {/if}
+        </table>
+    </div>
+   </form>
+<script src="__STATIC__/system/js/ajax-submit.js" type="text/javascript" charset="utf-8"></script>
+</body>
+</html>
