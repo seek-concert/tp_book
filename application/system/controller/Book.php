@@ -7,6 +7,8 @@
  * | 详情
  * | 修改
  * | 删除
+ * | 恢复
+ * | 销毁
  * */
 namespace app\system\controller;
 use app\system\model\Books;

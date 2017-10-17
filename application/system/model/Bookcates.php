@@ -5,7 +5,6 @@
  * | 分类去空
  * | 添加
  * | 修改
- * | 删除
  * */
 namespace app\system\model;
 use think\Model;
