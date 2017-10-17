@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50554
 File Encoding         : 65001
 
-Date: 2017-10-16 16:00:18
+Date: 2017-10-17 10:05:59
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -57,6 +57,7 @@ CREATE TABLE `book` (
   `is_hot` tinyint(1) DEFAULT '0' COMMENT '热门，0否，1是',
   `is_recommend` tinyint(1) DEFAULT '1' COMMENT '推荐，0否，1是',
   `sort` int(11) DEFAULT NULL COMMENT '排序',
+  `online` tinyint(1) DEFAULT '1' COMMENT '在架状态，0下架，1在架',
   `created_at` int(11) DEFAULT NULL COMMENT '创建时间',
   `updated_at` int(11) DEFAULT NULL COMMENT '修改时间',
   `edited_at` int(11) DEFAULT NULL COMMENT '文章更新时间',
@@ -129,7 +130,7 @@ CREATE TABLE `menu` (
   `updated_at` int(11) DEFAULT NULL,
   `deleted_at` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='功能与菜单';
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 COMMENT='功能与菜单';
 
 -- ----------------------------
 -- Records of menu
@@ -141,7 +142,23 @@ INSERT INTO `menu` VALUES ('4', '1', '系统用户', '2', '<img src=\"/static/sy
 INSERT INTO `menu` VALUES ('5', '2', '添加菜单', '3', '<img src=\"/static/system/img/add.png\"/>', '0', '/system/menu/add', '', '0', '1', '1507872000', '1507897493', null);
 INSERT INTO `menu` VALUES ('6', '2', '菜单详情', '3', '<img src=\"/static/system/img/page_white_paste.png\"/>', '0', '/system/menu/detail', '', '0', '1', '1507880446', '1507880446', null);
 INSERT INTO `menu` VALUES ('7', '2', '菜单修改', '3', '<img src=\"/static/system/img/richtext_editor.png\"/>', '0', '/system/menu/edit', '', '0', '1', '1507880485', '1507896298', null);
-INSERT INTO `menu` VALUES ('8', '0', '内容管理', '1', '<img src=\"/static/system/img/bricks.png\"/>', '0', '/system/content#', '', '1', '1', '1507880673', '1507946878', null);
+INSERT INTO `menu` VALUES ('8', '0', '内容管理', '1', '<img src=\"/static/system/img/bricks.png\"/>', '0', '/system/content#', '', '1', '1', '1507880673', '1508144387', null);
+INSERT INTO `menu` VALUES ('9', '8', '作者管理', '2', '<img src=\"/static/system/img/outlook_new_meeting.png\"/>', '0', '/system/author/index', '', '1', '1', '1508145488', '1508145488', null);
+INSERT INTO `menu` VALUES ('10', '8', '小说分类', '2', '<img src=\"/static/system/img/server_database.png\"/>', '0', '/system/bookcate/index', '', '1', '1', '1508145595', '1508145595', null);
+INSERT INTO `menu` VALUES ('11', '1', '个人中心', '2', '<img src=\"/static/system/img/report_user.png\"/>', '0', '/system/user/info', '', '0', '1', '1508145659', '1508145659', null);
+INSERT INTO `menu` VALUES ('12', '8', '小说管理', '2', '<img src=\"/static/system/img/books.png\"/>', '0', '/system/book/index', '', '1', '1', '1508145720', '1508145720', null);
+INSERT INTO `menu` VALUES ('13', '8', '充值设置', '2', '<img src=\"/static/system/img/add_on.png\"/>', '0', '/system/rechargeprice/index', '', '1', '1', '1508146326', '1508146326', null);
+INSERT INTO `menu` VALUES ('14', '0', '业务数据', '1', '<img src=\"/static/system/img/sharepoint.png\"/>', '0', '/system/datas#', '', '1', '1', '1508146527', '1508146527', null);
+INSERT INTO `menu` VALUES ('15', '14', '读者管理', '2', '<img src=\"/static/system/img/outlook_new_meeting.png\"/>', '0', '/system/reader/index', '', '1', '1', '1508146593', '1508146593', null);
+INSERT INTO `menu` VALUES ('16', '14', '支付订单', '2', '<img src=\"/static/system/img/small_business.png\"/>', '0', '/system/rechargeorders/index', '', '1', '1', '1508146679', '1508146679', null);
+INSERT INTO `menu` VALUES ('17', '2', '菜单排序', '3', '<img src=\"/static/system/img/text_list_numbers.png\"/>', '0', '/system/menu/sort', '', '0', '1', '1508146897', '1508146897', null);
+INSERT INTO `menu` VALUES ('18', '2', '菜单显示状态', '3', '<img src=\"/static/system/img/monitor_window_3d.png\"/>', '0', '/system/menu/show', '', '0', '1', '1508146986', '1508146986', null);
+INSERT INTO `menu` VALUES ('19', '2', '菜单使用状态', '3', '<img src=\"/static/system/img/checked.png\"/>', '0', '/system/menu/status', '', '0', '1', '1508147023', '1508147023', null);
+INSERT INTO `menu` VALUES ('20', '2', '删除菜单', '3', '<img src=\"/static/system/img/broom.png\"/>', '0', '/system/menu/delete', '', '0', '1', '1508147061', '1508147061', null);
+INSERT INTO `menu` VALUES ('21', '2', '菜单恢复', '3', '<img src=\"/static/system/img/recycle.png\"/>', '0', '/system/menu/restore', '', '0', '1', '1508147092', '1508147092', null);
+INSERT INTO `menu` VALUES ('22', '2', '菜单销毁', '3', '<img src=\"/static/system/img/destroy.png\"/>', '0', '/system/menu/destroy', '', '0', '1', '1508147134', '1508147140', null);
+INSERT INTO `menu` VALUES ('23', '2', '所有菜单', '3', '<img src=\"/static/system/img/navigation.png\"/>', '0', '/system/menu/all', '', '0', '1', '1508147228', '1508147228', null);
+INSERT INTO `menu` VALUES ('24', '8', '应用设置', '2', '<img src=\"/static/system/img/cog.png\"/>', '0', '/system/system/index', '', '1', '1', '1508147838', '1508147869', null);
 
 -- ----------------------------
 -- Table structure for reader
@@ -288,7 +305,7 @@ CREATE TABLE `role` (
 -- Records of role
 -- ----------------------------
 INSERT INTO `role` VALUES ('1', '0', '内置超级管理员', '1', '1', '', '[]', '1', '1507947384', '1508117290', null);
-INSERT INTO `role` VALUES ('2', '1', '内置管理员', '0', '2', '', '[\"1\",\"4\",\"8\"]', '1', '1507947460', '1508139275', null);
+INSERT INTO `role` VALUES ('2', '1', '内置管理员', '0', '2', '', '[\"1\",\"2\",\"5\",\"6\",\"7\",\"4\",\"8\"]', '1', '1507947460', '1508147309', null);
 
 -- ----------------------------
 -- Table structure for system
@@ -331,5 +348,5 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', '1', '', '', '', '', 'demo', 'e10adc3949ba59abbe56e057f20f883e', '76354bac01c8f5e3475dbef177415a2d', '1508140758', '127.0.0.1', '1', '1507970329', '1508140723', null);
-INSERT INTO `user` VALUES ('2', '2', '', '', '', '', 'admin', 'e10adc3949ba59abbe56e057f20f883e', '9df991ab8755df426239cef0afa87077', null, null, '1', '1507971362', '1508139201', '1508139201');
+INSERT INTO `user` VALUES ('1', '1', '', '', '', '', 'demo', 'e10adc3949ba59abbe56e057f20f883e', 'e94e5817cbf45ba73ae22527672dafdd', '1508204110', '127.0.0.1', '1', '1507970329', '1508144712', null);
+INSERT INTO `user` VALUES ('2', '2', '', '', '', '', 'admin', 'e10adc3949ba59abbe56e057f20f883e', '9df991ab8755df426239cef0afa87077', '1508147953', '127.0.0.1', '1', '1507971362', '1508141160', null);

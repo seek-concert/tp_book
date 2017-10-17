@@ -384,7 +384,7 @@ class Menu extends Auth
         if($res){
             return $this->success('销毁成功','');
         }else{
-            return $this->error('销毁失败');
+            return $this->error('销毁失败，请先删除！');
         }
     }
 }
