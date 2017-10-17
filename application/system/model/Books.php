@@ -51,6 +51,11 @@ class Books extends Model
         $status = [0=>'否',1=>'是'];
         return $status[$value];
     }
+    public function getOnlineAttr($value)
+    {
+        $status = [0=>'下架',1=>'在架'];
+        return $status[$value];
+    }
     /*----- 关联小说分类 -----*/
     public function Bookcates()
     {

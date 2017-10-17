@@ -68,7 +68,7 @@
             <td>{if condition="$info->deleted_at"} <del>{$info->type}</del>{else /}{$info->type}{/if}</td>
             <td>{if condition="$info->deleted_at"} <del>{$info->free_status}</del>{else /}{$info->free_status}{/if}</td>
             <td>{if condition="$info->deleted_at"} <del>{$info->is_recommend}</del>{else /}{$info->is_recommend}{/if}</td>
-            <td>{if condition="$info->deleted_at"} 下架{else /}上架{/if}</td>
+            <td>{if condition="$info->deleted_at"} <del>{$info->online}</del>{else /}{$info->online}{/if}</td>
             <td>
                 <button type="button" class="btn" onclick="layerIfWindow('章节列表','{:url(\'bookcontent/index\',array(\'book_id\'=>$info->id))}','650','550',true)">章节列表</button>
                 <button type="button" class="btn" onclick="layerIfWindow('小说详情','{:url(\'detail\',array(\'id\'=>$info->id))}','650','550')">小说详情</button>
