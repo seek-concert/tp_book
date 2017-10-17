@@ -98,7 +98,7 @@ class Author extends Auth
             return $this->error('非法操作','');
         }
         $where['id'] = $id;
-        $info = model('Authors')->where($where)->find();
+        $info = model('Authors')->withTrashed()->where($where)->find();
         $this->assign('info',$info);
         return view('modify');
     }
@@ -172,7 +172,7 @@ class Author extends Auth
         if($res){
             return $this->success('销毁成功','');
         }else{
-            return $this->error('销毁失败');
+            return $this->error('销毁失败,请先删除数据！');
         }
     }
 }

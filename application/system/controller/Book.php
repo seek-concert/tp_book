@@ -10,6 +10,7 @@
  * */
 namespace app\system\controller;
 use app\system\model\Books;
+use app\system\model\Bookcontents;
 use think\Db;
 
 class Book extends Auth
@@ -102,7 +103,7 @@ class Book extends Auth
             return $this->error('非法操作','');
         }
         $where['id'] = $id;
-        $info = model('Books')->where($where)->find();
+        $info = model('Books')->withTrashed()->where($where)->find();
         $this->assign('info',$info);
         return view('modify');
     }
@@ -140,12 +141,41 @@ class Book extends Auth
         if(empty($ids)){
             return $this->error('至少选择一项');
         }
-        $rs=Books::destroy($ids);
-        if ($rs) {
-            return  $this->success('删除成功', '');
-        } else {
-            return  $this->error('删除失败', '');
+        if(is_array($ids)){
+            $fail_ids=[];
+            $del_ids[]='0';
+            foreach ($ids as $id){
+                $count=Bookcontents::withTrashed()->field('id')->where('book_id',$id)->count();
+                if($count){
+                    $fail_ids[]=$id;
+                }else{
+                    $del_ids[]=$id;
+                }
+            }
+            $rs=Books::destroy($del_ids);
+            $fail_num=count($fail_ids);
+            if($rs){
+                if($fail_num){
+                    return $this->success('部分小说删除成功！部分小说存在章节，请先删除其全部章节后重试！','');
+                }else{
+                    return $this->success('删除成功','');
+                }
+            }else{
+                return $this->error('删除失败');
+            }
+        }else{
+            $count=Bookcontents::withTrashed()->field('id')->where('book_id',$ids)->count();
+            if($count){
+                return $this->error('该小说其下存在章节，请先销毁章节！');
+            }
+            $rs=Books::destroy($ids);
+            if ($rs) {
+                return  $this->success('删除成功', '');
+            } else {
+                return  $this->error('删除失败', '');
+            }
         }
+
     }
 
     /* ========== 恢复 ========== */
@@ -177,7 +207,7 @@ class Book extends Auth
         if($res){
             return $this->success('销毁成功','');
         }else{
-            return $this->error('销毁失败');
+            return $this->error('销毁失败,请先删除数据！');
         }
     }
 

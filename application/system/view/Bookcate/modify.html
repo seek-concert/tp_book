@@ -27,6 +27,9 @@ $form_action=isset($info)?url('modify'):url('insert');
                 <td>
                     创建时间:{$info->created_at}<br/>
                     更新时间:{$info->updated_at}<br/>
+                    {if condition="isset($info) and $info->deleted_at"}
+                    删除于：{$info->deleted_at|date='Y-m-d H:i:s',###}
+                    {/if}
                 </td>
             </tr>
             {/if}
