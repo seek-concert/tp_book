@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50554
 File Encoding         : 65001
 
-Date: 2017-10-17 10:05:59
+Date: 2017-10-17 18:42:40
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -158,7 +158,7 @@ INSERT INTO `menu` VALUES ('20', '2', '删除菜单', '3', '<img src=\"/static/s
 INSERT INTO `menu` VALUES ('21', '2', '菜单恢复', '3', '<img src=\"/static/system/img/recycle.png\"/>', '0', '/system/menu/restore', '', '0', '1', '1508147092', '1508147092', null);
 INSERT INTO `menu` VALUES ('22', '2', '菜单销毁', '3', '<img src=\"/static/system/img/destroy.png\"/>', '0', '/system/menu/destroy', '', '0', '1', '1508147134', '1508147140', null);
 INSERT INTO `menu` VALUES ('23', '2', '所有菜单', '3', '<img src=\"/static/system/img/navigation.png\"/>', '0', '/system/menu/all', '', '0', '1', '1508147228', '1508147228', null);
-INSERT INTO `menu` VALUES ('24', '8', '应用设置', '2', '<img src=\"/static/system/img/cog.png\"/>', '0', '/system/system/index', '', '1', '1', '1508147838', '1508147869', null);
+INSERT INTO `menu` VALUES ('24', '8', '应用设置', '2', '<img src=\"/static/system/img/cog.png\"/>', '0', '/system/setting/index', '', '1', '1', '1508147838', '1508227822', null);
 
 -- ----------------------------
 -- Table structure for reader
@@ -170,8 +170,8 @@ CREATE TABLE `reader` (
   `openid` varchar(255) DEFAULT NULL COMMENT '微信openid',
   `book_money` int(11) DEFAULT NULL COMMENT '书币',
   `vip_end` int(11) DEFAULT NULL COMMENT '会员结束时间',
-  `created_at` varchar(255) DEFAULT NULL COMMENT '创建时间',
-  `updated_at` datetime DEFAULT NULL COMMENT '更新时间',
+  `created_at` int(255) DEFAULT NULL COMMENT '创建时间',
+  `updated_at` int(11) DEFAULT NULL COMMENT '更新时间',
   `login_at` int(11) DEFAULT NULL COMMENT ' 最近登录时间',
   `login_ip` varchar(255) DEFAULT NULL COMMENT ' 最近登录IP',
   PRIMARY KEY (`id`)
@@ -308,19 +308,31 @@ INSERT INTO `role` VALUES ('1', '0', '内置超级管理员', '1', '1', '', '[]'
 INSERT INTO `role` VALUES ('2', '1', '内置管理员', '0', '2', '', '[\"1\",\"2\",\"5\",\"6\",\"7\",\"4\",\"8\"]', '1', '1507947460', '1508147309', null);
 
 -- ----------------------------
--- Table structure for system
+-- Table structure for setting
 -- ----------------------------
-DROP TABLE IF EXISTS `system`;
-CREATE TABLE `system` (
+DROP TABLE IF EXISTS `setting`;
+CREATE TABLE `setting` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
-  `qr_code` text,
+  `name` varchar(255) DEFAULT NULL COMMENT '应用名称',
+  `qr_code` text COMMENT '公众号二维码',
+  `appid` varchar(255) DEFAULT NULL COMMENT '微信appid',
+  `appsecret` varchar(255) DEFAULT NULL COMMENT '微信secret',
+  `mchid` varchar(255) DEFAULT NULL COMMENT '商户号',
+  `mchkey` varchar(255) DEFAULT NULL COMMENT '商户密钥',
+  `logo` text,
+  `title` varchar(255) DEFAULT NULL COMMENT '网站标题',
+  `keyword` varchar(255) DEFAULT NULL COMMENT ' 关键词',
+  `description` text COMMENT ' 描述',
+  `favicon` text COMMENT 'favicon',
+  `created_at` int(11) DEFAULT NULL,
+  `updated_at` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='系统信息';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='应用配置';
 
 -- ----------------------------
--- Records of system
+-- Records of setting
 -- ----------------------------
+INSERT INTO `setting` VALUES ('1', '小说', 'https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=gQGh8TwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyM2daSHN1LTlmZDMxMDAwMDAwN18AAgQB2_VZAwQAAAAA', 'wx54f10549c50ce050', 'dd860df8562da122b03cbfcb75f73714', 'cc', 'dd', null, '小说', '', '', null, '1508231690', '1508236834');
 
 -- ----------------------------
 -- Table structure for user
@@ -348,5 +360,5 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', '1', '', '', '', '', 'demo', 'e10adc3949ba59abbe56e057f20f883e', 'e94e5817cbf45ba73ae22527672dafdd', '1508204110', '127.0.0.1', '1', '1507970329', '1508144712', null);
+INSERT INTO `user` VALUES ('1', '1', '', '', '', '', 'demo', 'e10adc3949ba59abbe56e057f20f883e', 'e94e5817cbf45ba73ae22527672dafdd', '1508229877', '127.0.0.1', '1', '1507970329', '1508144712', null);
 INSERT INTO `user` VALUES ('2', '2', '', '', '', '', 'admin', 'e10adc3949ba59abbe56e057f20f883e', '9df991ab8755df426239cef0afa87077', '1508147953', '127.0.0.1', '1', '1507971362', '1508141160', null);
