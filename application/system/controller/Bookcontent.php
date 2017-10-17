@@ -123,7 +123,7 @@ class Bookcontent extends Auth
         }
         $this->assign('book_id',$book_id);
         $where['id'] = $id;
-        $info = model('Bookcontents')->where($where)->find();
+        $info = model('Bookcontents')->withTrashed()->where($where)->find();
         $this->assign('info',$info);
         return view('modify');
     }
@@ -203,7 +203,7 @@ class Bookcontent extends Auth
         if($res){
             return $this->success('销毁成功','');
         }else{
-            return $this->error('销毁失败');
+            return $this->error('销毁失败,请先删除数据！');
         }
     }
 }

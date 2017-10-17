@@ -39,7 +39,7 @@
 </div>
 <div class="tableCon">
     <em class="xian"></em>
-    <form action="{:url('status')}" method="post" id="js-ajax-form">
+    <form action="" method="post" id="js-ajax-form">
     <table class="table" border="0">
         <tbody>
         <tr class="noSelect">
@@ -53,6 +53,7 @@
             <th>小说类型<i class="stretch"></i></th>
             <th>免费状态<i class="stretch"></i></th>
             <th>推荐状态<i class="stretch"></i></th>
+            <th>当前状态<i class="stretch"></i></th>
             <th style="text-align: center;">操作<i class="stretch"></i></th>
         </tr>
         {volist name='book_list' id='info'}
@@ -67,6 +68,7 @@
             <td>{if condition="$info->deleted_at"} <del>{$info->type}</del>{else /}{$info->type}{/if}</td>
             <td>{if condition="$info->deleted_at"} <del>{$info->free_status}</del>{else /}{$info->free_status}{/if}</td>
             <td>{if condition="$info->deleted_at"} <del>{$info->is_recommend}</del>{else /}{$info->is_recommend}{/if}</td>
+            <td>{if condition="$info->deleted_at"} 下架{else /}上架{/if}</td>
             <td>
                 <button type="button" class="btn" onclick="layerIfWindow('章节列表','{:url(\'bookcontent/index\',array(\'book_id\'=>$info->id))}','650','550',true)">章节列表</button>
                 <button type="button" class="btn" onclick="layerIfWindow('小说详情','{:url(\'detail\',array(\'id\'=>$info->id))}','650','550')">小说详情</button>
