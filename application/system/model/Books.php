@@ -2,10 +2,11 @@
 /* |------------------------------------------------------
  * | 小说管理模型
  * |------------------------------------------------------
+ * | 自动转换时间戳
  * | 小说标题去空
+ * | 关联小说分类
  * | 添加
  * | 修改
- * | 删除
  * */
 namespace app\system\model;
 use think\Model;
@@ -49,6 +50,11 @@ class Books extends Model
     public function getIsRecommendAttr($value)
     {
         $status = [0=>'否',1=>'是'];
+        return $status[$value];
+    }
+    public function getOnlineAttr($value)
+    {
+        $status = [0=>'下架',1=>'在架'];
         return $status[$value];
     }
     /*----- 关联小说分类 -----*/
