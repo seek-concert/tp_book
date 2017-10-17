@@ -48,14 +48,4 @@ class Authors extends Model
             return false;
         }
     }
-    public function dels(){
-        $id = input('id');
-        $model = Authors::get($id);
-        $rs = $model->delete();
-        if($rs){
-            return true;
-        }else{
-            return false;
-        }
-    }
 }

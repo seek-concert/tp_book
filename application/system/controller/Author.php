@@ -10,6 +10,7 @@
  * */
 namespace app\system\controller;
 use \app\system\Model\Authors;
+use think\Db;
 
 class Author extends Auth
 {
@@ -22,18 +23,45 @@ class Author extends Auth
         $name = input('name');
         if($name){
             $where['name'] = array('LIKE',"%$name%");
-            $this->assign('name',$name);
+            $datas['name']=$name;
         }
         /* ----- 查询条件(作者真实姓名) -----*/
         $realname = input('realname');
         if($realname){
             $where['realname'] = array('LIKE',"%$realname%");
-            $this->assign('realname',$realname);
+            $datas['realname']=$realname;
+        }
+        /* ++++++++++ 排序 ++++++++++ */
+        $ordername=input('ordername');
+        $ordername=$ordername?$ordername:'id';
+        $datas['ordername']=$ordername;
+
+        $orderby=input('orderby');
+        $orderby=$orderby?$orderby:'asc';
+        $datas['orderby']=$orderby;
+        /* ++++++++++ 每页条数 ++++++++++ */
+        $nums=[config('paginate.list_rows'),30,50,100,200,500];
+        sort($nums);
+        $datas['nums']=$nums;
+        $display_num=input('display_num');
+        $display_num=$display_num?$display_num:config('paginate.list_rows');
+        $datas['display_num']=$display_num;
+        /* ++++++++++ 是否删除 ++++++++++ */
+        $deleted=input('deleted');
+        if(is_numeric($deleted) && in_array($deleted,[0,1])){
+            $datas['deleted']=$deleted;
+            if($deleted==1){
+                $author_model=$author_model->onlyTrashed();
+            }
+        }else{
+            $author_model=$author_model->withTrashed();
         }
         $author_list = $author_model
             ->where($where)
-            ->paginate();
-        $this->assign('author_list',$author_list);
+            ->order([$ordername=>$orderby])
+            ->paginate($display_num);
+        $datas['author_list']=$author_list;
+        $this->assign($datas);
         return view();
     }
 
@@ -102,12 +130,12 @@ class Author extends Auth
 
     /* ========== 删除 ========== */
     public function del(){
-        $id = input('id');
-        if(empty($id)){
-            return $this->error('非法操作','');
+        $inputs=input();
+        $ids=isset($inputs['ids'])?$inputs['ids']:'';
+        if(empty($ids)){
+            return $this->error('至少选择一项');
         }
-        $author_model = new Authors;
-        $rs = $author_model->dels();
+        $rs=Authors::destroy($ids);
         if ($rs) {
             return  $this->success('删除成功', '');
         } else {
@@ -115,5 +143,36 @@ class Author extends Auth
         }
     }
 
+    /* ========== 恢复 ========== */
+    public function restore(){
+        $inputs=input();
+        $ids=isset($inputs['ids'])?$inputs['ids']:'';
 
+        if(empty($ids)){
+            return $this->error('至少选择一项');
+        }
+
+        $res=Db::table('author')->whereIn('id',$ids)->update(['deleted_at'=>null,'updated_at'=>time()]);
+        if($res){
+            return $this->success('恢复成功','');
+        }else{
+            return $this->error('恢复失败');
+        }
+    }
+
+    /* ========== 销毁 ========== */
+    public function destroy(){
+        $inputs=input();
+        $ids=isset($inputs['ids'])?$inputs['ids']:'';
+
+        if(empty($ids)){
+            return $this->error('至少选择一项');
+        }
+        $res=Authors::onlyTrashed()->whereIn('id',$ids)->delete(true);
+        if($res){
+            return $this->success('销毁成功','');
+        }else{
+            return $this->error('销毁失败');
+        }
+    }
 }
