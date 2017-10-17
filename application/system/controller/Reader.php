@@ -65,6 +65,8 @@ class Reader extends Auth
             return $this->error('非法操作','');
         }
         $readerbookmark_model = model('Readerbookmark');
+        $where = [];
+        $where['reader_id'] = $id;
         /* ++++++++++ 排序 ++++++++++ */
         $ordername=input('ordername');
         $ordername=$ordername?$ordername:'id';
@@ -95,10 +97,31 @@ class Reader extends Auth
         if(empty($id)){
             return $this->error('非法操作','');
         }
-        $where['id'] = $id;
-        $info = model('Readers')->where($where)->find();
-        $this->assign('info',$info);
-        return view('modify');
+        $readbookshelf_model = model('Readbookshelf');
+        $where = [];
+        $where['reader_id'] = $id;
+        /* ++++++++++ 排序 ++++++++++ */
+        $ordername=input('ordername');
+        $ordername=$ordername?$ordername:'id';
+        $datas['ordername']=$ordername;
+
+        $orderby=input('orderby');
+        $orderby=$orderby?$orderby:'asc';
+        $datas['orderby']=$orderby;
+        /* ++++++++++ 每页条数 ++++++++++ */
+        $nums=[config('paginate.list_rows'),30,50,100,200,500];
+        sort($nums);
+        $datas['nums']=$nums;
+        $display_num=input('display_num');
+        $display_num=$display_num?$display_num:config('paginate.list_rows');
+        $datas['display_num']=$display_num;
+        $readbookshelf_list = $readbookshelf_model
+            ->order([$ordername=>$orderby])
+            ->paginate($display_num);
+
+        $datas['readbookshelf_list']=$readbookshelf_list;
+        $this->assign($datas);
+        return view();
     }
 
     /* ========== 最近阅读 ========== */
@@ -107,9 +130,30 @@ class Reader extends Auth
         if(empty($id)){
             return $this->error('非法操作','');
         }
-        $where['id'] = $id;
-        $info = model('Readers')->where($where)->find();
-        $this->assign('info',$info);
-        return view('modify');
+        $readerreadlast_model = model('Readerreadlast');
+        $where = [];
+        $where['reader_id'] = $id;
+        /* ++++++++++ 排序 ++++++++++ */
+        $ordername=input('ordername');
+        $ordername=$ordername?$ordername:'id';
+        $datas['ordername']=$ordername;
+
+        $orderby=input('orderby');
+        $orderby=$orderby?$orderby:'asc';
+        $datas['orderby']=$orderby;
+        /* ++++++++++ 每页条数 ++++++++++ */
+        $nums=[config('paginate.list_rows'),30,50,100,200,500];
+        sort($nums);
+        $datas['nums']=$nums;
+        $display_num=input('display_num');
+        $display_num=$display_num?$display_num:config('paginate.list_rows');
+        $datas['display_num']=$display_num;
+        $readerreadlast_list = $readerreadlast_model
+            ->order([$ordername=>$orderby])
+            ->paginate($display_num);
+
+        $datas['readerreadlast_list']=$readerreadlast_list;
+        $this->assign($datas);
+        return view();
     }
 }
