@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>小说信息管理</title>
+    {include file="public/head" /}
+</head>
+<body>
+{php}
+$form_action=isset($info)?url('modify'):url('insert');
+{/php}
+<form action="{$form_action}" method="post" class="js-ajax-form" onsubmit="return false;">
+    <input type="hidden" name="id" value="{:isset($info->id)?$info->id:''}">
+    <div class="layerCon bg_f">
+        <table class="layerTable" border="0">
+            <tr class="h50">
+                <td>小说名称：</td>
+                <td><input class="must" type="text" name="title" id="title" value="{:isset($info->title)?$info->title:''}" placeholder="请输入小说名称" /></td>
+            </tr>
+            <tr class="h50">
+                <td>分类名称：</td>
+                <td>
+                    <select name="cate_id" id="cate_id">
+                        <option value="">----- 请选择 -----</option>
+                        {volist name="bookcate_name" id="cate_name"}
+                        <option value="{$cate_name->id}" {if condition="isset($info) and $cate_name->id eq $info->getData('cate_id')"}selected{/if}>----- {$cate_name->name} -----</option>
+                        {/volist}
+                    </select>
+                </td>
+            </tr>
+            <tr class="h50">
+                <td>作者：</td>
+                <td>
+                    <select name="author_id" id="author_id" data-placeholder="请选择作者">
+                        <option value="">----- 请选择 -----</option>
+                        {volist name="author_name" id="authorname"}
+                        <option value="{$authorname->id}"  {if condition="isset($info) and $authorname->id eq $info->getData('author_id')"}selected{/if}>----- {$authorname->name} -----</option>
+                        {/volist}
+                    </select>
+                </td>
+            </tr>
+            <tr class="h50">
+                <td>状态：</td>
+                <td>
+                    <label><input name="status" class="va_m" type="radio" value="0" {if condition="!isset($info) or $info->getData('status') eq 0"}checked{/if}>连载</label>
+                    <label><input name="status" class="va_m" type="radio" value="1" {if condition="isset($info) and $info->getData('status') eq 1"}checked{/if}>完结</label>
+                </td>
+            </tr>
+            <tr class="h50">
+                <td>类型：</td>
+                <td>
+                    <label><input name="type" class="va_m" type="radio" value="0" {if condition="!isset($info) or $info->getData('type') eq 0"}checked{/if}>男生</label>
+                    <label><input name="type" class="va_m" type="radio" value="1" {if condition="isset($info) and $info->getData('type') eq 1"}checked{/if}>女生</label>
+                </td>
+            </tr>
+            <tr class="h50">
+                <td>免费状态：</td>
+                <td>
+                    <label><input name="free_status" class="va_m freestatus" type="radio" value="0" onclick="is_free(this)" {if condition="!isset($info) or $info->getData('free_status') eq 0"}checked{/if}>收费</label>
+                    <label><input name="free_status" class="va_m freestatus" type="radio" value="1" onclick="is_free(this)" {if condition="isset($info) and $info->getData('free_status') eq 1"}checked{/if}>限时免费</label>
+                    <label><input name="free_status" class="va_m freestatus" type="radio" value="2" onclick="is_free(this)" {if condition="isset($info) and $info->getData('free_status') eq 2"}checked{/if}>完全免费</label>
+                </td>
+            </tr>
+            <tr class="h50 isfree_status" style="display: none;">
+                <td>整书价格：</td>
+                <td><input class="must" type="text" name="amount" id="amount" value="{:isset($info->amount)?$info->amount:''}" placeholder="请输入整书价格" /></td>
+            </tr>
+            <tr class="h50 is_free_status" style="display: none;">
+                <td>免费开始时间：</td>
+                <td>
+                    <input class="laydate-icon" id="free_start" name="free_start" value="{:isset($info->free_start)?$info->free_start:''}" placeholder="请输入免费开始时间"  onClick="laydate({istime: true, format: 'YYYY-MM-DD 00:00:00'})">
+                </td>
+            </tr>
+            <tr class="h50 is_free_status" style="display: none;">
+                <td>免费结束时间：</td>
+                <td>
+                    <input class="laydate-icon" id="free_end" name="free_end" value="{:isset($info->free_end)?$info->free_end:''}" placeholder="请输入免费结束时间" onClick="laydate({istime: true, format: 'YYYY-MM-DD 23:59:59'})">
+                </td>
+            </tr>
+            <tr class="h50">
+                <td>是否热门：</td>
+                <td>
+                    <label><input name="is_hot" class="va_m" type="radio" value="0" {if condition="!isset($info) or $info->getData('is_hot') eq 0"}checked{/if}>否</label>
+                    <label><input name="is_hot" class="va_m" type="radio" value="1" {if condition="isset($info) and $info->getData('is_hot') eq 1"}checked{/if}>是</label>
+                </td>
+            </tr>
+            <tr class="h50">
+                <td>是否推荐：</td>
+                <td>
+                    <label><input name="is_recommend" class="va_m" type="radio" value="1" {if condition="!isset($info) or $info->getData('is_recommend') eq 1"}checked{/if}>是</label>
+                    <label><input name="is_recommend" class="va_m" type="radio" value="0" {if condition="isset($info) and $info->getData('is_recommend') eq 0"}checked{/if}>否</label>
+                </td>
+            </tr>
+            <tr class="h50">
+                <td>是否在架：</td>
+                <td>
+                    <label><input name="online" class="va_m" type="radio" value="1" {if condition="!isset($info) or $info->getData('online') eq 1"}checked{/if}>在架</label>
+                    <label><input name="online" class="va_m" type="radio" value="0" {if condition="isset($info) and $info->getData('online') eq 0"}checked{/if}>下架</label>
+                </td>
+            </tr>
+            <tr class="h50">
+                <td>排序：</td>
+                <td><input class="must" type="text" name="sort" id="sort" value="{:isset($info->sort)?$info->sort:0}" placeholder="请输入排序" /></td>
+            </tr>
+            <tr class="h70">
+                <td>摘要：</td>
+                <td> <textarea name="summary" placeholder="请输入小说摘要">{:isset($info->summary)?$info->summary:''}</textarea></td>
+            </tr>
+            <tr class="h70">
+                <td>小说封面：</td>
+                <td class="imgCon">
+                    {if condition="isset($info->picture)"}
+                    <div class="img">
+                        <img src="{$info->picture}" class="w_100 h_100" onclick="bigimg(this)">
+                        <p><span onclick="picremove(this);">删除</span></p>
+                        <input type="hidden" name="picture" value="{$info->picture}"/>
+                    </div>
+                    {/if}
+                    <div class="img upload-btn">
+                        <input type="file" name="upload_files" style="display: none" class="upload_files" data-hiddenname="picture" data-url="{:url('tools/upload_img')}">
+                        <a>+</a>
+                     </div>
+                </td>
+            </tr>
+            {if condition="$form_action eq url('modify')"}
+            <tr class="h50">
+                <td>操作时间：</td>
+                <td>
+                    创建时间:{$info->created_at}<br/>
+                    更新时间:{$info->updated_at}<br/>
+                    章节更新时间:{$info->edited_at|date='"Y-m-d H:i:s',###}<br/>
+                    {if condition="isset($info) and $info->deleted_at"}
+                    删除于：{$info->deleted_at|date='Y-m-d H:i:s',###}
+                    {/if}
+                </td>
+            </tr>
+            {/if}
+        </table>
+    </div>
+    <div class="layerBtns">
+        <a class="btn js-ajax-form-btn" data-layer="true" >立即提交</a>
+        <button class="btn" type="reset">重置</button>
+    </div></form>
+<link rel="stylesheet" href="__STATIC__/system/css/chosen.css" charset="utf-8">
+<script src="__STATIC__/system/js/chosen.jquery.js" type="text/javascript" charset="utf-8"></script>
+<script src="__STATIC__/system/js/ajax-submit.js" type="text/javascript" charset="utf-8"></script>
+<script src="__STATIC__/system/js/datejs/laydate.js" type="text/javascript" charset="utf-8"></script>
+<script src="__STATIC__/system/js/upload.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    /*----- 时间控件 -----*/
+    !function(){
+        laydate.skin('molv');//切换皮肤，请查看skins下面皮肤库
+        laydate({elem: '#free_start'});//绑定元素
+        laydate({elem: '#free_end'});//绑定元素
+    }();
+    $(function(){
+        $('#author_id').chosen();
+    });
+    /*----- 免费状态切换 -----*/
+    var frww = $(".freestatus:checked").val();
+    if(frww==0){
+        $(".isfree_status").show();
+        $(".is_free_status").hide();
+        $("#free_start").val("");
+        $("#free_end").val("");
+    }
+    if(frww==1){
+        $(".isfree_status").hide();
+        $(".is_free_status").show();
+        $("#amount").val("");
+    }
+    if(frww==2){
+        $(".isfree_status").hide();
+        $(".is_free_status").hide();
+        $("#free_start").val("");
+        $("#free_end").val("");
+        $("#amount").val("");
+    }
+    /*----- 免费状态切换 -----*/
+    function is_free(obj) {
+       var frww = $(obj).val();
+       if(frww==0){
+           $(".isfree_status").show();
+           $(".is_free_status").hide();
+           $("#free_start").val("");
+           $("#free_end").val("");
+       }
+        if(frww==1){
+            $(".isfree_status").hide();
+            $(".is_free_status").show();
+            $("#amount").val("");
+        }
+        if(frww==2){
+            $(".isfree_status").hide();
+            $(".is_free_status").hide();
+            $("#free_start").val("");
+            $("#free_end").val("");
+            $("#amount").val("");
+        }
+    }
+</script>
+</body>
+</html>

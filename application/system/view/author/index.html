@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>作者管理</title>
+    {include file="public/head" /}
+</head>
+<body>
+<h4>作者管理</h4>
+<div class="toolsBar">
+    <!--fgf为工具栏分隔符，刷新没有，离开都有。中间工具每一类第一个添加fgf-->
+    <ul>
+        <li>
+            <a href="" onclick="refreshIframe()">
+                <img src="__STATIC__/system/img/arrow_refresh.png"/>
+                刷新</a>
+        </li>
+        <li class="fgf" onclick="layerPage('作者查询',$('#search'),'500','240')" >
+            <img src="__STATIC__/system/img/page_white_magnify.png"/>
+            查询
+        </li>
+        <li class="fgf" onclick="layerIfWindow('添加作者','{:url(\'insert\')}','450','230')">
+            <img src="__STATIC__/system/img/add.png"/>
+            添加
+        </li>
+        <li class="fgf js-ajax-form-btn" data-form="js-ajax-form" data-action="{:url('del')}">
+            <img src="__STATIC__/system/img/broom.png"/>
+            删除
+        </li>
+        <li class="fgf js-ajax-form-btn" data-form="js-ajax-form" data-action="{:url('restore')}">
+            <img src="__STATIC__/system/img/recycle.png"/>
+            恢复
+        </li>
+        <li class="fgf js-ajax-form-btn" data-form="js-ajax-form" data-action="{:url('destroy')}">
+            <img src="__STATIC__/system/img/destroy.png"/>
+            销毁
+        </li>
+    </ul>
+</div>
+<div class="tableCon">
+    <em class="xian"></em>
+    <form action="" method="post" id="js-ajax-form">
+    <table class="table" border="0">
+        <tbody>
+        <tr class="noSelect">
+            <th class="tc" width="35px">
+                <input class="va_m" type="checkbox" name="" id="allCheck" value="" data-falg="allCheck" onclick="checkBoxOp(this)"/>
+            </th>
+            <th>ID号</th>
+            <th>作者笔名<i class="stretch"></i></th>
+            <th>真实姓名<i class="stretch"></i></th>
+            <th>作者电话<i class="stretch"></i></th>
+            <th>操作<i class="stretch"></i></th>
+        </tr>
+        {volist name='author_list' id='info'}
+        <tr>
+            <td>
+                <input class="va_m" type="checkbox" name="ids[]"  value="{$info->id}" onclick="checkBoxOp(this)"/>
+            </td>
+            <td>{if condition="$info->deleted_at"} <del>{$info->id}</del>{else /}{$info->id}{/if}</td>
+            <td>{if condition="$info->deleted_at"} <del>{$info->name}</del>{else /}{$info->name}{/if}</td>
+            <td>{if condition="$info->deleted_at"} <del>{$info->realname}</del>{else /}{$info->realname}{/if}</td>
+            <td>{if condition="$info->deleted_at"} <del>{$info->phone}</del>{else /}{$info->phone}{/if}</td>
+            <td>
+                <button type="button" class="btn" onclick="layerIfWindow('作者详情','{:url(\'detail\',array(\'id\'=>$info->id))}','450','280')">详情</button>
+                <button type="button" class="btn js-ajax-form-btn" data-action="{:url('del')}" data-notice="确定删除吗？" data-formdata="ids={$info->id}">删除</button>
+            </td>
+        </tr>
+        {/volist}
+        </tbody>
+    </table>
+    </form>
+</div>
+<div class="pageCon">
+    {$author_list->render()}
+</div>
+<!-- 查询 -->
+<div id="search" class="layerCon bg_f hide">
+    <form action="{:url('index')}" method="post" id="search-form">
+        <table class="layerTable">
+            <tr class="h50">
+                <td>作者笔名：</td>
+                <td><input type="text" name="name" id="name" value="{:isset($name)?$name:''}" placeholder="请输入查询的作者笔名"/></td>
+                <td>真实姓名：</td>
+                <td><input type="text" name="realname" id="realname" value="{:isset($realname)?$realname:''}" placeholder="请输入查询的真实姓名"/></td>
+            </tr>
+            <tr class="h50">
+                <td>是否删除：</td>
+                <td>
+                    <select name="deleted" id="deleted">
+                        <option value="">--全部--</option>
+                        <option value="1" {if condition="isset($deleted) and $deleted==1"}selected{/if}>--是--</option>
+                        <option value="0" {if condition="isset($deleted) and $deleted==0"}selected{/if}>--否--</option>
+                    </select>
+                </td>
+                <td>每页条数：</td>
+                <td>
+                    <select name="display_num" id="display_num">
+                        {volist name="nums" id="num"}
+                        <option value="{$num}" {if condition="isset($display_num) and $display_num==$num"}selected{/if}>--{$num}--</option>
+                        {/volist}
+                    </select>
+                </td>
+            </tr>
+            <tr class="h50">
+                <td>排序：</td>
+                <td>
+                    <select name="ordername" id="ordername">
+                        <option value="id">--默认--</option>
+                        <option value="created_at" {if condition="isset($ordername) and $ordername=='created_at'"}selected{/if}>--创建时间--</option>
+                        <option value="updated_at" {if condition="isset($ordername) and $ordername=='updated_at'"}selected{/if}>--更新时间--</option>
+                        <option value="deleted_at" {if condition="isset($ordername) and $ordername=='deleted_at'"}selected{/if}>--删除时间--</option>
+                    </select>
+                </td>
+                <td>方式：</td>
+                <td>
+                    <select name="orderby" id="orderby">
+                        <option value="asc">--升序--</option>
+                        <option value="desc" {if condition="isset($orderby) and $orderby=='desc'"}selected{/if}>--降序--</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <div class="layerBtns">
+            <button class="btn" type="submit">查询</button>
+        </div>
+    </form>
+</div>
+<script src="__STATIC__/system/js/ajax-submit.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    $(function () {
+        $('.pageCon').find('a').on('click',function () {
+            $('#search-form').attr('action',$(this).attr('href')).submit();
+            return false;
+        });
+    });
+</script>
+</body>
+</html>

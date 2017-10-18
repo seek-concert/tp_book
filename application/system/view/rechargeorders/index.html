@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>充值订单管理</title>
+    {include file="public/head" /}
+</head>
+<body>
+<h4>充值订单管理</h4>
+<div class="toolsBar">
+    <!--fgf为工具栏分隔符，刷新没有，离开都有。中间工具每一类第一个添加fgf-->
+    <ul>
+        <li>
+            <a href="" onclick="refreshIframe()">
+                <img src="__STATIC__/system/img/arrow_refresh.png"/>
+                刷新</a>
+        </li>
+        <li class="fgf" onclick="layerPage('充值订单查询',$('#search'),'500','240')" >
+            <img src="__STATIC__/system/img/page_white_magnify.png"/>
+            查询
+        </li>
+    </ul>
+</div>
+<div class="tableCon">
+    <em class="xian"></em>
+    <form action="" method="post" id="js-ajax-form">
+    <table class="table" border="0">
+        <tbody>
+        <tr class="noSelect">
+            <th class="tc" width="35px">
+                <input class="va_m" type="checkbox" name="" id="allCheck" value="" data-falg="allCheck" onclick="checkBoxOp(this)"/>
+            </th>
+            <th>ID号</th>
+            <th>订单号<i class="stretch"></i></th>
+            <th>充值类型<i class="stretch"></i></th>
+            <th>读者微信openid<i class="stretch"></i></th>
+            <th>订单金额<i class="stretch"></i></th>
+            <th>支付金额<i class="stretch"></i></th>
+            <th style="text-align: center;">操作<i class="stretch"></i></th>
+        </tr>
+        {volist name='rechargeorders_list' id='info'}
+        <tr>
+            <td>
+                <input class="va_m" type="checkbox" name="ids[]"  value="{$info->id}" onclick="checkBoxOp(this)" />
+            </td>
+            <td>{$info->id}</td>
+            <td>{$info->orders_no}</td>
+            <td>{$info->type}</td>
+            <td>{$info->Readers->openid}</td>
+            <td>{$info->price}</td>
+            <td>{$info->pay_num}</td>
+            <td>
+                <button type="button" class="btn" onclick="layerIfWindow('充值订单信息','{:url(\'detail\',array(\'id\'=>$info->id))}','600','500')">详情</button>
+            </td>
+        </tr>
+        {/volist}
+        </tbody>
+    </table>
+    </form>
+</div>
+<div class="pageCon">
+    {$rechargeorders_list->render()}
+</div>
+<!-- 查询 -->
+<div id="search" class="layerCon bg_f hide">
+    <form action="" method="post" id="search-form">
+        <table class="layerTable">
+            <tr class="h50">
+                <td>订单号：</td>
+                <td><input type="text" name="orders_no" id="orders_no" value="{:isset($orders_no)?$orders_no:''}" placeholder="请输入查询的订单号"/></td>
+                <td>读者微信openid：</td>
+                <td><input type="text" name="openid" id="openid" value="{:isset($openid)?$openid:''}" placeholder="请输入查询的openid"/></td>
+            </tr>
+            <tr class="h50">
+                <td>每页条数：</td>
+                <td colspan="3">
+                    <select name="display_num" id="display_num">
+                        {volist name="nums" id="num"}
+                        <option value="{$num}" {if condition="isset($display_num) and $display_num==$num"}selected{/if}>--{$num}--</option>
+                        {/volist}
+                    </select>
+                </td>
+            </tr>
+            <tr class="h50">
+                <td>排序：</td>
+                <td>
+                    <select name="ordername" id="ordername">
+                        <option value="id">--默认--</option>
+                        <option value="created_at" {if condition="isset($ordername) and $ordername=='created_at'"}selected{/if}>--创建时间--</option>
+                        <option value="finished_at" {if condition="isset($ordername) and $ordername=='finished_at'"}selected{/if}>--完成时间--</option>
+                    </select>
+                </td>
+                <td>方式：</td>
+                <td>
+                    <select name="orderby" id="orderby">
+                        <option value="asc">--升序--</option>
+                        <option value="desc" {if condition="isset($orderby) and $orderby=='desc'"}selected{/if}>--降序--</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <div class="layerBtns">
+            <button class="btn" type="submit">查询</button>
+        </div>
+    </form>
+</div>
+<script src="__STATIC__/system/js/ajax-submit.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    $(function () {
+        $('.pageCon').find('a').on('click',function () {
+            $('#search-form').attr('action',$(this).attr('href')).submit();
+            return false;
+        });
+    });
+</script>
+</body>
+</html>

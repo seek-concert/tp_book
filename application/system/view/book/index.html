@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>小说管理</title>
+    {include file="public/head" /}
+</head>
+<body>
+<h4>小说管理</h4>
+<div class="toolsBar">
+    <!--fgf为工具栏分隔符，刷新没有，离开都有。中间工具每一类第一个添加fgf-->
+    <ul>
+        <li>
+            <a href="" onclick="refreshIframe()">
+                <img src="__STATIC__/system/img/arrow_refresh.png"/>
+                刷新</a>
+        </li>
+        <li class="fgf" onclick="layerPage('小说查询',$('#search'),'500','240')" >
+            <img src="__STATIC__/system/img/page_white_magnify.png"/>
+            查询
+        </li>
+        <li class="fgf" onclick="layerIfWindow('添加小说','{:url(\'insert\')}','650','550')">
+            <img src="__STATIC__/system/img/add.png"/>
+            添加
+        </li>
+        <li class="fgf js-ajax-form-btn" data-form="js-ajax-form" data-action="{:url('modify_online',array('online'=>'1'))}">
+            <img src="__STATIC__/system/img/on_the_shelves.png"/>
+            上架
+        </li>
+        <li class="fgf js-ajax-form-btn" data-form="js-ajax-form" data-action="{:url('modify_online',array('online'=>'0'))}">
+            <img src="__STATIC__/system/img/off_the_shelf.png"/>
+            下架
+        </li>
+        <li class="fgf js-ajax-form-btn" data-form="js-ajax-form" data-action="{:url('modify_recommend',array('is_recommend'=>'1'))}">
+            <img src="__STATIC__/system/img/recommend.png"/>
+            推荐小说
+        </li>
+        <li class="fgf js-ajax-form-btn" data-form="js-ajax-form" data-action="{:url('modify_recommend',array('is_recommend'=>'0'))}">
+            <img src="__STATIC__/system/img/no_recommend.png"/>
+            取消推荐
+        </li>
+        <li class="fgf js-ajax-form-btn" data-form="js-ajax-form" data-action="{:url('modify_hot',array('is_hot'=>'1'))}">
+            <img src="__STATIC__/system/img/hot.png"/>
+            热门小说
+        </li>
+        <li class="fgf js-ajax-form-btn" data-form="js-ajax-form" data-action="{:url('modify_hot',array('is_hot'=>'0'))}">
+            <img src="__STATIC__/system/img/normal.png"/>
+            取消热门
+        </li>
+        <li class="fgf js-ajax-form-btn" data-form="js-ajax-form" data-action="{:url('del')}">
+            <img src="__STATIC__/system/img/broom.png"/>
+            删除
+        </li>
+        <li class="fgf js-ajax-form-btn" data-form="js-ajax-form" data-action="{:url('restore')}">
+            <img src="__STATIC__/system/img/recycle.png"/>
+            恢复
+        </li>
+        <li class="fgf js-ajax-form-btn" data-form="js-ajax-form" data-action="{:url('destroy')}">
+            <img src="__STATIC__/system/img/destroy.png"/>
+            销毁
+        </li>
+    </ul>
+</div>
+<div class="tableCon">
+    <em class="xian"></em>
+    <form action="" method="post" id="js-ajax-form">
+    <table class="table" border="0">
+        <tbody>
+        <tr class="noSelect">
+            <th class="tc" width="35px">
+                <input class="va_m" type="checkbox" name="" id="allCheck" value="" data-falg="allCheck" onclick="checkBoxOp(this)"/>
+            </th>
+            <th>ID号</th>
+            <th>小说名称<i class="stretch"></i></th>
+            <th>小说作者<i class="stretch"></i></th>
+            <th>小说分类<i class="stretch"></i></th>
+            <th>小说状态<i class="stretch"></i></th>
+            <th>小说类型<i class="stretch"></i></th>
+            <th>免费状态<i class="stretch"></i></th>
+            <th>推荐状态<i class="stretch"></i></th>
+            <th>热门状态<i class="stretch"></i></th>
+            <th>当前状态<i class="stretch"></i></th>
+            <th style="text-align: center;">操作<i class="stretch"></i></th>
+        </tr>
+        {volist name='book_list' id='info'}
+        <tr>
+            <td>
+                <input class="va_m" type="checkbox" name="ids[]"  value="{$info->id}" onclick="checkBoxOp(this)" />
+            </td>
+            <td>{if condition="$info->deleted_at"} <del>{$info->id}</del>{else /}{$info->id}{/if}</td>
+            <td>{if condition="$info->deleted_at"} <del>{$info->title}</del>{else /}{$info->title}{/if}</td>
+            <td>{if condition="$info->deleted_at"} <del>{$info->Authors->name}</del>{else /}{$info->Authors->name}{/if}</td>
+            <td>{if condition="$info->deleted_at"} <del>{$info->Bookcates->name}</del>{else /}{$info->Bookcates->name}{/if}</td>
+            <td>{if condition="$info->deleted_at"} <del>{$info->status}</del>{else /}{$info->status}{/if}</td>
+            <td>{if condition="$info->deleted_at"} <del>{$info->type}</del>{else /}{$info->type}{/if}</td>
+            <td>{if condition="$info->deleted_at"} <del>{$info->free_status}</del>{else /}{$info->free_status}{/if}</td>
+            <td>{if condition="$info->deleted_at"} <del>{$info->is_recommend}</del>{else /}{$info->is_recommend}{/if}</td>
+            <td>{if condition="$info->deleted_at"} <del>{$info->is_hot}</del>{else /}{$info->is_hot}{/if}</td>
+            <td>{if condition="$info->deleted_at"} <del>{$info->online}</del>{else /}{$info->online}{/if}</td>
+            <td>
+                <button type="button" class="btn" onclick="layerIfWindow('章节列表','{:url(\'bookcontent/index\',array(\'book_id\'=>$info->id))}','650','550',true)">章节列表</button>
+                <button type="button" class="btn" onclick="layerIfWindow('小说详情','{:url(\'detail\',array(\'id\'=>$info->id))}','650','550')">小说详情</button>
+                <button type="button" class="btn js-ajax-form-btn" data-action="{:url('del')}" data-notice="确定删除吗？" data-formdata="ids={$info->id}">删除</button>
+            </td>
+        </tr>
+        {/volist}
+        </tbody>
+    </table>
+    </form>
+</div>
+<div class="pageCon">
+    {$book_list->render()}
+</div>
+<!-- 查询 -->
+<div id="search" class="layerCon bg_f hide">
+    <form action="" method="post" id="search-form">
+        <table class="layerTable">
+            <tr class="h50">
+                <td>小说名称：</td>
+                <td colspan="3"><input type="text" name="title" id="title" value="{:isset($title)?$title:''}" placeholder="请输入查询的小说名称"/></td>
+            </tr>
+            <tr class="h50">
+                <td>是否删除：</td>
+                <td>
+                    <select name="deleted" id="deleted">
+                        <option value="">--全部--</option>
+                        <option value="1" {if condition="isset($deleted) and $deleted==1"}selected{/if}>--是--</option>
+                        <option value="0" {if condition="isset($deleted) and $deleted==0"}selected{/if}>--否--</option>
+                    </select>
+                </td>
+                <td>每页条数：</td>
+                <td>
+                    <select name="display_num" id="display_num">
+                        {volist name="nums" id="num"}
+                        <option value="{$num}" {if condition="isset($display_num) and $display_num==$num"}selected{/if}>--{$num}--</option>
+                        {/volist}
+                    </select>
+                </td>
+            </tr>
+            <tr class="h50">
+                <td>排序：</td>
+                <td>
+                    <select name="ordername" id="ordername">
+                        <option value="id">--默认--</option>
+                        <option value="created_at" {if condition="isset($ordername) and $ordername=='created_at'"}selected{/if}>--创建时间--</option>
+                        <option value="updated_at" {if condition="isset($ordername) and $ordername=='updated_at'"}selected{/if}>--更新时间--</option>
+                        <option value="deleted_at" {if condition="isset($ordername) and $ordername=='deleted_at'"}selected{/if}>--删除时间--</option>
+                    </select>
+                </td>
+                <td>方式：</td>
+                <td>
+                    <select name="orderby" id="orderby">
+                        <option value="asc">--升序--</option>
+                        <option value="desc" {if condition="isset($orderby) and $orderby=='desc'"}selected{/if}>--降序--</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <div class="layerBtns">
+            <button class="btn" type="submit">查询</button>
+        </div>
+    </form>
+</div>
+<script src="__STATIC__/system/js/ajax-submit.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    $(function () {
+        $('.pageCon').find('a').on('click',function () {
+            $('#search-form').attr('action',$(this).attr('href')).submit();
+            return false;
+        });
+    });
+</script>
+</body>
+</html>
