@@ -6,6 +6,8 @@
  * */
 namespace app\index\controller;
 
+use think\Loader;
+
 class Recharge extends Auth
 {
     /* ============ 充值列表 ============== */
@@ -17,9 +19,9 @@ class Recharge extends Auth
     /* ============ 充值下单 ============== */
     public function orders(){
         ini_set('date.timezone','Asia/Shanghai');
-        Vendor('WxPay.lib.WxPay#Config');
-        Vendor('WxPay.lib.WxPay#Api');
-        Vendor('WxPay.lib.WxPay#JsApiPay');
+        Loader::import('WxPay.lib.WxPay#Config');
+        Loader::import('WxPay.lib.WxPay#Api');
+        Loader::import('WxPay.lib.WxPay#JsApiPay');
 
         $id=input('id');
         if(!$id){
@@ -36,7 +38,7 @@ class Recharge extends Auth
 
         /* ②、统一下单 */
         $orderno=\WxPayConfig::MCHID.date("YmdHis");
-        $notify_url='';
+        $notify_url='http://'.$_SERVER['HTTP_HOST'].'/index/Wxpaynotify/index';
 
         $input = new \WxPayUnifiedOrder();
         $input->SetBody("充值".$id.'分'); /* 商品名称 */

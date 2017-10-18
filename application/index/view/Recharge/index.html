@@ -10,27 +10,26 @@
 </head>
 
 <body style="background: #eeeeee;">
-<div>
-    <label>
-        充值：1
-        <input type="radio" name="recharge" value="1">
-    </label>
-</div>
 
-<div>
+<form action="{:url('orders')}" method="post" >
     <label>
-        充值：2
-        <input type="radio" name="recharge" value="2">
+        1
+        <input type="radio" name="id" value="1">
     </label>
-</div>
-
-<div>
     <label>
-        充值：3
-        <input type="radio" name="recharge" value="3">
+        2
+        <input type="radio" name="id" value="2">
     </label>
-</div>
-
+    <label>
+        3
+        <input type="radio" name="id" value="3">
+    </label>
+    <label>
+        4
+        <input type="radio" name="id" value="4">
+    </label>
+    <input type="submit" value="提交订单">
+</form>
 
 {include file="Public/foot"/}
 
