@@ -9,6 +9,9 @@
  * | 删除
  * | 恢复
  * | 销毁
+ * | 上下架
+ * | 设置热门小说
+ * | 设置推荐小说
  * */
 namespace app\system\controller;
 use app\system\model\Books;
@@ -210,6 +213,66 @@ class Book extends Auth
             return $this->success('销毁成功','');
         }else{
             return $this->error('销毁失败,请先删除数据！');
+        }
+    }
+
+    /* ========== 上下架 ========== */
+    public function modify_online(){
+        $inputs=input();
+        $ids=isset($inputs['ids'])?$inputs['ids']:'';
+        $online=$inputs['online'];
+
+        if(empty($ids)){
+            return $this->error('至少选择一项');
+        }
+        if(!in_array($online,[0,1])){
+            return $this->error('错误操作');
+        }
+        $rs=model('Books')->save(['online'=>$online],['id'=>['in',$ids]]);
+        if($rs){
+            return $this->success('修改成功','');
+        }else{
+            return $this->error('修改失败');
+        }
+    }
+
+    /* ========== 设置热门小说 ========== */
+    public function modify_hot(){
+        $inputs=input();
+        $ids=isset($inputs['ids'])?$inputs['ids']:'';
+        $is_hot=$inputs['is_hot'];
+
+        if(empty($ids)){
+            return $this->error('至少选择一项');
+        }
+        if(!in_array($is_hot,[0,1])){
+            return $this->error('错误操作');
+        }
+        $rs=model('Books')->save(['is_hot'=>$is_hot],['id'=>['in',$ids]]);
+        if($rs){
+            return $this->success('修改成功','');
+        }else{
+            return $this->error('修改失败');
+        }
+    }
+
+    /* ========== 设置推荐小说 ========== */
+    public function modify_recommend(){
+        $inputs=input();
+        $ids=isset($inputs['ids'])?$inputs['ids']:'';
+        $is_recommend=$inputs['is_recommend'];
+
+        if(empty($ids)){
+            return $this->error('至少选择一项');
+        }
+        if(!in_array($is_recommend,[0,1])){
+            return $this->error('错误操作');
+        }
+        $rs=model('Books')->save(['is_recommend'=>$is_recommend],['id'=>['in',$ids]]);
+        if($rs){
+            return $this->success('修改成功','');
+        }else{
+            return $this->error('修改失败');
         }
     }
 

@@ -49,12 +49,17 @@ class Books extends Model
     }
     public function getIsRecommendAttr($value)
     {
-        $status = [0=>'否',1=>'是'];
+        $status = [0=>'未推荐',1=>'已推荐'];
         return $status[$value];
     }
     public function getOnlineAttr($value)
     {
-        $status = [0=>'下架',1=>'在架'];
+        $status = [0=>'已下架',1=>'已上架'];
+        return $status[$value];
+    }
+    public function getIsHotAttr($value)
+    {
+        $status = [0=>'取消热门',1=>'热门小说'];
         return $status[$value];
     }
     /*----- 关联小说分类 -----*/

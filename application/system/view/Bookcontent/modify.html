@@ -34,7 +34,7 @@ $form_action=isset($info)?url('modify'):url('insert');
                             </tr>
                             <tr class="h50">
                                 <td>章节价格：</td>
-                                <td><input class="must" type="text" name="price" id="price" value="{:isset($info->price)?$info->price:''}" placeholder="请输入章节价格" /></td>
+                                <td><input class="must" type="text" name="price" id="price" value="{:isset($info->price)?$info->price:0}" placeholder="请输入章节价格,免费请填0" /></td>
                             </tr>
                             {if condition="$form_action eq url('modify')"}
                             <tr class="h50">
@@ -53,6 +53,7 @@ $form_action=isset($info)?url('modify'):url('insert');
                 </div>
                 <div class="tabPage w_100">
                     <div class="layerCon bg_f">
+                        <h3 style="color: red;">温馨提示：章节内容不能直接输入,请使用最后一项粘贴为无格式文本.</h3>
                         <textarea name="content" id="content">{:isset($info->content)?$info->content:''}</textarea>
                     </div>
                 </div>
@@ -79,7 +80,7 @@ $form_action=isset($info)?url('modify'):url('insert');
             fileManagerJson: '/static/system/kindeditor/php/file_manager_json.php',
             allowFileManager : true,
             items:['source', '|', 'undo', 'redo', '|', 'preview', 'print', 'cut', 'copy', 'paste',
-                'plainpaste', 'wordpaste'],
+                'plainpaste'],
             afterBlur:function () {
                 editor.sync();
             }

@@ -15,11 +15,11 @@
                 <img src="__STATIC__/system/img/arrow_refresh.png"/>
                 刷新</a>
         </li>
-        <li class="fgf" onclick="layerPage('小说章节内容查询',$('#search'),'500','150')" >
+        <li class="fgf" onclick="layerPage('小说章节内容查询',$('#search'),'500','248')" >
             <img src="__STATIC__/system/img/page_white_magnify.png"/>
             查询
         </li>
-        <li class="fgf" onclick="layerIfWindow('添加小说章节内容','{:url(\'insert\',array(\'book_id\'=>input(\'book_id\')))}','650','550')">
+        <li class="fgf" onclick="layerIfWindow('添加小说章节内容','{:url(\'insert\',array(\'book_id\'=>input(\'book_id\')))}','800','550')">
             <img src="__STATIC__/system/img/add.png"/>
             添加
         </li>
@@ -62,7 +62,7 @@
             <td>{if condition="$info->deleted_at"} <del>{$info->name}</del>{else /}{$info->name}{/if}</td>
             <td>{if condition="$info->deleted_at"} <del>{$info->price}</del>{else /}{$info->price}{/if}</td>
             <td>
-                <button type="button" class="btn" onclick="layerIfWindow('小说章节内容详情','{:url(\'detail\',array(\'id\'=>$info->id,\'book_id\'=>input(\'book_id\')))}','650','550')">详情</button>
+                <button type="button" class="btn" onclick="layerIfWindow('小说章节内容详情','{:url(\'detail\',array(\'id\'=>$info->id,\'book_id\'=>input(\'book_id\')))}','800','550')">详情</button>
                 <button type="button" class="btn js-ajax-form-btn" data-action="{:url('del')}" data-notice="确定删除吗？" data-formdata="ids={$info->id}">删除</button>
             </td>
         </tr>
