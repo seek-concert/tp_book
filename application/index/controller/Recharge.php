@@ -22,16 +22,19 @@ class Recharge extends Auth
         Loader::import('WxPay.lib.WxPay#Config');
         Loader::import('WxPay.lib.WxPay#Api');
         Loader::import('WxPay.lib.WxPay#JsApiPay');
+        Loader::import('WxPay.lib.log');
 
         $id=input('id');
         if(!$id){
             return $this->error('参数错误！');
         }
         /* ++++++++++充值基本信息++++++++++ */
+        $recharge=db('recharge_price')->where('id',$id)->where('deleted_at IS NULL')->find();
 
-
+        //初始化日志
+        $logHandler= new \CLogFileHandler(LOG_PATH."wxpaylogs/".date('Y-m-d').'.log');
+        $log = \Log::Init($logHandler, 15);
         /* ++++++++++发起支付++++++++++ */
-
         /* ①、获取用户openid */
         $tools = new \JsApiPay();
         $openId = $this->reader['openid']?$this->reader['openid']:$tools->GetOpenid();
@@ -59,12 +62,15 @@ class Recharge extends Auth
         $editAddress = $tools->GetEditAddressParameters();
 
         /* ++++++++++充值订单++++++++++ */
+        $orders_datas['type']=$recharge['type'];
+        $orders_datas['orders_no']=$orderno;
+        $orders_datas['orders_no']=$this->reader['id'];
+        $orders_datas['price']=$recharge['price'];
+        $orders_datas['number']=$recharge['number'];
+        $orders_datas['gift_num']=$recharge['gift_num'];
+        $orders_datas['created_at']=time();
 
-
-        $data['code']='0';
-        $data['info']='提交成功';
-        $data['data']['jsApiParameters']=json_decode($jsApiParameters,true);
-        $data['data']['editAddress']=json_decode($editAddress,true);
+        $res=db('recharge_orders')->insert($orders_datas);
 
         $this->assign([
             'jsApiParameters'=>$jsApiParameters,
