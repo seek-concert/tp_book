@@ -34,7 +34,7 @@ $form_action=isset($info)?url('modify'):url('insert');
                             </tr>
                             <tr class="h50">
                                 <td>章节价格：</td>
-                                <td><input class="must" type="text" name="price" id="price" value="{:isset($info->price)?$info->price:''}" placeholder="请输入章节价格" /></td>
+                                <td><input class="must" type="text" name="price" id="price" value="{:isset($info->price)?$info->price:0}" placeholder="请输入章节价格,免费请填0" /></td>
                             </tr>
                             {if condition="$form_action eq url('modify')"}
                             <tr class="h50">
