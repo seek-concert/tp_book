@@ -1,16 +1,17 @@
 <?php
 /* |------------------------------------------------------
- * | 首页
+ * | 支付回调
  * |------------------------------------------------------
  * |
  * */
-
 namespace app\index\controller;
 
-class Index extends Auth
+use think\Controller;
+
+class Paynotify extends Controller
 {
     public function index()
     {
-        return view();
+        echo 1;
     }
 }

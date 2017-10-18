@@ -1,1882 +1,344 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <meta charset="utf-8">
-    <title>小说阅读网_阅文集团旗下网站</title>
-    <meta name="keywords" content="小说阅读网,小说网,手机小说,最新小说推荐,txt小说下载,免费小说下载网,小说阅读器全本免费小说,起点中文网,小说网站排名,小说在线阅读,3g小说网">
-    <meta name="description"
-          content="小说阅读网唯一官方网站。小阅提供古言、现言、原创、玄幻、都市、言情、娱乐、种田、科幻、悬疑、灵异、穿越、重生、宠文等小说,最新全本免费手机小说阅读推荐,精彩尽在小说阅读网。">
-    <meta name="robots" content="all">
-    <meta name="googlebot" content="all">
-    <meta name="baiduspider" content="all">
-    <meta name="format-detection" content="telephone=no">
-    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
-    <link rel="icon" type="image/x-icon" href="//qidian.gtimg.com/readnovelm/img/favicon.0.2.ico">
-    <link rel="shortcut icon" type="image/x-icon" href="//qidian.gtimg.com/readnovelm/img/favicon.0.2.ico">
-    <link rel="Bookmark" type="image/x-icon" href="//qidian.gtimg.com/readnovelm/img/favicon.0.2.ico">
-    <script>document.domain = 'readnovel.com';</script>
-    <script>(function () {
-        //设置cookie
-        function setCookie(name, value, domain, path, expires) {
-            if (expires) {
-                expires = new Date(+new Date() + expires);
-            }
-            var tempcookie = name + '=' + escape(value) +
-                ((expires) ? '; expires=' + expires.toGMTString() : '') +
-                ((path) ? '; path=' + path : '') +
-                ((domain) ? '; domain=' + domain : '');
-            //Ensure the cookie's size is under the limitation
-            if (tempcookie.length < 4096) {
-                document.cookie = tempcookie;
-            }
-        }
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title></title>
+    {include file="Public/head" /}
 
-        //获取cookie
-        function getCookie(name) {
-            var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
-            if (arr = document.cookie.match(reg))
-                return (arr[2]);
-            else
-                return null;
-        }
-
-        //创建并发送请求
-        function createSender(url) {
-            var img = new Image();
-            img.onload = img.onerror = function () {
-                img = null;
-            };
-            img.src = url;
-        }
-
-        /*
-         *防劫持逻辑所需参数在此处设置参数即可
-         *cookieName:用于记录连续被劫持的次数，为防止死循环，cookie值为3以上则不进行url重置
-         *cookieDomain:cookie所在的域
-         *reportUrl:非连续性劫持时上报的接口地址【如无需上报，可不填】
-         *reportUrl2：连续性劫持时上报的接口地址【如无需上报，可不填】
-         */
-        var cookieName = 'hiijack';
-        var cookieDomain = '.readnovel.com';
-        var reportUrl = '//book.qidian.com/ajax/safe/hiijackReport?times=1&_csrfToken=' + getCookie('_csrfToken') || '';
-        var reportUrl2 = '//book.qidian.com/ajax/safe/hiijackReport?times=3&_csrfToken=' + getCookie('_csrfToken') || '';
-        //判断是否被iframe
-        if (top.location !== self.location) {
-            //用于记录被劫持的次数
-            var countHijack;
-            //如果未设置cookie，则需要set一下cookie，否则获取此cookie的值
-            if (!getCookie(cookieName)) {
-                setCookie(cookieName, 0, cookieDomain, '', 30 * 24 * 60 * 60 * 1000);
-                countHijack = 0;
-            } else {
-                countHijack = parseInt(getCookie(cookieName));
-            }
-            //如果连续被劫持的次数大于等于3次，则发请求上报此情况,否则上报非连续性的情况,同时累加被劫持次数、重置当前url
-            if (countHijack >= 3) {
-                reportUrl2 && reportUrl2 != '' && createSender(reportUrl2);
-            } else {
-                reportUrl && reportUrl != '' && createSender(reportUrl);
-                countHijack++;
-                setCookie(cookieName, countHijack, cookieDomain, '', 30 * 24 * 60 * 60 * 1000);
-                top.location = self.location;
-            }
-        }
-        //每次成功进入页面则计数清0
-        setCookie(cookieName, 0, cookieDomain, '', 30 * 24 * 60 * 60 * 1000);
-    })();</script>
-    <script>var speedTimer = [], speedZero = new Date().getTime();</script>
-    <link rel="stylesheet" data-ignore="true"
-          href="//qidian.gtimg.com/c/=/readnovelm/css/common.0.14.css,/readnovelm/css/index/index.0.10.css,/readnovelm/font/index.0.1.css,/readnovelm/icon/common/sprite.0.9.css">
-    <style>#BAIDU_DSPUI_FLOWBAR, .adsbygoogle, .ad, div[class^="ad-widsget"], div[id^="div-gpt-ad-"], a[href*="cpro.baidu.com"], a[href*="@"][href*=".exe"], a[href*="/?/"][href*=".exe"], .adpushwin {
-        display: none !important;
-        max-width: 0 !important;
-        max-height: 0 !important;
-        overflow: hidden !important;
-    }</style>
-    <style>DIV[style*="px; height: 90px; "], DIV.bottomAd728, iframe[id^="ads_"], iframe[src^="http://www.readnovel.com/js/"] {
-        display: none !important;
-        max-width: 0 !important;
-        max-height: 0 !important;
-        overflow: hidden !important;
-    }</style>
 </head>
-<body class="unlogin">
-<div style="display: none"><img src="//qidian.gtimg.com/readnovelm/img/wx_share.0.1.png" alt=""></div>
-<script>// add by zhangxinxu 让iOS9- Safari :active伪类生效
-// document.body.addEventListener('ontouchstart', function() {});
-// Safari使用-webkit-tap-highlight-color高亮，因为:active时机有问题
-if (/iphone/i.test(navigator.userAgent)) {
-    document.body.style.webkitTapHighlightColor = 'rgba(0,0,0,.05)';
-    document.body.classList.add('iphone');
-}</script>
-<script data-ignore="true" src="//qidian.gtimg.com/readnovelm/icon/common/sprite.0.5.js"></script>
-<div class="page page-home">
-    <div class="content">
-        <header id="header" class="header header-index"><a href="/" class="logo-a"><h1 class="logo">小说阅读网</h1></a>
-            <div class="header-operate red"><a id="aUserCenter" href="/user" class="icon icon-person" title="个人设置">
-                <svg class="jsGuestWrapper">
-                    <use xlink:href="#icon-person"></use>
-                </svg>
-                <img id="avatar" class="header-avatar jsUserWrapper" hidden></a><a href="/bookshelf/my"
-                                                                                   class="icon icon-book" title="我的书架">
-                <svg>
-                    <use xlink:href="#icon-book"></use>
-                </svg>
-            </a></div>
-        </header>
-        <div id="slideContainer" class="slide-container">
-            <ul id="slideUl" class="slide-ul">
-                <li class="slide-li"><a href="//m.readnovel.com/book/6622021903308201" class="slide-a"
-                                        style="padding: 0 .5px"><img
-                        src="//qidian.qpic.cn/qidian_common/349573/94db74d815c8c5f06464f2e9eaa5b832/0" class="slide-img"
-                        alt="重生1985 "></a></li>
-                <li class="slide-li"><a href="//m.readnovel.com/book/7902425703570103" class="slide-a"
-                                        style="padding: 0 .5px"><img
-                        src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                        data-src="//qidian.qpic.cn/qidian_common/349573/36cd3f09176d56f0352a532062b9a4b7/0"
-                        class="slide-img"></a></li>
-                <li class="slide-li"><a href="//m.readnovel.com/book/7736980604246303" class="slide-a"
-                                        style="padding: 0 .5px"><img
-                        src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                        data-src="//qidian.qpic.cn/qidian_common/349573/40042faa74cda893a13133458f4279e8/0"
-                        class="slide-img"></a></li>
-                <li class="slide-li"><a href="//m.readnovel.com/book/7747001904620203" class="slide-a"
-                                        style="padding: 0 .5px"><img
-                        src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                        data-src="//qidian.qpic.cn/qidian_common/349573/5e07f91ef63e1d48c887d6141bcfbb5b/0"
-                        class="slide-img"></a></li>
-            </ul>
-            <div id="slideDot" class="slide-dot-x"><i class="slide-dot active"></i><i class="slide-dot"></i><i
-                    class="slide-dot"></i><i class="slide-dot"></i></div>
-        </div>
-        <a id="openSearchPopup" href="javascript:" class="search-guide" data-keyword="重生八零俏佳妻">
-            <svg class="icon icon-find">
-                <use xlink:href="#icon-find"></use>
-            </svg>
-            重生八零俏佳妻</a>
-        <nav class="home-nav"><a href="/category" class="guide-nav-a"><i class="icon icon-sort"></i><h4
-                class="guide-nav-h">分类</h4></a><a href="/rank" class="guide-nav-a"><i class="icon icon-rank"></i><h4
-                class="guide-nav-h">排行榜</h4></a><a href="/free" class="guide-nav-a"><i class="icon icon-free"></i><h4
-                class="guide-nav-h">免费</h4></a><a href="/new" class="guide-nav-a"><i class="icon icon-newbook"></i><h4
-                class="guide-nav-h">新书</h4></a><a href="/finish" class="guide-nav-a"><i class="icon icon-end"></i><h4
-                class="guide-nav-h">完本</h4></a></nav>
-        <div class="home-pure-ad" data-l1="15"><a href="https://m.readnovel.com/download?qd_dd_p1=12"
-                                                  class="module-ad jsDownloadLink" data-eid="mqd_A53"><img
-                src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                data-src="//qidian.qpic.cn/qidian_common/349573/e85a915310e1c1299f9beb2d4455e915/0"
-                class="home-pure-ad-img" alt="客户端导流"></a></div>
-        <div class="module">
-            <div class="module-header">
-                <div class="module-header-l"><h3 class="module-title">本期强推</h3></div>
+
+<body style="background: #eeeeee;">
+<div class="container">
+    <div class="row clearfix bg_white">
+        <div class="col-xs-12">
+            <div class="top_out_div text-center">
+                <input class="top_search" />
+                <i class="glyphicon glyphicon-search search_fdj"></i>
+                <span class="top_search_btn">搜索</span>
             </div>
-            <div class="module-slide">
-                <ol class="module-slide-ol">
-                    <li class="module-slide-li"><a href="/book/6933249903331703" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_6933249903331703/150" class="module-slide-img"
-                            alt="空间酒香：名门农女有点田">
-                        <figcaption class="module-slide-caption">空间酒香：名门农女有点田</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">小小桑</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/5250982304577901" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_5250982304577901/150" class="module-slide-img"
-                            alt="重生毒妃惊华">
-                        <figcaption class="module-slide-caption">重生毒妃惊华</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">瑾年三色</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/7442763104350703" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_7442763104350703/150" class="module-slide-img"
-                            alt="邪王宠妻：医妃休想出墙">
-                        <figcaption class="module-slide-caption">邪王宠妻：医妃休想出墙</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">久雅阁</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/7428310703671303" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_7428310703671303/150" class="module-slide-img"
-                            alt="医毒双绝：魔君的天才小悍妃">
-                        <figcaption class="module-slide-caption">医毒双绝：魔君的天才小悍妃</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">简墨名</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/3733958703451301" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_3733958703451301/150" class="module-slide-img"
-                            alt="一品呆萌妻">
-                        <figcaption class="module-slide-caption">一品呆萌妻</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">等风的雨儿</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/6233251403829601" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_6233251403829601/150" class="module-slide-img"
-                            alt="重生八零俏佳妻">
-                        <figcaption class="module-slide-caption">重生八零俏佳妻</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">江山一顾</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/7807656904167603" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_7807656904167603/150" class="module-slide-img"
-                            alt="帝少前妻很抢手">
-                        <figcaption class="module-slide-caption">帝少前妻很抢手</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">一木槿</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/7695943503224303" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_7695943503224303/150" class="module-slide-img"
-                            alt="影后来袭：顾少，宠妻请低调">
-                        <figcaption class="module-slide-caption">影后来袭：顾少，宠妻请低调</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">符瑶</span></p></a>
+        </div>
+    </div>
+    <div class="row clearfix bg_white">
+        <div class="col-xs-12 column no_pad">
+            <div class="carousel slide" id="carousel-400334">
+                <ol class="carousel-indicators">
+                    <li class="active" data-slide-to="0" data-target="#carousel-400334">
                     </li>
-                    <li class="module-slide-li"><a href="/book/6958321403137703" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_6958321403137703/150" class="module-slide-img"
-                            alt="宠妻成瘾：总裁独占小天后">
-                        <figcaption class="module-slide-caption">宠妻成瘾：总裁独占小天后</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">凤凰窝窝</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/7490540304947803" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_7490540304947803/150" class="module-slide-img"
-                            alt="嗜妻成瘾：帝少，来硬的！">
-                        <figcaption class="module-slide-caption">嗜妻成瘾：帝少，来硬的！</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">秋月吟霜</span></p>
-                    </a></li>
+                    <li data-slide-to="1" data-target="#carousel-400334">
+                    </li>
+                    <li data-slide-to="2" data-target="#carousel-400334">
+                    </li>
                 </ol>
-            </div>
-        </div>
-        <div class="module">
-            <div class="module-header">
-                <div class="module-header-l"><h3 class="module-title">新书抢鲜</h3></div>
-                <div class="module-header-r"><a href="/new" class="module-header-btn">更多
-                    <svg class="icon icon-arrow-r">
-                        <use xlink:href="#icon-arrow-r"></use>
-                    </svg>
-                </a></div>
-            </div>
-            <ol class="book-ol book-ol-normal">
-                <li class="book-li"><a href="/book/7929674903014703" class="book-layout"><img
-                        src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                        data-src="//qidian.qpic.cn/qdbimg/349573/c_7929674903014703/150" class="book-cover"
-                        alt="毒妃重生：腹黑王爷宠翻天">
-                    <div class="book-cell"><h4 class="book-title">毒妃重生：腹黑王爷宠翻天</h4>
-                        <p class="book-desc">
-                            前世，她是宠妃，却被渣男蒙蔽双眼，被大姐欺骗，将一手好牌打得稀烂，落得个惨死下场。重活一世，誓要一雪前耻，智斗亲姐，虐渣男。害过他和她的人，生死全在她的言语谈笑间。“夫君，听说外面很多人说我是红颜祸水，祸国毒妃”男人危险的眯起眼睛，“传我消息，再让我听到这种流言，株连九族。我倒要看看还有谁有胆子再嚼舌根。”</p>
-                        <div class="book-meta">
-                            <div class="book-meta-l"><span class="book-author"><svg
-                                    class="icon icon-human"><title>作者</title><use xlink:href="#icon-human"></use></svg>三月晚棠</span>
-                            </div>
-                            <div class="book-meta-r"><span class="tag-small-group origin-right"><em
-                                    class="tag-small yellow">古代言情</em><em class="tag-small red">连载中</em><em
-                                    class="tag-small blue">34.95万</em></span></div>
-                        </div>
+                <div class="carousel-inner">
+                    <div class="item active">
+                        <img alt="" src="__STATIC__/index/img/zr_baijiale.png" />
                     </div>
-                </a></li>
-                <li class="book-li"><a href="/book/7718843904528103" class="book-layout"><img
-                        src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                        data-src="//qidian.qpic.cn/qdbimg/349573/c_7718843904528103/150" class="book-cover"
-                        alt="毒妃妖娆：邪帝，来战！">
-                    <div class="book-cell"><h4 class="book-title">毒妃妖娆：邪帝，来战！</h4>
-                        <p class="book-desc">
-                            舅舅，不要了，好疼……”卫子衿捂住手臂上的伤口，不许男人碰她。男人低声诱哄，“小东西，过来，擦了药就不疼了！”“舅舅，不喝药，太苦！”卫子衿把黑乎乎的一碗药，推得远远的。“乖，里面放了蜜糖的，一点都不苦！”她从懵懂的年岁就痴心暗恋他，还没表露爱意，竟被他一纸婚约许给克妻世子！</p>
-                        <div class="book-meta">
-                            <div class="book-meta-l"><span class="book-author"><svg
-                                    class="icon icon-human"><title>作者</title><use xlink:href="#icon-human"></use></svg>步惊寒</span>
-                            </div>
-                            <div class="book-meta-r"><span class="tag-small-group origin-right"><em
-                                    class="tag-small yellow">古代言情</em><em class="tag-small red">连载中</em><em
-                                    class="tag-small blue">40.5万</em></span></div>
-                        </div>
+                    <div class="item">
+                        <img alt="" src="__STATIC__/index/img/zr_longhu.png" />
                     </div>
-                </a></li>
-                <li class="book-li"><a href="/book/7745937704577203" class="book-layout"><img
-                        src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                        data-src="//qidian.qpic.cn/qdbimg/349573/c_7745937704577203/150" class="book-cover"
-                        alt="甜妻入怀：总裁手心爱">
-                    <div class="book-cell"><h4 class="book-title">甜妻入怀：总裁手心爱</h4>
-                        <p class="book-desc">
-                            “陆叔……是你！”本想撩男神，却撩到养了自己十年的面瘫大叔，梁慕慕懵了！第一个反应……跑！无奈跑得了和尚跑不了庙，还没出家门就被逮，“做了坏事就想跑？”梁慕慕哭丧着脸：“那……你想怎么样？”男人意味深长一笑，“看你表现！”</p>
-                        <div class="book-meta">
-                            <div class="book-meta-l"><span class="book-author"><svg
-                                    class="icon icon-human"><title>作者</title><use xlink:href="#icon-human"></use></svg>南方有朝阳</span>
-                            </div>
-                            <div class="book-meta-r"><span class="tag-small-group origin-right"><em
-                                    class="tag-small yellow">现代言情</em><em class="tag-small red">连载中</em><em
-                                    class="tag-small blue">61.05万</em></span></div>
-                        </div>
+                    <div class="item">
+                        <img alt="" src="__STATIC__/index/img/zr_niuniu.png" />
                     </div>
-                </a></li>
-                <li class="book-li"><a href="/book/7788286603431503" class="book-layout"><img
-                        src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                        data-src="//qidian.qpic.cn/qdbimg/349573/c_7788286603431503/150" class="book-cover"
-                        alt="千金归来：帝少，宠上天！">
-                    <div class="book-cell"><h4 class="book-title">千金归来：帝少，宠上天！</h4>
-                        <p class="book-desc">
-                            （绝宠文）”为了救相依为命的哥哥，叶暖兮惹上一个陌生男人，四年后，被男人堵到墙角，才知道自己坑的是商业帝王，京城活阎王。叶暖兮顿时怂了：“我们已经钱货两清了，不准秋后算账！？”“抛夫弃子，还不让人算账？！”男人黑脸咬牙道，“这辈子是两清不了！”“抱歉……”话还没说完，门就被踹开，小正太露出一张不耐烦的脸蛋：“爹地，你再搞不定妈咪，宝贝就告诉记者你性取向有问题！”叶暖兮：“……”</p>
-                        <div class="book-meta">
-                            <div class="book-meta-l"><span class="book-author"><svg
-                                    class="icon icon-human"><title>作者</title><use xlink:href="#icon-human"></use></svg>北宸一</span>
-                            </div>
-                            <div class="book-meta-r"><span class="tag-small-group origin-right"><em
-                                    class="tag-small yellow">现代言情</em><em class="tag-small red">连载中</em><em
-                                    class="tag-small blue">36.87万</em></span></div>
-                        </div>
-                    </div>
-                </a></li>
-            </ol>
-        </div>
-        <div class="module" data-l1="5">
-            <div class="module-header">
-                <div class="module-header-l"><h3 class="module-title">限时免费</h3>
-                    <time id="time" class="time" data-seconds="" data-endtime="1508306400"><span
-                            class="time-day">00</span><span class="time-hour">00</span><span
-                            class="time-minute">00</span><span class="time-second">00</span></time>
                 </div>
             </div>
-            <div class="module-slide">
-                <ol class="module-slide-ol module-slide-ol-flex">
-                    <li class="module-slide-li"><a href="/book/4701870104151501" class="module-slide-a"><span
-                            class="corner blue"><em>限免</em></span><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_4701870104151501/150" class="module-slide-img"
-                            alt="总裁大人要够了没">
-                        <figcaption class="module-slide-caption">总裁大人要够了没</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">安姿莜</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/5250983304578301" class="module-slide-a"><span
-                            class="corner blue"><em>限免</em></span><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_5250983304578301/150" class="module-slide-img"
-                            alt="重生帝女凰途">
-                        <figcaption class="module-slide-caption">重生帝女凰途</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">樱雨飘零</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/25378227000537901" class="module-slide-a"><span
-                            class="corner blue"><em>限免</em></span><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_25378227000537901/150" class="module-slide-img"
-                            alt="穿越黑心小王妃">
-                        <figcaption class="module-slide-caption">穿越黑心小王妃</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">龙熬雪</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/7490540304947803" class="module-slide-a"><span
-                            class="corner blue"><em>限免</em></span><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_7490540304947803/150" class="module-slide-img"
-                            alt="嗜妻成瘾：帝少，来硬的！">
-                        <figcaption class="module-slide-caption">嗜妻成瘾：帝少，来硬的！</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">秋月吟霜</span></p>
-                    </a></li>
-                </ol>
+        </div>
+    </div>
+    <div class="row clearfix text-center bg_white">
+        <div class="col-xs-3 column">
+            <a class="kind_btn">分类<i class="iconfont icon-fenlei1"></i></a>
+        </div>
+        <div class="col-xs-3 column">
+            <a class="kind_btn">排行<i class="iconfont icon-diyiming" style="background-color: pink;font-size: 20px;"></i></a>
+        </div>
+        <div class="col-xs-3 column">
+            <a class="kind_btn">充值<i class="iconfont icon-qy_bdfw_5" style="background-color: skyblue;font-size: 20px;"></i></a>
+        </div>
+        <div class="col-xs-3 column">
+            <a class="kind_btn">免费<i class="iconfont icon-bd_mianfei" style="background-color: forestgreen;font-size: 25px;"></i></a>
+        </div>
+    </div>
+    <div class="row clearfix bg_white mar_top">
+        <div class="col-xs-6 column main_recommend">
+            <p>主编推荐</p>
+        </div>
+        <div class="col-xs-6 column three_circl main_recommend">
+            <div>
+                <span class="on"></span>
+                <span></span>
+                <span></span>
             </div>
         </div>
-        <div class="module">
-            <div class="module-header">
-                <div class="module-header-l"><h3 class="module-title">编辑推荐</h3></div>
-            </div>
-            <div class="module-slide">
-                <ol class="module-slide-ol">
-                    <li class="module-slide-li"><a href="/book/8583938904945203" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_8583938904945203/150" class="module-slide-img"
-                            alt="妃要爬墙：王爷，请冷静">
-                        <figcaption class="module-slide-caption">妃要爬墙：王爷，请冷静</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">王紫晓</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/8173861604159203" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_8173861604159203/150" class="module-slide-img"
-                            alt="爆宠娇妃：夫君，要亲亲">
-                        <figcaption class="module-slide-caption">爆宠娇妃：夫君，要亲亲</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">月浅灯生</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/8652845303310603" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_8652845303310603/150" class="module-slide-img"
-                            alt="通灵丑女：误惹鬼面邪君">
-                        <figcaption class="module-slide-caption">通灵丑女：误惹鬼面邪君</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">梦不理</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/8232415204341603" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_8232415204341603/150" class="module-slide-img"
-                            alt="龙神女帝">
-                        <figcaption class="module-slide-caption">龙神女帝</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">小萘何</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/5292637003886401" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_5292637003886401/150" class="module-slide-img"
-                            alt="暗夜幻影天使的怪女孩">
-                        <figcaption class="module-slide-caption">暗夜幻影天使的怪女孩</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">枸雅沫</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/8291056004513103" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_8291056004513103/150" class="module-slide-img"
-                            alt="复仇女王：腹黑校草狠缠人">
-                        <figcaption class="module-slide-caption">复仇女王：腹黑校草狠缠人</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">糖小果、</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/7842238904798203" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_7842238904798203/150" class="module-slide-img"
-                            alt="鲜妻在上：帝少绝宠100天">
-                        <figcaption class="module-slide-caption">鲜妻在上：帝少绝宠100天</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">菜鸟也求凰</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/7982362204855103" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_7982362204855103/150" class="module-slide-img"
-                            alt="首长大人，要点脸">
-                        <figcaption class="module-slide-caption">首长大人，要点脸</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">鹤屺</span></p></a>
+    </div>
+    <div class="row clearfix bg_white" style="padding-bottom: 15px;">
+        <div class="col-xs-12 column">
+            <div class="carousel slide" id="carousel-401249">
+                <ol class="carousel-indicators" style="opacity: 0;">
+                    <li class="active" data-slide-to="0" data-target="#carousel-401249">
                     </li>
-                    <li class="module-slide-li"><a href="/book/7808149704190803" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_7808149704190803/150" class="module-slide-img"
-                            alt="替嫁萌妻：霍少宠妻101次">
-                        <figcaption class="module-slide-caption">替嫁萌妻：霍少宠妻101次</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">狼小乖</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/5969436003656801" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_5969436003656801/150" class="module-slide-img"
-                            alt="蜜爱小甜妻：老公，要给力">
-                        <figcaption class="module-slide-caption">蜜爱小甜妻：老公，要给力</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">雨中梧桐</span></p>
-                    </a></li>
-                </ol>
-            </div>
-        </div>
-        <div class="module">
-            <div class="module-header">
-                <div class="module-header-l"><h3 class="module-title">排行榜</h3></div>
-                <div class="module-header-r"><a href="/rank" class="module-header-btn">更多
-                    <svg class="icon icon-arrow-r">
-                        <use xlink:href="#icon-arrow-r"></use>
-                    </svg>
-                </a></div>
-            </div>
-            <div class="module-tab moduleTab">
-                <nav class="btn-group"><h3 class="btn-group-cell"><a href="javascript:" class="btn-tab active"
-                                                                     data-rel="rankOl1">热销榜</a></h3>
-                    <h3 class="btn-group-cell"><a href="javascript:" class="btn-tab" data-rel="rankOl2">点击榜</a></h3>
-                    <h3 class="btn-group-cell"><a href="javascript:" class="btn-tab" data-rel="rankOl3">新书榜</a></h3>
-                    <h3 class="btn-group-cell"><a href="javascript:" class="btn-tab" data-rel="rankOl4">完本榜</a></h3>
-                </nav>
-            </div>
-            <div class="module-slide">
-                <ol id="rankOl1" class="module-slide-ol active">
-                    <li class="module-slide-li"><a href="/book/6233251403829601" class="module-slide-a"><span
-                            class="corner-rank red"><em>top1</em></span><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_6233251403829601/150" class="module-slide-img"
-                            alt="重生八零俏佳妻">
-                        <figcaption class="module-slide-caption">重生八零俏佳妻</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">江山一顾</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/6314402904050001" class="module-slide-a"><span
-                            class="corner-rank orange"><em>top2</em></span><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_6314402904050001/150" class="module-slide-img"
-                            alt="新婚无爱，替罪前妻">
-                        <figcaption class="module-slide-caption">新婚无爱，替罪前妻</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">夏染雪</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/25397969000762101" class="module-slide-a"><span
-                            class="corner-rank yellow"><em>top3</em></span><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_25397969000762101/150" class="module-slide-img"
-                            alt="首席的独宠新娘">
-                        <figcaption class="module-slide-caption">首席的独宠新娘</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">韩降雪</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/7539673104047903" class="module-slide-a"><span
-                            class="corner-rank gray"><em>top4</em></span><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_7539673104047903/150" class="module-slide-img"
-                            alt="1号新欢：总裁情意绵绵">
-                        <figcaption class="module-slide-caption">1号新欢：总裁情意绵绵</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">安姿莜</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/7902425703570103" class="module-slide-a"><span
-                            class="corner-rank gray"><em>top5</em></span><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_7902425703570103/150" class="module-slide-img"
-                            alt="暖妻入怀">
-                        <figcaption class="module-slide-caption">暖妻入怀</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">夏染雪</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/7744439503397403" class="module-slide-a"><span
-                            class="corner-rank gray"><em>top6</em></span><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_7744439503397403/150" class="module-slide-img"
-                            alt="囚爱成瘾，抢来的新娘">
-                        <figcaption class="module-slide-caption">囚爱成瘾，抢来的新娘</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">芊霓裳</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/5671503403569601" class="module-slide-a"><span
-                            class="corner-rank gray"><em>top7</em></span><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_5671503403569601/150" class="module-slide-img"
-                            alt="农媳V5：军长别上瘾">
-                        <figcaption class="module-slide-caption">农媳V5：军长别上瘾</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">燕小陌</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/5369131804594101" class="module-slide-a"><span
-                            class="corner-rank gray"><em>top8</em></span><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_5369131804594101/150" class="module-slide-img"
-                            alt="重生之嫡女谋嫁">
-                        <figcaption class="module-slide-caption">重生之嫡女谋嫁</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">笑寒烟</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/7745937704577203" class="module-slide-a"><span
-                            class="corner-rank gray"><em>top9</em></span><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_7745937704577203/150" class="module-slide-img"
-                            alt="甜妻入怀：总裁手心爱">
-                        <figcaption class="module-slide-caption">甜妻入怀：总裁手心爱</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">南方有朝阳</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/4515315504136901" class="module-slide-a"><span
-                            class="corner-rank gray"><em>top10</em></span><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_4515315504136901/150" class="module-slide-img"
-                            alt="一品农门女">
-                        <figcaption class="module-slide-caption">一品农门女</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">黎莫陌</span></p>
-                    </a></li>
-                </ol>
-                <ol id="rankOl2" class="module-slide-ol">
-                    <li class="module-slide-li"><a href="/book/6233251403829601" class="module-slide-a"><span
-                            class="corner-rank red"><em>top1</em></span><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_6233251403829601/150" class="module-slide-img"
-                            alt="重生八零俏佳妻">
-                        <figcaption class="module-slide-caption">重生八零俏佳妻</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">江山一顾</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/8410348603558103" class="module-slide-a"><span
-                            class="corner-rank orange"><em>top2</em></span><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_8410348603558103/150" class="module-slide-img"
-                            alt="天价宝贝：101次枕边书">
-                        <figcaption class="module-slide-caption">天价宝贝：101次枕边书</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">安知晓</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/7744439503397403" class="module-slide-a"><span
-                            class="corner-rank yellow"><em>top3</em></span><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_7744439503397403/150" class="module-slide-img"
-                            alt="囚爱成瘾，抢来的新娘">
-                        <figcaption class="module-slide-caption">囚爱成瘾，抢来的新娘</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">芊霓裳</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/7539673104047903" class="module-slide-a"><span
-                            class="corner-rank gray"><em>top4</em></span><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_7539673104047903/150" class="module-slide-img"
-                            alt="1号新欢：总裁情意绵绵">
-                        <figcaption class="module-slide-caption">1号新欢：总裁情意绵绵</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">安姿莜</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/25389712000663101" class="module-slide-a"><span
-                            class="corner-rank gray"><em>top5</em></span><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_25389712000663101/150" class="module-slide-img"
-                            alt="豪门暖婚蜜爱">
-                        <figcaption class="module-slide-caption">豪门暖婚蜜爱</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">百里夜星</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/4066982303076201" class="module-slide-a"><span
-                            class="corner-rank gray"><em>top6</em></span><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_4066982303076201/150" class="module-slide-img"
-                            alt="绝色狂医：魔神大人，轻点撩">
-                        <figcaption class="module-slide-caption">绝色狂医：魔神大人，轻点撩</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">默雅</span></p></a>
+                    <li data-slide-to="1" data-target="#carousel-401249">
                     </li>
-                    <li class="module-slide-li"><a href="/book/7902425703570103" class="module-slide-a"><span
-                            class="corner-rank gray"><em>top7</em></span><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_7902425703570103/150" class="module-slide-img"
-                            alt="暖妻入怀">
-                        <figcaption class="module-slide-caption">暖妻入怀</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">夏染雪</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/5671503403569601" class="module-slide-a"><span
-                            class="corner-rank gray"><em>top8</em></span><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_5671503403569601/150" class="module-slide-img"
-                            alt="农媳V5：军长别上瘾">
-                        <figcaption class="module-slide-caption">农媳V5：军长别上瘾</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">燕小陌</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/3733960804346501" class="module-slide-a"><span
-                            class="corner-rank gray"><em>top9</em></span><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_3733960804346501/150" class="module-slide-img"
-                            alt="军少私宠：千金检察官">
-                        <figcaption class="module-slide-caption">军少私宠：千金检察官</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">陌骄阳</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/5369131804594101" class="module-slide-a"><span
-                            class="corner-rank gray"><em>top10</em></span><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_5369131804594101/150" class="module-slide-img"
-                            alt="重生之嫡女谋嫁">
-                        <figcaption class="module-slide-caption">重生之嫡女谋嫁</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">笑寒烟</span></p>
-                    </a></li>
-                </ol>
-                <ol id="rankOl3" class="module-slide-ol">
-                    <li class="module-slide-li"><a href="/book/8410348603558103" class="module-slide-a"><span
-                            class="corner-rank red"><em>top1</em></span><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_8410348603558103/150" class="module-slide-img"
-                            alt="天价宝贝：101次枕边书">
-                        <figcaption class="module-slide-caption">天价宝贝：101次枕边书</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">安知晓</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/7987318804042503" class="module-slide-a"><span
-                            class="corner-rank orange"><em>top2</em></span><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_7987318804042503/150" class="module-slide-img"
-                            alt="亿万豪宠：上将的专属宝贝">
-                        <figcaption class="module-slide-caption">亿万豪宠：上将的专属宝贝</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">猫千草</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/8402027104295903" class="module-slide-a"><span
-                            class="corner-rank yellow"><em>top3</em></span><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_8402027104295903/150" class="module-slide-img"
-                            alt="将门娇女：帝尊溺宠小毒妃">
-                        <figcaption class="module-slide-caption">将门娇女：帝尊溺宠小毒妃</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">安晓妍</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/8202886004526703" class="module-slide-a"><span
-                            class="corner-rank gray"><em>top4</em></span><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_8202886004526703/150" class="module-slide-img"
-                            alt="第一符师：轻狂太子妃">
-                        <figcaption class="module-slide-caption">第一符师：轻狂太子妃</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">梓云溪</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/8415381704809103" class="module-slide-a"><span
-                            class="corner-rank gray"><em>top5</em></span><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_8415381704809103/150" class="module-slide-img"
-                            alt="婚途有坑：爹地，快离婚">
-                        <figcaption class="module-slide-caption">婚途有坑：爹地，快离婚</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">豆丁丁</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/7887233404012303" class="module-slide-a"><span
-                            class="corner-rank gray"><em>top6</em></span><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_7887233404012303/150" class="module-slide-img"
-                            alt="重生学霸：最强校园商女">
-                        <figcaption class="module-slide-caption">重生学霸：最强校园商女</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">拾月秋</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/8311001703516803" class="module-slide-a"><span
-                            class="corner-rank gray"><em>top7</em></span><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_8311001703516803/150" class="module-slide-img"
-                            alt="隐婚甜妻：帝少宠上天！">
-                        <figcaption class="module-slide-caption">隐婚甜妻：帝少宠上天！</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">陈慢</span></p></a>
-                    </li>
-                    <li class="module-slide-li"><a href="/book/8202937303458003" class="module-slide-a"><span
-                            class="corner-rank gray"><em>top8</em></span><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_8202937303458003/150" class="module-slide-img"
-                            alt="甜蜜重生，前夫你走开">
-                        <figcaption class="module-slide-caption">甜蜜重生，前夫你走开</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">渔七酒</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/6840131503784801" class="module-slide-a"><span
-                            class="corner-rank gray"><em>top9</em></span><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_6840131503784801/150" class="module-slide-img"
-                            alt="呆萌小甜妻：傲娇凌少不好惹">
-                        <figcaption class="module-slide-caption">呆萌小甜妻：傲娇凌少不好惹</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">等风的雨儿</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/8162211803382503" class="module-slide-a"><span
-                            class="corner-rank gray"><em>top10</em></span><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_8162211803382503/150" class="module-slide-img"
-                            alt="重生空间：首长的军医媳妇">
-                        <figcaption class="module-slide-caption">重生空间：首长的军医媳妇</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">百鸟朝风</span></p>
-                    </a></li>
-                </ol>
-                <ol id="rankOl4" class="module-slide-ol">
-                    <li class="module-slide-li"><a href="/book/6314402904050001" class="module-slide-a"><span
-                            class="corner-rank red"><em>top1</em></span><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_6314402904050001/150" class="module-slide-img"
-                            alt="新婚无爱，替罪前妻">
-                        <figcaption class="module-slide-caption">新婚无爱，替罪前妻</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">夏染雪</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/4515315504136901" class="module-slide-a"><span
-                            class="corner-rank orange"><em>top2</em></span><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_4515315504136901/150" class="module-slide-img"
-                            alt="一品农门女">
-                        <figcaption class="module-slide-caption">一品农门女</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">黎莫陌</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/3830047103539001" class="module-slide-a"><span
-                            class="corner-rank yellow"><em>top3</em></span><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_3830047103539001/150" class="module-slide-img"
-                            alt="贵女小妾">
-                        <figcaption class="module-slide-caption">贵女小妾</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">夏染雪</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/3756519203907701" class="module-slide-a"><span
-                            class="corner-rank gray"><em>top4</em></span><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_3756519203907701/150" class="module-slide-img"
-                            alt="重生之翻身贫家女">
-                        <figcaption class="module-slide-caption">重生之翻身贫家女</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">燕小陌</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/4515314303406601" class="module-slide-a"><span
-                            class="corner-rank gray"><em>top5</em></span><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_4515314303406601/150" class="module-slide-img"
-                            alt="军长宠妻：重生农媳逆袭">
-                        <figcaption class="module-slide-caption">军长宠妻：重生农媳逆袭</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">懒百合</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/25486493000600701" class="module-slide-a"><span
-                            class="corner-rank gray"><em>top6</em></span><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_25486493000600701/150" class="module-slide-img"
-                            alt="冷宫公主种田记">
-                        <figcaption class="module-slide-caption">冷宫公主种田记</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">金夭夭</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/3733955003434301" class="module-slide-a"><span
-                            class="corner-rank gray"><em>top7</em></span><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_3733955003434301/150" class="module-slide-img"
-                            alt="亿万老公太危险">
-                        <figcaption class="module-slide-caption">亿万老公太危险</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">芊霓裳</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/25485220000599201" class="module-slide-a"><span
-                            class="corner-rank gray"><em>top8</em></span><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_25485220000599201/150" class="module-slide-img"
-                            alt="总裁一抱好欢喜">
-                        <figcaption class="module-slide-caption">总裁一抱好欢喜</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">安姿莜</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/5986685704634401" class="module-slide-a"><span
-                            class="corner-rank gray"><em>top9</em></span><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_5986685704634401/150" class="module-slide-img"
-                            alt="凶猛小兽医：邪王，请躺好">
-                        <figcaption class="module-slide-caption">凶猛小兽医：邪王，请躺好</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">夏抖抖</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/3730612203629401" class="module-slide-a"><span
-                            class="corner-rank gray"><em>top10</em></span><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_3730612203629401/150" class="module-slide-img"
-                            alt="总裁的替身前妻">
-                        <figcaption class="module-slide-caption">总裁的替身前妻</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">安知晓</span></p>
-                    </a></li>
-                </ol>
-            </div>
-        </div>
-        <div class="module">
-            <div class="module-header">
-                <div class="module-header-l"><h3 class="module-title">分类推荐</h3></div>
-                <div class="module-header-r"><a href="/category" class="module-header-btn">更多
-                    <svg class="icon icon-arrow-r">
-                        <use xlink:href="#icon-arrow-r"></use>
-                    </svg>
-                </a></div>
-            </div>
-            <div class="module-tab moduleTab">
-                <nav class="btn-group"><h3 class="btn-group-cell"><a href="javascript:" class="btn-tab active"
-                                                                     data-rel="topOl1">现代言情</a></h3>
-                    <h3 class="btn-group-cell"><a href="javascript:" class="btn-tab" data-rel="topOl2">古代言情</a></h3>
-                    <h3 class="btn-group-cell"><a href="javascript:" class="btn-tab" data-rel="topOl3">豪门总裁</a></h3>
-                    <h3 class="btn-group-cell"><a href="javascript:" class="btn-tab" data-rel="topOl4">玄幻言情</a></h3>
-                </nav>
-            </div>
-            <div class="module-slide">
-                <ol id="topOl1" class="module-slide-ol active">
-                    <li class="module-slide-li"><a href="/book/5362801304508001" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_5362801304508001/150" class="module-slide-img"
-                            alt="男神总裁，轻点疼">
-                        <figcaption class="module-slide-caption">男神总裁，轻点疼</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">绮梦恋恋</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/7730704304010303" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_7730704304010303/150" class="module-slide-img"
-                            alt="招摇鲜妻：海关大人，求宽恕">
-                        <figcaption class="module-slide-caption">招摇鲜妻：海关大人，求宽恕</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">符小竹</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/5671503403569601" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_5671503403569601/150" class="module-slide-img"
-                            alt="农媳V5：军长别上瘾">
-                        <figcaption class="module-slide-caption">农媳V5：军长别上瘾</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">燕小陌</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/7608729704859103" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_7608729704859103/150" class="module-slide-img"
-                            alt="重生之军长的种田妻">
-                        <figcaption class="module-slide-caption">重生之军长的种田妻</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">樊家小妹</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/7744439503397403" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_7744439503397403/150" class="module-slide-img"
-                            alt="囚爱成瘾，抢来的新娘">
-                        <figcaption class="module-slide-caption">囚爱成瘾，抢来的新娘</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">芊霓裳</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/5282978903343101" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_5282978903343101/150" class="module-slide-img"
-                            alt="婚途有坑：前妻有喜了">
-                        <figcaption class="module-slide-caption">婚途有坑：前妻有喜了</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">豆丁丁</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/25397969000762101" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_25397969000762101/150" class="module-slide-img"
-                            alt="首席的独宠新娘">
-                        <figcaption class="module-slide-caption">首席的独宠新娘</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">韩降雪</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/5128769704229701" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_5128769704229701/150" class="module-slide-img"
-                            alt="丑女变身：无心首席心尖宠">
-                        <figcaption class="module-slide-caption">丑女变身：无心首席心尖宠</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">小丑随心</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/7020803004104203" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_7020803004104203/150" class="module-slide-img"
-                            alt="甜妻来袭：君少，放肆宠">
-                        <figcaption class="module-slide-caption">甜妻来袭：君少，放肆宠</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">蓝木棉</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/7131370603439003" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_7131370603439003/150" class="module-slide-img"
-                            alt="宠妻入骨，总裁狠狠爱">
-                        <figcaption class="module-slide-caption">宠妻入骨，总裁狠狠爱</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">墨盒</span></p></a>
+                    <li data-slide-to="2" data-target="#carousel-401249">
                     </li>
                 </ol>
-                <ol id="topOl2" class="module-slide-ol">
-                    <li class="module-slide-li"><a href="/book/5250983204578201" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_5250983204578201/150" class="module-slide-img"
-                            alt="贵女种田忙">
-                        <figcaption class="module-slide-caption">贵女种田忙</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">秋风残叶</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/3675832204934203" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_3675832204934203/150" class="module-slide-img"
-                            alt="绝色妖娆：鬼医至尊">
-                        <figcaption class="module-slide-caption">绝色妖娆：鬼医至尊</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">凤炅</span></p></a>
-                    </li>
-                    <li class="module-slide-li"><a href="/book/2808006700663502" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_2808006700663502/150" class="module-slide-img"
-                            alt="丑女种田：山里汉宠妻无度">
-                        <figcaption class="module-slide-caption">丑女种田：山里汉宠妻无度</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">巅峰小雨</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/7504295504397203" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_7504295504397203/150" class="module-slide-img"
-                            alt="农门娇宠：带着萌宝去种田">
-                        <figcaption class="module-slide-caption">农门娇宠：带着萌宝去种田</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">棠九乐</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/7131952404675203" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_7131952404675203/150" class="module-slide-img"
-                            alt="泼辣小农女">
-                        <figcaption class="module-slide-caption">泼辣小农女</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">幽兰水仙</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/4602081904543301" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_4602081904543301/150" class="module-slide-img"
-                            alt="农女当道">
-                        <figcaption class="module-slide-caption">农女当道</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">紫雪凝烟</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/7365072404144803" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_7365072404144803/150" class="module-slide-img"
-                            alt="食色生香：天降彪悍小厨娘">
-                        <figcaption class="module-slide-caption">食色生香：天降彪悍小厨娘</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">玉楼人醉</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/7222012603613103" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_7222012603613103/150" class="module-slide-img"
-                            alt="庶妃待嫁">
-                        <figcaption class="module-slide-caption">庶妃待嫁</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">阴九儿</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/7695891103221603" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_7695891103221603/150" class="module-slide-img"
-                            alt="重生之悍妃当道">
-                        <figcaption class="module-slide-caption">重生之悍妃当道</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">瑞小茹</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/7443274003189403" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_7443274003189403/150" class="module-slide-img"
-                            alt="弃女重生：夫君，要听话">
-                        <figcaption class="module-slide-caption">弃女重生：夫君，要听话</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">静默微凉</span></p>
-                    </a></li>
-                </ol>
-                <ol id="topOl3" class="module-slide-ol">
-                    <li class="module-slide-li"><a href="/book/6459572303827901" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_6459572303827901/150" class="module-slide-img"
-                            alt="帝少强娶：甜妻太可口">
-                        <figcaption class="module-slide-caption">帝少强娶：甜妻太可口</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">爱笑的莜莜</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/5940002904789101" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_5940002904789101/150" class="module-slide-img"
-                            alt="逼婚首席：影后前妻很抢手">
-                        <figcaption class="module-slide-caption">逼婚首席：影后前妻很抢手</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">晴空舞</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/25389712000663101" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_25389712000663101/150" class="module-slide-img"
-                            alt="豪门暖婚蜜爱">
-                        <figcaption class="module-slide-caption">豪门暖婚蜜爱</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">百里夜星</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/5968865703640301" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_5968865703640301/150" class="module-slide-img"
-                            alt="系统重生：首席鬼医商女">
-                        <figcaption class="module-slide-caption">系统重生：首席鬼医商女</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">姜杨行言</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/3733960804346501" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_3733960804346501/150" class="module-slide-img"
-                            alt="军少私宠：千金检察官">
-                        <figcaption class="module-slide-caption">军少私宠：千金检察官</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">陌骄阳</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/6656522104144101" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_6656522104144101/150" class="module-slide-img"
-                            alt="夺爱99次：季少，轻点">
-                        <figcaption class="module-slide-caption">夺爱99次：季少，轻点</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">红绡帐暖</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/7271892404149203" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_7271892404149203/150" class="module-slide-img"
-                            alt="军长大人，宠不停！">
-                        <figcaption class="module-slide-caption">军长大人，宠不停！</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">梧桐不夜雨</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/6838889304164501" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_6838889304164501/150" class="module-slide-img"
-                            alt="豪门婚宠：陆少揽妻入怀">
-                        <figcaption class="module-slide-caption">豪门婚宠：陆少揽妻入怀</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">千生缘</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/5456252004076901" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_5456252004076901/150" class="module-slide-img"
-                            alt="鲜妻有喜：狼性老公深深爱">
-                        <figcaption class="module-slide-caption">鲜妻有喜：狼性老公深深爱</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">丁嘉树</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/8145552404489203" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_8145552404489203/150" class="module-slide-img"
-                            alt="重返巅峰：我的鬼眼影后">
-                        <figcaption class="module-slide-caption">重返巅峰：我的鬼眼影后</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">美ZI</span></p>
-                    </a></li>
-                </ol>
-                <ol id="topOl4" class="module-slide-ol">
-                    <li class="module-slide-li"><a href="/book/6934870904434203" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_6934870904434203/150" class="module-slide-img"
-                            alt="专属贡品：龙王狠坏，狠强势">
-                        <figcaption class="module-slide-caption">专属贡品：龙王狠坏，狠强势</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">漂亮的海妖</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/8202886004526703" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_8202886004526703/150" class="module-slide-img"
-                            alt="第一符师：轻狂太子妃">
-                        <figcaption class="module-slide-caption">第一符师：轻狂太子妃</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">梓云溪</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/7686028103840003" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_7686028103840003/150" class="module-slide-img"
-                            alt="夜时雨声">
-                        <figcaption class="module-slide-caption">夜时雨声</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">空谷雨</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/4066982303076201" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_4066982303076201/150" class="module-slide-img"
-                            alt="绝色狂医：魔神大人，轻点撩">
-                        <figcaption class="module-slide-caption">绝色狂医：魔神大人，轻点撩</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">默雅</span></p></a>
-                    </li>
-                    <li class="module-slide-li"><a href="/book/5293033403019401" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_5293033403019401/150" class="module-slide-img"
-                            alt="零点学院">
-                        <figcaption class="module-slide-caption">零点学院</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">沫羽汐嫣</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/7624388703310103" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_7624388703310103/150" class="module-slide-img"
-                            alt="腹黑帝君忙宠妃：野凤凰撩夫">
-                        <figcaption class="module-slide-caption">腹黑帝君忙宠妃：野凤凰撩夫</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">浮游草</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/7537835403853803" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_7537835403853803/150" class="module-slide-img"
-                            alt="逆天小狂妃：邪帝，轻点撩！">
-                        <figcaption class="module-slide-caption">逆天小狂妃：邪帝，轻点撩！</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">绯月汀</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/3745571104319103" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_3745571104319103/150" class="module-slide-img"
-                            alt="炮灰太轻狂：帝尊，不约">
-                        <figcaption class="module-slide-caption">炮灰太轻狂：帝尊，不约</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">杜了了</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/22219835000433502" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_22219835000433502/150" class="module-slide-img"
-                            alt="废柴要逆天：魔帝狂妃">
-                        <figcaption class="module-slide-caption">废柴要逆天：魔帝狂妃</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">萧七爷</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/7036260604114001" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_7036260604114001/150" class="module-slide-img"
-                            alt="惊世医妃，腹黑九皇叔">
-                        <figcaption class="module-slide-caption">惊世医妃，腹黑九皇叔</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">绿依</span></p></a>
-                    </li>
-                </ol>
-            </div>
-            <div class="module-tab moduleTab">
-                <nav class="btn-group"><h3 class="btn-group-cell"><a href="javascript:" class="btn-tab active"
-                                                                     data-rel="topOl5">穿越架空</a></h3>
-                    <h3 class="btn-group-cell"><a href="javascript:" class="btn-tab" data-rel="topOl6">仙侠奇缘</a></h3>
-                    <h3 class="btn-group-cell"><a href="javascript:" class="btn-tab" data-rel="topOl7">青春灵异</a></h3>
-                    <h3 class="btn-group-cell"><a href="javascript:" class="btn-tab" data-rel="topOl8">科幻网游</a></h3>
-                </nav>
-            </div>
-            <div class="module-slide">
-                <ol id="topOl5" class="module-slide-ol active">
-                    <li class="module-slide-li"><a href="/book/7635085504787403" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_7635085504787403/150" class="module-slide-img"
-                            alt="亲兵是女娃：拐个将军做夫君">
-                        <figcaption class="module-slide-caption">亲兵是女娃：拐个将军做夫君</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">俞七少</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/7971247503041103" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_7971247503041103/150" class="module-slide-img"
-                            alt="天庭直播间：污力主播升职记">
-                        <figcaption class="module-slide-caption">天庭直播间：污力主播升职记</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">怕虫</span></p></a>
-                    </li>
-                    <li class="module-slide-li"><a href="/book/6873964404886203" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_6873964404886203/150" class="module-slide-img"
-                            alt="农门辣女：山里汉子甜宠妻">
-                        <figcaption class="module-slide-caption">农门辣女：山里汉子甜宠妻</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">水珞珞</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/22107686000253102" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_22107686000253102/150" class="module-slide-img"
-                            alt="嫡女重生记">
-                        <figcaption class="module-slide-caption">嫡女重生记</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">六月浩雪</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/6839412004827201" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_6839412004827201/150" class="module-slide-img"
-                            alt="爆宠田园：猎户家的童养媳">
-                        <figcaption class="module-slide-caption">爆宠田园：猎户家的童养媳</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">柳银银</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/6124201903158301" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_6124201903158301/150" class="module-slide-img"
-                            alt="发家致富：福气小嫡女">
-                        <figcaption class="module-slide-caption">发家致富：福气小嫡女</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">熹妆</span></p></a>
-                    </li>
-                    <li class="module-slide-li"><a href="/book/6952189803919103" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_6952189803919103/150" class="module-slide-img"
-                            alt="重生嫡女：腹黑狂妃大小姐">
-                        <figcaption class="module-slide-caption">重生嫡女：腹黑狂妃大小姐</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">子韵汀菲</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/4701868403422801" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_4701868403422801/150" class="module-slide-img"
-                            alt="穿越之嫡女无双">
-                        <figcaption class="module-slide-caption">穿越之嫡女无双</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">江灵月</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/5943513204882901" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_5943513204882901/150" class="module-slide-img"
-                            alt="一品小农女">
-                        <figcaption class="module-slide-caption">一品小农女</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">彦禾</span></p></a>
-                    </li>
-                    <li class="module-slide-li"><a href="/book/7075036504972803" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_7075036504972803/150" class="module-slide-img"
-                            alt="悍妻归来，误惹摄政王">
-                        <figcaption class="module-slide-caption">悍妻归来，误惹摄政王</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">楚玥</span></p></a>
-                    </li>
-                </ol>
-                <ol id="topOl6" class="module-slide-ol">
-                    <li class="module-slide-li"><a href="/book/5283128404069401" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_5283128404069401/150" class="module-slide-img"
-                            alt="腹黑女武神">
-                        <figcaption class="module-slide-caption">腹黑女武神</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">七厘米</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/7818890104719303" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_7818890104719303/150" class="module-slide-img"
-                            alt="小神不记得">
-                        <figcaption class="module-slide-caption">小神不记得</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">张九解</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/7807430904157203" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_7807430904157203/150" class="module-slide-img"
-                            alt="上仙，你家萌徒又闯祸了">
-                        <figcaption class="module-slide-caption">上仙，你家萌徒又闯祸了</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">姬茹灵兮</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/8251415603316403" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_8251415603316403/150" class="module-slide-img"
-                            alt="陛下妖娆，神君难弃">
-                        <figcaption class="module-slide-caption">陛下妖娆，神君难弃</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">古蓣</span></p></a>
-                    </li>
-                    <li class="module-slide-li"><a href="/book/8429378404211803" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_8429378404211803/150" class="module-slide-img"
-                            alt="爆萌小狐仙：师尊，求抱抱">
-                        <figcaption class="module-slide-caption">爆萌小狐仙：师尊，求抱抱</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">黄泉若梦</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/7270329903923103" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_7270329903923103/150" class="module-slide-img"
-                            alt="修二代的逆袭">
-                        <figcaption class="module-slide-caption">修二代的逆袭</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">轲木木</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/7857115204392603" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_7857115204392603/150" class="module-slide-img"
-                            alt="巫医修仙手册">
-                        <figcaption class="module-slide-caption">巫医修仙手册</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">璟灵</span></p></a>
-                    </li>
-                    <li class="module-slide-li"><a href="/book/7808115403012003" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_7808115403012003/150" class="module-slide-img"
-                            alt="女配之奸商成神系统">
-                        <figcaption class="module-slide-caption">女配之奸商成神系统</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">衣落成雪</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/7756527603825703" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_7756527603825703/150" class="module-slide-img"
-                            alt="至强女汉子">
-                        <figcaption class="module-slide-caption">至强女汉子</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">傲娇美胖子</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/7834156104465503" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_7834156104465503/150" class="module-slide-img"
-                            alt="业余修仙者">
-                        <figcaption class="module-slide-caption">业余修仙者</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">烟火里的尘</span></p>
-                    </a></li>
-                </ol>
-                <ol id="topOl7" class="module-slide-ol">
-                    <li class="module-slide-li"><a href="/book/7910427204229803" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_7910427204229803/150" class="module-slide-img"
-                            alt="封印鬼少女">
-                        <figcaption class="module-slide-caption">封印鬼少女</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">月光中的恋人</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/6837680203262701" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_6837680203262701/150" class="module-slide-img"
-                            alt="黑猫公馆：灵异事件簿">
-                        <figcaption class="module-slide-caption">黑猫公馆：灵异事件簿</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">苏色暖</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/8350381304541703" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_8350381304541703/150" class="module-slide-img"
-                            alt="鬼新娘传奇">
-                        <figcaption class="module-slide-caption">鬼新娘传奇</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">龙五一</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/22414107000726702" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_22414107000726702/150" class="module-slide-img"
-                            alt="侦情档案">
-                        <figcaption class="module-slide-caption">侦情档案</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">莫伊莱</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/8587887904118103" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_8587887904118103/150" class="module-slide-img"
-                            alt="重生学霸千金：首席校草，别犯规">
-                        <figcaption class="module-slide-caption">重生学霸千金：首席校草，别犯规</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">风子_</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/22311832000653402" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_22311832000653402/150" class="module-slide-img"
-                            alt="重生之刹那芳华">
-                        <figcaption class="module-slide-caption">重生之刹那芳华</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">晚风低语</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/8397526304194703" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_8397526304194703/150" class="module-slide-img"
-                            alt="战斗吧，男神">
-                        <figcaption class="module-slide-caption">战斗吧，男神</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">魔女恩恩</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/22105673000753402" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_22105673000753402/150" class="module-slide-img"
-                            alt="萌妻甜甜圈：亿万暖婚第7天">
-                        <figcaption class="module-slide-caption">萌妻甜甜圈：亿万暖婚第7天</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">囧囧有妖</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/3733888004279001" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_3733888004279001/150" class="module-slide-img"
-                            alt="帝少追爱：女王别想逃">
-                        <figcaption class="module-slide-caption">帝少追爱：女王别想逃</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">墨落枫</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/8449541104854803" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_8449541104854803/150" class="module-slide-img"
-                            alt="校花之我是真命天子">
-                        <figcaption class="module-slide-caption">校花之我是真命天子</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">悬空月</span></p>
-                    </a></li>
-                </ol>
-                <ol id="topOl8" class="module-slide-ol">
-                    <li class="module-slide-li"><a href="/book/6786555404021203" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_6786555404021203/150" class="module-slide-img"
-                            alt="快穿攻略：女配逆袭虐渣记">
-                        <figcaption class="module-slide-caption">快穿攻略：女配逆袭虐渣记</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">夏语焉</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/7677716404613003" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_7677716404613003/150" class="module-slide-img"
-                            alt="快穿：命运神使萌萌哒">
-                        <figcaption class="module-slide-caption">快穿：命运神使萌萌哒</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">洛林璐</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/8103724003186303" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_8103724003186303/150" class="module-slide-img"
-                            alt="王者阔少：我家徒弟又坑了！">
-                        <figcaption class="module-slide-caption">王者阔少：我家徒弟又坑了！</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">镜中蝶涯</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/8429347003181903" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_8429347003181903/150" class="module-slide-img"
-                            alt="快穿：报告宿主，系统又崩坏了！">
-                        <figcaption class="module-slide-caption">快穿：报告宿主，系统又崩坏了！</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">夏诗洛</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/7953469704265203" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_7953469704265203/150" class="module-slide-img"
-                            alt="大神，匪爷又来抢亲了">
-                        <figcaption class="module-slide-caption">大神，匪爷又来抢亲了</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">狄云里</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/7737553704269203" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_7737553704269203/150" class="module-slide-img"
-                            alt="手游之梦诛大神要抱抱">
-                        <figcaption class="module-slide-caption">手游之梦诛大神要抱抱</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">凉皮不凉</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/5726883504055303" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_5726883504055303/150" class="module-slide-img"
-                            alt="星际植甲师">
-                        <figcaption class="module-slide-caption">星际植甲师</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">狐天八月</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/8161465504395803" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_8161465504395803/150" class="module-slide-img"
-                            alt="炮灰逆袭日常">
-                        <figcaption class="module-slide-caption">炮灰逆袭日常</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">连诺</span></p></a>
-                    </li>
-                    <li class="module-slide-li"><a href="/book/8078493103834403" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_8078493103834403/150" class="module-slide-img"
-                            alt="向左向右向前看">
-                        <figcaption class="module-slide-caption">向左向右向前看</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">刘贝宸</span></p>
-                    </a></li>
-                    <li class="module-slide-li"><a href="/book/7075799204030603" class="module-slide-a"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_7075799204030603/150" class="module-slide-img"
-                            alt="重生网游之暗黑奶妈">
-                        <figcaption class="module-slide-caption">重生网游之暗黑奶妈</figcaption>
-                        <p class="module-slide-author"><span class="clip">作者：</span><span class="gray">不存在的笔名</span></p>
-                    </a></li>
-                </ol>
-            </div>
-        </div>
-        <div class="module">
-            <div class="module-header">
-                <div class="module-header-l"><h3 class="module-title">人气完本</h3></div>
-                <div class="module-header-r"><a href="/finish" class="module-header-btn">更多
-                    <svg class="icon icon-arrow-r">
-                        <use xlink:href="#icon-arrow-r"></use>
-                    </svg>
-                </a></div>
-            </div>
-            <ol class="book-ol book-ol-normal">
-                <li class="book-li"><a href="/book/5999822903040101" class="book-layout"><img
-                        src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                        data-src="//qidian.qpic.cn/qdbimg/349573/c_5999822903040101/150" class="book-cover"
-                        alt="药娘当家：猎户的娇宠">
-                    <div class="book-cell"><h4 class="book-title">药娘当家：猎户的娇宠</h4>
-                        <p class="book-desc">
-                            新文《神医农妃：病夫独宠小丑媳》已开。穿越有失水准，成了后妈不说，婆家还穷到家了。没事斗斗挑事儿的家公家婆，无礼的小叔小姑，多管闲事的远亲近邻，空了陪陪孝顺懂事的小包子，钻研一下美事，研究一下药理，这日子过得也是逍遥自在。只是这男人有事没事就爱大白天拉她上榻……“喂，注意影响，还没天黑呢，”沈如玉拨开搭在他腰间的手，一脸嗔怪。“谁让你撩为夫的？”男人一张俊脸满是委屈。“我没……”“算为夫撩你，”男</p>
-                        <div class="book-meta">
-                            <div class="book-meta-l"><span class="book-author"><svg
-                                    class="icon icon-human"><title>作者</title><use xlink:href="#icon-human"></use></svg>秋风不语</span>
-                            </div>
-                            <div class="book-meta-r"><span class="tag-small-group origin-right"><em
-                                    class="tag-small yellow">古代言情</em><em class="tag-small red">已完结</em><em
-                                    class="tag-small blue">145.95万</em></span></div>
+                <div class="carousel-inner text-center">
+                    <div class="item active recommend_del">
+                        <div>
+                            <a><img src="__STATIC__/index/img/a1.png" alt="图片显示错误" />总裁一吻好羞羞</a>
+                            <a><img src="__STATIC__/index/img/a1.png" alt="图片显示错误" />老子是村长</a>
+                            <a><img src="__STATIC__/index/img/a1.png" alt="图片显示错误" />风流岁月之活色生香</a>
                         </div>
                     </div>
-                </a></li>
-                <li class="book-li"><a href="/book/5278584303305501" class="book-layout"><img
-                        src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                        data-src="//qidian.qpic.cn/qdbimg/349573/c_5278584303305501/150" class="book-cover" alt="天命凰妃">
-                    <div class="book-cell"><h4 class="book-title">天命凰妃</h4>
-                        <p class="book-desc">
-                            新文【将门娇女：帝尊溺宠小毒妃】9月1号开始连载，喜欢夭夭和云寒的宝宝们跟过来……他，南楚王朝唯一的异姓王，性情暴虐杀伐果决，唯独对她不同。“王爷，凤姑娘被王府的金针扎伤了！”“今日起，王府不许出现带刺的东西！”“王爷，表小姐出言中伤凤姑娘，被她关进柴房了！”“把门锁好，我看谁敢去送饭！”“王爷，凤姑娘要把您种了九年的杏树拔掉。”“这点小事都要她动手，要你们何用！”……“王爷，凤姑娘说世界那么大，</p>
-                        <div class="book-meta">
-                            <div class="book-meta-l"><span class="book-author"><svg
-                                    class="icon icon-human"><title>作者</title><use xlink:href="#icon-human"></use></svg>安晓妍</span>
-                            </div>
-                            <div class="book-meta-r"><span class="tag-small-group origin-right"><em
-                                    class="tag-small yellow">古代言情</em><em class="tag-small red">已完结</em><em
-                                    class="tag-small blue">156.59万</em></span></div>
+                    <div class="item recommend_del">
+                        <div>
+                            <a><img src="__STATIC__/index/img/a1.png" alt="图片显示错误" />总裁一吻好羞羞</a>
+                            <a><img src="__STATIC__/index/img/a1.png" alt="图片显示错误" />老子是村长</a>
+                            <a><img src="__STATIC__/index/img/a1.png" alt="图片显示错误" />风流岁月之活色生香</a>
                         </div>
                     </div>
-                </a></li>
-                <li class="book-li"><a href="/book/5128814704247701" class="book-layout"><img
-                        src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                        data-src="//qidian.qpic.cn/qdbimg/349573/c_5128814704247701/150" class="book-cover"
-                        alt="逼婚夺爱：厉少的香妻">
-                    <div class="book-cell"><h4 class="book-title">逼婚夺爱：厉少的香妻</h4>
-                        <p class="book-desc">
-                            她是被捡回来的弃婴，命运曲折悲惨。小时候因病被各种草药泡大，身体奇香无比！被整个G市荣为“香香公主”！他是赫赫有名的帝国总裁，视女人如粪土，性格孤僻且残暴冷酷,，整个G市的命他为“冷面魔王。一场交易，他竟然对她身上的香，食髓知味！从此对她张开天罗地网！</p>
-                        <div class="book-meta">
-                            <div class="book-meta-l"><span class="book-author"><svg
-                                    class="icon icon-human"><title>作者</title><use xlink:href="#icon-human"></use></svg>蓝木棉</span>
-                            </div>
-                            <div class="book-meta-r"><span class="tag-small-group origin-right"><em
-                                    class="tag-small yellow">现代言情</em><em class="tag-small red">已完结</em><em
-                                    class="tag-small blue">106.68万</em></span></div>
+                    <div class="item recommend_del">
+                        <div>
+                            <a><img src="__STATIC__/index/img/a1.png" alt="图片显示错误" />总裁一吻好羞羞</a>
+                            <a><img src="__STATIC__/index/img/a1.png" alt="图片显示错误" />老子是村长</a>
+                            <a><img src="__STATIC__/index/img/a1.png" alt="图片显示错误" />风流岁月之活色生香</a>
                         </div>
                     </div>
-                </a></li>
-                <li class="book-li"><a href="/book/6539825903808401" class="book-layout"><img
-                        src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                        data-src="//qidian.qpic.cn/qdbimg/349573/c_6539825903808401/150" class="book-cover"
-                        alt="蜜爱深宠：总统大人好腹黑">
-                    <div class="book-cell"><h4 class="book-title">蜜爱深宠：总统大人好腹黑</h4>
-                        <p class="book-desc">
-                            （新文已发：《重生学霸千金：首席校草，别犯规》）寒清清从未想过，自己竟然会与S国总统继承人结缘。她平静的生活渐渐卷入一场关于权贵利益的腥风血雨中……情景一：“告诉我，你的名字……”男子喘着粗气问她，充满鲜血的手紧紧抓着她的衣襟，染红了裙角。//情景二：某天，寒清清望着雨幕中走来的高大清俊地年轻男子，那双琥珀色瞳孔盯着她，眸光沉沉。她耳边除了哗哗的雨声，还有他低沉地嗓音：“雨大了，不如跟我走？”//</p>
-                        <div class="book-meta">
-                            <div class="book-meta-l"><span class="book-author"><svg
-                                    class="icon icon-human"><title>作者</title><use xlink:href="#icon-human"></use></svg>风子_</span>
-                            </div>
-                            <div class="book-meta-r"><span class="tag-small-group origin-right"><em
-                                    class="tag-small yellow">浪漫青春</em><em class="tag-small red">已完结</em><em
-                                    class="tag-small blue">50.84万</em></span></div>
-                        </div>
-                    </div>
-                </a></li>
-            </ol>
+                </div>
+            </div>
         </div>
-        <div class="module">
-            <div class="module-header">
-                <div class="module-header-l"><h3 class="module-title">精品书单推荐</h3></div>
+    </div>
+    <div class="row clearfix more_novel bg_white mar_top">
+        <div class="col-xs-6 column">
+            <span class="pull-left" style="color: #999;">热门小说</span>
+        </div>
+        <div class="col-xs-6 column">
+            <span class="pull-right">更多<i class="iconfont icon-gengduo"></i></span>
+        </div>
+    </div>
+    <div class="row clearfix bg_white h_delh" style="height: 110px;">
+        <div class="col-xs-4 column del_height">
+            <img src="__STATIC__/index/img/a1.png" alt="图片显示错误" class="img_out" />
+        </div>
+        <div class="col-xs-8 column del_height">
+            <div class="row clearfix date_span">
+                <div class="col-xs-12 column no_lpad" style="height: 40%;">
+                    <span class="pull-left" style="font-size: 14px;">21个女主播<br><i>随性</i></span>
+                    <span class="pull-right read_right">立即阅读</span>
+                </div>
+                <div class="col-xs-12 column no_lpad" style="height: 60%;overflow: hidden;">
+                    <span>屌丝王大锤捡到袖珍小萝莉，竟然可以召唤美女精灵，神马赵飞燕、杨贵妃、小龙女、全都被他召唤到现代，成为新晋...</span>
+                </div>
             </div>
-            <div class="module-slide">
-                <ol class="module-slide-ol booklist-module">
-                    <li class="module-slide-li"><a href="/booklist/info/82" class="booklist-slide-a"><span
-                            class="booklist-box"><span class="booklist-cover"><ul class="booklist-cover-wrapper"><li
-                            class="booklist-cover-wrapper-item"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_5242102604398603/150" alt="" class="book-cover"></li><li
-                            class="booklist-cover-wrapper-item ml12"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_22417886000152202/150" alt="" class="book-cover"></li><li
-                            class="booklist-cover-wrapper-item ml12"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_5128769704229701/150" alt="" class="book-cover"></li><li
-                            class="booklist-cover-wrapper-item ml12"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_7539673104047903/150" alt="" class="book-cover"></li></ul><div
-                            class="booklist-cover-title"><span
-                            class="booklist-cover-title-word">夏天凉一凉，豪门里面有鬼怪</span></div></span><p
-                            class="booklist-book-desc">求问被奇怪总裁缠上了怎么办在线等。</p><span class="booklist-book-author"><img
-                            src="https://shp.qpic.cn/readnovel/0/1020342595_1502875656451/100" alt="小阅的头像"
-                            class="booklist-book-author-avatar"><span class="booklist-book-author-name">小阅</span></span><span
-                            class="booklist-mark elformark" href="javascript:" data-id="82"><svg
-                            class="icon icon-booklist-addmark"><use xlink:href="#icon-booklist-addmark"></use></svg>收藏书单(<span
-                            class="el-booklist-count">0</span>)</span><span
-                            class="booklist-mark donemark hidden el-booklist-markdone"><svg
-                            class="icon icon-booklist-mark"><use xlink:href="#icon-booklist-mark"></use></svg>已收藏(<span
-                            class="el-mark-count">0</span>)</span></span></a></li>
-                    <li class="module-slide-li"><a href="/booklist/info/81" class="booklist-slide-a"><span
-                            class="booklist-box"><span class="booklist-cover"><ul class="booklist-cover-wrapper"><li
-                            class="booklist-cover-wrapper-item"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_25382419000581201/150" alt="" class="book-cover"></li><li
-                            class="booklist-cover-wrapper-item ml12"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_25378989000547001/150" alt="" class="book-cover"></li><li
-                            class="booklist-cover-wrapper-item ml12"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_5675043603878601/150" alt="" class="book-cover"></li><li
-                            class="booklist-cover-wrapper-item ml12"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_5456252004076901/150" alt="" class="book-cover"></li></ul><div
-                            class="booklist-cover-title"><span
-                            class="booklist-cover-title-word">萌宝大集合</span></div></span><p class="booklist-book-desc">左手养萌宝，右手虐渣男。有人来找茬，关门放男主！</p><span
-                            class="booklist-book-author"><img
-                            src="https://shp.qpic.cn/readnovel/0/1020342595_1502875656451/100" alt="小阅的头像"
-                            class="booklist-book-author-avatar"><span class="booklist-book-author-name">小阅</span></span><span
-                            class="booklist-mark elformark" href="javascript:" data-id="81"><svg
-                            class="icon icon-booklist-addmark"><use xlink:href="#icon-booklist-addmark"></use></svg>收藏书单(<span
-                            class="el-booklist-count">0</span>)</span><span
-                            class="booklist-mark donemark hidden el-booklist-markdone"><svg
-                            class="icon icon-booklist-mark"><use xlink:href="#icon-booklist-mark"></use></svg>已收藏(<span
-                            class="el-mark-count">0</span>)</span></span></a></li>
-                    <li class="module-slide-li"><a href="/booklist/info/638" class="booklist-slide-a"><span
-                            class="booklist-box"><span class="booklist-cover"><ul class="booklist-cover-wrapper"><li
-                            class="booklist-cover-wrapper-item"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_5879132303995301/150" alt="" class="book-cover"></li><li
-                            class="booklist-cover-wrapper-item ml12"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_8476783004502603/150" alt="" class="book-cover"></li><li
-                            class="booklist-cover-wrapper-item ml12"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_7231715403122603/150" alt="" class="book-cover"></li><li
-                            class="booklist-cover-wrapper-item ml12"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_6157900503742503/150" alt="" class="book-cover"></li></ul><div
-                            class="booklist-cover-title"><span class="booklist-cover-title-word">超级宠文！实力虐渣！</span></div></span><p
-                            class="booklist-book-desc">经典之作，实力宠妻，霸气护夫！</p><span class="booklist-book-author"><img
-                            src="https://shp.qpic.cn/readnovel/0/1/100" alt="11719073的头像"
-                            class="booklist-book-author-avatar"><span class="booklist-book-author-name">11719073</span></span><span
-                            class="booklist-mark elformark" href="javascript:" data-id="638"><svg
-                            class="icon icon-booklist-addmark"><use xlink:href="#icon-booklist-addmark"></use></svg>收藏书单(<span
-                            class="el-booklist-count">0</span>)</span><span
-                            class="booklist-mark donemark hidden el-booklist-markdone"><svg
-                            class="icon icon-booklist-mark"><use xlink:href="#icon-booklist-mark"></use></svg>已收藏(<span
-                            class="el-mark-count">0</span>)</span></span></a></li>
-                    <li class="module-slide-li"><a href="/booklist/info/768" class="booklist-slide-a"><span
-                            class="booklist-box"><span class="booklist-cover"><ul class="booklist-cover-wrapper"><li
-                            class="booklist-cover-wrapper-item"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_5283670403374801/150" alt="" class="book-cover"></li><li
-                            class="booklist-cover-wrapper-item ml12"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_25386679000629001/150" alt="" class="book-cover"></li><li
-                            class="booklist-cover-wrapper-item ml12"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_25384491000605301/150" alt="" class="book-cover"></li><li
-                            class="booklist-cover-wrapper-item ml12"><img
-                            src="//qidian.gtimg.com/readnovelm/img/book-cover.0.1.svg"
-                            data-src="//qidian.qpic.cn/qdbimg/349573/c_25384536000605901/150" alt="" class="book-cover"></li></ul><div
-                            class="booklist-cover-title"><span
-                            class="booklist-cover-title-word">秋夜雨寒，我生命里的不可或缺</span></div></span><p
-                            class="booklist-book-desc">秋夜雨寒笔下的每个故事、人物、场景，于我都是真真切切的存在。它们是无数黑夜里照亮我的璀璨星辰，是珍藏心里想和人分享又不舍言明的少年心事，是我心里最柔软最温暖的部分。是家人、是记忆、是生命的不可或缺！</p><span
-                            class="booklist-book-author"><img
-                            src="https://shp.qpic.cn/readnovel/0/801018509540_1502117622072/100" alt="寻雨寒的头像"
-                            class="booklist-book-author-avatar"><span
-                            class="booklist-book-author-name">寻雨寒</span></span><span class="booklist-mark elformark"
-                                                                                     href="javascript:" data-id="768"><svg
-                            class="icon icon-booklist-addmark"><use xlink:href="#icon-booklist-addmark"></use></svg>收藏书单(<span
-                            class="el-booklist-count">0</span>)</span><span
-                            class="booklist-mark donemark hidden el-booklist-markdone"><svg
-                            class="icon icon-booklist-mark"><use xlink:href="#icon-booklist-mark"></use></svg>已收藏(<span
-                            class="el-mark-count">0</span>)</span></span></a></li>
-                </ol>
+        </div>
+    </div>
+    <div class="row clearfix bg_white h_delh pad_top">
+        <div class="col-xs-4 column del_height">
+            <img src="__STATIC__/index/img/a1.png" alt="图片显示错误" class="img_out" />
+        </div>
+        <div class="col-xs-8 column del_height">
+            <div class="row clearfix date_span">
+                <div class="col-xs-12 column no_lpad" style="height: 40%;">
+                    <span class="pull-left" style="font-size: 14px;">21个女主播<br><i>随性</i></span>
+                    <span class="pull-right read_right">立即阅读</span>
+                </div>
+                <div class="col-xs-12 column no_lpad" style="height: 60%;overflow: hidden;">
+                    <span>屌丝王大锤捡到袖珍小萝莉，竟然可以召唤美女精灵，神马赵飞燕、杨贵妃、小龙女、全都被他召唤到现代，成为新晋...</span>
+                </div>
             </div>
+        </div>
+    </div>
+    <div class="row clearfix bg_white h_delh pad_top">
+        <div class="col-xs-4 column del_height">
+            <img src="__STATIC__/index/img/a1.png" alt="图片显示错误" class="img_out" />
+        </div>
+        <div class="col-xs-8 column del_height">
+            <div class="row clearfix date_span">
+                <div class="col-xs-12 column no_lpad" style="height: 40%;">
+                    <span class="pull-left" style="font-size: 14px;">21个女主播<br><i>随性</i></span>
+                    <span class="pull-right read_right">立即阅读</span>
+                </div>
+                <div class="col-xs-12 column no_lpad" style="height: 60%;overflow: hidden;">
+                    <span>屌丝王大锤捡到袖珍小萝莉，竟然可以召唤美女精灵，神马赵飞燕、杨贵妃、小龙女、全都被他召唤到现代，成为新晋...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row clearfix more_novel bg_white mar_top">
+        <div class="col-xs-6 column">
+            <span class="pull-left" style="color: #999;">新书推荐</span>
+        </div>
+        <div class="col-xs-6 column">
+            <span class="pull-right">更多<i class="iconfont icon-gengduo"></i></span>
+        </div>
+    </div>
+    <div class="row clearfix bg_white">
+        <div class="col-xs-12 column">
+            <div class="carousel slide" style="padding-bottom: 15px;border-bottom: 1px solid #eeeeee;">
+                <div class="carousel-inner text-center">
+                    <div class="item active recommend_del">
+                        <div>
+                            <a><img src="__STATIC__/index/img/a1.png" alt="图片显示错误" />总裁一吻好羞羞</a>
+                            <a><img src="__STATIC__/index/img/a1.png" alt="图片显示错误" />老子是村长</a>
+                            <a><img src="__STATIC__/index/img/a1.png" alt="图片显示错误" />风流岁月之活色生香</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row clearfix bg_white h_delh pad_top">
+        <div class="col-xs-4 column del_height">
+            <img src="__STATIC__/index/img/a1.png" alt="图片显示错误" class="img_out" />
+        </div>
+        <div class="col-xs-8 column del_height">
+            <div class="row clearfix date_span">
+                <div class="col-xs-12 column no_lpad" style="height: 40%;">
+                    <span class="pull-left" style="font-size: 14px;">21个女主播<br><i>随性</i></span>
+                    <span class="pull-right read_right">立即阅读</span>
+                </div>
+                <div class="col-xs-12 column no_lpad" style="height: 60%;overflow: hidden;">
+                    <span>屌丝王大锤捡到袖珍小萝莉，竟然可以召唤美女精灵，神马赵飞燕、杨贵妃、小龙女、全都被他召唤到现代，成为新晋...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row clearfix bg_white h_delh pad_top">
+        <div class="col-xs-4 column del_height">
+            <img src="__STATIC__/index/img/a1.png" alt="图片显示错误" class="img_out" />
+        </div>
+        <div class="col-xs-8 column del_height">
+            <div class="row clearfix date_span">
+                <div class="col-xs-12 column no_lpad" style="height: 40%;">
+                    <span class="pull-left" style="font-size: 14px;">21个女主播<br><i>随性</i></span>
+                    <span class="pull-right read_right">立即阅读</span>
+                </div>
+                <div class="col-xs-12 column no_lpad" style="height: 60%;overflow: hidden;">
+                    <span>屌丝王大锤捡到袖珍小萝莉，竟然可以召唤美女精灵，神马赵飞燕、杨贵妃、小龙女、全都被他召唤到现代，成为新晋...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row clearfix bg_white mar_top">
+        <div class="col-xs-4 column main_recommend">
+            <p>主编推荐</p>
+        </div>
+        <div class="col-xs-8 column three_circl main_recommend">
+            <div>
+                <p style="color: orange;" class="time_p">倒计时：<i>24</i>：<i>45</i>：<i>60</i></p>
+            </div>
+        </div>
+    </div>
+    <div class="row clearfix bg_white">
+        <div class="col-xs-12 column">
+            <div class="carousel slide" style="padding-bottom: 15px;border-bottom: 1px solid #eeeeee;">
+                <div class="carousel-inner text-center">
+                    <div class="item active recommend_del">
+                        <div>
+                            <a><img src="__STATIC__/index/img/a1.png" alt="图片显示错误" />总裁一吻好羞羞</a>
+                            <a><img src="__STATIC__/index/img/a1.png" alt="图片显示错误" />老子是村长</a>
+                            <a><img src="__STATIC__/index/img/a1.png" alt="图片显示错误" />风流岁月之活色生香</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row clearfix bg_white mar_top">
+        <div class="col-xs-4 column main_recommend">
+            <p>猜你喜欢</p>
+        </div>
+        <div class="col-xs-8 column three_circl main_recommend">
+            <div>
+                <p style="color:#ccc;"><i class="iconfont icon-shuaxin" style="background: none;color:#ccc;"></i>换一批</p>
+            </div>
+        </div>
+    </div>
+    <div class="row clearfix bg_white">
+        <div class="col-xs-12 column">
+            <div class="carousel slide" style="padding-bottom: 15px;">
+                <div class="carousel-inner text-center">
+                    <div class="item active recommend_del">
+                        <div>
+                            <a><img src="__STATIC__/index/img/a1.png" alt="图片显示错误" />总裁一吻好羞羞</a>
+                            <a><img src="__STATIC__/index/img/a1.png" alt="图片显示错误" />老子是村长</a>
+                            <a><img src="__STATIC__/index/img/a1.png" alt="图片显示错误" />风流岁月之活色生香</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row clearfix bg_white">
+        <div class="col-xs-12 column">
+            <div class="carousel slide" style="padding-bottom: 15px;">
+                <div class="carousel-inner text-center">
+                    <div class="item active recommend_del">
+                        <div>
+                            <a><img src="__STATIC__/index/img/a1.png" alt="图片显示错误" />总裁一吻好羞羞</a>
+                            <a><img src="__STATIC__/index/img/a1.png" alt="图片显示错误" />老子是村长</a>
+                            <a><img src="__STATIC__/index/img/a1.png" alt="图片显示错误" />风流岁月之活色生香</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row clearfix bg_white mar_top booklist">
+        <div class="col-xs-12 column" style="padding-top: 10px;padding-bottom: 10px;">畅销书单</div>
+        <div class="col-xs-12 column">
+            <p class="bottom"><i class="iconfont icon-fangduihuakuangkuai pm_icon f_green"></i><b>1</b><span>桃色乡村<em>清酒半壶</em></span></p>
+        </div>
+        <div class="col-xs-12 column">
+            <p class="bottom"><i class="iconfont icon-fangduihuakuangkuai pm_icon f_green"></i><b>2</b><span>桃色乡村<em>清酒半壶</em></span></p>
+        </div>
+        <div class="col-xs-12 column">
+            <p class="bottom"><i class="iconfont icon-fangduihuakuangkuai pm_icon f_green"></i><b>3</b><span>桃色乡村<em>清酒半壶</em></span></p>
+        </div>
+        <div class="col-xs-12 column">
+            <p class="bottom"><i class="iconfont icon-fangduihuakuangkuai pm_icon "></i><b>4</b><span>桃色乡村<em>清酒半壶</em></span></p>
+        </div>
+        <div class="col-xs-12 column">
+            <p class="bottom"><i class="iconfont icon-fangduihuakuangkuai pm_icon "></i><b>5</b><span>桃色乡村<em>清酒半壶</em></span></p>
+        </div>
+        <div class="col-xs-12 column">
+            <p><i class="iconfont icon-fangduihuakuangkuai pm_icon "></i><b>6</b><span>桃色乡村<em>清酒半壶</em></span></p>
+        </div>
+    </div>
+    <div class="row clearfix bg_white mar_top">
+        <div class="col-xs-12 column text-center footer top_pad">
+            <a class="right_bor">首页</a>
+            <a>充值</a>
+            <a class="left_bor">限时免费</a>
+        </div>
+    </div>
+    <div class="row clearfix bg_white text-center" style="padding: 5px 0px;">
+        <small>@2017最全小说</small>
+    </div>
+    <div class="row clearfix bg_white text-center">
+        <small>免责声明：小说均源于互联网-所有版权股属于原作者</small>
+    </div>
+    <div class="row clearfix bg_white text-center erwm" style="padding: 5px 0px;">
+        <img src="__STATIC__/index/img/a1.png" alt="图片显示错误" />
+    </div>
+    <div class="row clearfix bg_white text-center" style="padding-bottom: 53px;">
+        <small>本公总号仅提供页面服务，如有侵权请于我们联系</small>
+    </div>
+
+    <div class="row clearfix bg_white text-center tabs t_b_pad">
+        <div class="col-xs-4 column text-center footer">
+            <a><i class="iconfont icon-shujiaxuanzhong"></i>书架</a>
+        </div>
+        <div class="col-xs-4 column text-center footer">
+            <a><i class="iconfont icon-shoucang"></i>首页</a>
+        </div>
+        <div class="col-xs-4 column text-center footer">
+            <a><i class="iconfont icon-wode-copy"></i>我的</a>
         </div>
     </div>
 </div>
-<footer class="footer">
-    <div class="footer-backtop">
-        <div class="footer-backtop-cell jsGuestWrapper"><strong>登录后获得更多特色功能</strong><span class="char-dot">·</span><a
-                href="javascript:" class="blue jsLogin">立即登录</a></div>
-    </div>
-    <div class="footer-link"><a href="/bookshelf/my" class="footer-link-a dark">书架</a><a href="/"
-                                                                                         class="footer-link-a dark jsLogin">充值</a><a
-            href="/user/help" class="footer-link-a dark">帮助</a><a href="javascript:"
-                                                                  data-ios="//qidian.gtimg.com/XSReader/?redirect=https%3A%2F%2Fitunes.apple.com%2Fcn%2Fapp%2Fxiao-shuo-yue-du-wang-chang%2Fid1068356529%3Fmt%3D8"
-                                                                  data-android="//qidian.gtimg.com/XSReader/?redirect=http%3A%2F%2Fdown-update.qq.com%2Fqqreaderhb2017%2Fapksource%2FXSReader.apk"
-                                                                  class="footer-link-a dark jsDownloadLink">客户端</a>
-    </div>
-    <div class="footer-copy">copyright &copy; 2002-2017 m.readnovel.com</div>
-</footer>
-<a id="footerApp" href="javascript:"
-   data-ios="//qidian.gtimg.com/XSReader/?redirect=https%3A%2F%2Fitunes.apple.com%2Fcn%2Fapp%2Fxiao-shuo-yue-du-wang-chang%2Fid1068356529%3Fmt%3D8"
-   data-android="//qidian.gtimg.com/XSReader/?redirect=http%3A%2F%2Fdown-update.qq.com%2Fqqreaderhb2017%2Fapksource%2FXSReader.apk"
-   class="footer-app jsDownloadLink"><i class="icon-app-logo">
-    <svg class="icon icon-qi">
-        <use xlink:href="#icon-qi"></use>
-    </svg>
-</i>
-    <h3 class="footer-app-h">安装小阅读书客户端</h3>
-    <p class="footer-app-p">看更多正版好书</p><span class="btn-primary-small">下载</span></a><a href="#header"
-                                                                                       class="footer-backtop-circle jsBackToTop"
-                                                                                       title="返回顶部">
-    <svg class="icon icon-backtop">
-        <use xlink:href="#icon-backtop"></use>
-    </svg>
-</a><a href="#&amp;aside" id="asideTrigger" class="home-recent-read" data-rel="aside"><span class="btn-primary-circle">最近阅读</span></a>
-<aside id="aside" class="aside"><i id="asideOverlay" class="aside-overlay"></i>
-    <div class="aside-content">
-        <div class="module module-history">
-            <div class="module-header"><h3 class="module-title">最近阅读</h3></div>
-            <div id="recentlyRead" class="module-main scrollable"></div>
-            <div class="module-footer">
-                <div class="jsGuestWrapper"><a href="/bookshelf/my" class="btn-primary jsLogin" data-size="10">登录去书架</a>
-                    <!-- <p class="module-footer-txt">新用户登录送新手礼包</p> --></div>
-                <div class="jsUserWrapper" hidden><a href="/bookshelf/my" class="btn-primary" data-size="10">我的书架</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</aside>
-<script id="tpl-com-rec.html" type="text/ejs-template">function () {
-var argCount = numArgs(arguments);
-var args;
-var kwargs = getKeywordArgs(arguments);
-var i;
-if(argCount &gt; argNames.length) {
-args = Array.prototype.slice.call(arguments, 0, argNames.length);
-// Positional arguments that should be passed in as
-// keyword arguments (essentially default values)
-var vals = Array.prototype.slice.call(arguments, args.length, argCount);
-for(i = 0; i &lt; vals.length; i++) {
-if(i &lt; kwargNames.length) {
-kwargs[kwargNames[i]] = vals[i];
-}
-}
-args.push(kwargs);
-}
-else if(argCount &lt; argNames.length) {
-args = Array.prototype.slice.call(arguments, 0, argCount);
-for(i = argCount; i &lt; argNames.length; i++) {
-var arg = argNames[i];
-// Keyword arguments that should be passed as
-// positional arguments, i.e. the caller explicitly
-// used the name of a positional arg
-args.push(kwargs[arg]);
-delete kwargs[arg];
-}
-args.push(kwargs);
-}
-else {
-args = arguments;
-}
-return func.apply(this, args);
-}</script>
-<script id="tpl-recently-read.html" type="text/ejs-template">
-    <ol
-    class="book-ol book-ol-progress"> <%# 最多展示6本 %> <% for (var i = 0; i < data.slice(0, 6).length; i++) { var d = data[i]; %>
-    <li class="book-li">
-        <a href="/book/<%= d.bid %>/<%= d.cid %>" class="book-layout">
-            <div class="book-cell">
-                <div class="book-title-x">
-                    <div class="book-title-r">
-                        <span class="gray">继续阅读<svg class="icon icon-arrow-r"><use
-                                xlink:href="#icon-arrow-r"></use></svg></span>
-                    </div>
-                    <h4 class="book-title"><%= d.bName %></h4>
-                </div>
-                <div class="book-meta">
-                    <p class="ell">读至 <%= d.cName %></p>
-                </div>
-                <div class="book-meta">
-                    <time><%= d.time %></time>
-                </div>
-            </div>
-        </a>
-    </li> <% } %> </ol> <% if (data.length > 6) { %> <a href="/bookshelf/history"
-                                                        class="book-li-more">更多阅读记录</a> <% } else if (data.length) { %>
-    <a class="book-li-more">以上为全部阅读记录</a> <% } else { %>
-    <div class="null">暂无阅读记录</div> <% } %> </script>
-<div id="searchPopup" class="search-popup" hidden>
-    <header class="header">
-        <form id="searchForm" action="/search" class="search-form">
-            <div class="search-area">
-                <svg class="icon icon-search">
-                    <use xlink:href="#icon-search"></use>
-                </svg>
-                <input id="keyword" type="search" name="kw" class="search-input" value="" autocomplete="off">
-                <button id="clearSearchKeyword" type="button" class="search-reset" hidden><i class="icon icon-clear">
-                    <svg>
-                        <use xlink:href="#icon-clear"></use>
-                    </svg>
-                </i></button>
-            </div>
-            <a id="closeSearchPopup" href="javascript:" class="search-cancel">取消</a></form>
-    </header>
-    <div id="searchHotHistory" class="search-hot-history">
-        <div id="searchPopularWords" class="search-popular"></div>
-        <div id="searchHistory"></div>
-    </div>
-    <div id="searchList" class="search-list" hidden></div>
-</div>
-<script id="tpl-search-popular-words.html" type="text/ejs-template">
-    <div
-    class="search-title-bar">
-    <h5 class="search-title">大家都在搜</h5>
-    </div>
-    <div class="search-tags"> <% for (var i = 0; i < data.popWords.length; i++) { var d = data.popWords[i]; %><a
-            href="/search?kw=<%= d.name %>" class="btn-line-gray jsSearchLink" data-keyword="<%= d.name %>"><%= d.name
-        %></a><% } %>
-    </div></script>
-<script id="tpl-search-history.html" type="text/ejs-template"> <% if (data.length) { %>
-<div class="search-title-bar">
-    <h5 class="search-title">搜索历史</h5>
-    <div class="search-operate">
-        <a id="clearSearchHistory" href="javascript:" class="search-operate-a">
-            <svg class="icon icon-delete">
-                <use xlink:href="#icon-delete"></use>
-            </svg>
-            清空
-        </a>
-    </div>
-</div>
-<div class="search-tags"> <% for (var i = 0; i < data.length; i++) { var d = data[i]; %><a href="/search?kw=<%= d %>"
-                                                                                           class="btn-line-gray jsSearchLink"
-                                                                                           data-keyword="<%= d %>"><%= d
-    %></a><% } %>
-</div> <% } %> </script>
-<script id="tpl-search-list.html" type="text/ejs-template">
-    <ul
-    class="search-list-ul"> <% if (data.author) { %> <% for (var i = 0; i < data.author.length; i++) { var d = data.author[i]; %>
-    <li class="search-list-li">
-        <a href="/author/<%= d.id %>" class="search-list-a jsSearchLink" data-keyword="<%= d.name %>">
-            <div class="search-list-l">
-                <svg class="icon icon-human">
-                    <use xlink:href="#icon-human"></use>
-                </svg>
-                <span class="search-value"><%= d.name %></span><em class="tag-solid red">作者</em>
-            </div>
-        </a>
-    </li> <% } %> <% } %> <% if (data.category) { %> <% for (var i = 0; i < data.category.length; i++) { var d = data.category[i]; %>
-    <li class="search-list-li">
-        <a href="/category/<%= d.catId %>" class="search-list-a jsSearchLink" data-keyword="<%= d.name %>">
-            <div class="search-list-l">
-                <svg class="icon icon-category">
-                    <use xlink:href="#icon-category"></use>
-                </svg>
-                <span class="search-value"><%= d.name %></span><em class="tag-solid gray">分类</em>
-            </div>
-        </a>
-    </li> <% } %> <% } %> <% if (data.bookInfo) { %> <% for (var i = 0; i < data.bookInfo.length; i++) { var d = data.bookInfo[i]; %>
-    <li class="search-list-li">
-        <a href="/book/<%= d.id %>" class="search-list-a jsSearchLink" data-keyword="<%= d.name %>">
-            <div class="search-list-l">
-                <svg class="icon icon-find">
-                    <use xlink:href="#icon-find"></use>
-                </svg>
-                <span class="search-value"><%= d.name %></span>
-            </div>
-            <div class="search-list-r">
-                <span class="search-label"><%= d.author %></span>
-            </div>
-        </a>
-    </li> <% } %> <% } %> </ul></script>
-<script>// 全局的通用数据都放g_data变量里
-var g_data = {};
-// 环境变量，会按照环境选择性打log
-g_data.envType = 'pro';
-// 调试模式
-g_data.debug = 'false';
-// 域名
-g_data.domains = {
-    "m": "//m.readnovel.com",
-    "static": "//qidian.gtimg.com",
-    "cover": "//qidian.qpic.cn",
-    "pay": "//pay.yuewen.com",
-    "security": "//aq.yuewen.com",
-    "hiijack": "//book.qidian.com",
-    "speedReport": "//isdspeed.qidian.com",
-    "commonReport": "//qdp.readnovel.com",
-    "appLink": "//qidian.gtimg.com"
-};
-// 用户
-g_data.user = {"isLogin": false, "avatar": "", "nickName": "", "userLevel": 0, "tucaoUrl": "", "guid": ""};
-// 用作统计PV
-g_data.pageId = 'xs_p_qidian';
-//环境变量，pro环境则为空
-g_data.domainPrefix = '';</script>
-<script data-ignore="true" src="//qidian.gtimg.com/lbf/2.0.1/LBF.js?max_age=31536000"></script>
-<script>// LBF 配置
-LBF.config({
-    paths: {
-        readnovelm: '//qidian.gtimg.com/readnovelm',
-    },
-    vars: {
-        theme: '//qidian.gtimg.com/readnovelm/css',
-    },
-    combo: true,
-    debug: false
-});
-// 分离通用依赖
-LBF.use(['lib.Zepto', 'monitor.SpeedReport'], function ($, SpeedReport) {
-    $(window).on('load.speedReport', function () {
-        // speedTimer[onload]
-        speedTimer.push(new Date().getTime());
-        var f1 = 7718; // china reading limited's ID
-        var f2 = 251; // site ID
-        var f3 = 0; // page ID
-        // chrome & IE9 Performance API
-        SpeedReport.reportPerformance({
-            flag1: f1,
-            flag2: f2,
-            flag3IE: f3,
-            flag3Chrome: f3,
-            rate: 0.1,
-            url: '//isdspeed.qidian.com/cgi-bin/r.cgi'
-        });
-        // common speedTimer:['dom ready', 'onload']
-        var speedReport = SpeedReport.create({
-            flag1: f1,
-            flag2: f2,
-            flag3: f3,
-            start: speedZero,
-            rate: 0.1,
-            url: '//isdspeed.qidian.com/cgi-bin/r.cgi'
-        });
-        // chrome & IE9 Performance API range 1~19, common speedTimer use 20+
-        for (var i = 0; i < speedTimer.length; i++) {
-            speedReport.add(speedTimer[i], i + 20);
-        }
-        // http://isdspeed.qq.com/cgi-bin/r.cgi?flag1=7718&flag2=224&flag3=1&1=38&2=38&…
-        speedReport.send();
-    });
-});
-LBF.use(['readnovelm/js/common/page/index.0.25.js', 'readnovelm/js/homepage/index.0.21.js'], function (pageCommon, page) {
-    pageCommon.init();
-    page.init();
-});
-// speedTimer[dom ready], put it before </body>
-speedTimer.push(new Date().getTime());</script>
-<script>var _mtac = {"performanceMonitor": 1};
-(function () {
-    var mta = document.createElement("script");
-    mta.src = "//pingjs.qq.com/h5/stats.js?v2.0.2";
-    mta.setAttribute("name", "MTAH5");
-    mta.setAttribute("sid", "500386810");
-    mta.setAttribute("cid", "500386843");
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(mta, s);
-})();</script>
-<script>(function () {
-    var bp = document.createElement('script');
-    var curProtocol = window.location.protocol.split(':')[0];
-    if (curProtocol === 'https') {
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
-    }
-    else {
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-    }
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();</script>
+
+{include file="Public/foot"/}
+
 </body>
 </html>

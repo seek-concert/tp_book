@@ -1,5 +1,9 @@
 <?php
-
+/* |------------------------------------------------------
+ * | 初始化
+ * |------------------------------------------------------
+ * |
+ * */
 namespace app\index\controller;
 
 use think\Controller;
@@ -11,35 +15,38 @@ class Auth extends Controller
     public $reader;
     public function _initialize()
     {
-        /* +++++++++授权登录+++++++++ */
-        $openid=cookie('openid');
-        if($openid){
-            cookie('openid',$openid,3*24*60*60);
-            if(!cookie('refresh_token')){
-                $this->authorize();exit;
-            }
-        }else{
-            if(cookie('refresh_token')){
-                $this->refreshtoken();
-                $openid=cookie('openid');
-            }else{
-                $this->authorize();exit;
-            }
-        }
         /* +++++++++获取微信用户信息+++++++++ */
-        if(!$this->reader){
+        /*if(!$this->reader){
+            $settings=db('setting')->field(['appid','appsecret'])->find();
+            $this->AppId=$settings['appid'];
+            $this->AppSecret=$settings['appsecret'];
+
+            $openid=cookie('openid');
+            if($openid){
+                cookie('openid',$openid,3*24*60*60);
+                if(!cookie('refresh_token')){
+                    $this->authorize();exit;
+                }
+            }else{
+                if(cookie('refresh_token')){
+                    $this->refreshtoken();
+                    $openid=cookie('openid');
+                }else{
+                    $this->authorize();exit;
+                }
+            }
             $userinfo=$this->getuserinfo();
             if($userinfo['errcode']){
                 $this->authorize();
             }
             $this->reader=$userinfo;
-        }
+        }*/
 
     }
 
     /* ============授权获取微信CODE============== */
     public function authorize(){
-        $return_url='http://'.$_SERVER['HTTP_HOST'].'/index.php/Index/getaccesstoken';
+        $return_url='http://'.$_SERVER['HTTP_HOST'].'/index/Index/getaccesstoken';
         $code_url='https://open.weixin.qq.com/connect/oauth2/authorize?appid='.$this->AppId.'&redirect_uri='.urlencode($return_url).'&response_type=code&scope=snsapi_userinfo&state=code#wechat_redirect';
         header('location:'.$code_url);
         exit;

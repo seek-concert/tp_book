@@ -1,0 +1,282 @@
+.no_pad {
+	padding: 0px!important;
+}
+
+.no_lpad {
+	padding-left: 0px!important;
+}
+
+.no_rpad {
+	padding-right: 0px!important;
+}
+
+.top_pad {
+	padding-top: 10px;
+}
+.t_b_pad{
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+.bg_white {
+	background-color: white;
+}
+
+.mar_top {
+	margin-top: 10px;
+}
+
+.pad_top {
+	padding-top: 10px;
+}
+
+small {
+	color: #CCCCCC;
+}
+
+
+/**====================首页=================**/
+
+.top_out_div {
+	width: 100%;
+	height: 35px;
+	padding-top: 5px;
+	padding-right: 5px;
+	position: relative;
+	color: #999;
+	font-size: 12px;
+}
+
+.top_search {
+	float: left;
+	width: 80%;
+	height: 25px;
+	outline: none;
+	border: 1px solid #eeeeee;
+	border-radius: 10px;
+	padding-left: 25px;
+	padding-right: 15px;
+}
+
+.top_search_btn {
+	float: right;
+	display: inline-block;
+	width: 40px;
+	height: 25px;
+	line-height: 25px;
+	white-space: nowrap;
+	border: 1px solid transparent;
+	border-radius: 5px;
+}
+
+.top_search_btn:hover {
+	background: #eeeeee;
+}
+
+.search_fdj {
+	display: inline-block;
+	line-height: 35px;
+	width: 30px;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	font-weight: 100;
+}
+
+.carousel-indicators li {}
+
+.kind_btn {
+	color: #666;
+	display: block;
+	width: 100%;
+	padding-top: 50px;
+	position: relative;
+}
+
+.kind_btn i {
+	display: inline-block;
+	width: 40px;
+	height: 40px;
+	background: orange;
+	color: white;
+	border-radius: 50%;
+	line-height: 40px;
+	position: absolute;
+	top: 10px;
+	left: 50%;
+	margin-left: -20px;
+}
+
+.main_recommend {
+	height: 50px;
+	line-height: 50px;
+}
+
+.main_recommend span {}
+
+.main_recommend p {
+	height: 50px;
+}
+
+.main_recommend p i {
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	line-height: 20px;
+	text-align: center;
+	color: white;
+	background: orange;
+	font-size: 12px;
+	border-radius: 3px;
+	font-style: normal;
+}
+
+.three_circl div {
+	height: 100%;
+	float: right;
+}
+
+.three_circl div span {
+	display: inline-block;
+	width: 5px;
+	height: 5px;
+	background: #ccc;
+	border-radius: 50%;
+}
+
+.three_circl .on {
+	background: orange;
+}
+
+.recommend_del div {
+	width: 100%;
+	display: flex!important;
+}
+
+.recommend_del a {
+	display: inline-block;
+	flex: 1;
+	font-size: 12px;
+	color: #666;
+	padding: 0 5px;
+}
+
+.recommend_del a img {
+	box-shadow: 3px 2px #CCCCCC;
+	width: 100%;
+	margin-bottom: 5px;
+}
+
+.more_novel div {
+	height: 50px;
+}
+
+.more_novel span {
+	line-height: 50px;
+	color: #ccc;
+}
+
+.img_out {
+	width: 100%;
+	height: 100%;
+}
+
+.date_span {
+	height: 100%;
+}
+
+.date_span span {
+	font-size: 12px;
+}
+
+.date_span span i {
+	font-style: normal;
+	font-size: 12px;
+}
+
+.read_right {
+	color: orange;
+	line-height: 25px;
+	padding: 0 10px;
+	height: 25px;
+	border-radius: 5px;
+	border: 1px solid orange;
+}
+
+.del_height {
+	height: 100px;
+}
+
+.h_delh {
+	height: 120px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid #eeeeee;
+}
+
+.booklist {
+	position: relative;
+}
+
+.booklist i {
+	position: absolute;
+	color: #CCCCCC;
+	top: -1px;
+}
+
+.booklist p.bottom {
+	padding-bottom: 10px;
+	border-bottom: 1px solid #CCCCCC;
+}
+
+.booklist p b {
+	position: relative;
+	z-index: 9999;
+	color: white;
+	left: 3px;
+}
+
+.booklist p span {
+	margin-left: 10px;
+}
+
+.booklist p em {
+	font-size: 12px;
+	color: #ccc;
+	font-style: normal;
+	margin-left: 5px;
+}
+
+.pm_icon {
+	display: inline-block;
+	transform: rotate(90deg);
+}
+
+.f_green {
+	color: forestgreen!important;
+}
+
+.footer a {
+	color: #333;
+	padding: 0 10px;
+}
+
+.footer .right_bor {
+	border-right: 1px solid #CCCCCC;
+}
+
+.footer .left_bor {
+	border-left: 1px solid #CCCCCC;
+}
+
+.erwm img {
+	width: 200px;
+	height: 200px;
+}
+.tabs{
+	width: 100%;
+	position: fixed;
+	bottom: 0;
+	border-top: 1px solid #CCCCCC;
+}
+.tabs a{
+	color: #CCCCCC;
+}

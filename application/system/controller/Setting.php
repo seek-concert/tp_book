@@ -58,13 +58,13 @@ class Setting extends Auth
 
     /* ========== 自动获取微信二维码 ========== */
     public function wxqrcode(){
-        $infos=Settings::field(['appid','appsecret'])->find();
-        if($infos && $infos->appid && $infos->appsecret){
+        $settings=Settings::field(['appid','appsecret'])->find();
+        if($settings && $settings->appid && $settings->appsecret){
             $ticket=cache('qrcode_ticket');
             if(!$ticket){
                 $access_token=cache('base_access_token');
                 if(!$access_token){
-                    $res=https_request('https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.$infos->appid.'&secret='.$infos->appsecret);
+                    $res=https_request('https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.$settings->appid.'&secret='.$settings->appsecret);
                     $res=json_decode($res,true);
                     if(!isset($res['access_token'])){
                         return $this->error('获取失败');
