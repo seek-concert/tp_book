@@ -1,6 +1,6 @@
 <?php
 /* |------------------------------------------------------
- * | 读者基本信息
+ * | 读者管理
  * |------------------------------------------------------
  * | 读者列表
  * | 读者基本信息
@@ -15,12 +15,14 @@ class Reader extends Auth
     /* ========== 列表 ========== */
     public function index()
     {
-        $reader_model = model('readers');
+        $reader_model = model('Readers');
         $where = [];
         /* ++++++++++ 微信openid ++++++++++ */
         $openid=input('openid');
-        $openid=$openid?$openid:'';
-        $datas['openid']=$openid;
+        if($openid){
+            $where['openid']=array('LIKE',"%$openid%");
+            $datas['openid']=$openid;
+        }
         /* ++++++++++ 排序 ++++++++++ */
         $ordername=input('ordername');
         $ordername=$ordername?$ordername:'id';
