@@ -31,7 +31,7 @@ $form_action=isset($info)?url('modify'):url('insert');
             <tr class="h50">
                 <td>作者：</td>
                 <td>
-                    <select name="author_id" id="author_id">
+                    <select name="author_id" id="author_id" data-placeholder="请选择作者">
                         <option value="">----- 请选择 -----</option>
                         {volist name="author_name" id="authorname"}
                         <option value="{$authorname->id}"  {if condition="isset($info) and $authorname->id eq $info->getData('author_id')"}selected{/if}>----- {$authorname->name} -----</option>
@@ -141,6 +141,8 @@ $form_action=isset($info)?url('modify'):url('insert');
         <a class="btn js-ajax-form-btn" data-layer="true" >立即提交</a>
         <button class="btn" type="reset">重置</button>
     </div></form>
+<link rel="stylesheet" href="__STATIC__/system/css/chosen.css" charset="utf-8">
+<script src="__STATIC__/system/js/chosen.jquery.js" type="text/javascript" charset="utf-8"></script>
 <script src="__STATIC__/system/js/ajax-submit.js" type="text/javascript" charset="utf-8"></script>
 <script src="__STATIC__/system/js/datejs/laydate.js" type="text/javascript" charset="utf-8"></script>
 <script src="__STATIC__/system/js/upload.js" type="text/javascript" charset="utf-8"></script>
@@ -151,6 +153,9 @@ $form_action=isset($info)?url('modify'):url('insert');
         laydate({elem: '#free_start'});//绑定元素
         laydate({elem: '#free_end'});//绑定元素
     }();
+    $(function(){
+        $('#author_id').chosen();
+    });
     /*----- 免费状态切换 -----*/
     var frww = $(".freestatus:checked").val();
     if(frww==0){
