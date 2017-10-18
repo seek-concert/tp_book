@@ -26,5 +26,6 @@ class Tools extends Auth
                 return $this->error($file->getError(),'');
             }
         }
+        return $this->error('请选择上传文件！');
     }
 }
