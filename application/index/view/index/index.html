@@ -22,7 +22,7 @@
     </div>
     <div class="row clearfix bg_white">
         <div class="col-xs-12 column no_pad">
-            <div class="carousel slide" id="carousel-400334">
+            <div class="carousel slide" id="carousel-400334"  data-ride="carousel"  data-interval="3000">
                 <ol class="carousel-indicators">
                     <li class="active" data-slide-to="0" data-target="#carousel-400334">
                     </li>
@@ -73,7 +73,7 @@
     </div>
     <div class="row clearfix bg_white" style="padding-bottom: 15px;">
         <div class="col-xs-12 column">
-            <div class="carousel slide" id="carousel-401249">
+            <div class="carousel slide" id="carousel-401249"  data-ride="carousel"  data-interval="5000">
                 <ol class="carousel-indicators" style="opacity: 0;">
                     <li class="active" data-slide-to="0" data-target="#carousel-401249">
                     </li>
@@ -85,9 +85,9 @@
                 <div class="carousel-inner text-center">
                     <div class="item active recommend_del">
                         <div>
-                            <a><img src="__STATIC__/index/img/a1.png" alt="图片显示错误" />总裁一吻好羞羞</a>
-                            <a><img src="__STATIC__/index/img/a1.png" alt="图片显示错误" />老子是村长</a>
-                            <a><img src="__STATIC__/index/img/a1.png" alt="图片显示错误" />风流岁月之活色生香</a>
+                            <a><img src="{:isset($is_recommend)?$is_recommend[0]->picture:''}" alt="图片显示错误" />{:isset($is_recommend)?$is_recommend[0]->title:''}</a>
+                            <a><img src="{:isset($is_recommend)?$is_recommend[1]->picture:''}" alt="图片显示错误" />{:isset($is_recommend)?$is_recommend[1]->title:''}</a>
+                            <a><img src="{:isset($is_recommend)?$is_recommend[2]->picture:''}" alt="图片显示错误" />{:isset($is_recommend)?$is_recommend[2]->title:''}</a>
                         </div>
                     </div>
                     <div class="item recommend_del">
@@ -221,11 +221,11 @@
     </div>
     <div class="row clearfix bg_white mar_top">
         <div class="col-xs-4 column main_recommend">
-            <p>主编推荐</p>
+            <p>限时免费</p>
         </div>
         <div class="col-xs-8 column three_circl main_recommend">
             <div>
-                <p style="color: orange;" class="time_p">倒计时：<i>24</i>：<i>45</i>：<i>60</i></p>
+                <p style="color: orange;" class="time_p">倒计时：<i>23</i>：<i>59</i>：<i>59</i></p>
             </div>
         </div>
     </div>
