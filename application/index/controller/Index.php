@@ -27,7 +27,6 @@ class Index extends Auth
             ->where('online',1)
             ->order('sort desc')
             ->select();
-
         $datas['is_hot'] = $is_hot;
         /*+++++ 新书推荐 +++++*/
         $created_at = $book_model
@@ -68,6 +67,7 @@ class Index extends Auth
             ->order('buy_num desc')
             ->column('id,title,author_id');
         $datas['buy_num_book'] = $buy_num_book;
+        $this->assign($datas);
         return view();
     }
 }

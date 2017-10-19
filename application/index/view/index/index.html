@@ -85,9 +85,9 @@
                 <div class="carousel-inner text-center">
                     <div class="item active recommend_del">
                         <div>
-                            <a><img src="__STATIC__/index/img/a1.png" alt="图片显示错误" />总裁一吻好羞羞</a>
-                            <a><img src="__STATIC__/index/img/a1.png" alt="图片显示错误" />老子是村长</a>
-                            <a><img src="__STATIC__/index/img/a1.png" alt="图片显示错误" />风流岁月之活色生香</a>
+                            <a><img src="{:isset($is_recommend)?$is_recommend[0]->picture:''}" alt="图片显示错误" />{:isset($is_recommend)?$is_recommend[0]->title:''}</a>
+                            <a><img src="{:isset($is_recommend)?$is_recommend[1]->picture:''}" alt="图片显示错误" />{:isset($is_recommend)?$is_recommend[1]->title:''}</a>
+                            <a><img src="{:isset($is_recommend)?$is_recommend[2]->picture:''}" alt="图片显示错误" />{:isset($is_recommend)?$is_recommend[2]->title:''}</a>
                         </div>
                     </div>
                     <div class="item recommend_del">
