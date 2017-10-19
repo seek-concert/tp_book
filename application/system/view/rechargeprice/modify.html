@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>书币与会员价格管理</title>
+    {include file="public/head" /}
+</head>
+<body>
+{php}
+$form_action=isset($info)?url('modify'):url('insert');
+{/php}
+<form action="{$form_action}" method="post" class="js-ajax-form" onsubmit="return false;">
+    <input type="hidden" name="id" value="{:isset($info->id)?$info->id:''}">
+    <div class="layerCon bg_f">
+        <table class="layerTable" border="0">
+            <tr class="h50">
+                <td>充值类型：</td>
+                <td>
+                    <label><input name="type" class="va_m vip_type" type="radio" value="0" {if condition="!isset($info) or $info->getData('type') eq 0"}checked{/if}>书币</label>
+                    <label><input name="type" class="va_m vip_type" type="radio" value="1" {if condition="isset($info) and $info->getData('type') eq 1"}checked{/if}>会员</label>
+                </td>
+            </tr>
+            <tr class="h50">
+                <td>充值价格：</td>
+                <td><input class="must" type="text" name="price" id="price" value="{:isset($info->price)?$info->price:''}" placeholder="请输入充值价格" /></td>
+            </tr>
+            <tr class="h50">
+                <td class="vip_number">书币/会员时长：</td>
+                <td><input class="must" type="text" name="number" id="number" value="{:isset($info->number)?$info->number:''}" placeholder="请输入书币/会员时长" /></td>
+            </tr>
+            <tr class="h50">
+                <td class="vip_gift_num">赠送书币/赠送会员时长：</td>
+                <td><input class="must" type="text" name="gift_num" id="gift_num" value="{:isset($info->gift_num)?$info->gift_num:''}" placeholder="请输入赠送书币/赠送时长" /></td>
+            </tr>
+            {if condition="$form_action eq url('modify')"}
+            <tr class="h50">
+                <td>操作时间：</td>
+                <td>
+                    创建时间:{$info->created_at}<br/>
+                    更新时间:{$info->updated_at}<br/>
+                    {if condition="isset($info) and $info->deleted_at"}
+                    删除于：{$info->deleted_at|date='Y-m-d H:i:s',###}
+                    {/if}
+                </td>
+            </tr>
+            {/if}
+        </table>
+    </div>
+    <div class="layerBtns">
+        <a class="btn js-ajax-form-btn" data-layer="true" >立即提交</a>
+        <button class="btn" type="reset">重置</button>
+    </div></form>
+<script src="__STATIC__/system/js/ajax-submit.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    var type = $(".vip_type:checked").val();
+    if(type=='0'){
+        $(".vip_number").html('书币');
+        $(".vip_gift_num").html('赠送书币');
+        $("#number").attr('placeholder','请输入书币');
+        $("#gift_num").attr('placeholder','请输入赠送书币');
+    }
+    if(type=='1'){
+        $(".vip_number").html('会员时长');
+        $(".vip_gift_num").html('赠送会员时长');
+        $("#number").attr('placeholder','请输入会员时长');
+        $("#gift_num").attr('placeholder','请输入赠送会员时长');
+    }
+    $(".vip_type").click(function(){
+        var type = $(".vip_type:checked").val();
+        if(type=='0'){
+            $(".vip_number").html('书币');
+            $(".vip_gift_num").html('赠送书币');
+            $("#number").attr('placeholder','请输入书币');
+            $("#gift_num").attr('placeholder','请输入赠送书币');
+        }
+        if(type=='1'){
+            $(".vip_number").html('会员时长');
+            $(".vip_gift_num").html('赠送会员时长');
+            $("#number").attr('placeholder','请输入会员时长');
+            $("#gift_num").attr('placeholder','请输入赠送会员时长');
+        }
+    });
+</script>
+</body>
+</html>

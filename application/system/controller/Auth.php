@@ -31,6 +31,7 @@ class Auth extends Controller
 //                die('没有权限！ <a href="javascript:window.history.back();">返回</a>');
 //            }
 //        }
+
     }
 
     /* ========== 检查操作权限 ========== */

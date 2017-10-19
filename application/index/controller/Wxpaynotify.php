@@ -12,16 +12,11 @@ ini_set('date.timezone','Asia/Shanghai');
 Loader::import('WxPay.lib.WxPay#Config');
 Loader::import('WxPay.lib.WxPay#Api');
 Loader::import('WxPay.lib.WxPay#JsApiPay');
-Loader::import('WxPay.lib.log');
 
 class Wxpaynotify extends \WxPayNotify
 {
     public function index()
     {
-        //初始化日志
-        $logHandler= new \CLogFileHandler(LOG_PATH."wxpaylogs/".date('Y-m-d').'.log');
-        $log = \Log::Init($logHandler, 15);
-
         $this->Handle(false);
     }
 
@@ -37,7 +32,6 @@ class Wxpaynotify extends \WxPayNotify
      */
     public function NotifyProcess($data, &$msg)
     {
-        \Log::DEBUG("call back:" . json_encode($data));
         $notfiyOutput = array();
 
         if(!array_key_exists("transaction_id", $data)){

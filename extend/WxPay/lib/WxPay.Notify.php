@@ -5,10 +5,6 @@
  * @author widyhu
  *
  */
-require_once "WxPay.Exception.php";
-require_once "WxPay.Config.php";
-require_once "WxPay.Data.php";
-require_once "WxPay.Api.php";
 class WxPayNotify extends WxPayNotifyReply
 {
 	/**
@@ -18,7 +14,6 @@ class WxPayNotify extends WxPayNotifyReply
 	 */
 	final public function Handle($needSign = true)
 	{
-		$msg = "OK";
 		//当返回false的时候，表示notify中调用NotifyCallBack回调失败获取签名校验失败，此时直接回复失败
 		$result = WxpayApi::notify(array($this, 'NotifyCallBack'), $msg);
 		if($result == false){
@@ -46,19 +41,8 @@ class WxPayNotify extends WxPayNotifyReply
 	 */
 	public function NotifyProcess($data, &$msg)
 	{
-        Log::DEBUG("call back:" . json_encode($data));
-        $notfiyOutput = array();
-
-        if(!array_key_exists("transaction_id", $data)){
-            $msg = "输入参数不正确";
-            return false;
-        }
-        //查询订单，判断订单真实性
-        if(!$this->Queryorder($data["transaction_id"])){
-            $msg = "订单查询失败";
-            return false;
-        }
-        return true;
+		//TODO 用户基础该类之后需要重写该方法，成功的时候返回true，失败返回false
+		return true;
 	}
 	
 	/**
@@ -97,21 +81,4 @@ class WxPayNotify extends WxPayNotifyReply
 		}
 		WxpayApi::replyNotify($this->ToXml());
 	}
-
-    //查询订单
-    public function Queryorder($transaction_id)
-    {
-        $input = new WxPayOrderQuery();
-        $input->SetTransaction_id($transaction_id);
-        $result = WxPayApi::orderQuery($input);
-        Log::DEBUG("query:" . json_encode($result));
-        if(array_key_exists("return_code", $result)
-            && array_key_exists("result_code", $result)
-            && $result["return_code"] == "SUCCESS"
-            && $result["result_code"] == "SUCCESS")
-        {
-            return true;
-        }
-        return false;
-    }
 }
