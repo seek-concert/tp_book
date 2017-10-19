@@ -35,10 +35,11 @@ class Auth extends Controller
             $data['openid']=$openid;
             $data['book_money']=0;
             $data['vip_end']=0;
-            $reader=$model->save($data);
+            $model->save($data);
+            $reader=$model;
         }
         if(!session('openid')){
-            $reader->save($model->login_data());
+            $reader->save($reader->login_data(),['id',$reader->id]);
             session('openid',$openid);
         }
         $wx_info=$this->getuserinfo();
