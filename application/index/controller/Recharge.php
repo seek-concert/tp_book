@@ -21,8 +21,8 @@ class Recharge extends Auth
         ini_set('date.timezone','Asia/Shanghai');
         Loader::import('WxPay.lib.WxPay#Config');
         Loader::import('WxPay.lib.WxPay#Api');
+//        Loader::import('WxPay.lib.WxPay#Data');
         Loader::import('WxPay.lib.WxPay#JsApiPay');
-        Loader::import('WxPay.lib.log');
 
         $id=input('id');
         if(!$id){
@@ -31,13 +31,10 @@ class Recharge extends Auth
         /* ++++++++++充值基本信息++++++++++ */
         $recharge=db('recharge_price')->where('id',$id)->where('deleted_at IS NULL')->find();
 
-        //初始化日志
-        $logHandler= new \CLogFileHandler(LOG_PATH."wxpaylogs/".date('Y-m-d').'.log');
-        $log = \Log::Init($logHandler, 15);
         /* ++++++++++发起支付++++++++++ */
         /* ①、获取用户openid */
         $tools = new \JsApiPay();
-        $openId = $this->reader['openid']?$this->reader['openid']:$tools->GetOpenid();
+        $openId = $this->reader['openid'];
 
         /* ②、统一下单 */
         $orderno=\WxPayConfig::MCHID.date("YmdHis");
@@ -49,7 +46,7 @@ class Recharge extends Auth
         $input->SetOut_trade_no($orderno); /* 订单号 */
         $input->SetTotal_fee($id); /* 支付金额,单位:分 */
         $input->SetTime_start(date("YmdHis")); /* 支付发起时间 */
-        $input->SetTime_expire(date("YmdHis", time() + 600));  /* 支付超时 */
+        $input->SetTime_expire(date("YmdHis", strtotime('+10 min')));  /* 支付超时 */
         $input->SetGoods_tag(""); /* 订单优惠标记 */
         $input->SetNotify_url($notify_url); /* 支付回调验证地址 */
         $input->SetTrade_type("JSAPI"); /* 支付类型 */
@@ -59,7 +56,7 @@ class Recharge extends Auth
         $jsApiParameters = $tools->GetJsApiParameters($order);
 
         //获取共享收货地址js函数参数
-        $editAddress = $tools->GetEditAddressParameters();
+//        $editAddress = $tools->GetEditAddressParameters();
 
         /* ++++++++++充值订单++++++++++ */
         $orders_datas['type']=$recharge['type'];
@@ -74,7 +71,6 @@ class Recharge extends Auth
 
         $this->assign([
             'jsApiParameters'=>$jsApiParameters,
-            'editAddress'=>$editAddress,
         ]);
 
         return view();

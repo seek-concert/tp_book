@@ -7,72 +7,43 @@
 namespace app\index\controller;
 
 use think\Controller;
+use app\index\model\Readers;
 
 class Auth extends Controller
 {
-    public $AppId;
-    public $AppSecret;
     public $reader;
+
     public function _initialize()
     {
-        /* +++++++++获取微信用户信息+++++++++ */
-        /*if(!$this->reader){
-            $settings=db('setting')->field(['appid','appsecret'])->find();
-            $this->AppId=$settings['appid'];
-            $this->AppSecret=$settings['appsecret'];
+        if(session('remember_url')){
+            $url=session('remember_url');
+            session('remember_url',null);
+            $this->redirect($url);
+        }
+        /* +++++++++获取读者信息+++++++++ */
+        $openid=cookie('openid');
+        if($openid){
+            cookie('openid',$openid,3*24*60*60);
+        }else{
+            session('remember_url',request()->url());
+            $this->redirect('Base/index');
+        }
 
-            $openid=cookie('openid');
-            if($openid){
-                cookie('openid',$openid,3*24*60*60);
-                if(!cookie('refresh_token')){
-                    $this->authorize();exit;
-                }
-            }else{
-                if(cookie('refresh_token')){
-                    $this->refreshtoken();
-                    $openid=cookie('openid');
-                }else{
-                    $this->authorize();exit;
-                }
-            }
-            $userinfo=$this->getuserinfo();
-            if($userinfo['errcode']){
-                $this->authorize();
-            }
-            $this->reader=$userinfo;
-        }*/
-
-    }
-
-    /* ============授权获取微信CODE============== */
-    public function authorize(){
-        $return_url='http://'.$_SERVER['HTTP_HOST'].'/index/Index/getaccesstoken';
-        $code_url='https://open.weixin.qq.com/connect/oauth2/authorize?appid='.$this->AppId.'&redirect_uri='.urlencode($return_url).'&response_type=code&scope=snsapi_userinfo&state=code#wechat_redirect';
-        header('location:'.$code_url);
-        exit;
-    }
-
-    /* ===========用CODE换取微信用户OPENID============== */
-    public function getaccesstoken(){
-        $get=$_GET;
-        $access_token_url='https://api.weixin.qq.com/sns/oauth2/access_token?appid='.$this->AppId.'&secret='.$this->AppSecret.'&code='.$get['code'].'&grant_type=authorization_code';
-        $result=https_request($access_token_url);
-        $result=json_decode($result,true);
-        cookie('access_token',$result['access_token'],6000);
-        cookie('refresh_token',$result['refresh_token'],29*24*60*60);
-        cookie('openid',$result['openid'],3*24*60*60);
-        $this->redirect('index');
-    }
-
-    /* ============刷新ACCESS_TOKEN============== */
-    public function refreshtoken(){
-        $refresh_token_url='https://api.weixin.qq.com/sns/oauth2/refresh_token?appid='.$this->AppId.'&grant_type=refresh_token&refresh_token='.cookie('refresh_token');
-        $result=https_request($refresh_token_url);
-        $result=json_decode($result,true);
-        cookie('access_token',$result['access_token'],6000);
-        cookie('refresh_token',$result['refresh_token'],29*24*60*60);
-        cookie('openid',$result['openid'],3*24*60*60);
-        return $result;
+        $model=new Readers();
+        $reader=$model->where('openid',$openid)->find();
+        if(!$reader){
+            $data['openid']=$openid;
+            $data['book_money']=0;
+            $data['vip_end']=0;
+            $reader=$model->save($data);
+        }
+        if(!session('openid')){
+            $reader->save($model->login_data());
+            session('openid',$openid);
+        }
+        $wx_info=$this->getuserinfo();
+        $reader_info=$reader->toArray();
+        $this->reader=array_merge($reader_info,$wx_info);
     }
 
     /* ============获取微信用户信息============== */
@@ -81,7 +52,8 @@ class Auth extends Controller
         $result=https_request($check_valid_url);
         $result=json_decode($result,true);
         if($result['errcode']){
-            $this->refreshtoken();
+            $base=new Base();
+            $base->refreshtoken();
         }
 
         $userinfo_url='https://api.weixin.qq.com/sns/userinfo?access_token='.cookie('access_token').'&openid='.cookie('openid').'&lang=zh_CN';

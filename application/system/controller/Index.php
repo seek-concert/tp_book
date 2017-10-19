@@ -76,7 +76,7 @@ class Index extends Controller
         $data=$user_model->login_data();
         $user_model->where('id',$user->id)->update($data);
 
-       return $this->success('登录成功',url('Home/index'));
+        return $this->success('登录成功',url('Home/index'));
     }
 
     /* ========== 退出 ========== */
