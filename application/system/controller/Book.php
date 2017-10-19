@@ -23,7 +23,7 @@ class Book extends Auth
     /* ========== 列表 ========== */
     public function index()
     {
-        $book_model = model('books');
+        $book_model = model('Books');
         $where = [];
         /* ----- 查询条件(小说名称) -----*/
         $title = input('title');
