@@ -72,6 +72,7 @@
             </th>
             <th>ID号</th>
             <th>小说名称<i class="stretch"></i></th>
+            <th>小说作者<i class="stretch"></i></th>
             <th>小说分类<i class="stretch"></i></th>
             <th>小说状态<i class="stretch"></i></th>
             <th>小说类型<i class="stretch"></i></th>
@@ -88,6 +89,7 @@
             </td>
             <td>{if condition="$info->deleted_at"} <del>{$info->id}</del>{else /}{$info->id}{/if}</td>
             <td>{if condition="$info->deleted_at"} <del>{$info->title}</del>{else /}{$info->title}{/if}</td>
+            <td>{if condition="$info->deleted_at"} <del>{$info->Authors->name}</del>{else /}{$info->Authors->name}{/if}</td>
             <td>{if condition="$info->deleted_at"} <del>{$info->Bookcates->name}</del>{else /}{$info->Bookcates->name}{/if}</td>
             <td>{if condition="$info->deleted_at"} <del>{$info->status}</del>{else /}{$info->status}{/if}</td>
             <td>{if condition="$info->deleted_at"} <del>{$info->type}</del>{else /}{$info->type}{/if}</td>

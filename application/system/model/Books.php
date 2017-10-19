@@ -67,6 +67,11 @@ class Books extends Model
     {
         return $this->belongsTo('Bookcates','cate_id');
     }
+    /*----- 关联小说作者 -----*/
+    public function Authors()
+    {
+        return $this->belongsTo('Authors','author_id');
+    }
     public function add(){
         $this->data = input();
         if($this->save()){
