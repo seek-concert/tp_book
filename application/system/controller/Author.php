@@ -11,7 +11,7 @@
  * | 销毁
  * */
 namespace app\system\controller;
-use \app\system\Model\Authors;
+use \app\system\model\Authors;
 use think\Db;
 
 class Author extends Auth

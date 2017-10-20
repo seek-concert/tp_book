@@ -12,7 +12,7 @@
  * */
 
 namespace app\system\controller;
-use \app\system\Model\Bookcates;
+use \app\system\model\Bookcates;
 use think\Db;
 
 class Bookcate extends Auth
