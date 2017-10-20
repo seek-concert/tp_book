@@ -79,6 +79,7 @@ class Auth extends Controller
     /* ========== 清除缓存 ========== */
     public function delete_cache()
     {
+//        exec('rm -rf ../runtime/*');
         $this->del_DirAndFile('../runtime');
 
         if(request()->isAjax()){
