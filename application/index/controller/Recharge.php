@@ -1,6 +1,6 @@
 <?php
 /* |------------------------------------------------------
- * | 充值
+ * | 充值与会员
  * |------------------------------------------------------
  * |
  * */
@@ -16,7 +16,7 @@ class Recharge extends Auth
         return view();
     }
 
-    /* ============ 充值下单 ============== */
+    /* ============ 微信 统一下单 ============== */
     public function orders(){
         ini_set('date.timezone','Asia/Shanghai');
         Loader::import('WxPay.lib.WxPay#Config');
@@ -31,7 +31,7 @@ class Recharge extends Auth
         /* ++++++++++充值基本信息++++++++++ */
         $recharge=db('recharge_price')->where('id',$id)->where('deleted_at IS NULL')->find();
 
-        /* ++++++++++发起支付++++++++++ */
+        /* ++++++++++发起支付下单++++++++++ */
         /* ①、获取用户openid */
         $tools = new \JsApiPay();
         $openId = $this->reader['openid'];

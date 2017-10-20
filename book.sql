@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50554
 File Encoding         : 65001
 
-Date: 2017-10-17 18:42:40
+Date: 2017-10-20 10:39:01
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -28,11 +28,12 @@ CREATE TABLE `author` (
   `updated_at` int(11) DEFAULT NULL,
   `deleted_at` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='作者';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='作者';
 
 -- ----------------------------
 -- Records of author
 -- ----------------------------
+INSERT INTO `author` VALUES ('1', '1', '1', '1', '1508407881', '1508407891', '1508407891');
 
 -- ----------------------------
 -- Table structure for book
@@ -112,6 +113,30 @@ CREATE TABLE `book_content` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for data_setting
+-- ----------------------------
+DROP TABLE IF EXISTS `data_setting`;
+CREATE TABLE `data_setting` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `banner` int(11) DEFAULT NULL COMMENT '轮播显示条数',
+  `recommend` int(11) DEFAULT NULL COMMENT '主编推荐显示条数',
+  `hot` int(255) DEFAULT NULL COMMENT ' 热门显示条数',
+  `new_recommend` int(11) DEFAULT NULL COMMENT '新书推荐显示条数',
+  `free` int(11) DEFAULT NULL COMMENT '限时免费显示条数',
+  `guess` int(11) DEFAULT NULL COMMENT ' 猜你喜欢显示条数',
+  `buy` int(11) DEFAULT NULL COMMENT ' 畅销显示条数',
+  `pagenum` int(11) DEFAULT NULL COMMENT ' 列表每页条数',
+  `ranking_top` int(11) DEFAULT NULL COMMENT ' 排行置顶条数',
+  `ranking_total` int(11) DEFAULT NULL COMMENT ' 排行显示条数',
+  `updated_at` int(11) DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='数据设置';
+
+-- ----------------------------
+-- Records of data_setting
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for menu
 -- ----------------------------
 DROP TABLE IF EXISTS `menu`;
@@ -135,7 +160,7 @@ CREATE TABLE `menu` (
 -- ----------------------------
 -- Records of menu
 -- ----------------------------
-INSERT INTO `menu` VALUES ('1', '0', '系统设置', '1', '<img src=\"/static/system/img/setting_tools.png\"/>', '0', '/system/setting#', '', '1', '1', '1507862534', '1507941905', null);
+INSERT INTO `menu` VALUES ('1', '0', '系统设置', '1', '<img src=\"/static/system/img/setting_tools.png\"/>', '0', '/system/setting#', '', '1', '1', '1507862534', '1508407873', null);
 INSERT INTO `menu` VALUES ('2', '1', '功能与菜单', '2', '<img src=\"/static/system/img/monitor_window_3d.png\"/>', '0', '/system/menu/index', '', '1', '1', '1507865210', '1507898297', null);
 INSERT INTO `menu` VALUES ('3', '1', '权限与角色', '2', '<img src=\"/static/system/img/role.png\"/>', '0', '/system/role/index', '', '1', '1', '1507865414', '1507888531', null);
 INSERT INTO `menu` VALUES ('4', '1', '系统用户', '2', '<img src=\"/static/system/img/folder_user.png\"/>', '0', '/system/user/index', '', '1', '1', '1507866165', '1507889575', null);
@@ -360,5 +385,5 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', '1', '', '', '', '', 'demo', 'e10adc3949ba59abbe56e057f20f883e', 'e94e5817cbf45ba73ae22527672dafdd', '1508229877', '127.0.0.1', '1', '1507970329', '1508144712', null);
+INSERT INTO `user` VALUES ('1', '1', '', '', '', '', 'demo', 'e10adc3949ba59abbe56e057f20f883e', 'e94e5817cbf45ba73ae22527672dafdd', '1508407857', '127.0.0.1', '1', '1507970329', '1508144712', null);
 INSERT INTO `user` VALUES ('2', '2', '', '', '', '', 'admin', 'e10adc3949ba59abbe56e057f20f883e', '9df991ab8755df426239cef0afa87077', '1508147953', '127.0.0.1', '1', '1507971362', '1508141160', null);
