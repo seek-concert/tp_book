@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50554
 File Encoding         : 65001
 
-Date: 2017-10-20 11:44:48
+Date: 2017-10-20 15:29:11
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -65,15 +65,16 @@ CREATE TABLE `book` (
   `edited_at` int(11) DEFAULT NULL COMMENT '文章更新时间',
   `deleted_at` int(11) DEFAULT NULL COMMENT '删除时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='小说文章 主表';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='小说文章 主表';
 
 -- ----------------------------
 -- Records of book
 -- ----------------------------
-INSERT INTO `book` VALUES ('1', '6', '1', '0', '/uploads/20171020\\4f540f84a22baf966f86a9519bc1708a.jpg', '巴黎圣母院', '1', '巴黎圣母院', '0', '0', '0', '0', '1', '2017', '2017', '1', '1', '0', '1', '1508468051', '1508468051', null, null);
-INSERT INTO `book` VALUES ('2', '6', '1', '0', '/uploads/20171020\\72c76d5b839179f4fd9f4e354096066f.jpg', '战争与和平', '1', '战争与和平', '0', '0', '0', '100', '0', '0', '0', '0', '0', '0', '1', '1508468095', '1508468209', null, null);
-INSERT INTO `book` VALUES ('3', '6', '1', '0', '/uploads/20171020\\3627e4eaff26529e306926ecf4f6613d.jpg', '童年', '2', '童年', '0', '0', '0', '0', '2', '0', '0', '0', '1', '0', '1', '1508468124', '1508468124', null, null);
-INSERT INTO `book` VALUES ('4', '1', '1', '0', '/uploads/20171020\\b03728ca92d8b6c25ab39772d8e7e27c.jpg', '第一本书', '1', '第一本书', '0', '0', '0', '0', '1', '2017', '2017', '0', '1', '0', '1', '1508468165', '1508468165', null, null);
+INSERT INTO `book` VALUES ('1', '6', '1', '0', '/uploads/20171020\\4f540f84a22baf966f86a9519bc1708a.jpg', '巴黎圣母院', '1', '巴黎圣母院巴黎圣母院巴黎圣母院巴黎圣母院巴黎圣母院巴黎圣母院巴黎圣母院巴黎圣母院巴黎圣母院巴黎圣母院巴黎圣母院巴黎圣母院巴黎圣母院巴黎圣母院巴黎圣母院巴黎圣母院巴黎圣母院巴黎圣母院巴黎圣母院巴黎圣母院巴黎圣母院', '0', '0', '0', '0', '1', '2017', '2017', '0', '1', '0', '1', '1508468051', '1508481282', null, null);
+INSERT INTO `book` VALUES ('2', '6', '1', '0', '/uploads/20171020\\72c76d5b839179f4fd9f4e354096066f.jpg', '战争与和平', '1', '战争与和平战争与和平战争与和平战争与和平战争与和平战争与和平战争与和平战争与和平战争与和平战争与和平战争与和平战争与和平战争与和平战争与和平战争与和平战争与和平战争与和平战争与和平战争与和平', '0', '0', '0', '100', '0', '0', '0', '1', '1', '0', '1', '1508468095', '1508481271', null, null);
+INSERT INTO `book` VALUES ('3', '6', '1', '0', '/uploads/20171020\\3627e4eaff26529e306926ecf4f6613d.jpg', '童年', '2', '童年童年童年童年童年童年童年童年童年童年童年童年童年童年童年童年童年童年童年童年童年童年童年童年童年童年童年童年童年童年童年童年童年童年童年童年童年童年童年童年童年童年童年童年童年童年童年', '0', '0', '0', '0', '1', '1508342400', '1508515199', '1', '1', '0', '1', '1508468124', '1508482125', null, null);
+INSERT INTO `book` VALUES ('4', '1', '1', '0', '/uploads/20171020\\b03728ca92d8b6c25ab39772d8e7e27c.jpg', '第一本书', '1', '第一本书第一本书第一本书第一本书第一本书第一本书第一本书第一本书第一本书第一本书第一本书第一本书第一本书第一本书第一本书第一本书第一本书第一本书第一本书第一本书第一本书第一本书第一本书第一本书第一本书第一本书第一本书第一本书第一本书第一本书第一本书', '0', '0', '0', '0', '1', '2017', '2017', '1', '1', '0', '1', '1508468165', '1508479501', null, null);
+INSERT INTO `book` VALUES ('5', '3', '1', '0', '/uploads/20171020\\ae275c880eef845dcbf509c1ae8573fd.jpg', '鬼吹灯', '1', '小说中作者首创历史上四大盗墓门派——摸金、卸岭、发丘、搬山，其中摸金是技术含量最高，规矩最多的门派。“人点烛，鬼吹灯”是传说中摸金派的不传之秘，意为进入古墓之中先在东南角点燃一支蜡烛才能开棺，如果蜡烛熄灭，须速速退出，不可取一物。相传这是祖师爷所定的一条活人与死人的契约，千年传承，不得破。', '0', '0', '0', '0', '1', '2017', '2017', '0', '1', '0', '1', '1508481019', '1508481019', null, null);
 
 -- ----------------------------
 -- Table structure for book_cate
@@ -146,7 +147,7 @@ CREATE TABLE `data_setting` (
 -- ----------------------------
 -- Records of data_setting
 -- ----------------------------
-INSERT INTO `data_setting` VALUES ('1', '3', '3', '3', '3', '3', '3', '3', '20', '3', '3', '1508470762');
+INSERT INTO `data_setting` VALUES ('1', '3', '7', '3', '10', '3', '3', '3', '20', '3', '3', '1508481061');
 
 -- ----------------------------
 -- Table structure for menu
@@ -212,11 +213,12 @@ CREATE TABLE `reader` (
   `login_at` int(11) DEFAULT NULL COMMENT ' 最近登录时间',
   `login_ip` varchar(255) DEFAULT NULL COMMENT ' 最近登录IP',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='读者 基本信息';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='读者 基本信息';
 
 -- ----------------------------
 -- Records of reader
 -- ----------------------------
+INSERT INTO `reader` VALUES ('1', null, 'gdfgdfgdfgd4546454', '100', null, '1508470762', '1508470762', '1508470762', '192.168.0.1');
 
 -- ----------------------------
 -- Table structure for reader_bookmark
@@ -250,11 +252,12 @@ CREATE TABLE `reader_bookshelf` (
   `updated_at` int(11) DEFAULT NULL COMMENT '更新时间',
   `read_at` int(11) DEFAULT NULL COMMENT '最近阅读时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='读者 书架';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='读者 书架';
 
 -- ----------------------------
 -- Records of reader_bookshelf
 -- ----------------------------
+INSERT INTO `reader_bookshelf` VALUES ('1', '1', '5', null, null, null, null);
 
 -- ----------------------------
 -- Table structure for reader_readlast
