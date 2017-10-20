@@ -14,7 +14,7 @@ class Rechargeorderss extends Model
         'finished_at'  =>  'timestamp'
     ];
 
-    public function getTypeAttr($value)
+    public function getTypeAttr($value=null)
     {
         $status = [0=>'书币',1=>'会员'];
         return $status[$value];
