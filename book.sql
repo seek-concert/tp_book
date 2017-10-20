@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50554
 File Encoding         : 65001
 
-Date: 2017-10-20 10:39:01
+Date: 2017-10-20 15:50:11
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -34,6 +34,25 @@ CREATE TABLE `author` (
 -- Records of author
 -- ----------------------------
 INSERT INTO `author` VALUES ('1', '1', '1', '1', '1508407881', '1508407891', '1508407891');
+
+-- ----------------------------
+-- Table structure for banner
+-- ----------------------------
+DROP TABLE IF EXISTS `banner`;
+CREATE TABLE `banner` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `book_id` int(11) DEFAULT NULL COMMENT ' 书ID',
+  `picture` text COMMENT ' 广告图',
+  `sort` int(11) DEFAULT NULL COMMENT ' 排序',
+  `created_at` int(11) DEFAULT NULL,
+  `updated_at` int(11) DEFAULT NULL,
+  `deleted_at` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='首页轮播图';
+
+-- ----------------------------
+-- Records of banner
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for book
@@ -120,7 +139,7 @@ CREATE TABLE `data_setting` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `banner` int(11) DEFAULT NULL COMMENT '轮播显示条数',
   `recommend` int(11) DEFAULT NULL COMMENT '主编推荐显示条数',
-  `hot` int(255) DEFAULT NULL COMMENT ' 热门显示条数',
+  `hot` int(11) DEFAULT NULL COMMENT ' 热门显示条数',
   `new_recommend` int(11) DEFAULT NULL COMMENT '新书推荐显示条数',
   `free` int(11) DEFAULT NULL COMMENT '限时免费显示条数',
   `guess` int(11) DEFAULT NULL COMMENT ' 猜你喜欢显示条数',
