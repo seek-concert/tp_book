@@ -12,7 +12,7 @@ class Index extends Auth
     /* ============ 首页 ============== */
     public function index()
     {
-        $book_model = model('book');
+        $book_model = model('books');
         $data_setting = db('data_setting')->find();
         $datas['data_setting'] = $data_setting;
         /*+++++ 主编推荐 +++++*/
@@ -64,7 +64,7 @@ class Index extends Auth
         if($cate_ids){
             $cate_count = array_count_values($cate_ids);
             $cate_id = array_search(max($cate_count),$cate_count);
-            $like_book = model('book')
+            $like_book = model('books')
                 ->where('cate_id',$cate_id)
                 ->where('online',1)
                 ->limit($data_setting['guess'])
@@ -74,7 +74,7 @@ class Index extends Auth
         }
         $datas['like_book'] = $like_book;
         /*+++++ 畅销书单 +++++*/
-        $buy_num_book = model('book')
+        $buy_num_book = model('books')
             ->field('id,title,author_id')
             ->where('online',1)
             ->order('buy_num desc')

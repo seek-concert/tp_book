@@ -10,7 +10,7 @@
 namespace app\index\model;
 use think\Model;
 
-class Author extends Model
+class Authors extends Model
 {
     protected $table = 'author';
     protected $createTime = 'created_at';

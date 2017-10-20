@@ -11,17 +11,23 @@ class Datasetting extends Auth
     /* ========== 数据设置 ========== */
     public function index(){
         $model=new Datasettings();
+
+        if(request()->isPost()){
+            if(input('id')){
+                $model->save(input(),['id'=>input('id')]);
+            }else{
+                $model->save(input());
+            }
+            if($model !== false){
+                $this->assign('notice',"<script>layer.msg('操作成功',function() {});</script>");
+            }else{
+                $this->assign('notice',"<script>layer.msg('操作失败',function() {});</script>");
+            }
+        }
+
         $info=$model->find();
         $this->assign('info',$info);
-        if(request()->isPost()){
-            $rs = $model->updata();
-            if($rs !== false){
-                $this->success('操作成功','');
-            }else{
-                $this->error('操作失败','');
-            }
-        }else{
-            return view();
-        }
+
+        return view();
     }
 }
