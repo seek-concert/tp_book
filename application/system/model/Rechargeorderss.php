@@ -22,12 +22,7 @@ class Rechargeorderss extends Model
         }else{
             return $status;
         }
+    }
 
-    }
-    /*----- 关联读者 -----*/
-    public function Readers()
-    {
-        return $this->belongsTo('Readers','reader_id');
-    }
 
 }

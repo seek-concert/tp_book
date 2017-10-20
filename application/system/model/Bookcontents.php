@@ -19,11 +19,6 @@ class Bookcontents extends Model
     protected $deleteTime='deleted_at';
     protected $autoWriteTimestamp = true;
     protected $field = true;
-    /*----- 关联小说 -----*/
-    public function Books()
-    {
-        return $this->belongsTo('Books','book_id');
-    }
     public function add(){
         $data = input();
         $data['edited_at']= time();

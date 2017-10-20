@@ -26,7 +26,7 @@ $form_action=isset($info)?url('detail'):'';
             </tr>
             <tr class="h50">
                 <td>读者微信openid：</td>
-                <td>{:isset($info->Readers->openid)?$info->Readers->openid:''}</td>
+                <td>{:isset($info->openids)?$info->openids:''}</td>
             </tr>
             <tr class="h50">
                 <td>订单金额：</td>

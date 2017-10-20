@@ -43,8 +43,8 @@
                 <input class="va_m" type="checkbox" name="ids[]"  value="{$info->id}" onclick="checkBoxOp(this)" />
             </td>
             <td>{$info->id}</td>
-            <td>{$info->Books->title}</td>
-            <td>第{$info->Bookcontents->order_num}章 {$info->Bookcontents->name}</td>
+            <td>{$info->book_name}</td>
+            <td>第{$info->ordernum}章 {$info->content_name}</td>
             <td>{$info->read_at}</td>
             <td>{$info->created_at}</td>
             <td>{$info->updated_at}</td>

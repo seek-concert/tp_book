@@ -15,14 +15,4 @@ class Readbookshelf extends Model
     protected $type = [
         'read_at'  =>  'timestamp'
     ];
-    /*----- 关联小说 -----*/
-    public function Books()
-    {
-        return $this->belongsTo('Books','book_id');
-    }
-    /*----- 关联小说章节 -----*/
-    public function Bookcontents()
-    {
-        return $this->belongsTo('Bookcontents','content_id');
-    }
 }

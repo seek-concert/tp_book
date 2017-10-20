@@ -89,8 +89,8 @@
             </td>
             <td>{if condition="$info->deleted_at"} <del>{$info->id}</del>{else /}{$info->id}{/if}</td>
             <td>{if condition="$info->deleted_at"} <del>{$info->title}</del>{else /}{$info->title}{/if}</td>
-            <td>{if condition="$info->deleted_at"} <del>{$info->Authors->name}</del>{else /}{$info->Authors->name}{/if}</td>
-            <td>{if condition="$info->deleted_at"} <del>{$info->Bookcates->name}</del>{else /}{$info->Bookcates->name}{/if}</td>
+            <td>{if condition="$info->deleted_at"} <del>{$info->author_name}</del>{else /}{$info->author_name}{/if}</td>
+            <td>{if condition="$info->deleted_at"} <del>{$info->cate_name}</del>{else /}{$info->cate_name}{/if}</td>
             <td>{if condition="$info->deleted_at"} <del>{$info->status}</del>{else /}{$info->status}{/if}</td>
             <td>{if condition="$info->deleted_at"} <del>{$info->type}</del>{else /}{$info->type}{/if}</td>
             <td>{if condition="$info->deleted_at"} <del>{$info->free_status}</del>{else /}{$info->free_status}{/if}</td>

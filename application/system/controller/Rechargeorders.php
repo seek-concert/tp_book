@@ -36,6 +36,9 @@ class Rechargeorders extends Auth
         $display_num=$display_num?$display_num:config('paginate.list_rows');
         $datas['display_num']=$display_num;
         $rechargeorders_list = $rechargeorders_model
+            ->field(['b.*','r.openid as openids'])
+            ->alias('b')
+            ->join('reader r','b.reader_id = r.id','left')
             ->where($where)
             ->order([$ordername=>$orderby])
             ->paginate($display_num);

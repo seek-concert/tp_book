@@ -110,7 +110,7 @@
         <div class="col-xs-8 column del_height">
             <div class="row clearfix date_span">
                 <div class="col-xs-12 column no_lpad" style="height: 40%;">
-                    <span class="pull-left" style="font-size: 14px;">{:isset($ishot)?$ishot->title:''}<br><i>{:isset($ishot)?$ishot->Author->name:''}</i></span>
+                    <span class="pull-left" style="font-size: 14px;">{:isset($ishot)?$ishot->title:''}<br><i>{:isset($ishot)?$ishot->author_name:''}</i></span>
                     <span class="pull-right read_right">立即阅读</span>
                 </div>
                 <div class="col-xs-12 column no_lpad" style="height: 60%;overflow: hidden;">
@@ -156,7 +156,7 @@
         <div class="col-xs-8 column del_height">
             <div class="row clearfix date_span">
                 <div class="col-xs-12 column no_lpad" style="height: 40%;">
-                    <span class="pull-left" style="font-size: 14px;">{:isset($createdats)?$createdats->title:''}<br><i>{:isset($createdats)?$createdats->Author->name:''}</i></span>
+                    <span class="pull-left" style="font-size: 14px;">{:isset($createdats)?$createdats->title:''}<br><i>{:isset($createdats)?$createdats->author_name:''}</i></span>
                     <span class="pull-right read_right">立即阅读</span>
                 </div>
                 <div class="col-xs-12 column no_lpad" style="height: 60%;overflow: hidden;">
@@ -224,7 +224,7 @@
         <div class="col-xs-12 column" style="padding-top: 10px;padding-bottom: 10px;">畅销书单</div>
         {volist name="buy_num_book" id="buynumbook"}
         <div class="col-xs-12 column">
-            <p class="bottom"><i class="iconfont icon-fangduihuakuangkuai pm_icon f_green"></i><b>{$i}</b><span>{:isset($buynumbook)?$buynumbook->title:''}<em>{:isset($buynumbook)?$buynumbook->Author->name:''}</em></span></p>
+            <p class="bottom"><i class="iconfont icon-fangduihuakuangkuai pm_icon f_green"></i><b>{$i}</b><span>{:isset($buynumbook)?$buynumbook->title:''}<em>{:isset($buynumbook)?$buynumbook->author_name:''}</em></span></p>
         </div>
         {/volist}
     </div>
