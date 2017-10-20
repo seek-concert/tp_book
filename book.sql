@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50554
 File Encoding         : 65001
 
-Date: 2017-10-20 15:29:11
+Date: 2017-10-20 15:50:11
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -35,6 +35,25 @@ CREATE TABLE `author` (
 -- ----------------------------
 INSERT INTO `author` VALUES ('1', '觅树知音', '张', '15912345678', '1508467893', '1508467893', null);
 INSERT INTO `author` VALUES ('2', '土豆', '李四', '13012341234', '1508467913', '1508467913', null);
+
+-- ----------------------------
+-- Table structure for banner
+-- ----------------------------
+DROP TABLE IF EXISTS `banner`;
+CREATE TABLE `banner` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `book_id` int(11) DEFAULT NULL COMMENT ' 书ID',
+  `picture` text COMMENT ' 广告图',
+  `sort` int(11) DEFAULT NULL COMMENT ' 排序',
+  `created_at` int(11) DEFAULT NULL,
+  `updated_at` int(11) DEFAULT NULL,
+  `deleted_at` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='首页轮播图';
+
+-- ----------------------------
+-- Records of banner
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for book
