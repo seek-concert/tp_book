@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost_phpwamp
+Source Server         : locahost
 Source Server Version : 50554
-Source Host           : 127.0.0.1:3306
+Source Host           : localhost:3306
 Source Database       : book
 
 Target Server Type    : MYSQL
 Target Server Version : 50554
 File Encoding         : 65001
 
-Date: 2017-10-20 10:39:01
+Date: 2017-10-20 11:00:13
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -28,12 +28,13 @@ CREATE TABLE `author` (
   `updated_at` int(11) DEFAULT NULL,
   `deleted_at` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='作者';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='作者';
 
 -- ----------------------------
 -- Records of author
 -- ----------------------------
-INSERT INTO `author` VALUES ('1', '1', '1', '1', '1508407881', '1508407891', '1508407891');
+INSERT INTO `author` VALUES ('1', '觅树知音', '张', '15912345678', '1508467893', '1508467893', null);
+INSERT INTO `author` VALUES ('2', '土豆', '李四', '13012341234', '1508467913', '1508467913', null);
 
 -- ----------------------------
 -- Table structure for book
@@ -64,11 +65,15 @@ CREATE TABLE `book` (
   `edited_at` int(11) DEFAULT NULL COMMENT '文章更新时间',
   `deleted_at` int(11) DEFAULT NULL COMMENT '删除时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='小说文章 主表';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='小说文章 主表';
 
 -- ----------------------------
 -- Records of book
 -- ----------------------------
+INSERT INTO `book` VALUES ('1', '6', '1', '0', '/uploads/20171020\\4f540f84a22baf966f86a9519bc1708a.jpg', '巴黎圣母院', '1', '巴黎圣母院', '0', '0', '0', '0', '1', '2017', '2017', '1', '1', '0', '1', '1508468051', '1508468051', null, null);
+INSERT INTO `book` VALUES ('2', '6', '1', '0', '/uploads/20171020\\72c76d5b839179f4fd9f4e354096066f.jpg', '战争与和平', '1', '战争与和平', '0', '0', '0', '100', '0', '0', '0', '0', '0', '0', '1', '1508468095', '1508468209', null, null);
+INSERT INTO `book` VALUES ('3', '6', '1', '0', '/uploads/20171020\\3627e4eaff26529e306926ecf4f6613d.jpg', '童年', '2', '童年', '0', '0', '0', '0', '2', '0', '0', '0', '1', '0', '1', '1508468124', '1508468124', null, null);
+INSERT INTO `book` VALUES ('4', '1', '1', '0', '/uploads/20171020\\b03728ca92d8b6c25ab39772d8e7e27c.jpg', '第一本书', '1', '第一本书', '0', '0', '0', '0', '1', '2017', '2017', '0', '1', '0', '1', '1508468165', '1508468165', null, null);
 
 -- ----------------------------
 -- Table structure for book_cate
@@ -82,11 +87,17 @@ CREATE TABLE `book_cate` (
   `updated_at` int(11) DEFAULT NULL COMMENT '修改时间',
   `deleted_at` int(11) DEFAULT NULL COMMENT '删除时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='小说分类';
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='小说分类';
 
 -- ----------------------------
 -- Records of book_cate
 -- ----------------------------
+INSERT INTO `book_cate` VALUES ('1', '都市', '0', '1508467927', '1508467927', null);
+INSERT INTO `book_cate` VALUES ('2', '玄幻', '0', '1508467937', '1508467937', null);
+INSERT INTO `book_cate` VALUES ('3', '惊悚', '0', '1508467945', '1508467945', null);
+INSERT INTO `book_cate` VALUES ('4', '历史', '0', '1508467970', '1508467970', null);
+INSERT INTO `book_cate` VALUES ('5', '科幻', '0', '1508467975', '1508467975', null);
+INSERT INTO `book_cate` VALUES ('6', '名著', '0', '1508467981', '1508467981', null);
 
 -- ----------------------------
 -- Table structure for book_content
@@ -120,7 +131,7 @@ CREATE TABLE `data_setting` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `banner` int(11) DEFAULT NULL COMMENT '轮播显示条数',
   `recommend` int(11) DEFAULT NULL COMMENT '主编推荐显示条数',
-  `hot` int(255) DEFAULT NULL COMMENT ' 热门显示条数',
+  `hot` int(11) DEFAULT NULL COMMENT ' 热门显示条数',
   `new_recommend` int(11) DEFAULT NULL COMMENT '新书推荐显示条数',
   `free` int(11) DEFAULT NULL COMMENT '限时免费显示条数',
   `guess` int(11) DEFAULT NULL COMMENT ' 猜你喜欢显示条数',
