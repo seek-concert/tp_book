@@ -54,12 +54,16 @@ class Index extends Auth
         $cate_ids = db('book')
             ->where('id','in',$book_ids)
             ->column('cate_id');
-        $cate_count = array_count_values($cate_ids);
-        $cate_id = array_search(max($cate_count),$cate_count);
-        $like_book = model('book')
-            ->where('cate_id',$cate_id)
-            ->where('online',1)
-            ->column('id,title,picture');
+        if($cate_ids){
+            $cate_count = array_count_values($cate_ids);
+            $cate_id = array_search(max($cate_count),$cate_count);
+            $like_book = model('book')
+                ->where('cate_id',$cate_id)
+                ->where('online',1)
+                ->column('id,title,picture');
+        }else{
+            $like_book = [];
+        }
         $datas['like_book'] = $like_book;
         /*+++++ 畅销书单 +++++*/
         $buy_num_book = model('book')
