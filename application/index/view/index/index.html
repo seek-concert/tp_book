@@ -84,8 +84,8 @@
             {volist name='is_recommend' id='isrecommend'}
             <div>
                 <a>
-                    <img src="{:isset($isrecommend)?$isrecommend['picture']:''}" />
-                    <p>{:isset($isrecommend)?$isrecommend['title']:''}</p>
+                    <img src="{:isset($isrecommend)?$isrecommend->picture:''}" />
+                    <p>{:isset($isrecommend)?$isrecommend->title:''}</p>
                 </a>
             </div>
             {/volist}
@@ -102,55 +102,25 @@
             <span class="pull-right">更多<i class="iconfont icon-gengduo"></i></span>
         </div>
     </div>
-    <div class="row clearfix bg_white h_delh" style="height: 110px;">
-        <div class="col-xs-4 column del_height">
-            <img src="__STATIC__/index/img/111.jpg" alt="图片显示错误" class="img_out" />
-        </div>
-        <div class="col-xs-8 column del_height">
-            <div class="row clearfix date_span">
-                <div class="col-xs-12 column no_lpad" style="height: 40%;">
-                    <span class="pull-left" style="font-size: 14px;">21个女主播<br><i>随性</i></span>
-                    <span class="pull-right read_right">立即阅读</span>
-                </div>
-                <div class="col-xs-12 column no_lpad" style="height: 60%;overflow: hidden;">
-                    <span>屌丝王大锤捡到袖珍小萝莉，竟然可以召唤美女精灵，神马赵飞燕、杨贵妃、小龙女、全都被他召唤到现代，成为新晋...</span>
-                </div>
-            </div>
-        </div>
-    </div>
+    {volist name='is_hot' id='ishot'}
     <div class="row clearfix bg_white h_delh pad_top">
         <div class="col-xs-4 column del_height">
-            <img src="__STATIC__/index/img/111.jpg" alt="图片显示错误" class="img_out" />
+            <img src="{:isset($ishot)?$ishot->picture:''}" alt="图片显示错误" class="img_out" />
         </div>
         <div class="col-xs-8 column del_height">
             <div class="row clearfix date_span">
                 <div class="col-xs-12 column no_lpad" style="height: 40%;">
-                    <span class="pull-left" style="font-size: 14px;">21个女主播<br><i>随性</i></span>
+                    <span class="pull-left" style="font-size: 14px;">{:isset($ishot)?$ishot->title:''}<br><i>{:isset($ishot)?$ishot->Author->name:''}</i></span>
                     <span class="pull-right read_right">立即阅读</span>
                 </div>
                 <div class="col-xs-12 column no_lpad" style="height: 60%;overflow: hidden;">
-                    <span>屌丝王大锤捡到袖珍小萝莉，竟然可以召唤美女精灵，神马赵飞燕、杨贵妃、小龙女、全都被他召唤到现代，成为新晋...</span>
+                    <!--CSS改动(加省略号)-->
+                    <span style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 3;overflow: hidden;">{:isset($ishot)?$ishot->summary:''}</span>
                 </div>
             </div>
         </div>
     </div>
-    <div class="row clearfix bg_white h_delh pad_top">
-        <div class="col-xs-4 column del_height">
-            <img src="__STATIC__/index/img/111.jpg" alt="图片显示错误" class="img_out" />
-        </div>
-        <div class="col-xs-8 column del_height">
-            <div class="row clearfix date_span">
-                <div class="col-xs-12 column no_lpad" style="height: 40%;">
-                    <span class="pull-left" style="font-size: 14px;">21个女主播<br><i>随性</i></span>
-                    <span class="pull-right read_right">立即阅读</span>
-                </div>
-                <div class="col-xs-12 column no_lpad" style="height: 60%;overflow: hidden;">
-                    <span>屌丝王大锤捡到袖珍小萝莉，竟然可以召唤美女精灵，神马赵飞燕、杨贵妃、小龙女、全都被他召唤到现代，成为新晋...</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
+    {/volist}
 </div>
 <!--新书推荐-->
 <div class="container">
@@ -168,58 +138,46 @@
                 <div class="carousel-inner text-center">
                     <div class="item active recommend_del zhuBanner">
                         <div>
-                            <a><img src="__STATIC__/index/img/111.jpg" alt="图片显示错误" />总裁一吻好羞羞</a>
-                            <a><img src="__STATIC__/index/img/111.jpg" alt="图片显示错误" />老子是村长</a>
-                            <a><img src="__STATIC__/index/img/111.jpg" alt="图片显示错误" />风流岁月之活色生香</a>
+                            {volist name='created_at' id='createdat' offset="0" length='3'}
+                            <a><img src="{:isset($createdat)?$createdat->picture:''}" alt="图片显示错误" />{:isset($createdat)?$createdat->title:''}</a>
+                            {/volist}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    {volist name='created_at' id='createdats' offset="3" length='$data_setting['new_recommend']-3'}
     <div class="row clearfix bg_white h_delh pad_top">
         <div class="col-xs-4 column del_height">
-            <img src="__STATIC__/index/img/111.jpg" alt="图片显示错误" class="img_out" />
+            <img src="{:isset($createdats)?$createdats->picture:''}" alt="图片显示错误" class="img_out" />
         </div>
         <div class="col-xs-8 column del_height">
             <div class="row clearfix date_span">
                 <div class="col-xs-12 column no_lpad" style="height: 40%;">
-                    <span class="pull-left" style="font-size: 14px;">21个女主播<br><i>随性</i></span>
+                    <span class="pull-left" style="font-size: 14px;">{:isset($createdats)?$createdats->title:''}<br><i>{:isset($createdats)?$createdats->Author->name:''}</i></span>
                     <span class="pull-right read_right">立即阅读</span>
                 </div>
                 <div class="col-xs-12 column no_lpad" style="height: 60%;overflow: hidden;">
-                    <span>屌丝王大锤捡到袖珍小萝莉，竟然可以召唤美女精灵，神马赵飞燕、杨贵妃、小龙女、全都被他召唤到现代，成为新晋...</span>
+                    <!--CSS改动(加省略号)-->
+                    <span style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 3;overflow: hidden;">{:isset($createdats)?$createdats->summary:''}</span>
                 </div>
             </div>
         </div>
     </div>
-    <div class="row clearfix bg_white h_delh pad_top">
-        <div class="col-xs-4 column del_height">
-            <img src="__STATIC__/index/img/111.jpg" alt="图片显示错误" class="img_out" />
-        </div>
-        <div class="col-xs-8 column del_height">
-            <div class="row clearfix date_span">
-                <div class="col-xs-12 column no_lpad" style="height: 40%;">
-                    <span class="pull-left" style="font-size: 14px;">21个女主播<br><i>随性</i></span>
-                    <span class="pull-right read_right">立即阅读</span>
-                </div>
-                <div class="col-xs-12 column no_lpad" style="height: 60%;overflow: hidden;">
-                    <span>屌丝王大锤捡到袖珍小萝莉，竟然可以召唤美女精灵，神马赵飞燕、杨贵妃、小龙女、全都被他召唤到现代，成为新晋...</span>
-                </div>
-            </div>
-        </div>
-    </div>
+    {/volist}
 
 </div>
 <!--限时免费-->
 <div class="container">
     <div class="row clearfix bg_white mar_top">
         <div class="col-xs-4 column main_recommend">
-            <p>限时免费</p>
+            <p>今日限时免费</p>
         </div>
         <div class="col-xs-8 column three_circl main_recommend">
             <div>
-                <p style="color: orange;" class="time_p">倒计时：<i>24</i>：<i>45</i>：<i>60</i></p>
+                <p style="color: orange;" class="time_p">倒计时：<i>23</i>：<i>59</i>：<i>59</i></p>
             </div>
         </div>
     </div>
@@ -229,9 +187,9 @@
                 <div class="carousel-inner text-center">
                     <div class="item active recommend_del zhuBanner">
                         <div>
-                            <a><img src="__STATIC__/index/img/111.jpg" alt="图片显示错误" />总裁一吻好羞羞</a>
-                            <a><img src="__STATIC__/index/img/111.jpg" alt="图片显示错误" />老子是村长</a>
-                            <a><img src="__STATIC__/index/img/111.jpg" alt="图片显示错误" />风流岁月之活色生香</a>
+                            {volist name='timelimit' id='timelimits'}
+                            <a><img src="{:isset($timelimits)?$timelimits->picture:''}" alt="图片显示错误" />{:isset($timelimits)?$timelimits->title:''}</a>
+                            {/volist}
                         </div>
                     </div>
                 </div>
@@ -252,38 +210,23 @@
         </div>
     </div>
     <div class="changmore bg_white" style="width: 100%;">
+        {volist name='like_book' id='likebook'}
         <a>
-            <img src="__STATIC__/index/img/111.jpg" />
-            <p>123</p>
+            <img src="{:isset($likebook)?$likebook['picture']:''}" />
+            <p>{:isset($likebook)?$likebook['title']:''}</p>
         </a>
-        <a>
-            <img src="__STATIC__/index/img/111.jpg" />
-            <p>123</p>
-        </a>
+        {/volist}
     </div>
 </div>
 <!--畅销书单-->
 <div class="container ">
     <div class="row clearfix bg_white mar_top booklist">
         <div class="col-xs-12 column" style="padding-top: 10px;padding-bottom: 10px;">畅销书单</div>
+        {volist name="buy_num_book" id="buynumbook"}
         <div class="col-xs-12 column">
-            <p class="bottom"><i class="iconfont icon-fangduihuakuangkuai pm_icon f_green"></i><b>1</b><span>桃色乡村<em>清酒半壶</em></span></p>
+            <p class="bottom"><i class="iconfont icon-fangduihuakuangkuai pm_icon f_green"></i><b>{$i}</b><span>{:isset($buynumbook)?$buynumbook->title:''}<em>{:isset($buynumbook)?$buynumbook->Author->name:''}</em></span></p>
         </div>
-        <div class="col-xs-12 column">
-            <p class="bottom"><i class="iconfont icon-fangduihuakuangkuai pm_icon f_green"></i><b>2</b><span>桃色乡村<em>清酒半壶</em></span></p>
-        </div>
-        <div class="col-xs-12 column">
-            <p class="bottom"><i class="iconfont icon-fangduihuakuangkuai pm_icon f_green"></i><b>3</b><span>桃色乡村<em>清酒半壶</em></span></p>
-        </div>
-        <div class="col-xs-12 column">
-            <p class="bottom"><i class="iconfont icon-fangduihuakuangkuai pm_icon "></i><b>4</b><span>桃色乡村<em>清酒半壶</em></span></p>
-        </div>
-        <div class="col-xs-12 column">
-            <p class="bottom"><i class="iconfont icon-fangduihuakuangkuai pm_icon "></i><b>5</b><span>桃色乡村<em>清酒半壶</em></span></p>
-        </div>
-        <div class="col-xs-12 column">
-            <p><i class="iconfont icon-fangduihuakuangkuai pm_icon "></i><b>6</b><span>桃色乡村<em>清酒半壶</em></span></p>
-        </div>
+        {/volist}
     </div>
 </div>
 <!--最下面部分-->
@@ -302,7 +245,7 @@
         <small>免责声明：小说均源于互联网-所有版权股属于原作者</small>
     </div>
     <div class="row clearfix bg_white text-center erwm" style="padding: 5px 0px;">
-        <img src="__STATIC__/index/img/111.jpg" alt="图片显示错误" />
+        <img src="{:isset($qr_code)?$qr_code['qr_code']:''}" alt="图片显示错误" />
     </div>
     <div class="row clearfix bg_white text-center" style="padding-bottom: 53px;">
         <small>本公总号仅提供页面服务，如有侵权请于我们联系</small>
