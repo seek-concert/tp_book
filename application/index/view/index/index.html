@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
     <title></title>
     {include file="public/head" /}
-
 </head>
 
 <body style="background: #eeeeee;">
+<!--顶部搜索-->
 <div class="container">
     <div class="row clearfix bg_white">
         <div class="col-xs-12">
@@ -20,9 +20,13 @@
             </div>
         </div>
     </div>
+
+</div>
+<!--banner-->
+<div class="container">
     <div class="row clearfix bg_white">
         <div class="col-xs-12 column no_pad">
-            <div class="carousel slide" id="carousel-400334"  data-ride="carousel"  data-interval="3000">
+            <div class="carousel slide" id="carousel-400334" data-ride="carousel" data-interval="2000">
                 <ol class="carousel-indicators">
                     <li class="active" data-slide-to="0" data-target="#carousel-400334">
                     </li>
@@ -31,20 +35,24 @@
                     <li data-slide-to="2" data-target="#carousel-400334">
                     </li>
                 </ol>
-                <div class="carousel-inner">
+                <div class="carousel-inner banner">
                     <div class="item active">
-                        <img alt="" src="__STATIC__/index/img/zr_baijiale.png" />
+                        <img alt="" src="__STATIC__/index/img/22.gif" />
                     </div>
                     <div class="item">
-                        <img alt="" src="__STATIC__/index/img/zr_longhu.png" />
+                        <img alt="" src="__STATIC__/index/img/33.jpg" />
                     </div>
                     <div class="item">
-                        <img alt="" src="__STATIC__/index/img/zr_niuniu.png" />
+                        <img alt="" src="__STATIC__/index/img/44.jpg" />
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+</div>
+<!--分类，排行，充值，免费-->
+<div class="container">
     <div class="row clearfix text-center bg_white">
         <div class="col-xs-3 column">
             <a class="kind_btn">分类<i class="iconfont icon-fenlei1"></i></a>
@@ -59,55 +67,33 @@
             <a class="kind_btn">免费<i class="iconfont icon-bd_mianfei" style="background-color: forestgreen;font-size: 25px;"></i></a>
         </div>
     </div>
-    <div class="row clearfix bg_white mar_top">
+</div>
+
+<!--三张图一起-->
+<div class="container bg_white aa mar_top">
+    <div class="row clearfix bg_white ">
         <div class="col-xs-6 column main_recommend">
             <p>主编推荐</p>
         </div>
         <div class="col-xs-6 column three_circl main_recommend">
+            <span  class="pull-right" style="color: #ccc;">更多<i class="iconfont icon-gengduo"></i></span>
+        </div>
+    </div>
+    <div id="a" class="banner3">
+        <div class="bannnerduo">
+            {volist name='is_recommend' id='isrecommend'}
             <div>
-                <span class="on"></span>
-                <span></span>
-                <span></span>
+                <a>
+                    <img src="{:isset($isrecommend)?$isrecommend['picture']:''}" />
+                    <p>{:isset($isrecommend)?$isrecommend['title']:''}</p>
+                </a>
             </div>
+            {/volist}
         </div>
     </div>
-    <div class="row clearfix bg_white" style="padding-bottom: 15px;">
-        <div class="col-xs-12 column">
-            <div class="carousel slide" id="carousel-401249"  data-ride="carousel"  data-interval="5000">
-                <ol class="carousel-indicators" style="opacity: 0;">
-                    <li class="active" data-slide-to="0" data-target="#carousel-401249">
-                    </li>
-                    <li data-slide-to="1" data-target="#carousel-401249">
-                    </li>
-                    <li data-slide-to="2" data-target="#carousel-401249">
-                    </li>
-                </ol>
-                <div class="carousel-inner text-center">
-                    <div class="item active recommend_del">
-                        <div>
-                            <a><img src="{:isset($is_recommend)?$is_recommend[0]->picture:''}" alt="图片显示错误" />{:isset($is_recommend)?$is_recommend[0]->title:''}</a>
-                            <a><img src="{:isset($is_recommend)?$is_recommend[1]->picture:''}" alt="图片显示错误" />{:isset($is_recommend)?$is_recommend[1]->title:''}</a>
-                            <a><img src="{:isset($is_recommend)?$is_recommend[2]->picture:''}" alt="图片显示错误" />{:isset($is_recommend)?$is_recommend[2]->title:''}</a>
-                        </div>
-                    </div>
-                    <div class="item recommend_del">
-                        <div>
-                            <a><img src="__STATIC__/index/img/a1.png" alt="图片显示错误" />总裁一吻好羞羞</a>
-                            <a><img src="__STATIC__/index/img/a1.png" alt="图片显示错误" />老子是村长</a>
-                            <a><img src="__STATIC__/index/img/a1.png" alt="图片显示错误" />风流岁月之活色生香</a>
-                        </div>
-                    </div>
-                    <div class="item recommend_del">
-                        <div>
-                            <a><img src="__STATIC__/index/img/a1.png" alt="图片显示错误" />总裁一吻好羞羞</a>
-                            <a><img src="__STATIC__/index/img/a1.png" alt="图片显示错误" />老子是村长</a>
-                            <a><img src="__STATIC__/index/img/a1.png" alt="图片显示错误" />风流岁月之活色生香</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+</div>
+<!--热门小说-->
+<div class="container">
     <div class="row clearfix more_novel bg_white mar_top">
         <div class="col-xs-6 column">
             <span class="pull-left" style="color: #999;">热门小说</span>
@@ -118,7 +104,7 @@
     </div>
     <div class="row clearfix bg_white h_delh" style="height: 110px;">
         <div class="col-xs-4 column del_height">
-            <img src="__STATIC__/index/img/a1.png" alt="图片显示错误" class="img_out" />
+            <img src="__STATIC__/index/img/111.jpg" alt="图片显示错误" class="img_out" />
         </div>
         <div class="col-xs-8 column del_height">
             <div class="row clearfix date_span">
@@ -134,7 +120,7 @@
     </div>
     <div class="row clearfix bg_white h_delh pad_top">
         <div class="col-xs-4 column del_height">
-            <img src="__STATIC__/index/img/a1.png" alt="图片显示错误" class="img_out" />
+            <img src="__STATIC__/index/img/111.jpg" alt="图片显示错误" class="img_out" />
         </div>
         <div class="col-xs-8 column del_height">
             <div class="row clearfix date_span">
@@ -150,7 +136,7 @@
     </div>
     <div class="row clearfix bg_white h_delh pad_top">
         <div class="col-xs-4 column del_height">
-            <img src="__STATIC__/index/img/a1.png" alt="图片显示错误" class="img_out" />
+            <img src="__STATIC__/index/img/111.jpg" alt="图片显示错误" class="img_out" />
         </div>
         <div class="col-xs-8 column del_height">
             <div class="row clearfix date_span">
@@ -164,6 +150,10 @@
             </div>
         </div>
     </div>
+
+</div>
+<!--新书推荐-->
+<div class="container">
     <div class="row clearfix more_novel bg_white mar_top">
         <div class="col-xs-6 column">
             <span class="pull-left" style="color: #999;">新书推荐</span>
@@ -176,11 +166,11 @@
         <div class="col-xs-12 column">
             <div class="carousel slide" style="padding-bottom: 15px;border-bottom: 1px solid #eeeeee;">
                 <div class="carousel-inner text-center">
-                    <div class="item active recommend_del">
+                    <div class="item active recommend_del zhuBanner">
                         <div>
-                            <a><img src="__STATIC__/index/img/a1.png" alt="图片显示错误" />总裁一吻好羞羞</a>
-                            <a><img src="__STATIC__/index/img/a1.png" alt="图片显示错误" />老子是村长</a>
-                            <a><img src="__STATIC__/index/img/a1.png" alt="图片显示错误" />风流岁月之活色生香</a>
+                            <a><img src="__STATIC__/index/img/111.jpg" alt="图片显示错误" />总裁一吻好羞羞</a>
+                            <a><img src="__STATIC__/index/img/111.jpg" alt="图片显示错误" />老子是村长</a>
+                            <a><img src="__STATIC__/index/img/111.jpg" alt="图片显示错误" />风流岁月之活色生香</a>
                         </div>
                     </div>
                 </div>
@@ -189,7 +179,7 @@
     </div>
     <div class="row clearfix bg_white h_delh pad_top">
         <div class="col-xs-4 column del_height">
-            <img src="__STATIC__/index/img/a1.png" alt="图片显示错误" class="img_out" />
+            <img src="__STATIC__/index/img/111.jpg" alt="图片显示错误" class="img_out" />
         </div>
         <div class="col-xs-8 column del_height">
             <div class="row clearfix date_span">
@@ -205,7 +195,7 @@
     </div>
     <div class="row clearfix bg_white h_delh pad_top">
         <div class="col-xs-4 column del_height">
-            <img src="__STATIC__/index/img/a1.png" alt="图片显示错误" class="img_out" />
+            <img src="__STATIC__/index/img/111.jpg" alt="图片显示错误" class="img_out" />
         </div>
         <div class="col-xs-8 column del_height">
             <div class="row clearfix date_span">
@@ -219,13 +209,17 @@
             </div>
         </div>
     </div>
+
+</div>
+<!--限时免费-->
+<div class="container">
     <div class="row clearfix bg_white mar_top">
         <div class="col-xs-4 column main_recommend">
             <p>限时免费</p>
         </div>
         <div class="col-xs-8 column three_circl main_recommend">
             <div>
-                <p style="color: orange;" class="time_p">倒计时：<i>23</i>：<i>59</i>：<i>59</i></p>
+                <p style="color: orange;" class="time_p">倒计时：<i>24</i>：<i>45</i>：<i>60</i></p>
             </div>
         </div>
     </div>
@@ -233,17 +227,20 @@
         <div class="col-xs-12 column">
             <div class="carousel slide" style="padding-bottom: 15px;border-bottom: 1px solid #eeeeee;">
                 <div class="carousel-inner text-center">
-                    <div class="item active recommend_del">
+                    <div class="item active recommend_del zhuBanner">
                         <div>
-                            <a><img src="__STATIC__/index/img/a1.png" alt="图片显示错误" />总裁一吻好羞羞</a>
-                            <a><img src="__STATIC__/index/img/a1.png" alt="图片显示错误" />老子是村长</a>
-                            <a><img src="__STATIC__/index/img/a1.png" alt="图片显示错误" />风流岁月之活色生香</a>
+                            <a><img src="__STATIC__/index/img/111.jpg" alt="图片显示错误" />总裁一吻好羞羞</a>
+                            <a><img src="__STATIC__/index/img/111.jpg" alt="图片显示错误" />老子是村长</a>
+                            <a><img src="__STATIC__/index/img/111.jpg" alt="图片显示错误" />风流岁月之活色生香</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
+<!--猜你喜欢-->
+<div class="container bg_white">
     <div class="row clearfix bg_white mar_top">
         <div class="col-xs-4 column main_recommend">
             <p>猜你喜欢</p>
@@ -254,36 +251,19 @@
             </div>
         </div>
     </div>
-    <div class="row clearfix bg_white">
-        <div class="col-xs-12 column">
-            <div class="carousel slide" style="padding-bottom: 15px;">
-                <div class="carousel-inner text-center">
-                    <div class="item active recommend_del">
-                        <div>
-                            <a><img src="__STATIC__/index/img/a1.png" alt="图片显示错误" />总裁一吻好羞羞</a>
-                            <a><img src="__STATIC__/index/img/a1.png" alt="图片显示错误" />老子是村长</a>
-                            <a><img src="__STATIC__/index/img/a1.png" alt="图片显示错误" />风流岁月之活色生香</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="changmore bg_white" style="width: 100%;">
+        <a>
+            <img src="__STATIC__/index/img/111.jpg" />
+            <p>123</p>
+        </a>
+        <a>
+            <img src="__STATIC__/index/img/111.jpg" />
+            <p>123</p>
+        </a>
     </div>
-    <div class="row clearfix bg_white">
-        <div class="col-xs-12 column">
-            <div class="carousel slide" style="padding-bottom: 15px;">
-                <div class="carousel-inner text-center">
-                    <div class="item active recommend_del">
-                        <div>
-                            <a><img src="__STATIC__/index/img/a1.png" alt="图片显示错误" />总裁一吻好羞羞</a>
-                            <a><img src="__STATIC__/index/img/a1.png" alt="图片显示错误" />老子是村长</a>
-                            <a><img src="__STATIC__/index/img/a1.png" alt="图片显示错误" />风流岁月之活色生香</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+</div>
+<!--畅销书单-->
+<div class="container ">
     <div class="row clearfix bg_white mar_top booklist">
         <div class="col-xs-12 column" style="padding-top: 10px;padding-bottom: 10px;">畅销书单</div>
         <div class="col-xs-12 column">
@@ -305,6 +285,9 @@
             <p><i class="iconfont icon-fangduihuakuangkuai pm_icon "></i><b>6</b><span>桃色乡村<em>清酒半壶</em></span></p>
         </div>
     </div>
+</div>
+<!--最下面部分-->
+<div class="container ">
     <div class="row clearfix bg_white mar_top">
         <div class="col-xs-12 column text-center footer top_pad">
             <a class="right_bor">首页</a>
@@ -319,12 +302,11 @@
         <small>免责声明：小说均源于互联网-所有版权股属于原作者</small>
     </div>
     <div class="row clearfix bg_white text-center erwm" style="padding: 5px 0px;">
-        <img src="__STATIC__/index/img/a1.png" alt="图片显示错误" />
+        <img src="__STATIC__/index/img/111.jpg" alt="图片显示错误" />
     </div>
     <div class="row clearfix bg_white text-center" style="padding-bottom: 53px;">
         <small>本公总号仅提供页面服务，如有侵权请于我们联系</small>
     </div>
-
     <div class="row clearfix bg_white text-center tabs t_b_pad">
         <div class="col-xs-4 column text-center footer">
             <a><i class="iconfont icon-shujiaxuanzhong"></i>书架</a>
@@ -336,9 +318,22 @@
             <a><i class="iconfont icon-wode-copy"></i>我的</a>
         </div>
     </div>
+    <span class="toTop"><i class="iconfont icon-huidingbu"></i> </span>
 </div>
 
 {include file="public/foot"/}
+    <script>
+        indexjs();
+        //		setInterval(function() {
+        //			$("#banneritem>li").each(function() {
+        //				if($(this).hasClass("active")) {
+        //					$("#bannerItem2>span").eq($(this).index()).addClass("on").siblings().removeClass("on");
+        //				}
+        //			})
+        //		}, 1000);
+        $(".bannnerduo").css("width", $(".bannnerduo div").length / 3 * $("#a").width() + "px")
+        $(".bannnerduo div").css("width", $("#a").width() / 3 + "px")
+    </script>
 
 </body>
 </html>
