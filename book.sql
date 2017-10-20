@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50554
 File Encoding         : 65001
 
-Date: 2017-10-20 11:00:13
+Date: 2017-10-20 11:44:48
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -141,11 +141,12 @@ CREATE TABLE `data_setting` (
   `ranking_total` int(11) DEFAULT NULL COMMENT ' 排行显示条数',
   `updated_at` int(11) DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='数据设置';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='数据设置';
 
 -- ----------------------------
 -- Records of data_setting
 -- ----------------------------
+INSERT INTO `data_setting` VALUES ('1', '3', '3', '3', '3', '3', '3', '3', '20', '3', '3', '1508470762');
 
 -- ----------------------------
 -- Table structure for menu
