@@ -17,7 +17,12 @@ class Rechargeorderss extends Model
     public function getTypeAttr($value=null)
     {
         $status = [0=>'书币',1=>'会员'];
-        return $status[$value];
+        if(is_numeric($value) && in_array($value,[0,1])){
+            return $status[$value];
+        }else{
+            return $status;
+        }
+
     }
     /*----- 关联读者 -----*/
     public function Readers()
