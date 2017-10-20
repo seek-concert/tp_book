@@ -9,6 +9,7 @@ namespace app\index\controller;
 
 class Index extends Auth
 {
+    /* ============ 首页 ============== */
     public function index()
     {
         $book_model = model('book');
