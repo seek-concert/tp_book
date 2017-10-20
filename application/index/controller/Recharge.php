@@ -6,6 +6,7 @@
  * */
 namespace app\index\controller;
 
+use app\index\model\Rechargeprices;
 use think\Loader;
 
 class Recharge extends Auth
@@ -13,6 +14,8 @@ class Recharge extends Auth
     /* ============ 充值列表 ============== */
     public function index()
     {
+        $recharge_list=Rechargeprices::field(['id','type','price','number','gift_num'])->order('type asc,price asc')->select();
+        $this->assign(['recharge_list'=>$recharge_list]);
         return view();
     }
 

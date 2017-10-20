@@ -22,7 +22,7 @@
         </li>
     </ul>
 </div>
-<form action="{:url('index')}" method="post" class="js-ajax-form" onsubmit="return false;" >
+<form action="{:url('index')}" method="post">
     <input type="hidden" name="id" value="{:isset($info)?$info->id:''}">
     <div class="tableCon">
         <em class="xian"></em>
@@ -67,11 +67,11 @@
             {/if}
         </table>
         <div class="layerBtns">
-            <a class="btn js-ajax-form-btn" data-layer="true">立即提交</a>
+            <button class="btn" type="submit">立即提交</button>
             <button class="btn" type="reset">重置</button>
         </div>
     </div>
 </form>
-<script src="__STATIC__/system/js/ajax-submit.js" type="text/javascript" charset="utf-8"></script>
+{:isset($notice)?$notice:''}
 </body>
 </html>
