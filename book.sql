@@ -1,9 +1,9 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost_phpwamp
+Source Server         : locahost
 Source Server Version : 50554
-Source Host           : 127.0.0.1:3306
+Source Host           : localhost:3306
 Source Database       : book
 
 Target Server Type    : MYSQL
@@ -28,12 +28,13 @@ CREATE TABLE `author` (
   `updated_at` int(11) DEFAULT NULL,
   `deleted_at` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='作者';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='作者';
 
 -- ----------------------------
 -- Records of author
 -- ----------------------------
-INSERT INTO `author` VALUES ('1', '1', '1', '1', '1508407881', '1508407891', '1508407891');
+INSERT INTO `author` VALUES ('1', '觅树知音', '张', '15912345678', '1508467893', '1508467893', null);
+INSERT INTO `author` VALUES ('2', '土豆', '李四', '13012341234', '1508467913', '1508467913', null);
 
 -- ----------------------------
 -- Table structure for banner
@@ -83,11 +84,16 @@ CREATE TABLE `book` (
   `edited_at` int(11) DEFAULT NULL COMMENT '文章更新时间',
   `deleted_at` int(11) DEFAULT NULL COMMENT '删除时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='小说文章 主表';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='小说文章 主表';
 
 -- ----------------------------
 -- Records of book
 -- ----------------------------
+INSERT INTO `book` VALUES ('1', '6', '1', '0', '/uploads/20171020\\4f540f84a22baf966f86a9519bc1708a.jpg', '巴黎圣母院', '1', '巴黎圣母院巴黎圣母院巴黎圣母院巴黎圣母院巴黎圣母院巴黎圣母院巴黎圣母院巴黎圣母院巴黎圣母院巴黎圣母院巴黎圣母院巴黎圣母院巴黎圣母院巴黎圣母院巴黎圣母院巴黎圣母院巴黎圣母院巴黎圣母院巴黎圣母院巴黎圣母院巴黎圣母院', '0', '0', '0', '0', '1', '2017', '2017', '0', '1', '0', '1', '1508468051', '1508481282', null, null);
+INSERT INTO `book` VALUES ('2', '6', '1', '0', '/uploads/20171020\\72c76d5b839179f4fd9f4e354096066f.jpg', '战争与和平', '1', '战争与和平战争与和平战争与和平战争与和平战争与和平战争与和平战争与和平战争与和平战争与和平战争与和平战争与和平战争与和平战争与和平战争与和平战争与和平战争与和平战争与和平战争与和平战争与和平', '0', '0', '0', '100', '0', '0', '0', '1', '1', '0', '1', '1508468095', '1508481271', null, null);
+INSERT INTO `book` VALUES ('3', '6', '1', '0', '/uploads/20171020\\3627e4eaff26529e306926ecf4f6613d.jpg', '童年', '2', '童年童年童年童年童年童年童年童年童年童年童年童年童年童年童年童年童年童年童年童年童年童年童年童年童年童年童年童年童年童年童年童年童年童年童年童年童年童年童年童年童年童年童年童年童年童年童年', '0', '0', '0', '0', '1', '1508342400', '1508515199', '1', '1', '0', '1', '1508468124', '1508482125', null, null);
+INSERT INTO `book` VALUES ('4', '1', '1', '0', '/uploads/20171020\\b03728ca92d8b6c25ab39772d8e7e27c.jpg', '第一本书', '1', '第一本书第一本书第一本书第一本书第一本书第一本书第一本书第一本书第一本书第一本书第一本书第一本书第一本书第一本书第一本书第一本书第一本书第一本书第一本书第一本书第一本书第一本书第一本书第一本书第一本书第一本书第一本书第一本书第一本书第一本书第一本书', '0', '0', '0', '0', '1', '2017', '2017', '1', '1', '0', '1', '1508468165', '1508479501', null, null);
+INSERT INTO `book` VALUES ('5', '3', '1', '0', '/uploads/20171020\\ae275c880eef845dcbf509c1ae8573fd.jpg', '鬼吹灯', '1', '小说中作者首创历史上四大盗墓门派——摸金、卸岭、发丘、搬山，其中摸金是技术含量最高，规矩最多的门派。“人点烛，鬼吹灯”是传说中摸金派的不传之秘，意为进入古墓之中先在东南角点燃一支蜡烛才能开棺，如果蜡烛熄灭，须速速退出，不可取一物。相传这是祖师爷所定的一条活人与死人的契约，千年传承，不得破。', '0', '0', '0', '0', '1', '2017', '2017', '0', '1', '0', '1', '1508481019', '1508481019', null, null);
 
 -- ----------------------------
 -- Table structure for book_cate
@@ -101,11 +107,17 @@ CREATE TABLE `book_cate` (
   `updated_at` int(11) DEFAULT NULL COMMENT '修改时间',
   `deleted_at` int(11) DEFAULT NULL COMMENT '删除时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='小说分类';
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='小说分类';
 
 -- ----------------------------
 -- Records of book_cate
 -- ----------------------------
+INSERT INTO `book_cate` VALUES ('1', '都市', '0', '1508467927', '1508467927', null);
+INSERT INTO `book_cate` VALUES ('2', '玄幻', '0', '1508467937', '1508467937', null);
+INSERT INTO `book_cate` VALUES ('3', '惊悚', '0', '1508467945', '1508467945', null);
+INSERT INTO `book_cate` VALUES ('4', '历史', '0', '1508467970', '1508467970', null);
+INSERT INTO `book_cate` VALUES ('5', '科幻', '0', '1508467975', '1508467975', null);
+INSERT INTO `book_cate` VALUES ('6', '名著', '0', '1508467981', '1508467981', null);
 
 -- ----------------------------
 -- Table structure for book_content
@@ -149,11 +161,12 @@ CREATE TABLE `data_setting` (
   `ranking_total` int(11) DEFAULT NULL COMMENT ' 排行显示条数',
   `updated_at` int(11) DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='数据设置';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='数据设置';
 
 -- ----------------------------
 -- Records of data_setting
 -- ----------------------------
+INSERT INTO `data_setting` VALUES ('1', '3', '7', '3', '10', '3', '3', '3', '20', '3', '3', '1508481061');
 
 -- ----------------------------
 -- Table structure for menu
@@ -219,11 +232,12 @@ CREATE TABLE `reader` (
   `login_at` int(11) DEFAULT NULL COMMENT ' 最近登录时间',
   `login_ip` varchar(255) DEFAULT NULL COMMENT ' 最近登录IP',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='读者 基本信息';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='读者 基本信息';
 
 -- ----------------------------
 -- Records of reader
 -- ----------------------------
+INSERT INTO `reader` VALUES ('1', null, 'gdfgdfgdfgd4546454', '100', null, '1508470762', '1508470762', '1508470762', '192.168.0.1');
 
 -- ----------------------------
 -- Table structure for reader_bookmark
@@ -257,11 +271,12 @@ CREATE TABLE `reader_bookshelf` (
   `updated_at` int(11) DEFAULT NULL COMMENT '更新时间',
   `read_at` int(11) DEFAULT NULL COMMENT '最近阅读时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='读者 书架';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='读者 书架';
 
 -- ----------------------------
 -- Records of reader_bookshelf
 -- ----------------------------
+INSERT INTO `reader_bookshelf` VALUES ('1', '1', '5', null, null, null, null);
 
 -- ----------------------------
 -- Table structure for reader_readlast
