@@ -50,6 +50,15 @@ small {
 .padT5{
 	padding-top: 5px;
 }
+.f16{
+	font-size: 16px;
+}
+.f14{
+	font-size: 14px;
+}
+.f12{
+	font-size: 12px;
+}
 /**====================首页=================**/
 
 .top_out_div {
@@ -64,7 +73,10 @@ small {
 
 .top_search {
 	float: left;
-	width: 80%;
+	/*width: 80%;*/
+	width: calc(100% - 40px);
+	width: -webkit-calc(100% - 40px);
+	width: -moz-calc(100% - 40px);
 	height: 25px;
 	outline: none;
 	border: 1px solid #eeeeee;
@@ -228,7 +240,9 @@ small {
 	padding-bottom: 10px;
 	border-bottom: 1px solid #eeeeee;
 }
-
+.h_delh img{
+	box-shadow: 3px 2px 1px #999;
+}
 .booklist {
 	position: relative;
 }
@@ -368,8 +382,8 @@ small {
 }
 /*++++++++++++++++++++++++++++分类列表++++++++++++++++++++++++++++++++*/
 .header{
-	height: 34px;
-	line-height: 34px;
+	height:40px;
+	line-height: 40px;
 	font-size: 15px;
 	color: rgb(51,51,51);
 }
@@ -440,3 +454,344 @@ small {
 .listImg{
 	box-shadow:2px 2px 3px rgb(150,150,150);
 }
+/**((((((((((((((((((((((((排行榜))))))))))))))))))))))))*/
+.bangList>a{
+	display: block;
+}
+.bangName>span{
+	font-size: 16px;
+	/*font-weight: 600;*/
+	color: rgb(54,54,54);
+	text-shadow: 0px 0px 1px #999;
+}
+.bangName>i{
+	font-size: 12px;
+	color: rgb(208,208,208);
+	font-family: "arial narrow";
+	margin-left: 5px;
+}
+.bangimg i{
+	font-size: 60px;
+	position: relative;
+	left: -8px;
+}
+.bangimg1{
+	color: #Afcd50;
+}
+.bangimg2{
+	color: rgb(233,143,54);
+}
+.bangimg3{
+	color: rgb(247,119,93);
+}
+.bangCon>p{
+	border-left: 1px solid #eee;
+	margin-bottom: 0px !important;
+	padding-left: 10px;
+}
+.bangCon>p:first-child{
+	padding-bottom: 8px;
+}
+.bangCon>p:nth-of-type(2){
+	padding-bottom: 8px;
+}
+.bangCon>p:nth-of-type(3){
+	padding-bottom: 0px;
+}
+.bangCon>p>i{
+	position: relative;
+	font-size: 18px;
+	
+}
+.bangCon>p>i>b{
+	position: absolute;
+	top: 2px;
+	left: 5px;
+	color: white;
+	z-index: 2;
+	transform: rotate(-90deg);
+	font-size: 13px;
+}
+.number1{
+	color: #fd8a0d;
+}
+.number2{
+	color: #fc7979;
+}
+.number3{
+	color: #34c083;
+}
+.bangRow{
+	position: relative;
+}
+.bangRow>div{
+	padding-bottom: 5px;
+	padding-top:5px;
+}
+.bangCon>p>span:nth-of-type(1){
+	font-size: 16px;
+	color: #666;
+	margin-left: 5px;
+}
+.bangCon>p>span:last-child{
+	font-size: 12px;
+	color: #999;
+	margin-left: 5px;
+}
+.bangnext{
+	text-align: right;
+	position: absolute;
+	top: 50%;
+	margin-top: -11px;
+	right: 10px;
+}
+.bangnext>i{
+	color: #999;
+}
+
+
+
+/***********充值页面**************/
+.recharge{
+	text-align: center;
+}
+.recharge>div{
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.recharge>div>div{
+	border: 1px solid rgb(246,110,100);
+	border-radius: 5px 5px 5px 5px;
+	box-shadow: 0px 0px 2px rgb(246,110,100);
+	overflow: hidden;
+}
+.recharge>div>div>p{
+	color:  rgb(246,110,100);
+	font-size: 14px;
+}
+.recharge>div>div>div{
+	height: 74px;
+	background:#fff6f5 ;
+	/*border-radius:5px 5px 0px 0px ;*/
+	border-bottom: 1px dashed rgb(246,110,100);
+}
+.recharge>div>div>p{
+	line-height: 28px;
+}
+.recharge>div>div>div>p{
+	color: rgb(246,110,100);
+}
+.recharge>div>div>div>p:first-child{
+	font-size: 16px;
+	padding-top: 18px;
+}
+.recharge>div>div>div>p:last-child{
+	font-size: 12px;
+}
+.recharge p{
+	margin-bottom: 0px !important;
+}
+.topdiv.on{
+	background:rgb(246,110,100) ;
+}
+.topdiv.on>p{
+	color: white;
+}
+.submitBtn{
+	height: 38px;
+	line-height: 38px;
+	text-align: center;
+	background: rgb(246,110,100);
+	border-radius: 38px;
+	color: white;
+	font-size: 16px;
+}
+/**************搜索列表************/
+.result_p{
+	font-size: 16px;
+	color: #888;
+	padding-top: 10px;
+}
+.result_p span{
+	color: rgb(52,203,208) !important;
+}
+
+
+/************书籍详情***************/
+.bookInfo{
+	background: url(../img/888.jpg) no-repeat center;
+	height: 129px;
+	background-size: 100% 100%;
+	position: relative;
+}
+.bookInfo img{
+	width: 100%;
+	height: 119px;
+	box-shadow: 0px 2px 1px rgb(173,171,171);
+}
+.bookInfo>div{
+	top: 20px;
+	
+}
+.bookInfo>div p{
+	margin-bottom:2px;
+	color: white;
+}
+.typeLz{
+	color: rgb(24,213,233);
+}
+.bookname{
+	padding-top:5px ;
+	padding-bottom:5px ;
+}
+.looknum{
+	color: #ccc !important;
+}
+.flagP{
+	position: absolute;
+	right: 0px;
+	bottom: -17px;
+}
+.flagP>span{
+	display: inline-block;
+	padding: 3px 5px;
+	border-radius: 26px;
+	color: white;
+}
+.flagP>span:first-child{
+	background: #fd7879;
+}
+.flagP>span:last-child{
+	background: #4bd398;
+}
+.bookwork a{
+	display: block;
+	height: 36px;
+	line-height: 36px;
+	color: white;
+	border-radius: 5px;
+	font-size: 16px;
+}
+.beginLook{
+	background: #ff730b;
+	margin-right: 5px;
+}
+.addBook{
+	background:#4bd398 ;
+	margin-left: 5px;
+}
+.infoBo{
+	/*text-overflow: ellipsis;*/
+	/*white-space: nowrap;*/
+	color: #666;
+	font-size: 13px;
+	line-height: 24px;
+}
+.infoBo i{
+	font-size: 12px;
+	color: #999;
+	margin-left: 5px;
+}
+.mulu{
+	height: 44px;
+	line-height: 44px;
+}
+.mulu span:first-child{
+	color: #333333;
+	font-size: 16px;
+}
+.mulu span:nth-of-type(2){
+	margin-left: 5px;
+	color: #999;
+}
+.mulu span:nth-of-type(3){
+	float: right;
+	color: #999;
+}
+.mulu span i{
+	font-size: 12px;
+	margin-left: 5px;
+}
+.gussname{
+	padding-bottom: 10px;
+	padding-top: 10px;
+}
+.gussname span:last-child{
+	float: right;
+	color: #999;
+}
+.gussname span:first-child{
+	font-size: 16px;
+	color: #333;
+}
+.gusscon{
+	padding-bottom: 10px;
+}
+.gusscon div{
+	width: 33.333%;
+	display: inline-block;
+	float: left;
+}
+.gusscon div a{
+	display: inline-block;
+}
+.gusscon div img{
+	width: 90px;
+	height: 120px;
+}
+.gusscon div p{
+	text-align: center;
+	margin-bottom: 0px;
+}
+.gusscon div:nth-of-type(3n+1){
+	text-align: left;
+}
+.gusscon div:nth-of-type(3n+2){
+	text-align: center;
+}
+.gusscon div:nth-of-type(3n){
+	text-align: right;
+}
+
+
+/*****************目录列表******************/
+.zongList div,.zongList2 div{
+	border-bottom: 1px solid #eee;
+}
+.zongList div{
+	font-size: 18px;
+	color: #999;
+	padding-top: 10px;
+	padding-bottom: 25px;
+}
+.zongList2 div{
+	font-size: 16px;
+	color: #333333;
+	padding-top:10px;
+	padding-bottom: 10px;
+	padding-left: 0px;
+	padding-right: 0px;
+	width: calc(100% - 30px);
+	width: -webkit-calc(100% - 30px);
+	width: -moz-calc(100% - 30px);
+	margin: 0 auto;
+	margin-left: 15px;
+}
+.zongList2 div span:nth-of-type(2){
+	margin-left: 10px;
+}
+.zongList2 div i{
+	margin-left: 5px;
+	font-size: 16px;
+	color: pink;
+}
+
+
+
+
+
+
+
+
+
+

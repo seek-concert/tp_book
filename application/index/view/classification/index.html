@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>分类列表</title>
+    {include file="public/head" /}
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_444045_67zuxesj20h5xw29.css" />
+</head>
+<body style="background: #eeeeee;">
+
+<!--头部-->
+<div class="container ">
+    <div class="row clearfix bg_white header bor_bottom " style="position: fixed;z-index: 9;width: 100%;">
+        <div class="col-xs-12 column quPad">
+            <div class="col-xs-4 column toback text-left">
+                <span><i class="iconfont icon-iconfontjiantouzuo text-center"></i><a style="color: #0a0a0a;" href="{:url('index/index')}">首页	</a></span>
+            </div>
+            <div class="col-xs-4 column text-center">
+                分类列表
+            </div>
+            <div class="col-xs-4 column">
+            </div>
+        </div>
+    </div>
+
+</div>
+<!--**分类列表**-->
+<form action="{:url('index')}" method="post" class="js-ajax-form" >
+<div class="container ">
+    <div class="row clearfix bg_white padT5 bor_bottom" style="margin-top: 34px;">
+        <div class="col-xs-2 column padRight0 quPad listP">
+            分类
+        </div>
+        <div class="col-xs-8 column listCon" id="listCon">
+            <input type="hidden" name="cate_id" value="{:isset($cate_id)?$cate_id:''}">
+            <span class="{:isset($cate_id)?'':'on'} btn">全部</span>
+                {volist name="cate_name" id="catename"}
+                     <span class="btn {if condition="isset($cate_id) and $cate_id  eq $catename['id']"}on{/if}" data-value="{$catename.id}">{$catename.name}</span>
+                {/volist}
+        </div>
+        <div class="col-xs-2 column pad0 padLeft0 padRight10 listCz listP" id="openlist">
+            展开<i class="iconfont icon-iconfanning"></i>
+        </div>
+    </div>
+    <div class="row clearfix bg_white padT5 bor_bottom">
+        <div class="col-xs-2 column padRight0 quPad listP">
+            状态
+        </div>
+        <div class="col-xs-10 column listCon">
+            <input type="hidden" name="status" value="{:isset($status)?$status:''}">
+            <span class="{:isset($status)?'':'on'} btn">全部</span>
+            <span class="btn {if condition="isset($status) and $status eq 0"}on{/if}"  data-value="0">连载</span>
+            <span class="btn {if condition="isset($status) and $status eq 1"}on{/if}"  data-value="1">完结</span>
+        </div>
+    </div>
+    <div class="row clearfix bg_white padT5 bor_bottom">
+        <div class="col-xs-2 column  padRight0 quPad listP">
+            类型
+        </div>
+        <div class="col-xs-10 column listCon">
+            <input type="hidden" name="type" value="{:isset($type)?$type:''}">
+            <span class="{:isset($type)?'':'on'} btn" data-value="">全部</span>
+            <span class="btn {if condition="isset($type) and $type eq 0"}on{/if}" data-value="0">男生</span>
+            <span class="btn {if condition="isset($type) and $type eq 1"}on{/if}" data-value="1">女生</span>
+        </div>
+    </div>
+
+</div>
+<!--***************列表********************-->
+<div class="container ">
+    {volist name="book_list" id="booklist"}
+    <div class="row clearfix bg_white h_delh pad_top mar_top">
+        <div class="col-xs-4 column del_height">
+            <img src="{$booklist.picture}" alt="图片显示错误" class="img_out listImg" />
+        </div>
+        <div class="col-xs-8 column del_height">
+            <div class="row clearfix date_span">
+                <div class="col-xs-12 column no_lpad" style="height: 40%;">
+                    <span class="pull-left" style="font-size: 14px;">{:isset($booklist)?$booklist->title:''}<br><i>{:isset($booklist)?$booklist->author_name:''}</i></span>
+                    <span class="pull-right read_right">立即阅读</span>
+                </div>
+                <div class="col-xs-12 column no_lpad" style="height: 60%;overflow: hidden;">
+                    <!--CSS改动(加省略号)-->
+                    <span style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 3;overflow: hidden;">{:isset($booklist)?$booklist->summary:''}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <span class="toTop"><i class="iconfont icon-huidingbu"></i> </span>
+    {/volist}
+</div>
+</form>
+</body>
+{include file="public/foot"/}
+<script type="text/javascript">
+    classiFication();
+    /**--**判断页面分类是否展开**--*/
+    var cate_id = "{:isset($cate_id)?$cate_id:''}";
+    if(!isNaN(cate_id)&&cate_id!==''){
+        $("#listCon").find('span').attr('style','display:block;');
+    }
+
+    $('.btn').click(function () {
+        var _btn = $(this);
+        var _value=_btn.data('value');
+        if(isNaN(_value)){
+            _value=' ';
+        }
+        _btn.parent().find('input:first').val(_value);
+        var _form = _btn.data('form') ? $(_btn.data('form')) : _btn.parents('form:first'); //获取表单
+        _form.submit();
+    });
+</script>
+</html>

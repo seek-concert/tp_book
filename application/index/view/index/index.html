@@ -55,7 +55,7 @@
 <div class="container">
     <div class="row clearfix text-center bg_white">
         <div class="col-xs-3 column">
-            <a class="kind_btn">分类<i class="iconfont icon-fenlei1"></i></a>
+            <a class="kind_btn" href="{:url('classification/index')}">分类<i class="iconfont icon-fenlei1"></i></a>
         </div>
         <div class="col-xs-3 column">
             <a class="kind_btn">排行<i class="iconfont icon-diyiming" style="background-color: pink;font-size: 20px;"></i></a>
@@ -177,7 +177,7 @@
         </div>
         <div class="col-xs-8 column three_circl main_recommend">
             <div>
-                <p style="color: orange;" class="time_p">倒计时：<i>23</i>：<i>59</i>：<i>59</i></p>
+                <p style="color: orange;" class="time_p timer-simple-seconds" timer="10" id="countdown">倒计时：<i class="hour"></i>：<i class="minute"></i>：<i class="second"></i></p>
             </div>
         </div>
     </div>
@@ -276,6 +276,14 @@
         //		}, 1000);
         $(".bannnerduo").css("width", $(".bannnerduo div").length / 3 * $("#a").width() + "px")
         $(".bannnerduo div").css("width", $("#a").width() / 3 + "px")
+        var dd = new Date();
+        dd.setDate(dd.getDate()+1);//获取明天的日期
+        var y = dd.getFullYear(); //年份
+        var m = dd.getMonth()+1;//获取当前月份
+        var d = dd.getDate(); //日期
+        window.setInterval(function(){
+            ShowCountDown(y,m,d,'countdown');
+        },1000)
     </script>
 
 </body>
