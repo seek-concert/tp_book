@@ -51,6 +51,7 @@ class Classification extends Auth
                     ->alias('b')
                     ->join('author a','b.author_id = a.id','left')
                     ->where($where)
+                    ->where('online',1)
                     ->paginate($display_num);
         $datas['book_list'] = $book_list;
         $this->assign($datas);

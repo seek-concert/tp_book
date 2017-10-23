@@ -78,7 +78,7 @@
             <div class="row clearfix date_span">
                 <div class="col-xs-12 column no_lpad" style="height: 40%;">
                     <span class="pull-left" style="font-size: 14px;">{:isset($booklist)?$booklist->title:''}<br><i>{:isset($booklist)?$booklist->author_name:''}</i></span>
-                    <span class="pull-right read_right">立即阅读</span>
+                    <a href="{:url('index/book_detail',array('book_id'=>$booklist->id))}"><span class="pull-right read_right">立即阅读</span></a>
                 </div>
                 <div class="col-xs-12 column no_lpad" style="height: 60%;overflow: hidden;">
                     <!--CSS改动(加省略号)-->
