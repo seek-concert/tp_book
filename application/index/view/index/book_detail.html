@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>书籍详情</title>
+    {include file="public/head" /}
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_444045_j7kh4304dn78ehfr.css"/>
+</head>
+<body style="background: #EEEEEE;">
+<div class="container">
+    <!--头部-->
+    <div class="row clearfix bg_white header bor_bottom ">
+        <div class="col-xs-12 column quPad">
+            <div class="col-xs-3 column toback text-left">
+                <a href="{:url('index/index')}"><span><i class="iconfont icon-iconfontjiantouzuo text-center" style="color: rgb(246,110,100);"></i>	</span></a>
+            </div>
+            <div class="col-xs-6 column text-center">
+                书籍详情
+            </div>
+            <div class="col-xs-3 column">
+            </div>
+        </div>
+    </div>
+
+    <!--BookInfo-->
+    <div class="row bookInfo clearfix  bg_white">
+        <div class="col-xs-3 column no_rpad">
+            <img src="{:isset($book_info)?$book_info->picture:''}" />
+        </div>
+        <div class="col-xs-9 column">
+            <p class="f16 bookname">{:isset($book_info)?$book_info->title:''}</p>
+            <p class="f14">作者 : <span>{:isset($book_info)?$book_info->author_name:''} </span></p>
+            <p class="f14">类型 : <span>{:isset($book_info)?$book_info->cate_name:''} | </span><span class="typeLz">{:isset($book_info)?$book_info->status:''}</span></p>
+            <p class="f12 looknum">{$reader_count}名书友正在看</p>
+            <p class="f12 flagP text-right">
+                <span>{:isset($book_info)?$book_info->cate_name:''}</span>
+                <span>{:isset($book_info)?$book_info->type:''}</span>
+            </p>
+        </div>
+
+    </div>
+    <div class="row clearfix bg_white	 bookwork text-center mar_top bor_bottom">
+        <div class="col-xs-6 clearfix mar_top no_rpad">
+            <a class="beginLook">开始阅读</a>
+        </div>
+        <div class="col-xs-6 clearfix text-center mar_top no_lpad">
+            <a class="addBook">加入书架</a>
+        </div>
+        <div class="col-xs-12 text-left infoBo mar_top">
+            <p>{:isset($book_info)?$book_info->summary:''}<i class="iconfont icon-iconfanning"></i></p>
+        </div>
+    </div>
+    <!--目录-->
+    <div class="row clearfix bg_white">
+
+        <div class="col-xs-12  mulu">
+            <a href="{:url('index/content_list',array('book_id'=>$book_info->id))}">
+            <span>目录</span>
+            {if condition="isset($update_content)"}
+            <span>最近更新：第{:isset($update_content)?$update_content['order_num']:''}章    {:isset($update_content)?$update_content['name']:''}</span>
+            <span>{:isset($update_content)?date('Y-m-d',$update_content['updated_at']):''}<i class="iconfont icon-gengduo"></i> </span>
+            {else/}
+            <span>暂无更新</span>
+            {/if}
+            </a>
+        </div>
+
+    </div>
+    <!--************估你喜欢*********************8-->
+    <div class="row clearfix bg_white mar_top">
+        <div class="col-xs-12 gussname">
+            <span>喜欢这本书的人还喜欢</span>
+            <span>换一批</span>
+        </div>
+        <div class="col-xs-12 gusscon">
+            {volist name="like_book" id="likebook"}
+            <div>
+                <a>
+                    <img src="{:isset($likebook)?$likebook->picture:''}" />
+                    <p>{:isset($likebook)?$likebook->title:''}</p>
+                </a>
+            </div>
+            {/volist}
+        </div>
+    </div>
+
+
+</div>
+
+</body>
+{include file="public/foot"/}
+</html>

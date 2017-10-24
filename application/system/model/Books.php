@@ -62,16 +62,7 @@ class Books extends Model
         $status = [0=>'取消热门',1=>'热门小说'];
         return $status[$value];
     }
-    /*----- 关联小说分类 -----*/
-    public function Bookcates()
-    {
-        return $this->belongsTo('Bookcates','cate_id');
-    }
-    /*----- 关联小说作者 -----*/
-    public function Authors()
-    {
-        return $this->belongsTo('Authors','author_id');
-    }
+
     public function add(){
         $this->data = input();
         if($this->save()){

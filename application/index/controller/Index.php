@@ -1,8 +1,11 @@
 <?php
 /* |------------------------------------------------------
- * | 首页
+ * | 小说首页
  * |------------------------------------------------------
  * |
+ * | 首页
+ * | 小说详情
+ * | 小说目录
  * */
 
 namespace app\index\controller;
@@ -12,12 +15,12 @@ class Index extends Auth
     /* ============ 首页 ============== */
     public function index()
     {
-        $book_model = model('books');
+        $book_model = model('Books');
         $data_setting = db('data_setting')->find();
         $datas['data_setting'] = $data_setting;
         /*+++++ 主编推荐 +++++*/
         $is_recommend = $book_model
-            ->field('picture,title')
+            ->field(['id','picture','title'])
             ->where('is_recommend',1)
             ->where('online',1)
             ->order('sort desc')
@@ -26,7 +29,9 @@ class Index extends Auth
         $datas['is_recommend'] = $is_recommend;
         /*+++++ 热门小说 +++++*/
         $is_hot = $book_model
-            ->field('picture,title,author_id,summary')
+            ->field(['b.id','b.picture','b.title','a.name as author_name','b.summary'])
+            ->alias('b')
+            ->join('author a','b.author_id = a.id','left')
             ->where('is_hot',1)
             ->where('online',1)
             ->order('sort desc')
@@ -35,9 +40,11 @@ class Index extends Auth
         $datas['is_hot'] = $is_hot;
         /*+++++ 新书推荐 +++++*/
         $created_at = $book_model
-            ->field('picture,title,author_id,summary')
+            ->field(['b.id','b.picture','b.title','a.name as author_name','b.summary'])
+            ->alias('b')
+            ->join('author a','b.author_id = a.id','left')
             ->where('online',1)
-            ->order('created_at desc,sort asc')
+            ->order('b.created_at desc,b.sort asc')
             ->limit($data_setting['new_recommend'])
             ->select();
         $datas['created_at'] = $created_at;
@@ -45,7 +52,7 @@ class Index extends Auth
         $freestart = strtotime(date('Y-m-d')." 00:00:00");
         $freeend = strtotime(date('Y-m-d')." 23:59:59");
         $timelimit = $book_model
-            ->field('picture,title')
+            ->field(['id','picture','title'])
             ->where('free_start','<=',$freestart)
             ->where('free_end','>=',$freeend)
             ->order('sort desc')
@@ -75,7 +82,9 @@ class Index extends Auth
         $datas['like_book'] = $like_book;
         /*+++++ 畅销书单 +++++*/
         $buy_num_book = model('books')
-            ->field('id,title,author_id')
+            ->field(['b.id','b.title','a.name as author_name'])
+            ->alias('b')
+            ->join('author a','b.author_id = a.id','left')
             ->where('online',1)
             ->order('buy_num desc')
             ->limit($data_setting['buy'])
@@ -86,5 +95,68 @@ class Index extends Auth
         $datas['qr_code'] = $qr_code;
         $this->assign($datas);
         return view();
+    }
+
+    /* ============ 小说详情 ============== */
+    public function book_detail(){
+        $book_id = input('book_id');
+        if(empty($book_id)){
+            $this->error('非法操作','');
+        }
+        /*+++++ 小说详情 +++++*/
+        $book_model = model('books');
+        $book_info = $book_model
+                    ->field(['b.id','b.picture','b.title','b.type','b.status','a.name as author_name','c.name as cate_name','b.summary'])
+                    ->alias('b')
+                    ->join('author a','b.author_id = a.id','left')
+                    ->join('book_cate c','b.cate_id = c.id','left')
+                    ->where('b.id',$book_id)
+                    ->find();
+        $datas['book_info'] = $book_info;
+        /*+++++ 阅读数量 +++++*/
+        $reader_count = db('reader_readlast')
+                    ->where('book_id',$book_id)
+                    ->count();
+        $datas['reader_count'] = $reader_count;
+        /*+++++ 最近更新 +++++*/
+        $update_content = db('book_content')
+            ->field(['order_num','name','updated_at'])
+            ->where('book_id',$book_id)
+            ->find();
+        $datas['update_content'] = $update_content;
+        /*+++++ 猜你喜欢 +++++*/
+        $cate_id = db('book')
+            ->where('id',$book_id)
+            ->column('cate_id');
+        $like_book = model('books')
+            ->field(['id','title','picture'])
+            ->where('cate_id',$cate_id[0])
+            ->where('online',1)
+            ->limit(3)
+            ->select();
+        $datas['like_book'] = $like_book;
+        $this->assign($datas);
+        return view();
+    }
+
+    /* ============ 小说目录 ============== */
+    public function content_list(){
+        $book_id = input('book_id');
+        if(empty($book_id)){
+            $this->error('非法操作','');
+        }
+        /*+++++ 小说目录列表 +++++*/
+        $book_content_list = db('book_content')
+                        ->field(['b.status as book_status','c.order_num','c.name','c.price'])
+                        ->alias('c')
+                        ->join('book b','c.book_id = b.id','left')
+                        ->where('c.book_id',$book_id)
+                        ->select();
+        $content_count = count($book_content_list);
+        $datas['book_content_list'] = $book_content_list;
+        $datas['content_count'] = $content_count;
+        $this->assign($datas);
+        return view();
+
     }
 }

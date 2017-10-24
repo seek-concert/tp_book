@@ -85,6 +85,10 @@ class Reader extends Auth
         $display_num=$display_num?$display_num:config('paginate.list_rows');
         $datas['display_num']=$display_num;
         $readerbookmark_list = $readerbookmark_model
+            ->field(['b.*','a.title as book_name','c.order_num as ordernum','c.name as content_name'])
+            ->alias('b')
+            ->join('book a','b.book_id = a.id','left')
+            ->join('book_content c','b.content_id = c.id','left')
             ->order([$ordername=>$orderby])
             ->paginate($display_num);
 
@@ -118,6 +122,10 @@ class Reader extends Auth
         $display_num=$display_num?$display_num:config('paginate.list_rows');
         $datas['display_num']=$display_num;
         $readbookshelf_list = $readbookshelf_model
+            ->field(['b.*','a.title as book_name','c.order_num as ordernum','c.name as content_name'])
+            ->alias('b')
+            ->join('book a','b.book_id = a.id','left')
+            ->join('book_content c','b.content_id = c.id','left')
             ->order([$ordername=>$orderby])
             ->paginate($display_num);
 
@@ -151,6 +159,10 @@ class Reader extends Auth
         $display_num=$display_num?$display_num:config('paginate.list_rows');
         $datas['display_num']=$display_num;
         $readerreadlast_list = $readerreadlast_model
+            ->field(['b.*','a.title as book_name','c.order_num as ordernum','c.name as content_name'])
+            ->alias('b')
+            ->join('book a','b.book_id = a.id','left')
+            ->join('book_content c','b.content_id = c.id','left')
             ->order([$ordername=>$orderby])
             ->paginate($display_num);
 

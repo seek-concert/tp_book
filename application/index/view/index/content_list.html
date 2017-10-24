@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>目录列表</title>
+    {include file="public/head" /}
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_444045_pm8aw8q0ymdt2o6r.css"/>
+</head>
+<body style="background: #EEEEEE;">
+<div class="container">
+    <!--头部-->
+    <div class="row clearfix bg_white header bor_bottom ">
+        <div class="col-xs-12 column quPad">
+            <div class="col-xs-3 column toback text-left">
+                <a href="{:url('index/book_detail',array('book_id'=>input('book_id')))}"><span><i class="iconfont icon-iconfontjiantouzuo text-center"></i>返回</span></a>
+            </div>
+            <div class="col-xs-6 column text-center f16">
+                桃色乡村
+            </div>
+            <div class="col-xs-3 column">
+            </div>
+        </div>
+    </div>
+    <!--*******List***********-->
+    <div class="row clearfix zongList bg_white mar_top">
+        <div class="col-xs-12">
+            <span>{if condition="$book_content_list[0]['book_status'] eq 0"}连载中{else/}{if condition="$book_content_list[0]['book_status'] eq 1"}已完结{else/}获取失败{/if}{/if}</span>&nbsp;
+            共<span>{$content_count}</span>章
+        </div>
+    </div>
+    <div class="row clearfix zongList2 bg_white" id="muList">
+        {volist name="book_content_list" id="cont_list"}
+        <div class="col-xs-12" >
+            <span>第{:isset($cont_list)?$cont_list['order_num']:''}章</span><span>{:isset($cont_list)?$cont_list['name']:''}</span>{if condition="$cont_list['price'] neq 0  or $cont_list['price'] neq null"}<i class="iconfont icon-zuanshi"></i>{/if}
+        </div>
+        {/volist}
+    </div>
+    <div class="row clearfix mar_top bg_white" style="height: 40px;"></div>
+</div>
+</body>
+{include file="public/foot"/}
+</html>
+<script type="text/javascript">
+    directoryList();
+</script>

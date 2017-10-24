@@ -28,7 +28,7 @@ class Book extends Auth
         /* ----- 查询条件(小说名称) -----*/
         $title = input('title');
         if($title){
-            $where['title'] = array('LIKE',"%$title%");
+            $where['b.title'] = array('LIKE',"%$title%");
             $this->assign('title',$title);
         }
         /* ++++++++++ 排序 ++++++++++ */
@@ -57,6 +57,10 @@ class Book extends Auth
             $book_model=$book_model->withTrashed();
         }
         $book_list = $book_model
+            ->field(['b.*','a.name as author_name','c.name as cate_name'])
+            ->alias('b')
+            ->join('author a','b.author_id = a.id','left')
+            ->join('book_cate c','b.cate_id = c.id','left')
             ->where($where)
             ->order([$ordername=>$orderby])
             ->paginate($display_num);

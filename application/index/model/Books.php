@@ -9,20 +9,20 @@ use think\Model;
 class Books extends Model
 {
     protected $table = 'book';
-    protected $pk='id';
-    protected $createTime='created_at';
-    protected $updateTime='updated_at';
-    protected $autoWriteTimestamp = true;
-    protected $field=true;
     protected $type = [
         'created_at'  =>  'timestamp',
         'updated_at'  =>  'timestamp',
         'deleted_at'  =>  'timestamp'
     ];
-
-    /*----- 关联小说作者 -----*/
-    public function Author()
+    public function getStatusAttr($value)
     {
-        return $this->belongsTo('Authors','author_id');
+        $status = [0=>'连载',1=>'完结'];
+        return $status[$value];
+    }
+
+    public function getTypeAttr($value)
+    {
+        $status = [0=>'男生',1=>'女生'];
+        return $status[$value];
     }
 }
