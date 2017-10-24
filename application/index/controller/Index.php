@@ -145,6 +145,12 @@ class Index extends Auth
         if(empty($book_id)){
             $this->error('非法操作','');
         }
+        /*+++++ 小说名称 +++++*/
+        $book_name = model('books')
+            ->field('title')
+            ->where('id',$book_id)
+            ->find();
+        $datas['book_name'] = $book_name;
         /*+++++ 小说目录列表 +++++*/
         $book_content_list = db('book_content')
                         ->field(['b.status as book_status','c.order_num','c.name','c.price'])
