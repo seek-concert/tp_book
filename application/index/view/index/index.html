@@ -14,9 +14,9 @@
     <div class="row clearfix bg_white">
         <div class="col-xs-12">
             <div class="top_out_div text-center">
-                <input class="top_search" />
+                <input class="top_search title" name="title" type="text" value="" />
                 <i class="glyphicon glyphicon-search search_fdj"></i>
-                <span class="top_search_btn">搜索</span>
+                <a class="search_title" href="javascript:;" style="color: darkgrey;"><span class="top_search_btn search_books">搜索</span></a>
             </div>
         </div>
     </div>
@@ -83,7 +83,7 @@
         <div class="bannnerduo">
             {volist name='is_recommend' id='isrecommend'}
             <div>
-                <a>
+                <a href="{:url('index/book_detail',array('book_id'=>$isrecommend->id))}">
                     <img src="{:isset($isrecommend)?$isrecommend->picture:''}" />
                     <p>{:isset($isrecommend)?$isrecommend->title:''}</p>
                 </a>
@@ -111,7 +111,7 @@
             <div class="row clearfix date_span">
                 <div class="col-xs-12 column no_lpad" style="height: 40%;">
                     <span class="pull-left" style="font-size: 14px;">{:isset($ishot)?$ishot->title:''}<br><i>{:isset($ishot)?$ishot->author_name:''}</i></span>
-                    <span class="pull-right read_right">立即阅读</span>
+                    <a href="{:url('index/book_detail',array('book_id'=>$ishot->id))}"><span class="pull-right read_right">立即阅读</span></a>
                 </div>
                 <div class="col-xs-12 column no_lpad" style="height: 60%;overflow: hidden;">
                     <!--CSS改动(加省略号)-->
@@ -139,7 +139,7 @@
                     <div class="item active recommend_del zhuBanner">
                         <div>
                             {volist name='created_at' id='createdat' offset="0" length='3'}
-                            <a><img src="{:isset($createdat)?$createdat->picture:''}" alt="图片显示错误" />{:isset($createdat)?$createdat->title:''}</a>
+                            <a href="{:url('index/book_detail',array('book_id'=>$createdat->id))}"><img src="{:isset($createdat)?$createdat->picture:''}" alt="图片显示错误" /><p>{:isset($createdat)?$createdat->title:''}</p></a>
                             {/volist}
                         </div>
                     </div>
@@ -157,7 +157,7 @@
             <div class="row clearfix date_span">
                 <div class="col-xs-12 column no_lpad" style="height: 40%;">
                     <span class="pull-left" style="font-size: 14px;">{:isset($createdats)?$createdats->title:''}<br><i>{:isset($createdats)?$createdats->author_name:''}</i></span>
-                    <span class="pull-right read_right">立即阅读</span>
+                    <a href="{:url('index/book_detail',array('book_id'=>$createdats->id))}"><span class="pull-right read_right">立即阅读</span></a>
                 </div>
                 <div class="col-xs-12 column no_lpad" style="height: 60%;overflow: hidden;">
                     <!--CSS改动(加省略号)-->
@@ -188,7 +188,7 @@
                     <div class="item active recommend_del zhuBanner">
                         <div>
                             {volist name='timelimit' id='timelimits'}
-                            <a><img src="{:isset($timelimits)?$timelimits->picture:''}" alt="图片显示错误" />{:isset($timelimits)?$timelimits->title:''}</a>
+                            <a href="{:url('index/book_detail',array('book_id'=>$timelimits->id))}"><img src="{:isset($timelimits)?$timelimits->picture:''}" alt="图片显示错误" /><p>{:isset($timelimits)?$timelimits->title:''}</p></a>
                             {/volist}
                         </div>
                     </div>
@@ -211,7 +211,7 @@
     </div>
     <div class="changmore bg_white" style="width: 100%;">
         {volist name='like_book' id='likebook'}
-        <a>
+        <a  href="{:url('index/book_detail',array('book_id'=>$likebook['id']))}">
             <img src="{:isset($likebook)?$likebook['picture']:''}" />
             <p>{:isset($likebook)?$likebook['title']:''}</p>
         </a>
@@ -223,9 +223,11 @@
     <div class="row clearfix bg_white mar_top booklist">
         <div class="col-xs-12 column" style="padding-top: 10px;padding-bottom: 10px;">畅销书单</div>
         {volist name="buy_num_book" id="buynumbook"}
+        <a  href="{:url('index/book_detail',array('book_id'=>$buynumbook->id))}" style="color: #0a0a0a;">
         <div class="col-xs-12 column">
             <p class="bottom"><i class="iconfont icon-fangduihuakuangkuai pm_icon f_green"></i><b>{$i}</b><span>{:isset($buynumbook)?$buynumbook->title:''}<em>{:isset($buynumbook)?$buynumbook->author_name:''}</em></span></p>
         </div>
+        </a>
         {/volist}
     </div>
 </div>
@@ -255,7 +257,7 @@
             <a><i class="iconfont icon-shujiaxuanzhong"></i>书架</a>
         </div>
         <div class="col-xs-4 column text-center footer">
-            <a><i class="iconfont icon-shoucang"></i>首页</a>
+            <a class="on"><i class="iconfont icon-shoucang"></i>首页</a>
         </div>
         <div class="col-xs-4 column text-center footer">
             <a><i class="iconfont icon-wode-copy"></i>我的</a>
@@ -265,15 +267,10 @@
 </div>
 
 {include file="public/foot"/}
-    <script>
+<script src="__STATIC__/system/js/ajax-submit.js" type="text/javascript" charset="utf-8"></script>
+<script src="__STATIC__/system/layer/layer.js" type="text/javascript" charset="utf-8"></script>
+<script>
         indexjs();
-        //		setInterval(function() {
-        //			$("#banneritem>li").each(function() {
-        //				if($(this).hasClass("active")) {
-        //					$("#bannerItem2>span").eq($(this).index()).addClass("on").siblings().removeClass("on");
-        //				}
-        //			})
-        //		}, 1000);
         $(".bannnerduo").css("width", $(".bannnerduo div").length / 3 * $("#a").width() + "px")
         $(".bannnerduo div").css("width", $("#a").width() / 3 + "px")
         var dd = new Date();
@@ -283,7 +280,12 @@
         var d = dd.getDate(); //日期
         window.setInterval(function(){
             ShowCountDown(y,m,d,'countdown');
-        },1000)
+        },1000);
+        $(".search_books").click(function(){
+            var title = $(".title").val();
+            var search_url = "{:url('index/search_list')}"+"?title="+title;
+            $(".search_title").attr('href',search_url);
+        });
     </script>
 
 </body>

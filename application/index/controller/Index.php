@@ -6,6 +6,7 @@
  * | 首页
  * | 小说详情
  * | 小说目录
+ * | 搜索列表页
  * */
 
 namespace app\index\controller;
@@ -164,5 +165,50 @@ class Index extends Auth
         $this->assign($datas);
         return view();
 
+    }
+
+    /* ============ 搜索列表页 ============== */
+    public function search_list(){
+        /*+++++ 搜索小说 +++++*/
+        $book_model = model('books');
+        $title = input('title');
+        $datas['title'] = $title;
+        $where['title'] = array('LIKE',"%$title%");
+        $where['online'] = 1;
+        $book_list = $book_model
+            ->field(['b.id','b.picture','b.title','a.name as author_name','b.summary'])
+            ->alias('b')
+            ->join('author a','b.author_id = a.id','left')
+            ->where($where)
+            ->select();
+        $datas['book_list'] = $book_list;
+        /*+++++ 搜索结果数量 +++++*/
+        $search_count = count($book_list);
+        $datas['search_count'] = $search_count;
+        /*+++++ 猜你喜欢 +++++*/
+//        $reader_id = $this->reader['id'];
+        $reader_id = 1;
+        $book_ids = db('reader_bookshelf')
+            ->where('reader_id',$reader_id)
+            ->column('book_id');
+        $cate_ids = db('book')
+            ->where('id','in',$book_ids)
+            ->column('cate_id');
+        if($cate_ids){
+            $cate_count = array_count_values($cate_ids);
+            $cate_id = array_search(max($cate_count),$cate_count);
+            $like_book = model('books')
+                ->field(['b.id','b.picture','b.title','a.name as author_name','b.summary'])
+                ->alias('b')
+                ->join('author a','b.author_id = a.id','left')
+                ->where('cate_id',$cate_id)
+                ->where('online',1)
+                ->select();
+        }else{
+            $like_book = [];
+        }
+        $datas['like_book'] = $like_book;
+        $this->assign($datas);
+        return view();
     }
 }

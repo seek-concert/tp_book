@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>搜索列表</title>
+    {include file="public/head" /}
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_444045_j7kh4304dn78ehfr.css"/>
+</head>
+<body>
+<!--顶部搜索-->
+<div class="container">
+    <div class="row clearfix bg_white">
+        <div class="col-xs-12">
+            <div class="top_out_div text-center">
+                <input class="top_search title" name="title" type="text" value="{$title}" />
+                <i class="glyphicon glyphicon-search search_fdj"></i>
+                <a href="{:url('index/index')}" style="color: darkgrey;" class="remove_btn1"><span class="top_search_btn">取消</span></a>
+            </div>
+        </div>
+    </div>
+    <div class="row clearfix bg_white">
+        <div class="col-xs-12 result_p">
+            搜索&nbsp;&nbsp;"<span>{:input('title')}</span>"&nbsp;&nbsp;结果，共<span>{$search_count}</span>条
+        </div>
+    </div>
+</div>
+{if condition="$search_count eq 0"}
+<div class="container">
+    <div class="row clearfix more_novel bg_white ">
+        <div class="col-xs-12 column">
+            <span class="pull-left" style="color: #999;">猜你喜欢</span>
+        </div>
+    </div>
+    {volist name="like_book" id="likebook"}
+    <div class="row clearfix bg_white h_delh" style="height: 110px;">
+        <div class="col-xs-4 column del_height">
+            <img src="{:isset($likebook)?$likebook->picture:''}" alt="图片显示错误" class="img_out" />
+        </div>
+        <div class="col-xs-8 column del_height">
+            <div class="row clearfix date_span">
+                <div class="col-xs-12 column no_lpad" style="height: 40%;">
+                    <span class="pull-left" style="font-size: 14px;">{:isset($likebook)?$likebook->title:''}<br><i>{:isset($likebook)?$likebook->author_name:''}</i></span>
+                    <a href="{:url('index/book_detail',array('book_id'=>$likebook->id))}"><span class="pull-right read_right">立即阅读</span></a>
+                </div>
+                <div class="col-xs-12 column no_lpad" style="height: 60%;overflow: hidden;">
+                    <!--CSS改动(加省略号)-->
+                    <span style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 3;overflow: hidden;">{:isset($likebook)?$likebook->summary:''}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    {/volist}
+
+
+</div>
+{/if}
+{if condition="is_numeric($search_count) and $search_count neq 0"}
+<div class="container">
+    <div class="row clearfix more_novel bg_white ">
+        <div class="col-xs-12 column">
+            <span class="pull-left" style="color: #999;">搜索结果</span>
+        </div>
+    </div>
+{volist name="book_list" id="booklist"}
+    <div class="row clearfix bg_white h_delh" style="height: 110px;">
+        <div class="col-xs-4 column del_height">
+            <img src="{:isset($booklist)?$booklist->picture:''}" alt="图片显示错误" class="img_out" />
+        </div>
+        <div class="col-xs-8 column del_height">
+            <div class="row clearfix date_span">
+                <div class="col-xs-12 column no_lpad" style="height: 40%;">
+                    <span class="pull-left" style="font-size: 14px;">{:isset($booklist)?$booklist->title:''}<br><i>{:isset($booklist)?$booklist->author_name:''}</i></span>
+                    <a href="{:url('index/book_detail',array('book_id'=>$booklist->id))}"><span class="pull-right read_right">立即阅读</span></a>
+                </div>
+                <div class="col-xs-12 column no_lpad" style="height: 60%;overflow: hidden;">
+                    <!--CSS改动(加省略号)-->
+                    <span style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 3;overflow: hidden;">{:isset($booklist)?$booklist->summary:''}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    {/volist}
+</div>
+{/if}
+</body>
+{include file="public/foot"/}
+<script>
+    $(".top_search").keyup(function(event){
+            var title = $(this).val();
+            var display_title = "{$title}";
+            var num = 0;
+            if(num==0){
+                if(title==display_title){
+                    $(this).val("{$title}");
+                    $(".remove_btn1").attr("href","{:url('index/index')}");
+                    $(".top_search_btn").html("取消");
+                }
+                num++;
+            }
+                if(!title){
+                    $(this).val("");
+                    $(".remove_btn1").attr("href","{:url('index/index')}");
+                    $(".top_search_btn").html("取消");
+                }else{
+                   $(this).val(title);
+                    $(".remove_btn1").attr("href","{:url('index/search_list')}?title="+title);
+                    $(".top_search_btn").html("搜索");
+                }
+
+        });
+</script>
+</html>

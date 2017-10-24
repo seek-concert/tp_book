@@ -76,7 +76,7 @@
         <div class="col-xs-12 gusscon">
             {volist name="like_book" id="likebook"}
             <div>
-                <a>
+                <a href="{:url('index/book_detail',array('book_id'=>$likebook->id))}" style="color: #0a0a0a;">
                     <img src="{:isset($likebook)?$likebook->picture:''}" />
                     <p>{:isset($likebook)?$likebook->title:''}</p>
                 </a>

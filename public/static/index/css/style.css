@@ -28,7 +28,9 @@
 .pad_top {
 	padding-top: 10px;
 }
-
+.pad_bot {
+	padding-bottom: 10px;
+}
 small {
 	color: #CCCCCC;
 }
@@ -191,7 +193,8 @@ small {
 
 .recommend_del a img {
 	box-shadow: 3px 2px 5px #bbb;
-	width: 100%;
+	width: 90px;
+	height: 122px;
 	margin-bottom: 5px;
 }
 
@@ -311,6 +314,9 @@ small {
 .tabs a{
 	color: #CCCCCC;
 }
+.tabs a.on{
+	color: #ff730b !important;
+}
 .banner div img{
 	width: 100%;
 	height: 163px !important;
@@ -339,6 +345,7 @@ small {
 	width: 90px;
 	margin: 0 auto;
 	word-break: break-word;
+	margin-top: 5px;
 }
 .bannnerduo>div:nth-of-type(3n+1){
 	text-align: center;
@@ -784,6 +791,477 @@ small {
 	margin-left: 5px;
 	font-size: 16px;
 	color: pink;
+}
+
+/****************我的书架********************/
+.bookTab{
+	width: 80%;
+	margin: 0 auto;
+	display: flex;
+	border: 1px solid #FF730B;
+	border-radius: 5px;
+}
+.bookTab span{
+	display: inline-block;
+	flex: 1;
+	text-align: center;
+	line-height: 32px;
+	color: #FF730B;
+	font-size: 14px;
+}
+.bookTab span:nth-of-type(1),.bookTab span:nth-of-type(2){
+	border-right: 1px solid #FF730B;
+}
+.bookTab span.on{
+	background: #FF730B;
+	color: white !important;
+}
+.jilu{
+	float: left;
+	color:#666;
+	font-size: 14px;
+}
+.jilu b{
+	color: #555;
+	padding: 0px 3px;	
+}
+.edit{
+	float: right;
+	font-size: 14px;
+	color: rgb(51,51,51);
+}
+.myBook .col-xs-12.no_rpad div{
+	float: left;
+}
+.myBook .col-xs-12.no_rpad div:first-child{
+	display: none;
+	width: 15px;
+	height: 120px;
+	position: relative;
+}
+.myBook .col-xs-12.no_rpad div:first-child input{
+	position:absolute ;
+	top: 50%;
+	margin-top: -7px;
+}
+.myBook .col-xs-12.no_rpad div:nth-of-type(2){
+	width: 90px;
+	height: 120px;
+	margin-right: 5px;
+}
+.myBook .col-xs-12.no_rpad div:nth-of-type(2) img{
+	width: 100%;
+	height: 100%;
+}
+.myBook .col-xs-12.no_rpad div:nth-of-type(3){
+	width:calc(100% - 115px);
+	width:-webkit-calc(100% - 115px);
+	width:-moz-calc(100% - 115px);
+}
+.myBook .col-xs-12.no_rpad div{
+	display: inline-block;
+}
+.myBook .col-xs-3{
+	white-space: nowrap;
+	position: absolute;
+	right: 0px;
+	top: 0px;
+}
+.myBook .col-xs-12 .row{
+	position: relative;
+}
+.firP{
+	font-size: 18px;
+	color: black;
+}
+.firP i{
+	color: #FFA500 !important;
+	font-size: 16px;
+}
+.huip{
+	color: #999;
+	font-size: 16px;
+	margin-bottom: 0px ;
+	padding: 5px 0px;
+}
+.huip .icon-dian{
+	color: red !important;
+}
+.noData{
+	font-size: 18px;  
+	position: absolute;
+	top: 50%;  
+	width: 100%;
+}
+.none{
+	display: none;
+}
+.myFlag>div>div{
+	border-bottom: 1px solid #fed4b5;
+	border-top: 1px solid #fed4b5;
+	line-height: 40px;
+	margin-bottom: 8px;
+}
+.myFlag>div>div span{
+	font-size: 16px;
+	color: #666;
+	margin-right: 5px;
+}
+.myFlag>div>div a{
+	height: 30px;
+	line-height: 30px;
+	width: 50px;
+	margin-top: 5px;
+	background: red;
+	border-radius: 5px;
+	color: white;
+	text-align: center;
+}
+/*****************小说内容页面*********************************/
+.moshi2{
+	background: #c1af95 !important;
+	color: #5e432e !important;
+}
+.moshi1{
+	background: #333333 !important;
+	color: #8C8C8C !important;
+}
+.content{
+	/*position: absolute;*/
+	/*top: 0px;
+	left: 0px;*/
+	width: 100%;
+	float: left;
+}
+.content h3{
+	text-align: center;
+}
+.content p{
+	text-indent: 30px;
+	font-size: 16px;
+	/*color: #5e432e;*/
+}
+.cond{
+	position: fixed;
+	width: 30%;
+	height: calc(100%);
+	background: tan;
+	opacity: 0;
+	z-index: 999;
+}
+.conLeft{
+	left: 0px;
+}
+.conRight{
+	right: 0px;
+}
+.conCenter{
+	width: 40% !important;
+	left: 30%;
+	background: pink;
+}
+.zzDiv>span{
+	display: inline-block;
+	width: 40px;
+	height: 40px;
+	border-radius:40px;
+	border: 2px solid white;
+}
+.zzDiv>span>img{
+	width:100%;
+	height: 36px;
+	border-radius:40px;
+}
+.zzDiv em{
+	/*color: #888;*/
+	font-style: normal;
+	padding-left: 10px;
+}
+.conFooter{
+	background: black;
+	display: none;
+	position: fixed;
+	left: 0px;
+	bottom: 0px;
+	width: 100%;
+	z-index: 1001;
+}
+.conFooter a{
+	display: inline-block;
+	width: 25%;
+	text-align: center;
+	color: white;
+	padding: 5px 0px;
+	float: left;
+	
+}
+.conFooter a p{
+	font-size: 12px;
+	margin-bottom: 0px;
+}
+.conHead{
+	height: 36px;
+	width: 100%;
+	background: black;
+	color: white;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	display: none;
+	z-index: 1001;
+}
+.conHead .back{
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	margin-right: 10px;
+	
+}
+.conHead span{
+	display: inline-block;
+	line-height: 36px;
+}
+.conHead .back i{
+	font-size: 18px;
+}
+
+.conHead a{
+	float: right;
+	margin-right: 10px;
+	color: white;
+	line-height: 36px;
+}
+.conHead a i{
+	font-size: 22px;
+}
+.contentList{
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,.5);
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	z-index: 1001;
+	display: none;
+}
+.contentList>i{
+	font-size: 40px;
+	color: white;
+	position: absolute;
+	top: 50%;
+	margin-top: -28px;
+}
+.conList{
+	width: 80%;
+	height: 100%;
+	float: right;
+	background: #c1af95;
+	
+}
+.conList li{
+	text-align: center;
+	height:42px;
+	line-height: 42px;
+	font-size: 14px;
+	color: #5e432e;
+	list-style: none;
+	border-bottom: 1px solid black;
+}
+.conList li.on{
+	color: #FF0000;
+}
+/********************书库**************************/
+.sHead{
+	background: #10aeff;
+	height: 32px;
+}
+.sHead a{
+	display: inline-block;
+	width:16% ;
+	float: left;
+	text-align: center;
+	border-right:1px solid rgba(255,255,255,.6) ;
+	height: 24px;
+	line-height: 24px;
+	margin-top: 4px;
+	color: white;
+}
+.sHead a:first-child{
+	width: 30%;
+	text-align: left !important;
+}
+.sHead a:first-child i{
+	margin-left: 10px;
+}
+.sHead a:last-child{
+	border: none;
+	width: 22%;
+}
+.sInfo{
+	height: 46px;
+	line-height: 46px;
+}
+.sInfo img{
+	width: 32px;
+	height: 32px;
+	border-radius: 100%;
+	float: left;
+	vertical-align: middle;
+	margin-top: 7px;
+}
+
+.sInfo span{
+	float: right;
+	font-size: 16px;
+	color: #10aeff;
+}
+.sList .h_delh,.sList .h_delh .del_height,.xianm .h_delh,.xianm .h_delh .del_height{
+	height: auto !important;
+}
+.xianm{
+	display: none;
+}
+.xianp{
+	color: #ff8c17;
+	font-size: 14px;
+}
+.xianpT{
+	color: #666666;
+}
+
+/*********个人中心****************/
+.mineHead{
+	height: 172px;
+}
+.mineHead>div>span{
+	display: inline-block;
+	width: 78px;
+	height: 78px;
+	border-radius: 100%;
+	border: 2px solid white;
+	margin-top: 25px;
+	margin-bottom: 10px;
+}
+
+.mineHead span img{
+	width: 100%;
+	height: 100%;
+	border-radius: 100%;
+}
+.mineHead p{
+	color: white;
+	font-size: 16px;
+	margin-bottom: 0px !important;
+}
+.mineHead p span{
+	margin-left: 10px;
+}
+.mineCon p{
+	margin-bottom: 0px !important;
+	line-height: 40px;
+	height: 40px;
+}
+.mineCon p span{
+	font-size: 16px;
+}
+.mineCon p span>i{
+	margin-right: 10px;
+	font-size: 18px;
+}
+.mineCon p.yue span:nth-of-type(1) i{
+	color: #ff890b;
+}
+
+.mineCon p.vip span:nth-of-type(1) i{
+	color: #fa93a9;
+}
+.mineCon p.chongzhi span:nth-of-type(1) i{
+	color: #f74c31;
+}
+.mineCon p.kefu span:nth-of-type(1) i{
+	color: #75b4e0;
+}
+.mineCon p span.pull-right{
+	color: #ff890b;
+	font-size: 14px !important;
+}
+.mineCon p>i.pull-right{
+	color: #999;
+	font-size: 14px !important;
+	margin-left: 5px;
+}
+.mineCon p>i.icon-dian{
+	color: red;
+	font-size: 8px !important;
+	margin-left: 3px !important;
+	position: relative;
+	top: -5px;
+}
+.openVip{
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	background: rgba(0,0,0,.5);
+	top: 0px;
+	left: 0px;
+	z-index: 1001;
+	display: none;
+}
+.openVip .openDiv{
+	width: 90%;
+	padding: 15px 0px;
+	box-sizing: border-box;
+	position: absolute;
+	left: 50%;
+	margin-left: -45%;
+	background: white;
+	top: 50%;
+	margin-top: -110px;
+	border-radius: 5px;
+	display: none;
+	
+}
+.openVip .openDiv p{
+	text-align: center;
+	color: black;
+}
+.openVip .openDiv p:first-child{
+	font-size: 18px ;
+}
+.openVip .openDiv p:first-child i{
+	color: #999;
+	margin-right: 20px;
+}
+.openVip .openDiv p span,.nianp{
+	color: red !important;
+}
+.openVip .openDiv p:last-child{
+	width: calc(100% - 40px);
+	width: -webkit-calc(100% - 40px);
+	width: -moz-calc(100% - 40px);
+	margin: 0 auto;
+	background: #45a8eb;
+	border-radius: 5px;
+	height: 36px;
+	line-height: 36px;
+	color: white !important;
+}
+/*****************客服中心************************/
+.kefuHead{
+	
+}
+.erweima{
+	width: 90%;
+	margin: 80px auto;
+}
+.erweima>img{
+	width: 100%;
+}
+.kefuPage p{
+	font-size: 30px;
+	color: red;
+	text-align: center;
+	letter-spacing:10px ;
 }
 
 
