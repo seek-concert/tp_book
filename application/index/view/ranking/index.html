@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>排行榜</title>
+{include file="public/head" /}
+<link rel="stylesheet" href="http://at.alicdn.com/t/font_444045_j7kh4304dn78ehfr.css"/>
+
+<body style="background: #eeeeee;">
+<!--头部-->
+<div class="container bg_white">
+    <div class="row clearfix bg_white header bor_bottom " style="position: fixed;z-index: 9;width: 100%;">
+        <div class="col-xs-12 column quPad">
+            <div class="col-xs-4 column toback text-left">
+                <span><i class="iconfont icon-iconfontjiantouzuo text-center"></i><a style="color: #0a0a0a;" href="{:url('index/index')}">首页	</a></span>
+            </div>
+            <div class="col-xs-4 column text-center">
+                排行榜
+            </div>
+            <div class="col-xs-4 column">
+            </div>
+        </div>
+    </div>
+</div>
+<!--排行榜列表-->
+<div class="container bangList" style="margin-top: 40px;">
+    <a href="{:url('ranking/detail',array('type'=>'click'))}" class="row clearfix mar_top bg_white bangRow">
+        <div class="col-xs-12 column bangName "><span>点击榜</span><i>top{$data_setting['ranking_total']}</i></div>
+        <div class="col-xs-12 column">
+            <div class="col-xs-3 column bangimg bangimg1 no_pad"><i class="iconfont icon-shu-copy-copy"></i></div>
+            <div class="col-xs-8 column no_rpad bangCon no_lpad">
+                {volist name="click_list" id="clicklist"}
+                <p><i class="iconfont icon-fangduihuakuangkuai pm_icon number1"><b>{$i}</b></i><span>{:isset($clicklist)?$clicklist->title:''}</span><span>{:isset($clicklist)?$clicklist->author_name:''}</span></p>
+                {/volist}
+            </div>
+            <div class="col-xs-1 column no_pad bangnext"><i class="iconfont icon-gengduo"></i></div>
+        </div>
+    </a>
+    <a href="{:url('ranking/detail',array('type'=>'submit'))}" class="row clearfix mar_top bg_white bangRow">
+        <div class="col-xs-12 column bangName "><span>留存榜</span><i>top{$data_setting['ranking_total']}</i></div>
+        <div class="col-xs-12 column">
+            <div class="col-xs-3 column bangimg bangimg2 no_pad"><i class="iconfont icon-shu-copy-copy-copy"></i></div>
+            <div class="col-xs-8 column no_rpad bangCon no_lpad">
+                {volist name="submit_list" id="submitlist"}
+                <p><i class="iconfont icon-fangduihuakuangkuai pm_icon number1"><b>{$i}</b></i><span>{:isset($submitlist)?$submitlist->title:''}</span><span>{:isset($submitlist)?$submitlist->author_name:''}</span></p>
+                {/volist}
+            </div>
+            <div class="col-xs-1 column no_pad bangnext"><i class="iconfont icon-gengduo"></i></div>
+        </div>
+    </a>
+    <a href="{:url('ranking/detail',array('type'=>'buy'))}" class="row clearfix mar_top bg_white bangRow">
+        <div class="col-xs-12 column bangName "><span>购买榜</span><i>top{$data_setting['ranking_total']}</i></div>
+        <div class="col-xs-12 column">
+            <div class="col-xs-3 column bangimg bangimg3 no_pad"><i class="iconfont icon-book-copy"></i></div>
+            <div class="col-xs-8 column no_rpad bangCon no_lpad">
+                {volist name="buy_list" id="buylist"}
+                <p><i class="iconfont icon-fangduihuakuangkuai pm_icon number1"><b>{$i}</b></i><span>{:isset($buylist)?$buylist->title:''}</span><span>{:isset($buylist)?$buylist->author_name:''}</span></p>
+                {/volist}
+            </div>
+            <div class="col-xs-1 column no_pad bangnext"><i class="iconfont icon-gengduo"></i></div>
+        </div>
+    </a>
+</div>
+
+</body>
+{include file="public/foot"/}
+</html>
