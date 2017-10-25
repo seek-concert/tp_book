@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>限时免费</title>
+    {include file="public/head" /}
+    <link rel="stylesheet" href="http://at.alicdn.com/t/font_444045_j7kh4304dn78ehfr.css" />
+</head>
+
+<body style="background:#EEEEEE;">
+<div class="container">
+    <div class="row clearfix bg_white header bor_bottom " style="position: fixed;z-index: 9;width: 100%;">
+        <div class="col-xs-12 column quPad">
+            <div class="col-xs-4 column toback text-left">
+                <a href="{:url('index/index')}"><span><i class="iconfont icon-iconfontjiantouzuo text-center"></i>首页	</span></a>
+            </div>
+            <div class="col-xs-4 column text-center">
+                免费专区
+            </div>
+            <div class="col-xs-4 column">
+            </div>
+        </div>
+    </div>
+
+    <div class="row clearfix bg_white mar_top" style="margin-top: 40px;">
+        <div class="col-xs-4 column main_recommend">
+            <p>限时免费</p>
+        </div>
+        <div class="col-xs-8 column three_circl main_recommend">
+            <div>
+                <p style="color: orange;" class="time_p timer-simple-seconds" timer="10" id="countdown">倒计时：<i class="hour"></i>：<i class="minute"></i>：<i class="second"></i></p>
+            </div>
+        </div>
+    </div>
+    <div class="row clearfix bg_white">
+        <div class="col-xs-12 column">
+            <div class="carousel slide" style="padding-bottom: 15px;border-bottom: 1px solid #eeeeee;">
+                <div class="carousel-inner text-center">
+                    <div class="item active recommend_del zhuBanner">
+                        <div>
+                            <a><img src="img/111.jpg" alt="图片显示错误" /><p>总裁一吻好羞羞</p></a>
+                            <a><img src="img/111.jpg" alt="图片显示错误" /><p>老子是村长</p></a>
+                            <a><img src="img/111.jpg" alt="图片显示错误" /><p>风流岁月之活色生香</p></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row clearfix bg_white h_delh pad_top">
+                <div class="col-xs-4 column del_height">
+                    <img src="img/111.jpg" alt="图片显示错误" class="img_out" />
+                </div>
+                <div class="col-xs-8 column del_height">
+                    <div class="row clearfix date_span">
+                        <div class="col-xs-12 column no_lpad" style="height: 40%;">
+                            <span class="pull-left" style="font-size: 14px;">21个女主播<br><i>随性</i></span>
+                            <span class="pull-right read_right">立即阅读</span>
+                        </div>
+                        <div class="col-xs-12 column no_lpad" style="height: 60%;overflow: hidden;">
+                            <span>屌丝王大锤捡到袖珍小萝莉，竟然可以召唤美女精灵，神马赵飞燕、杨贵妃、小龙女、全都被他召唤到现代，成为新晋...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<div class="container mar_top">
+    <div class="row clearfix bg_white h_delh pad_top">
+        <div class="col-xs-4 column del_height">
+            <img src="img/111.jpg" alt="图片显示错误" class="img_out" />
+        </div>
+        <div class="col-xs-8 column del_height">
+            <div class="row clearfix date_span">
+                <div class="col-xs-12 column no_lpad" style="height: 40%;">
+                    <span class="pull-left" style="font-size: 14px;">21个女主播<br><i>随性</i></span>
+                    <span class="pull-right read_right">立即阅读</span>
+                </div>
+                <div class="col-xs-12 column no_lpad" style="height: 60%;overflow: hidden;">
+                    <span>屌丝王大锤捡到袖珍小萝莉，竟然可以召唤美女精灵，神马赵飞燕、杨贵妃、小龙女、全都被他召唤到现代，成为新晋...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+</body>
+{include file="public/foot"/}
+<script type="text/javascript">
+    var dd = new Date();
+    dd.setDate(dd.getDate() + 1); //获取明天的日期
+    var y = dd.getFullYear(); //年份
+    var m = dd.getMonth() + 1; //获取当前月份
+    var d = dd.getDate(); //日期
+    window.setInterval(function() {
+        ShowCountDown(y, m, d, 'countdown');
+    }, 1000)
+</script>
+
+</html>
