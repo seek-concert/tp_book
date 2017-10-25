@@ -41,7 +41,8 @@ class Recharge extends Auth
 
         /* ②、统一下单 */
         $orderno=\WxPayConfig::MCHID.date("YmdHis");
-        $notify_url='http://'.$_SERVER['HTTP_HOST'].'/index/Wxpaynotify/index';
+        $domain=request()->domain();
+        $notify_url=$domain.'/index/Wxpaynotify/index';
 
         $input = new \WxPayUnifiedOrder();
         $input->SetBody("充值".$id.'分'); /* 商品名称 */

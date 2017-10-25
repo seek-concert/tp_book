@@ -63,7 +63,7 @@ class Auth extends Controller
                 $url=str_replace('/'.$key.'/'.$value,'',$url);
             }
         }
-        $url='/'.$url;
+        $url=$url=='/'?'/':'/'.$url;
         $menu_id=\app\system\model\Menus::where('status',1)->where('url',$url)->value('id');
         if(!$menu_id){
             return false;
