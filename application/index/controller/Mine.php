@@ -23,6 +23,7 @@ class Mine extends Auth
         $book_money = 20;
         $datas['book_money'] = $book_money;
         $this->assign($datas);
+        dump($this->reader);
         return view();
     }
 }
