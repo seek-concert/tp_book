@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>个人中心</title>
+    {include file="public/head" /}
+    <link rel="stylesheet" href="http://at.alicdn.com/t/font_444045_lol8evtc0kep14i.css" />
+</head>
+<body style="background: #f2f2f2;">
+<div class=" mineHead text-center" style="background: url(img/90.jpg) no-repeat center;">
+    <div style="width: 100%;height: 100%;background: rgba(0,0,0,.3);">
+        <span><img src="__STATIC__/index/img/999.jpg" /></span>
+        <p>安之。</p>
+        <p>ID:<span>1241241241</span></p>
+    </div>
+
+</div>
+<div class="container mineCon">
+    <div class="row">
+        <div class="col-xs-12 bor_bottom bg_white">
+            <p class="yue"><span class="pull-left"><i class="iconfont icon-coinyen"></i>我的余额</span><i class="iconfont icon-gengduo pull-right"></i> <span class="pull-right">21书币</span></p>
+        </div>
+        <div class="col-xs-12 bor_bottom bg_white">
+            <p class="vip" id="vip"><span class="pull-left"><i class="iconfont icon-VIP"></i>开通VIP</span><i class="iconfont icon-gengduo pull-right"></i><span class="pull-right">看书更省钱</span></p>
+        </div>
+        <div class="col-xs-12 bor_bottom mar_top bg_white">
+            <p class="chongzhi"><span class="pull-left"><i class="iconfont icon-qianbao"></i>书币充值</span><i class="iconfont icon-gengduo pull-right"></i> <i class="iconfont icon-dian pull-right"></i><span class="pull-right">送书币</span> </p>
+        </div>
+        <div class="col-xs-12 bor_bottom bg_white">
+            <p class="kefu"><span class="pull-left"><i class="iconfont icon-kefu"></i>联系客服</span><i class="iconfont icon-gengduo pull-right"></i></p>
+        </div>
+    </div>
+</div>
+<!--*******KkaitongVIp**************-->
+<div class="openVip">
+    <div class="openDiv">
+        <p>开通VIP<i class="iconfont icon-cha pull-right	closeOPen"></i></p>
+        <p class="f14"><span>加V</span>标识,独享尊贵身份!</p>
+        <p  class="f14">每天只要1元钱,畅读所有VIP小说!</p>
+        <hr  style="height:5px;border:none;border-top:1px ridge #666;margin-bottom: 5px;"/>
+        <p class="nianp">直接开通会员(365元/年)</p>
+        <p  class="f14">直接开通</p>
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="row clearfix bg_white text-center tabs t_b_pad">
+        <div class="col-xs-4 column text-center footer">
+            <a href="{:url('bookshelf/index')}"><i class="iconfont icon-shujiaxuanzhong"></i>书架</a>
+        </div>
+        <div class="col-xs-4 column text-center footer">
+            <a href="{:url('index/index')}"><i class="iconfont icon-shoucang"></i>首页</a>
+        </div>
+        <div class="col-xs-4 column text-center footer">
+            <a class="on"><i class="iconfont icon-wode-copy"></i>我的</a>
+        </div>
+    </div>
+</div>
+</body>
+{include file="public/foot"/}
+<script type="text/javascript">
+    mine()
+</script>
+</html>
