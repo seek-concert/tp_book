@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>书架</title>
+    {include file="public/head" /}
+    <link rel="stylesheet" href="http://at.alicdn.com/t/font_444045_el29jwkbitacerk9.css" />
+</head>
+<body>
+<div class="container bor_bottom pad_top pad_bot">
+    <div class="bookTab">
+        <span class="on" la="1">我的书架</span>
+        <span la="2">最近阅读</span>
+        <span la="3">我的书签</span>
+    </div>
+</div>
+<!--我的书架-->
+<div class="container myBook" lay="1">
+    <div class="row pad_bot pad_top">
+        <div class="col-xs-12">
+            <span class="jilu">共<b>5</b>条&nbsp;&nbsp;记录</span>
+            <span class="edit">编辑</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 pad_top pad_bot">
+            <div class="row">
+                <div class="col-xs-12 no_rpad">
+                    <div class="">
+                        <input type="checkbox" />
+                    </div>
+                    <div>
+                        <img src="img/111.jpg" />
+                    </div>
+                    <div class=" MyBookIn">
+                        <p class="firP">你看什么书 <i class="iconfont icon-tuijian"> </i></p>
+                        <p class="huip"><i class="iconfont icon-yonghu"></i> <span>清酒半壶</span> | <span>尚未阅读</span></p>
+                        <p class="huip"><i class="iconfont icon-dian"></i><span>更新至 第143章 大结局</span><span>(全书完)</span></p>
+                    </div>
+                </div>
+                <div class="col-xs-3 padLeft0 text-right">
+                    <p class="huip">继续阅读</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 pad_top pad_bot">
+            <div class="row">
+                <div class="col-xs-12 no_rpad">
+                    <div class="">
+                        <input type="checkbox" />
+                    </div>
+                    <div>
+                        <img src="img/111.jpg" />
+                    </div>
+                    <div class=" MyBookIn">
+                        <p class="firP">你看什么书 <i class="iconfont icon-tuijian"> </i></p>
+                        <p class="huip"><i class="iconfont icon-yonghu"></i> <span>清酒半壶</span> | <span>尚未阅读</span></p>
+                        <p class="huip"><i class="iconfont icon-dian"></i><span>更新至 第143章 大结局</span><span>(全书完)</span></p>
+                    </div>
+                </div>
+                <div class="col-xs-3 padLeft0 text-right">
+                    <p class="huip">继续阅读</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--最近阅读-->
+<div class="container myBook lastBook none mar_top"   lay="2">
+    <div class="row">
+        <div class="col-xs-12 pad_top pad_bot">
+            <div class="row">
+                <div class="col-xs-12 no_rpad">
+                    <div class="">
+                        <input type="checkbox" />
+                    </div>
+                    <div>
+                        <img src="img/111.jpg" />
+                    </div>
+                    <div class=" MyBookIn">
+                        <p class="firP">你看什么书 <i class="iconfont icon-tuijian"> </i></p>
+                        <p class="huip"><i class="iconfont icon-yonghu"></i> <span>清酒半壶</span> | <span>已看到第一章</span></p>
+                        <p class="huip"><i class="iconfont icon-dian"></i><span>更新至 第143章 大结局</span><span>(全书完)</span></p>
+                    </div>
+                </div>
+                <div class="col-xs-3 padLeft0 text-right">
+                    <p class="huip">继续阅读</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 pad_top pad_bot">
+            <div class="row">
+                <div class="col-xs-12 no_rpad">
+                    <div class="">
+                        <input type="checkbox" />
+                    </div>
+                    <div>
+                        <img src="img/111.jpg" />
+                    </div>
+                    <div class=" MyBookIn">
+                        <p class="firP">你看什么书 <i class="iconfont icon-tuijian"> </i></p>
+                        <p class="huip"><i class="iconfont icon-yonghu"></i> <span>清酒半壶</span> | <span>尚未阅读</span></p>
+                        <p class="huip"><i class="iconfont icon-dian"></i><span>更新至 第143章 大结局</span><span>(全书完)</span></p>
+                    </div>
+                </div>
+                <div class="col-xs-3 padLeft0 text-right">
+                    <p class="huip">继续阅读</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--我的书签-->
+<div class="container  myFlag none mar_top" lay="3">
+    <p class="text-center f16 noData">您还没有添加任何标签</p>
+    <div class="row">
+        <div class="col-xs-12">
+            <span>《武破乾坤》</span> <span>第一章 </span><span>废物南</span> <a class="pull-right">删除</a>
+        </div>
+        <div class="col-xs-12">
+            <span>《武破乾坤》</span> <span>第一章   废物南</span> <a class="pull-right">删除</a>
+        </div>
+    </div>
+
+
+
+</div>
+<div class="container">
+    <div class="row clearfix bg_white text-center tabs t_b_pad">
+        <div class="col-xs-4 column text-center footer">
+            <a  class="on"><i class="iconfont icon-shujiaxuanzhong"></i>书架</a>
+        </div>
+        <div class="col-xs-4 column text-center footer">
+            <a href="{:url('index/index')}"><i class="iconfont icon-shoucang"></i>首页</a>
+        </div>
+        <div class="col-xs-4 column text-center footer">
+            <a href="{:url('mine/index')}"><i class="iconfont icon-wode-copy"></i>我的</a>
+        </div>
+    </div>
+</div>
+</body>
+{include file="public/foot"/}
+<script type="text/javascript">
+    bookShelf();
+</script>
+</html>
