@@ -40,52 +40,65 @@
                 <div class="carousel-inner text-center">
                     <div class="item active recommend_del zhuBanner">
                         <div>
-                            <a><img src="img/111.jpg" alt="图片显示错误" /><p>总裁一吻好羞羞</p></a>
-                            <a><img src="img/111.jpg" alt="图片显示错误" /><p>老子是村长</p></a>
-                            <a><img src="img/111.jpg" alt="图片显示错误" /><p>风流岁月之活色生香</p></a>
+                            {volist name='timelimit' id='timelimits' offset="0" length='3'}
+                            <a href="{:url('index/book_detail',array('book_id'=>$timelimits->id))}"><img src="{$timelimits->picture}" alt="图片显示错误" /><p>{$timelimits->title}</p></a>
+                            {/volist}
                         </div>
                     </div>
                 </div>
             </div>
+            {if condition="$timelimit_count > 3"}
+            {volist name='timelimit' id='timelimit_list' offset="3" length='$timelimit_count-3'}
             <div class="row clearfix bg_white h_delh pad_top">
                 <div class="col-xs-4 column del_height">
-                    <img src="img/111.jpg" alt="图片显示错误" class="img_out" />
+                    <img src="{$timelimit_list->picture}" alt="图片显示错误" class="img_out" />
                 </div>
                 <div class="col-xs-8 column del_height">
                     <div class="row clearfix date_span">
                         <div class="col-xs-12 column no_lpad" style="height: 40%;">
-                            <span class="pull-left" style="font-size: 14px;">21个女主播<br><i>随性</i></span>
-                            <span class="pull-right read_right">立即阅读</span>
+                            <span class="pull-left" style="font-size: 14px;">{$timelimit_list->title}<br><i>{$timelimit_list->author_name}</i></span>
+                            <a href="{:url('index/book_detail',array('book_id'=>$timelimit_list->id))}"><span class="pull-right read_right">立即阅读</span></a>
                         </div>
                         <div class="col-xs-12 column no_lpad" style="height: 60%;overflow: hidden;">
-                            <span>屌丝王大锤捡到袖珍小萝莉，竟然可以召唤美女精灵，神马赵飞燕、杨贵妃、小龙女、全都被他召唤到现代，成为新晋...</span>
+                            <!--CSS改动(加省略号)-->
+                            <span style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 3;overflow: hidden;">{$timelimit_list->summary}</span>
                         </div>
                     </div>
                 </div>
             </div>
+            {/volist}
+            {/if}
         </div>
 
     </div>
 
 </div>
+
 <div class="container mar_top">
+    <div class="row clearfix bg_white mar_top" style="border-bottom: 1px solid #eeeeee;">
+        <div class="col-xs-4 main_recommend">
+            <p>完全免费</p>
+        </div>
+    </div>
+    {volist name="free_book" id="freebook"}
     <div class="row clearfix bg_white h_delh pad_top">
         <div class="col-xs-4 column del_height">
-            <img src="img/111.jpg" alt="图片显示错误" class="img_out" />
+            <img src="{$freebook->picture}" alt="图片显示错误" class="img_out" />
         </div>
         <div class="col-xs-8 column del_height">
             <div class="row clearfix date_span">
                 <div class="col-xs-12 column no_lpad" style="height: 40%;">
-                    <span class="pull-left" style="font-size: 14px;">21个女主播<br><i>随性</i></span>
-                    <span class="pull-right read_right">立即阅读</span>
+                    <span class="pull-left" style="font-size: 14px;">{$freebook->title}<br><i>{$freebook->author_name}</i></span>
+                    <a href="{:url('index/book_detail',array('book_id'=>$freebook->id))}"><span class="pull-right read_right">立即阅读</span></a>
                 </div>
                 <div class="col-xs-12 column no_lpad" style="height: 60%;overflow: hidden;">
-                    <span>屌丝王大锤捡到袖珍小萝莉，竟然可以召唤美女精灵，神马赵飞燕、杨贵妃、小龙女、全都被他召唤到现代，成为新晋...</span>
+                    <!--CSS改动(加省略号)-->
+                    <span style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 3;overflow: hidden;">{$freebook->summary}</span>
                 </div>
             </div>
         </div>
     </div>
-
+    {/volist}
 </div>
 
 
