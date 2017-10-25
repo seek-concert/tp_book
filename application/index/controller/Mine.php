@@ -6,7 +6,6 @@
  * */
 namespace app\index\controller;
 
-
 class Mine extends Auth
 {
     /* ============ 个人中心 ============== */
