@@ -15,36 +15,36 @@ class Auth extends Controller
 
     public function _initialize()
     {
-//        if(session('remember_url')){
-//            $url=session('remember_url');
-//            session('remember_url',null);
-//            $this->redirect($url);
-//        }
-//        /* +++++++++获取读者信息+++++++++ */
-//        $openid=cookie('openid');
-//        if($openid){
-//            cookie('openid',$openid,3*24*60*60);
-//        }else{
-//            session('remember_url',request()->url());
-//            $this->redirect('Base/index');
-//        }
-//
-//        $model=new Readers();
-//        $reader=$model->where('openid',$openid)->find();
-//        if(!$reader){
-//            $data['openid']=$openid;
-//            $data['book_money']=0;
-//            $data['vip_end']=0;
-//            $model->save($data);
-//            $reader=$model;
-//        }
-//        if(!session('openid')){
-//            $reader->save($reader->login_data(),['id',$reader->id]);
-//            session('openid',$openid);
-//        }
-//        $wx_info=$this->getuserinfo();
-//        $reader_info=$reader->toArray();
-//        $this->reader=array_merge($reader_info,$wx_info);
+        if(session('remember_url')){
+            $url=session('remember_url');
+            session('remember_url',null);
+            $this->redirect($url);
+        }
+        /* +++++++++获取读者信息+++++++++ */
+        $openid=cookie('openid');
+        if($openid){
+            cookie('openid',$openid,3*24*60*60);
+        }else{
+            session('remember_url',request()->url());
+            $this->redirect('Base/index');
+        }
+
+        $model=new Readers();
+        $reader=$model->where('openid',$openid)->find();
+        if(!$reader){
+            $data['openid']=$openid;
+            $data['book_money']=0;
+            $data['vip_end']=0;
+            $model->save($data);
+            $reader=$model;
+        }
+        if(!session('openid')){
+            $reader->save($reader->login_data(),['id',$reader->id]);
+            session('openid',$openid);
+        }
+        $wx_info=$this->getuserinfo();
+        $reader_info=$reader->toArray();
+        $this->reader=array_merge($reader_info,$wx_info);
     }
 
     /* ============获取微信用户信息============== */
