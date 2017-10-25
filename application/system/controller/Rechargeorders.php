@@ -54,8 +54,13 @@ class Rechargeorders extends Auth
         if(empty($id)){
             return $this->error('非法操作','');
         }
-        $where['id'] = $id;
-        $info = model('Rechargeorderss')->where($where)->find();
+        $where['b.id'] = $id;
+        $info = model('Rechargeorderss')
+            ->field(['b.*','r.openid as openids'])
+            ->alias('b')
+            ->join('reader r','b.reader_id = r.id','left')
+            ->where($where)
+            ->find();
         $this->assign('info',$info);
         return view('modify');
     }

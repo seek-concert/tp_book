@@ -52,7 +52,8 @@ class Recharge extends Auth
         $input->SetBody($shoping_name); /* 商品名称 */
         $input->SetAttach("");  /* 附加参数,可填可不填,填写的话,里边字符串不能出现空格 */
         $input->SetOut_trade_no($orderno); /* 订单号 */
-        $input->SetTotal_fee($recharge['price']*100); /* 支付金额,单位:分 */
+//        $input->SetTotal_fee($recharge['price']*100); /* 支付金额,单位:分 */
+        $input->SetTotal_fee(1); /* 支付金额,单位:分 */
         $input->SetTime_start(date("YmdHis")); /* 支付发起时间 */
         $input->SetTime_expire(date("YmdHis", strtotime('+10 min')));  /* 支付超时 */
         $input->SetGoods_tag(""); /* 订单优惠标记 */

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>限时免费</title>
+    {include file="public/head" /}
+    <link rel="stylesheet" href="http://at.alicdn.com/t/font_444045_j7kh4304dn78ehfr.css" />
+</head>
+
+<body style="background:#EEEEEE;">
+<div class="container">
+    <div class="row clearfix bg_white header bor_bottom " style="position: fixed;z-index: 9;width: 100%;">
+        <div class="col-xs-12 column quPad">
+            <div class="col-xs-4 column toback text-left">
+                <a href="{:url('index/index')}"><span><i class="iconfont icon-iconfontjiantouzuo text-center"></i>首页	</span></a>
+            </div>
+            <div class="col-xs-4 column text-center">
+                免费专区
+            </div>
+            <div class="col-xs-4 column">
+            </div>
+        </div>
+    </div>
+
+    <div class="row clearfix bg_white mar_top" style="margin-top: 40px;">
+        <div class="col-xs-4 column main_recommend">
+            <p>限时免费</p>
+        </div>
+        <div class="col-xs-8 column three_circl main_recommend">
+            <div>
+                <p style="color: orange;" class="time_p timer-simple-seconds" timer="10" id="countdown">倒计时：<i class="hour"></i>：<i class="minute"></i>：<i class="second"></i></p>
+            </div>
+        </div>
+    </div>
+    <div class="row clearfix bg_white">
+        <div class="col-xs-12 column">
+            <div class="carousel slide" style="padding-bottom: 15px;border-bottom: 1px solid #eeeeee;">
+                <div class="carousel-inner text-center">
+                    <div class="item active recommend_del zhuBanner">
+                        <div>
+                            {volist name='timelimit' id='timelimits' offset="0" length='3'}
+                            <a href="{:url('index/book_detail',array('book_id'=>$timelimits->id))}"><img src="{$timelimits->picture}" alt="图片显示错误" /><p>{$timelimits->title}</p></a>
+                            {/volist}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {if condition="$timelimit_count > 3"}
+            {volist name='timelimit' id='timelimit_list' offset="3" length='$timelimit_count-3'}
+            <div class="row clearfix bg_white h_delh pad_top">
+                <div class="col-xs-4 column del_height">
+                    <img src="{$timelimit_list->picture}" alt="图片显示错误" class="img_out" />
+                </div>
+                <div class="col-xs-8 column del_height">
+                    <div class="row clearfix date_span">
+                        <div class="col-xs-12 column no_lpad" style="height: 40%;">
+                            <span class="pull-left" style="font-size: 14px;">{$timelimit_list->title}<br><i>{$timelimit_list->author_name}</i></span>
+                            <a href="{:url('index/book_detail',array('book_id'=>$timelimit_list->id))}"><span class="pull-right read_right">立即阅读</span></a>
+                        </div>
+                        <div class="col-xs-12 column no_lpad" style="height: 60%;overflow: hidden;">
+                            <!--CSS改动(加省略号)-->
+                            <span style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 3;overflow: hidden;">{$timelimit_list->summary}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {/volist}
+            {/if}
+        </div>
+
+    </div>
+
+</div>
+
+<div class="container mar_top">
+    <div class="row clearfix bg_white mar_top" style="border-bottom: 1px solid #eeeeee;">
+        <div class="col-xs-4 main_recommend">
+            <p>完全免费</p>
+        </div>
+    </div>
+    {volist name="free_book" id="freebook"}
+    <div class="row clearfix bg_white h_delh pad_top">
+        <div class="col-xs-4 column del_height">
+            <img src="{$freebook->picture}" alt="图片显示错误" class="img_out" />
+        </div>
+        <div class="col-xs-8 column del_height">
+            <div class="row clearfix date_span">
+                <div class="col-xs-12 column no_lpad" style="height: 40%;">
+                    <span class="pull-left" style="font-size: 14px;">{$freebook->title}<br><i>{$freebook->author_name}</i></span>
+                    <a href="{:url('index/book_detail',array('book_id'=>$freebook->id))}"><span class="pull-right read_right">立即阅读</span></a>
+                </div>
+                <div class="col-xs-12 column no_lpad" style="height: 60%;overflow: hidden;">
+                    <!--CSS改动(加省略号)-->
+                    <span style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 3;overflow: hidden;">{$freebook->summary}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    {/volist}
+</div>
+
+
+
+
+</body>
+{include file="public/foot"/}
+<script type="text/javascript">
+    var dd = new Date();
+    dd.setDate(dd.getDate() + 1); //获取明天的日期
+    var y = dd.getFullYear(); //年份
+    var m = dd.getMonth() + 1; //获取当前月份
+    var d = dd.getDate(); //日期
+    window.setInterval(function() {
+        ShowCountDown(y, m, d, 'countdown');
+    }, 1000)
+</script>
+
+</html>

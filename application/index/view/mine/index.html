@@ -11,21 +11,21 @@
 <div class=" mineHead text-center" style="background: url(img/90.jpg) no-repeat center;">
     <div style="width: 100%;height: 100%;background: rgba(0,0,0,.3);">
         <span><img src="__STATIC__/index/img/999.jpg" /></span>
-        <p>安之。</p>
-        <p>ID:<span>1241241241</span></p>
+        <p>{$reader_name}</p>
+        <p>ID:<span>{$reader_id}</span></p>
     </div>
 
 </div>
 <div class="container mineCon">
     <div class="row">
         <div class="col-xs-12 bor_bottom bg_white">
-            <p class="yue"><span class="pull-left"><i class="iconfont icon-coinyen"></i>我的余额</span><i class="iconfont icon-gengduo pull-right"></i> <span class="pull-right">21书币</span></p>
+            <p class="yue"><span class="pull-left"><i class="iconfont icon-coinyen"></i>我的余额</span><i class="iconfont icon-gengduo pull-right"></i> <span class="pull-right">{$book_money}书币</span></p>
         </div>
         <div class="col-xs-12 bor_bottom bg_white">
             <p class="vip" id="vip"><span class="pull-left"><i class="iconfont icon-VIP"></i>开通VIP</span><i class="iconfont icon-gengduo pull-right"></i><span class="pull-right">看书更省钱</span></p>
         </div>
         <div class="col-xs-12 bor_bottom mar_top bg_white">
-            <p class="chongzhi"><span class="pull-left"><i class="iconfont icon-qianbao"></i>书币充值</span><i class="iconfont icon-gengduo pull-right"></i> <i class="iconfont icon-dian pull-right"></i><span class="pull-right">送书币</span> </p>
+            <a style="color: #ff890b;" href="{:url('recharge/index')}"><p class="chongzhi"><span class="pull-left"><i class="iconfont icon-qianbao"></i>书币充值</span><i class="iconfont icon-gengduo pull-right"></i> <i class="iconfont icon-dian pull-right"></i><span class="pull-right">送书币</span> </p></a>
         </div>
         <div class="col-xs-12 bor_bottom bg_white">
             <p class="kefu"><span class="pull-left"><i class="iconfont icon-kefu"></i>联系客服</span><i class="iconfont icon-gengduo pull-right"></i></p>

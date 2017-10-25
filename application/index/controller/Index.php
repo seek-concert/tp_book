@@ -56,6 +56,7 @@ class Index extends Auth
             ->field(['id','picture','title'])
             ->where('free_start','<=',$freestart)
             ->where('free_end','>=',$freeend)
+            ->where('online',1)
             ->order('sort desc')
             ->limit($data_setting['free'])
             ->select();
