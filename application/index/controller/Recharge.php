@@ -32,6 +32,9 @@ class Recharge extends Auth
         }
         /* ++++++++++充值基本信息++++++++++ */
         $recharge=db('recharge_price')->where('id',$id)->where('deleted_at IS NULL')->find();
+        if(!$recharge){
+            return $this->error('参数错误！');
+        }
           if($recharge['type']==0){
               $shoping_name = "充值".$recharge['number']."书币";
           }
