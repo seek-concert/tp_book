@@ -60,7 +60,7 @@ function recharge() {
 		if($(this).children('p.topP').html() == '' || $(this).children('p.topP').html() == undefined) {
 			$(this).children("p.topBi").css("padding-top", "30px")
 		}
-	})
+	});
 	$(".recharge>div>div").click(function() {
 		$(this).children("div").addClass("on");
 		$(this).parent("div").siblings().children("div").children("div").removeClass("on")

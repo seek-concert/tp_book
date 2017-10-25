@@ -33,7 +33,12 @@ class Recharge extends Auth
         }
         /* ++++++++++充值基本信息++++++++++ */
         $recharge=db('recharge_price')->where('id',$id)->where('deleted_at IS NULL')->find();
-
+          if($recharge['type']==0){
+              $shoping_name = "充值".$recharge['number']."书币";
+          }
+          if($recharge['type']==1){
+              $shoping_name = "会员充值".$recharge['number']."天";
+          }
         /* ++++++++++发起支付下单++++++++++ */
         /* ①、获取用户openid */
         $tools = new \JsApiPay();
@@ -45,10 +50,10 @@ class Recharge extends Auth
         $notify_url=$domain.'/index/Wxpaynotify/index';
 
         $input = new \WxPayUnifiedOrder();
-        $input->SetBody("充值".$id.'分'); /* 商品名称 */
+        $input->SetBody($shoping_name); /* 商品名称 */
         $input->SetAttach("");  /* 附加参数,可填可不填,填写的话,里边字符串不能出现空格 */
         $input->SetOut_trade_no($orderno); /* 订单号 */
-        $input->SetTotal_fee($id); /* 支付金额,单位:分 */
+        $input->SetTotal_fee($recharge['price']*100); /* 支付金额,单位:分 */
         $input->SetTime_start(date("YmdHis")); /* 支付发起时间 */
         $input->SetTime_expire(date("YmdHis", strtotime('+10 min')));  /* 支付超时 */
         $input->SetGoods_tag(""); /* 订单优惠标记 */
