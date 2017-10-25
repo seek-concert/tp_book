@@ -19,7 +19,8 @@ class Tools extends Auth
         if($file){
             $info = $file->move(ROOT_PATH . 'public' . DS . 'uploads');
             if($info){
-                $datas = '/uploads/'.$info->getSaveName();
+                $file_name=str_replace('\\','/',$info->getSaveName());
+                $datas = '/uploads/'.$file_name;
                 return $this->success('','',$datas);
             }else{
                 return $this->error($file->getError(),'');
@@ -36,7 +37,8 @@ class Tools extends Auth
         if($file){
             $info = $file->move(ROOT_PATH . 'public' . DS . 'uploads/kindeditor');
             if($info){
-                $url = '/uploads/kindeditor/'.$info->getSaveName();
+                $file_name=str_replace('\\','/',$info->getSaveName());
+                $url = '/uploads/kindeditor/'.$file_name;
                 $data['error']=0;
                 $data['url']=$url;
             }else{
