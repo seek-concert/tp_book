@@ -5,7 +5,6 @@
  * |
  * */
 namespace app\index\controller;
-
 use app\index\model\Rechargeprices;
 use think\Loader;
 
@@ -70,7 +69,7 @@ class Recharge extends Auth
         /* ++++++++++充值订单++++++++++ */
         $orders_datas['type']=$recharge['type'];
         $orders_datas['orders_no']=$orderno;
-        $orders_datas['orders_no']=$this->reader['id'];
+        $orders_datas['reader_id']=$this->reader['id'];
         $orders_datas['price']=$recharge['price'];
         $orders_datas['number']=$recharge['number'];
         $orders_datas['gift_num']=$recharge['gift_num'];
@@ -80,6 +79,10 @@ class Recharge extends Auth
 
         $this->assign([
             'jsApiParameters'=>$jsApiParameters,
+            'orderno'=>$orderno,
+            'buy_time'=>date("Y-m-d H:i:s"),
+            'price'=>$recharge['price'],
+            'shoping_name'=>$shoping_name
         ]);
 
         return view();
