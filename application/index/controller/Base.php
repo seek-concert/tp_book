@@ -57,7 +57,10 @@ class Base extends Controller
     public function refreshtoken(){
         $refresh_token_url='https://api.weixin.qq.com/sns/oauth2/refresh_token?appid='.$this->AppId.'&grant_type=refresh_token&refresh_token='.cookie('refresh_token');
         $result=https_request($refresh_token_url);
-        $result=json_decode($result,true);dump($result);
+        $result=json_decode($result,true);
+        if(!isset($result['access_token'])){
+            $this->authorize();
+        }
         cookie('access_token',$result['access_token'],6000);
         cookie('refresh_token',$result['refresh_token'],29*24*60*60);
         cookie('openid',$result['openid'],3*24*60*60);
