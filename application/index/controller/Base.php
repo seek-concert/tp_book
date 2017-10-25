@@ -23,18 +23,7 @@ class Base extends Controller
     /* ============微信授权登录============== */
     public function index()
     {
-        if(cookie('refresh_token')){
-            $this->refreshtoken();
-        }else{
-            $this->authorize();exit;
-        }
-        if(session('remember_url')){
-            $url=session('remember_url');
-            session('remember_url',null);
-        }else{
-            $url='/';
-        }
-        $this->redirect($url);
+        $this->authorize();
     }
 
     /* ============授权获取微信CODE============== */
@@ -68,7 +57,7 @@ class Base extends Controller
     public function refreshtoken(){
         $refresh_token_url='https://api.weixin.qq.com/sns/oauth2/refresh_token?appid='.$this->AppId.'&grant_type=refresh_token&refresh_token='.cookie('refresh_token');
         $result=https_request($refresh_token_url);
-        $result=json_decode($result,true);
+        $result=json_decode($result,true);dump($result);
         cookie('access_token',$result['access_token'],6000);
         cookie('refresh_token',$result['refresh_token'],29*24*60*60);
         cookie('openid',$result['openid'],3*24*60*60);
