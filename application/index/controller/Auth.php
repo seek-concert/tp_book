@@ -42,9 +42,12 @@ class Auth extends Controller
             $reader->save($reader->login_data(),['id',$reader->id]);
             session('openid',$openid);
         }
-        $wx_info=$this->getuserinfo();
+        if(!session('wx_info')){
+            $wx_info=$this->getuserinfo();
+            session('wx_info',$wx_info);
+        }
         $reader_info=$reader->toArray();
-        $this->reader=array_merge($reader_info,$wx_info);
+        $this->reader=array_merge($reader_info,session('wx_info'));
     }
 
     /* ============获取微信用户信息============== */
@@ -52,7 +55,7 @@ class Auth extends Controller
         $check_valid_url=' https://api.weixin.qq.com/sns/auth?access_token='.cookie('access_token').'&openid='.cookie('openid');
         $result=https_request($check_valid_url);
         $result=json_decode($result,true);
-        if($result['errcode']){
+        if(!$result||$result['errcode']){
             $base=new Base();
             $base->refreshtoken();
         }

@@ -12,19 +12,10 @@ class Mine extends Auth
 {
     /* ============ 个人中心 ============== */
     public function index(){
-//        $reader_id = $this->reader['id'];
-        $reader_id = 10001;
-        $datas['reader_id'] = $reader_id;
-
-//        $nickname = $this->reader['nickname'];
-        $nickname = '觅树知音';
-        $datas['nickname'] = $nickname;
-
-        $datas['book_money'] = $this->reader['book_money'];
-//        $datas['headimgurl'] = $this->reader['headimgurl'];
+        $datas=$this->reader;
 
         $vip_id = db('recharge_price')->field('id')->where('price','365')->find();
-       $datas['vip_id']=$vip_id['id'];
+        $datas['vip_id']=$vip_id['id'];
         $this->assign($datas);
         return view();
     }

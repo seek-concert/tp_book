@@ -49,12 +49,30 @@ class Wxpaynotify extends \WxPayNotify
            $order_id = $data['attach'];        //附加参数,选择传递订单ID
            $openid = $data['openid'];          //付款人openID
            $total_fee = $data['total_fee'];    //付款金额*/
-        $res=db('recharge_orders')->where('orders_no',$data['out_trade_no'])->update([
+
+        //查询订单
+        $order_info=db('recharge_orders')->where('orders_no',$data['out_trade_no'])->find();
+        //更新订单
+        db('recharge_orders')->where('id',$order_info['id'])->update([
             'trade_no'=>$data["transaction_id"],
             'pay_num'=>$data["total_fee"]/100,
             'result_code'=>$data["result_code"],
             'finished_at'=>time(),
         ]);
+        // 更新会员时长
+        if($order_info['type']){
+            $vip_end=db('reader')->where('id',$order_info['reader_id'])->value('vip_end');
+            $add=86400*($order_info['number']+$order_info['gift_num']);
+            if($vip_end>time()){
+                $end=$vip_end+$add;
+            }else{
+                $end=time()+$add;
+            }
+            db('reader')->where('id',$order_info['reader_id'])->update([
+                'vip_end'=>$end,
+                'updated_at'=>time(),
+            ]);
+        }
 
         return true;
     }

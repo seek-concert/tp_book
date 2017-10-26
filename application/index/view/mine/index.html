@@ -10,9 +10,9 @@
 <body style="background: #f2f2f2;">
 <div class=" mineHead text-center" style="background: url(img/90.jpg) no-repeat center;">
     <div style="width: 100%;height: 100%;background: rgba(0,0,0,.3);">
-        <span><img src="__STATIC__/index/img/999.jpg" /></span>
+        <span><img src="{$headimgurl}" /></span>
         <p>{$nickname}</p>
-        <p>ID:<span>{$reader_id}</span></p>
+        {if condition="$vip_end and $vip_end gt time()"}<p style="color: #FA4F3B">VIP:<span style="color: orange">{$vip_end|date='Y-m-d',###}到期</span></p>{/if}
     </div>
 
 </div>
