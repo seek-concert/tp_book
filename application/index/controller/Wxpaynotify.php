@@ -6,6 +6,7 @@
  * */
 namespace app\index\controller;
 
+use app\index\model\Readers;
 use think\Loader;
 
 ini_set('date.timezone','Asia/Shanghai');
@@ -72,6 +73,11 @@ class Wxpaynotify extends \WxPayNotify
                 'vip_end'=>$end,
                 'updated_at'=>time(),
             ]);
+        }
+        // 更新书币数量
+        else{
+            $add=$order_info['number']+$order_info['gift_num'];
+            $reader=Readers::where('id',$order_info['reader_id'])->setInc('book_money',$add);
         }
 
         return true;

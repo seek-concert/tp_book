@@ -57,7 +57,7 @@ class Recharge extends Auth
         $openId = $this->reader['openid'];
 
         /* ②、统一下单 */
-        $orderno=\WxPayConfig::MCHID.date("YmdHis");
+        $orderno=date('YmdHis').substr(implode(NULL, array_map('ord', str_split(substr(uniqid(), 7, 13), 1))), 0, 8);
         $domain=request()->domain();
         $notify_url=$domain.'/index/Wxpaynotify/index';
 
