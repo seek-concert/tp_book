@@ -23,7 +23,6 @@ class Recharge extends Auth
         ini_set('date.timezone','Asia/Shanghai');
         Loader::import('WxPay.lib.WxPay#Config');
         Loader::import('WxPay.lib.WxPay#Api');
-//        Loader::import('WxPay.lib.WxPay#Data');
         Loader::import('WxPay.lib.WxPay#JsApiPay');
 
         $id=input('id');
