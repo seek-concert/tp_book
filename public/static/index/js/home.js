@@ -6,6 +6,9 @@ $(window).scroll(function() {
 		$(".toTop").fadeOut(300);
 	}
 })
+$(".toTop").click(function(){
+	$("body,html").animate({scrollTop: 0},600);
+})
 //+++++++++++++++++++++++++分类列表页面中的js++++++++++++++++++++++++++++++++++++++++
 function classiFication() {
 	$("#listCon>span:gt(3)").css("display", "none")
@@ -69,18 +72,26 @@ function recharge() {
 
 //**************活动结束倒计时*****************************
 function ShowCountDown(year, month, day, divname) {
+	console.log(month);
 	var now = new Date();
-	var endDate = new Date(year, month, day);
+	var endDate = new Date(year, month-1, day);
 	var leftTime = endDate.getTime() - now.getTime();
 	var dd = parseInt(leftTime / 1000 / 60 / 60 / 24, 10); //计算剩余的天数
 	var hh = parseInt(leftTime / 1000 / 60 / 60 % 24, 10); //计算剩余的小时数
 	var mm = parseInt(leftTime / 1000 / 60 % 60, 10); //计算剩余的分钟数
 	var ss = parseInt(leftTime / 1000 % 60, 10); //计算剩余的秒数
-	dd = checkTime(dd);
+//	dd = checkTime(dd);
 	hh = checkTime(hh);
 	mm = checkTime(mm);
 	ss = checkTime(ss); //小于10的话加0
 	var cc = document.getElementById(divname);
+	if(dd <= 0){
+		$(".day").css("display","none");
+	}else{
+		$(".day").css("display","inline-block");
+		$(".day").text(dd+"天  ");
+	}
+	
 	$(".hour").text(hh);
 	$(".minute").text(mm);
 	$(".second").text(ss);
@@ -134,6 +145,22 @@ function bookShelf(){
 		$("[lay]").css("display","none")
 		$("[lay="+$(this).attr('la')+"]").css("display",'block');
 	})
+	
+	//编辑
+	$("#edit").click(function(){
+		$(this).css("display","none");
+		$(".delBtn,.cancelBtn").css("display","inline-block");
+		$(".inputDiv").css("display","inline-block");
+		
+	})
+	
+	//完成
+	$("#cancelBtn").click(function(){
+		$("#edit").css("display","inline-block");
+		$(".delBtn,.cancelBtn").css("display","none");
+		$(".inputDiv").css("display","none");
+	})
+	
 }
 
 
@@ -220,8 +247,17 @@ function mine(){
 
 }
 
-
-
+//************************搜索列表***************************888
+function searchList(){
+	
+	$("#serInput").keydown(function(){
+		if($("#serInput").val() == ''){
+			$("#serBtn").text("取消");
+		}else{
+			$("#serBtn").text("搜索");
+		}
+	})
+}
 
 
 

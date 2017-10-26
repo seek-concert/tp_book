@@ -149,7 +149,8 @@ small {
 
 .main_recommend p i {
 	display: inline-block;
-	width: 20px;
+	/*width: 20px;*/
+	padding: 0px 3px;
 	height: 20px;
 	line-height: 20px;
 	text-align: center;
@@ -830,6 +831,16 @@ small {
 	font-size: 14px;
 	color: rgb(51,51,51);
 }
+/****new*/
+.delBtn,.cancelBtn{
+	margin-left: 8px;
+	display: none;
+}
+.delBtn{
+	color: #ed424b;
+}
+
+/****new*/
 .myBook .col-xs-12.no_rpad div{
 	float: left;
 }
@@ -848,6 +859,7 @@ small {
 	width: 90px;
 	height: 120px;
 	margin-right: 5px;
+	margin-left: 5px;
 }
 .myBook .col-xs-12.no_rpad div:nth-of-type(2) img{
 	width: 100%;
@@ -858,6 +870,43 @@ small {
 	width:-webkit-calc(100% - 115px);
 	width:-moz-calc(100% - 115px);
 }
+
+/****new*/
+.inputDiv>input{
+	display: inline-block;  
+    vertical-align: middle;  
+    /*width: 20px;  
+    height: 20px;  */
+    margin-left: 5px;  
+    -webkit-appearance: none;  
+    background-color: transparent;  
+    border: 0;  
+    outline: 0 !important;  
+    line-height: 20px;  
+    color: #d8d8d8;  
+    position: relative;
+    left: -10px;
+}
+.inputDiv>input:after{
+	  content: "";  
+    display:block;  
+    width: 20px;  
+    height: 20px;  
+    text-align: center;  
+    line-height: 14px;  
+    font-size: 16px;  
+    color: #fff;  
+    border: 2px solid #ddd;  
+    background-color: #fff;  
+    box-sizing:border-box;  
+    border-radius: 100%;
+}
+.inputDiv>input[type=checkbox]:checked:after  {  
+    background-color: #ed424b; 
+    border: 2px solid #ed424b;
+} 
+
+/****new*/
 .myBook .col-xs-12.no_rpad div{
 	display: inline-block;
 }
@@ -1265,11 +1314,35 @@ small {
 }
 
 
-
-
-
-
-
-
-
+/******************立即支付页面**********************/
+.zhifu_box{
+	width: 90%;
+	border-radius: 5px;
+	padding: 15px 20px;
+	background: white;
+	margin: 50px auto;
+}
+.zhifu_box>p>span:first-child{
+	display: inline-block;
+	width: 45%;
+	text-align: justify;
+	letter-spacing: 3px;
+	font-size: 15px;
+	color: #888;
+	
+}
+.zhifu_box>p>span:last-child{
+	display: inline-block;
+	width: 55%;
+	font-size: 16px;
+	color: #666;
+	text-align: left;
+	float: right;
+	text-indent: 5%;
+}
+.zhifu_box>p>span:after{
+	content: "";
+	display: inline-block;
+	width: 100%;
+}
 
