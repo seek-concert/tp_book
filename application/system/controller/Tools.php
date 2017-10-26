@@ -17,7 +17,7 @@ class Tools extends Auth
         $key=array_keys($files);
         $file = $files[$key[0]];
         if($file){
-            $info = $file->move('.' . DS . 'uploads');
+            $info = $file->move( '.' . DS . 'uploads');
             if($info){
                 $file_name=str_replace('\\','/',$info->getSaveName());
                 $datas = '/uploads/'.$file_name;
@@ -35,7 +35,7 @@ class Tools extends Auth
         $key=array_keys($files);
         $file = $files[$key[0]];
         if($file){
-            $info = $file->move('.' . DS . 'uploads/kindeditor');
+            $info = $file->move(  '.' . DS . 'uploads/kindeditor');
             if($info){
                 $file_name=str_replace('\\','/',$info->getSaveName());
                 $url = '/uploads/kindeditor/'.$file_name;

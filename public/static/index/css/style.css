@@ -956,7 +956,9 @@ small {
 	color: #666;
 	margin-right: 5px;
 }
-.myFlag>div>div a{
+
+
+.myFlag>div>div .del{
 	height: 30px;
 	line-height: 30px;
 	width: 50px;
