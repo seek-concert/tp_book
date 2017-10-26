@@ -8,6 +8,7 @@
  * | 我的书签
  * | 删除我的书架
  * | 删除我的书签
+ * | 添加到我的书架
  * */
 
 namespace app\index\controller;
@@ -65,7 +66,10 @@ class Bookshelf extends Auth
         if(empty($ids)){
             return $this->error('至少选择一项');
         }
-        $res=model('Readbookshelf')->whereIn('book_id',$ids)->where('reader_id',1)->delete(true);
+        $res=model('Readbookshelf')
+            ->whereIn('book_id',$ids)
+            ->where('reader_id',1)
+            ->delete(true);
         if($res){
             return $this->success('删除成功','');
         }else{
@@ -91,6 +95,30 @@ class Bookshelf extends Auth
             return $this->success('删除成功','');
         }else{
             return $this->error('删除失败！','');
+        }
+    }
+
+    /* ========== 添加到我的书架 ========== */
+    public function add_bookshelf(){
+        $book_id = input('book_id');
+        if(empty($book_id)){
+            return $this->error('参数错误');
+        }
+        //        $reader_id = $this->reader['id'];
+        $reader_id=1;
+        $select_bookshelf = model('Readbookshelf')
+            ->fetchSql(true)
+            ->where('book_id',$book_id)
+            ->where('reader_id',$reader_id)
+            ->select();
+        if(count($select_bookshelf)!==0){
+            return $this->error('书架已存在该书籍！','');
+        }
+        $res=model('Readbookshelf')->save(['book_id'=>$book_id,'reader_id'=>$reader_id]);
+        if($res){
+            return $this->success('加入成功','');
+        }else{
+            return $this->error('加入失败！','');
         }
     }
 }

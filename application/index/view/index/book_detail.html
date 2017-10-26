@@ -26,6 +26,8 @@
     </div>
 
     <!--BookInfo-->
+    <form action="" method="post"  id="js-ajax-form">
+        <input type="hidden" name="book_id" value="{:isset($book_info)?$book_info->id:''}">
     <div class="row bookInfo clearfix  bg_white">
         <div class="col-xs-3 column no_rpad">
             <img src="{:isset($book_info)?$book_info->picture:''}" />
@@ -40,14 +42,14 @@
                 <span>{:isset($book_info)?$book_info->type:''}</span>
             </p>
         </div>
-
     </div>
-    <div class="row clearfix bg_white	 bookwork text-center mar_top bor_bottom">
+    </form>
+    <div class="row clearfix bg_white bookwork text-center mar_top bor_bottom">
         <div class="col-xs-6 clearfix mar_top no_rpad">
-            <a class="beginLook">开始阅读</a>
+            <a class="beginLook"href="{:url('index/book_contents')}">开始阅读</a>
         </div>
         <div class="col-xs-6 clearfix text-center mar_top no_lpad">
-            <a class="addBook">加入书架</a>
+            <a class="addBook js-ajax-form-btn" data-form="js-ajax-form" data-action="{:url('bookshelf/add_bookshelf')}">加入书架</a>
         </div>
         <div class="col-xs-12 text-left infoBo mar_top">
             <p>{:isset($book_info)?$book_info->summary:''}<i class="iconfont icon-iconfanning"></i></p>
@@ -89,7 +91,9 @@
 
 
 </div>
-
-</body>
 {include file="public/foot"/}
+<script src="__STATIC__/system/js/ajax-submit.js" type="text/javascript" charset="utf-8"></script>
+<script src="__STATIC__/system/layer/layer.js" type="text/javascript" charset="utf-8"></script>
+</body>
+
 </html>

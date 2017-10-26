@@ -7,6 +7,7 @@
  * | 小说详情
  * | 小说目录
  * | 搜索列表页
+ * | 小说内容
  * */
 
 namespace app\index\controller;
@@ -126,6 +127,15 @@ class Index extends Auth
             ->where('book_id',$book_id)
             ->find();
         $datas['update_content'] = $update_content;
+        /*+++++ 是否阅读与阅读章节位置 +++++*/
+//        $reader_id = $this->reader['id'];
+        $reader_id = 1;
+//        $readerreadlast = model('Readerreadlast')
+//                  ->field([''])
+//                  ->where('book_id',$book_id)
+//                  ->where('reader_id',$reader_id)
+//                  ->select();
+
         /*+++++ 猜你喜欢 +++++*/
         $cate_id = db('book')
             ->where('id',$book_id)
@@ -210,6 +220,11 @@ class Index extends Auth
         }
         $datas['like_book'] = $like_book;
         $this->assign($datas);
+        return view();
+    }
+
+    /* ============ 小说内容 ============== */
+    public function book_contents(){
         return view();
     }
 }
