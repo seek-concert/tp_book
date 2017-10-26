@@ -1072,6 +1072,13 @@ small {
 	display: inline-block;
 	line-height: 36px;
 }
+.conHead .back{
+	text-align: center;
+	margin-left: 10px !important;
+}
+.conHead a:hover{
+	text-decoration: none;
+}
 .conHead .back i{
 	font-size: 18px;
 }

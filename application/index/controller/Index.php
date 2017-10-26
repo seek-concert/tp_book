@@ -127,15 +127,23 @@ class Index extends Auth
             ->where('book_id',$book_id)
             ->find();
         $datas['update_content'] = $update_content;
-        /*+++++ 是否阅读与阅读章节位置 +++++*/
+        /*+++++ 是否阅读与阅读章节位置(阅读地址) +++++*/
 //        $reader_id = $this->reader['id'];
         $reader_id = 1;
-//        $readerreadlast = model('Readerreadlast')
-//                  ->field([''])
-//                  ->where('book_id',$book_id)
-//                  ->where('reader_id',$reader_id)
-//                  ->select();
-
+        $readerreadlast = model('Readerreadlast')
+                  ->field(['content_id'])
+                  ->where('book_id',$book_id)
+                  ->where('reader_id',$reader_id)
+                  ->find();
+       if($readerreadlast){
+           $bookcontent_url = url("index/book_contents",array('book_id'=>$book_id,'content_id'=>$readerreadlast->content_id));
+           $url_type = 1;
+       }else{
+           $bookcontent_url = url("index/book_contents",array('book_id'=>$book_id));
+           $url_type = 0;
+       }
+       $datas['bookcontent_url'] = $bookcontent_url;
+       $datas['url_type'] = $url_type;
         /*+++++ 猜你喜欢 +++++*/
         $cate_id = db('book')
             ->where('id',$book_id)

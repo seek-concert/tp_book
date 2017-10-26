@@ -46,7 +46,7 @@
     </form>
     <div class="row clearfix bg_white bookwork text-center mar_top bor_bottom">
         <div class="col-xs-6 clearfix mar_top no_rpad">
-            <a class="beginLook"href="{:url('index/book_contents')}">开始阅读</a>
+            <a class="beginLook"href="{$bookcontent_url}">{if condition="$url_type eq 0"}开始阅读{else/}继续阅读{/if}</a>
         </div>
         <div class="col-xs-6 clearfix text-center mar_top no_lpad">
             <a class="addBook js-ajax-form-btn" data-form="js-ajax-form" data-action="{:url('bookshelf/add_bookshelf')}">加入书架</a>
