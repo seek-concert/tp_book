@@ -17,7 +17,7 @@ class Wxpaynotify extends \WxPayNotify
 {
     public function index()
     {
-        $this->Handle(false);
+        $this->Handle(true);
     }
 
     /**
