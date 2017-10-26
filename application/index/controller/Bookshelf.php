@@ -6,6 +6,8 @@
  * | 我的书架
  * | 最近阅读
  * | 我的书签
+ * | 删除我的书架
+ * | 删除我的书签
  * */
 
 namespace app\index\controller;
@@ -15,11 +17,11 @@ class Bookshelf extends Auth
 {
     /* ============ 小说书架 ============== */
     public function index(){
-        $reader_id = $this->reader['id'];
+//        $reader_id = $this->reader['id'];
         $reader_id = 1;
         /*+++++ 我的书架 +++++*/
         $bookshelf_list = model('Readbookshelf')
-            ->field(['b.id','b.picture','b.title','b.status','a.name as author_name','s.content_id','c.order_num','c.name','d.order_num as order_nums'])
+            ->field(['b.id','b.picture','b.online','b.title','b.status','a.name as author_name','s.content_id','c.order_num','c.name','d.order_num as order_nums'])
             ->alias('s')
             ->join('book b','s.book_id = b.id','left')
             ->join('author a','b.author_id = a.id','left')
@@ -32,7 +34,7 @@ class Bookshelf extends Auth
         $datas['bookshelf_count'] = $bookshelf_count;
         /*+++++ 最近阅读 +++++*/
         $readerreadlast_list = model('Readerreadlast')
-            ->field(['b.id','b.picture','b.title','b.status','a.name as author_name','s.content_id','c.order_num','c.name','d.order_num as order_nums'])
+            ->field(['b.id','b.picture','b.online','b.title','b.status','a.name as author_name','s.content_id','c.order_num','c.name','d.order_num as order_nums'])
             ->alias('s')
             ->join('book b','s.book_id = b.id','left')
             ->join('author a','b.author_id = a.id','left')
@@ -41,8 +43,54 @@ class Bookshelf extends Auth
             ->where('reader_id',$reader_id)
             ->select();
         $datas['readerreadlast_list'] = $readerreadlast_list;
+        /*+++++ 我的书签 +++++*/
+        $readerbookmark_list = model('Readerbookmark')
+            ->field(['b.id','b.online','b.title','s.content_id','d.order_num','d.name'])
+            ->alias('s')
+            ->join('book b','s.book_id = b.id','left')
+            ->join('book_content d','s.content_id = d.id','left')
+            ->where('reader_id',$reader_id)
+            ->select();
+        $datas['readerbookmark_list'] = $readerbookmark_list;
 
         $this->assign($datas);
         return view();
+    }
+
+    /* ========== 删除我的书架 ========== */
+    public function del(){
+        $inputs=input('ids');
+        $ids=isset($inputs)?$inputs:'';
+
+        if(empty($ids)){
+            return $this->error('至少选择一项');
+        }
+        $res=model('Readbookshelf')->whereIn('book_id',$ids)->where('reader_id',1)->delete(true);
+        if($res){
+            return $this->success('删除成功','');
+        }else{
+            return $this->error('删除失败！','');
+        }
+    }
+
+    /* ========== 删除我的书签 ========== */
+    public function readerbookmark_del(){
+        $book_id=input('book_id');
+        $content_id=input('content_id');
+//        $reader_id = $this->reader['id'];
+        $reader_id=1;
+        if(empty($book_id)||empty($content_id)||empty($reader_id)){
+            return $this->error('参数错误');
+        }
+        $res=model('Readerbookmark')
+            ->where('book_id',$book_id)
+            ->where('reader_id',$reader_id)
+            ->where('content_id',$content_id)
+            ->delete(true);
+        if($res){
+            return $this->success('删除成功','');
+        }else{
+            return $this->error('删除失败！','');
+        }
     }
 }

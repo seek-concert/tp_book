@@ -21,7 +21,7 @@
         <div class="col-xs-12">
             <span class="jilu">共<b>{$bookshelf_count}</b>条&nbsp;&nbsp;记录</span>
             <span class="pull-right cancelBtn" id="cancelBtn">完成</span>
-            <span class="pull-right delBtn">删除</span>
+            <span class="pull-right delBtn del_bookshelf">删除</span>
             <span class="edit" id="edit">编辑</span>
         </div>
     </div>
@@ -31,7 +31,7 @@
             <div class="row">
                 <div class="col-xs-12 no_rpad">
                     <div class="inputDiv">
-                        <input type="checkbox" />
+                        <input type="checkbox" name="ids[]"  value="{$bookshelflist->id}"/>
                     </div>
                     <div>
                         <img src="{$bookshelflist->picture}" alt="图片资源丢失" />
@@ -43,7 +43,7 @@
                     </div>
                 </div>
                 <div class="col-xs-3 padLeft0 text-right">
-                    <a href="{:url('index/book_detail',array('book_id'=>$bookshelflist->id))}"><p class="huip">{if condition="empty($bookshelflist->content_id)"}开始阅读{else/}继续阅读{/if}</p></a>
+                    {if condition="$bookshelflist->online eq 0"}<p class="huip">已下架</p>{else/}<a href="{:url('index/book_detail',array('book_id'=>$bookshelflist->id))}"><p class="huip">{if condition="empty($bookshelflist->content_id)"}开始阅读{else/}继续阅读{/if}</p></a>{/if}
                 </div>
             </div>
         </div>
@@ -70,7 +70,7 @@
                     </div>
                 </div>
                 <div class="col-xs-3 padLeft0 text-right">
-                    <a href="{:url('index/book_detail',array('book_id'=>$readerreadlastlist->id))}"><p class="huip">继续阅读</p></a>
+                    {if condition="$readerreadlastlist->online eq 0"}<p class="huip">已下架</p>{else/}<a href="{:url('index/book_detail',array('book_id'=>$readerreadlastlist->id))}"><p class="huip">继续阅读</p></a>{/if}
                 </div>
             </div>
         </div>
@@ -79,18 +79,27 @@
 </div>
 <!--我的书签-->
 <div class="container  myFlag none mar_top" lay="3">
+    {if condition="empty($readerbookmark_list)"}
     <p class="text-center f16 noData">您还没有添加任何标签</p>
+    {else/}
     <div class="row">
+        {volist name="readerbookmark_list" id="readerbookmarklist"}
+        {if condition="$readerbookmarklist->online eq 0"}
         <div class="col-xs-12">
-            <span>《武破乾坤》</span> <span>第一章 </span><span>废物南</span> <a class="pull-right">删除</a>
+            <input type="hidden" name="book_id" class="book_id" value="{$readerbookmarklist->id}">
+            <input type="hidden" name="content_id" class="content_id" value="{$readerbookmarklist->content_id}">
+            <span>《{$readerbookmarklist->title}》已下架</span>  <a class="pull-right del" onclick="sq_del(this)">删除</a>
         </div>
+        {else/}
         <div class="col-xs-12">
-            <span>《武破乾坤》</span> <span>第一章   废物南</span> <a class="pull-right">删除</a>
+            <input type="hidden" name="book_id" class="book_id" value="{$readerbookmarklist->id}">
+            <input type="hidden" name="content_id" class="content_id" value="{$readerbookmarklist->content_id}">
+            <a href="{:url('index/book_detail',array('book_id'=>$readerbookmarklist->id))}" ><span>《{$readerbookmarklist->title}》</span> <span>第{$readerbookmarklist->order_num}章 </span><span>{$readerbookmarklist->name}</span></a> <a class="pull-right del" onclick="sq_del(this)">删除</a>
         </div>
+        {/if}
+        {/volist}
     </div>
-
-
-
+    {/if}
 </div>
 <div class="container">
     <div class="row clearfix bg_white text-center tabs t_b_pad">
@@ -107,7 +116,55 @@
 </div>
 </body>
 {include file="public/foot"/}
+<script src="__STATIC__/system/layer/layer.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
     bookShelf();
+    $(".del_bookshelf").click(function(){
+       var book_id = '';
+        $('input[name="ids[]"]:checked').each(function(){
+            book_id += $(this).val()+",";
+        });
+        book_id = book_id.substring(0,book_id.length-1);
+        var book_ids = book_id.split(',');
+        $.ajax({
+            url:"{:url('bookshelf/del')}",
+            data:{ 'ids':book_id},
+            type:'POST',
+            dataType:'JSON',
+            success:function (data) {
+                for(var i in book_ids){
+                    $('input[name="ids[]"]').each(function(){
+                        if($(this).val()==book_ids[i]){
+                            $(this).parents(".col-xs-12").remove();
+                        }
+                    });
+                }
+            },
+            error:function () {
+                layer.msg('数据错误');
+            }
+        })
+    });
+
+    function sq_del(obj){
+        var  book_id = $(obj).parents(".col-xs-12").find(".book_id").val();
+        var  content_id = $(obj).parents(".col-xs-12").find(".content_id").val();
+        $.ajax({
+            url:"{:url('bookshelf/readerbookmark_del')}",
+            data:{ 'book_id':book_id, 'content_id':content_id},
+            type:'POST',
+            dataType:'JSON',
+            success:function (data) {
+                $('.col-xs-12').each(function(){
+                    if($(this).find(".book_id").val() == book_id&&$(this).find(".content_id").val()==content_id){
+                        $(this).remove();
+                    }
+                });
+            },
+            error:function () {
+                layer.msg('数据错误');
+            }
+        })
+    }
 </script>
 </html>
