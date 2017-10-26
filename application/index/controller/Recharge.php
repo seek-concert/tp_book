@@ -34,12 +34,23 @@ class Recharge extends Auth
         if(!$recharge){
             return $this->error('参数错误！');
         }
-          if($recharge['type']==0){
-              $shoping_name = "充值".$recharge['number']."书币";
-          }
-          if($recharge['type']==1){
-              $shoping_name = "会员充值".$recharge['number']."天";
-          }
+
+        $shoping_name='';
+        $ordersinfo='';
+        if($recharge['type']==0){
+            $shoping_name = "充值".$recharge['number']."书币";
+            $ordersinfo="充值".$recharge['number']."书币";
+            if($recharge['gift_num']){
+                $ordersinfo .='，赠送'.$recharge['gift_num'].'书币！';
+            }
+        }
+        if($recharge['type']==1){
+            $shoping_name = "会员充值".$recharge['number']."天";
+            $ordersinfo="会员充值".$recharge['number']."天";
+            if($recharge['gift_num']){
+                $ordersinfo .='，赠送'.$recharge['gift_num'].'天！';
+            }
+        }
         /* ++++++++++发起支付下单++++++++++ */
         /* ①、获取用户openid */
         $tools = new \JsApiPay();
@@ -85,7 +96,8 @@ class Recharge extends Auth
             'orderno'=>$orderno,
             'buy_time'=>date("Y-m-d H:i:s"),
             'price'=>$recharge['price'],
-            'shoping_name'=>$shoping_name
+            'shoping_name'=>$shoping_name,
+            'ordersinfo'=>$ordersinfo,
         ]);
 
         return view();
