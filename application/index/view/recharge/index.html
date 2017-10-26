@@ -33,7 +33,7 @@
             <div>
                 <div class="topdiv" data-id="{$rechargelist->id}">
                     <p class="topBi">{:isset($rechargelist)?$rechargelist->number:''}书币 </p>
-                    <p class="topP"><p>
+                    <p class="topP">{if condition="$rechargelist->gift_num"}赠送{$rechargelist->gift_num}书币{/if}<p>
                 </div>
                 <p>{:isset($rechargelist)?$rechargelist->price:''}元</p>
             </div>
@@ -44,7 +44,7 @@
             <div>
                 <div class="topdiv" data-id="{$rechargelist->id}">
                     <p class="topBi">{:isset($rechargelist)?$rechargelist->number:''}天会员 </p>
-                    <p class="topP"><p>
+                    <p class="topP">{if condition="$rechargelist->gift_num"}赠送{$rechargelist->gift_num}天会员{/if}<p>
                 </div>
                 <p>{:isset($rechargelist)?$rechargelist->price:''}元</p>
             </div>
