@@ -19,56 +19,41 @@
 <div class="container myBook" lay="1">
     <div class="row pad_bot pad_top">
         <div class="col-xs-12">
-            <span class="jilu">共<b>5</b>条&nbsp;&nbsp;记录</span>
-            <span class="edit">编辑</span>
+            <span class="jilu">共<b>{$bookshelf_count}</b>条&nbsp;&nbsp;记录</span>
+            <span class="pull-right cancelBtn" id="cancelBtn">完成</span>
+            <span class="pull-right delBtn">删除</span>
+            <span class="edit" id="edit">编辑</span>
         </div>
     </div>
     <div class="row">
+        {volist name="bookshelf_list" id="bookshelflist"}
         <div class="col-xs-12 pad_top pad_bot">
             <div class="row">
                 <div class="col-xs-12 no_rpad">
-                    <div class="">
+                    <div class="inputDiv">
                         <input type="checkbox" />
                     </div>
                     <div>
-                        <img src="img/111.jpg" />
+                        <img src="{$bookshelflist->picture}" alt="图片资源丢失" />
                     </div>
                     <div class=" MyBookIn">
-                        <p class="firP">你看什么书 <i class="iconfont icon-tuijian"> </i></p>
-                        <p class="huip"><i class="iconfont icon-yonghu"></i> <span>清酒半壶</span> | <span>尚未阅读</span></p>
-                        <p class="huip"><i class="iconfont icon-dian"></i><span>更新至 第143章 大结局</span><span>(全书完)</span></p>
+                        <p class="firP">{$bookshelflist->title} <i class="iconfont icon-tuijian"> </i></p>
+                        <p class="huip"><i class="iconfont icon-yonghu"></i> <span>{$bookshelflist->author_name}</span> | <span>{if condition="empty($bookshelflist->content_id)"}尚未阅读{else/}已看到第{$bookshelflist->order_nums}章{/if}</span></p>
+                        <p class="huip"><i class="iconfont icon-dian"></i><span>更新至 第{$bookshelflist->order_num}章 {$bookshelflist->name}</span><span>{if condition="$bookshelflist->status eq 1"}(全书完){/if}</span></p>
                     </div>
                 </div>
                 <div class="col-xs-3 padLeft0 text-right">
-                    <p class="huip">继续阅读</p>
+                    <a href="{:url('index/book_detail',array('book_id'=>$bookshelflist->id))}"><p class="huip">{if condition="empty($bookshelflist->content_id)"}开始阅读{else/}继续阅读{/if}</p></a>
                 </div>
             </div>
         </div>
-        <div class="col-xs-12 pad_top pad_bot">
-            <div class="row">
-                <div class="col-xs-12 no_rpad">
-                    <div class="">
-                        <input type="checkbox" />
-                    </div>
-                    <div>
-                        <img src="img/111.jpg" />
-                    </div>
-                    <div class=" MyBookIn">
-                        <p class="firP">你看什么书 <i class="iconfont icon-tuijian"> </i></p>
-                        <p class="huip"><i class="iconfont icon-yonghu"></i> <span>清酒半壶</span> | <span>尚未阅读</span></p>
-                        <p class="huip"><i class="iconfont icon-dian"></i><span>更新至 第143章 大结局</span><span>(全书完)</span></p>
-                    </div>
-                </div>
-                <div class="col-xs-3 padLeft0 text-right">
-                    <p class="huip">继续阅读</p>
-                </div>
-            </div>
-        </div>
+        {/volist}
     </div>
 </div>
 <!--最近阅读-->
 <div class="container myBook lastBook none mar_top"   lay="2">
     <div class="row">
+        {volist name="readerreadlast_list" id="readerreadlastlist"}
         <div class="col-xs-12 pad_top pad_bot">
             <div class="row">
                 <div class="col-xs-12 no_rpad">
@@ -76,39 +61,20 @@
                         <input type="checkbox" />
                     </div>
                     <div>
-                        <img src="img/111.jpg" />
+                        <img src="{$readerreadlastlist->picture}" alt="图片资源丢失" />
                     </div>
                     <div class=" MyBookIn">
-                        <p class="firP">你看什么书 <i class="iconfont icon-tuijian"> </i></p>
-                        <p class="huip"><i class="iconfont icon-yonghu"></i> <span>清酒半壶</span> | <span>已看到第一章</span></p>
-                        <p class="huip"><i class="iconfont icon-dian"></i><span>更新至 第143章 大结局</span><span>(全书完)</span></p>
+                        <p class="firP">{$readerreadlastlist->title} <i class="iconfont icon-tuijian"> </i></p>
+                        <p class="huip"><i class="iconfont icon-yonghu"></i> <span>{$readerreadlastlist->author_name}</span> | <span>已看到第{$readerreadlastlist->order_nums}章</span></p>
+                        <p class="huip"><i class="iconfont icon-dian"></i><span>更新至 第{$readerreadlastlist->order_num}章 {$readerreadlastlist->name}</span><span>{if condition="$readerreadlastlist->status eq 1"}(全书完){/if}</span></p>
                     </div>
                 </div>
                 <div class="col-xs-3 padLeft0 text-right">
-                    <p class="huip">继续阅读</p>
+                    <a href="{:url('index/book_detail',array('book_id'=>$readerreadlastlist->id))}"><p class="huip">继续阅读</p></a>
                 </div>
             </div>
         </div>
-        <div class="col-xs-12 pad_top pad_bot">
-            <div class="row">
-                <div class="col-xs-12 no_rpad">
-                    <div class="">
-                        <input type="checkbox" />
-                    </div>
-                    <div>
-                        <img src="img/111.jpg" />
-                    </div>
-                    <div class=" MyBookIn">
-                        <p class="firP">你看什么书 <i class="iconfont icon-tuijian"> </i></p>
-                        <p class="huip"><i class="iconfont icon-yonghu"></i> <span>清酒半壶</span> | <span>尚未阅读</span></p>
-                        <p class="huip"><i class="iconfont icon-dian"></i><span>更新至 第143章 大结局</span><span>(全书完)</span></p>
-                    </div>
-                </div>
-                <div class="col-xs-3 padLeft0 text-right">
-                    <p class="huip">继续阅读</p>
-                </div>
-            </div>
-        </div>
+        {/volist}
     </div>
 </div>
 <!--我的书签-->
