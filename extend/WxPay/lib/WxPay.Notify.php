@@ -28,9 +28,9 @@ class WxPayNotify extends WxPayNotifyReply
 		}
 		$this->ReplyNotify($needSign);
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * 回调方法入口，子类可重写该方法
 	 * 注意：
 	 * 1、微信回调超时时间为2s，建议用户使用异步处理流程，确认成功之后立刻回复微信服务器
@@ -75,7 +75,7 @@ class WxPayNotify extends WxPayNotifyReply
 	{
 		//如果需要签名
 		if($needSign == true && 
-			$this->GetReturn_code($return_code) == "SUCCESS")
+			$this->GetReturn_code() == "SUCCESS")
 		{
 			$this->SetSign();
 		}

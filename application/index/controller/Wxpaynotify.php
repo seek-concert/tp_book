@@ -12,6 +12,7 @@ ini_set('date.timezone','Asia/Shanghai');
 Loader::import('WxPay.lib.WxPay#Config');
 Loader::import('WxPay.lib.WxPay#Api');
 Loader::import('WxPay.lib.WxPay#JsApiPay');
+Loader::import('WxPay.lib.WxPay#Notify');
 
 class Wxpaynotify extends \WxPayNotify
 {
@@ -50,11 +51,28 @@ class Wxpaynotify extends \WxPayNotify
            $total_fee = $data['total_fee'];    //付款金额*/
         $res=db('recharge_orders')->where('orders_no',$data['out_trade_no'])->update([
             'trade_no'=>$data["transaction_id"],
-            'pay_num'=>$data["total_fee"],
+            'pay_num'=>$data["total_fee"]/100,
             'result_code'=>$data["result_code"],
             'finished_at'=>time(),
         ]);
 
         return true;
+    }
+
+    //查询订单
+    public function Queryorder($transaction_id)
+    {
+        $input = new \WxPayOrderQuery();
+        $input->SetTransaction_id($transaction_id);
+        $result = \WxPayApi::orderQuery($input);
+
+        if(array_key_exists("return_code", $result)
+            && array_key_exists("result_code", $result)
+            && $result["return_code"] == "SUCCESS"
+            && $result["result_code"] == "SUCCESS")
+        {
+            return true;
+        }
+        return false;
     }
 }
