@@ -5,10 +5,10 @@ $(window).scroll(function() {
 	} else {
 		$(".toTop").fadeOut(300);
 	}
-})
+});
 $(".toTop").click(function(){
 	$("body,html").animate({scrollTop: 0},600);
-})
+});
 //+++++++++++++++++++++++++分类列表页面中的js++++++++++++++++++++++++++++++++++++++++
 function classiFication() {
 	$("#listCon>span:gt(3)").css("display", "none")
@@ -142,9 +142,9 @@ function getMore(num) {
 function bookShelf(){
 	$("[la]").click(function(){
 		$(this).addClass("on").siblings().removeClass("on");
-		$("[lay]").css("display","none")
+		$("[lay]").css("display","none");
 		$("[lay="+$(this).attr('la')+"]").css("display",'block');
-	})
+	});
 	
 	//编辑
 	$("#edit").click(function(){
@@ -152,7 +152,7 @@ function bookShelf(){
 		$(".delBtn,.cancelBtn").css("display","inline-block");
 		$(".inputDiv").css("display","inline-block");
 		
-	})
+	});
 	
 	//完成
 	$("#cancelBtn").click(function(){
@@ -170,22 +170,26 @@ function bookShelf(){
 //**************************图书内容页面*********************************
 function content(){
 	var numn=0;
-	$("#content").css("width",$(window).width()*$("#content>div").length+"px")
-	$("#content>div").css("width",$(window).width()+"px")
+	$("#content").css("width",$(window).width()*$("#content>div").length+"px");
+    $("#content>div,#ab").css("width",$(window).width()+"px");
 	//右翻
 	$(".conRight").click(function(){
 		numn++;
 		if(numn >= $("#content>div").length){
 			layer.msg("正在加载为您下一章，请稍等");
+            numn=$("#content>div").length-1;
 			return false;
 		}else{
+            if(numn == 1) {
+                $(".layui-layer-msg").css("display", "none");
+            }
 		$("#content>div").eq(numn-1).animate({marginLeft:-$(window).width()+"px"},600);
 		}
 		return numn;
-	})
+	});
 	//左翻
 	$(".conLeft").click(function(){
-		console.log(numn)
+		console.log(numn);
 		if(numn <= 0){
 			layer.msg("此处已经是第一章了");
 			numn = 0;
@@ -195,37 +199,39 @@ function content(){
 			$("#content>div").eq(numn-1).fadeIn()
 		});
 		$("#content>div").eq(numn-1).animate({marginLeft:"0px"});
-		numn --;
-		
+			if(numn == $("#content>div").length - 1) {
+				$(".layui-layer-msg").css("display", "none");
+			}
+			numn--;
 		}
-	})
+	});
 	
 	
 	//点击中间出现 头部和底部	
 	$(".conCenter").click(function(){
 		$(".conFooter,.conHead").slideToggle(300);
-	})
+	});
 	
 	//li背景
 	$(".conList li").click(function(){
 		$(this).addClass("on").siblings().removeClass("on");
-	})
+	});
 	//打开目录
 	$(".openList").click(function(){
 		$(".contentList").fadeIn();
-	})
+	});
 	
 	$("[lm]").click(function(){
 		$(".contentList").fadeOut();
 		$(".conFooter,.conHead").slideToggle(300);
-	})
+	});
 	
 	//日间和夜间模式切换
 	$("[lb]").click(function(){
 		$(this).css("display","none").siblings("[lb]").css("display","block");
 		$("body").addClass("moshi"+$(this).attr("lb")).removeClass("moshi"+$(this).siblings("[lb]").attr("lb"));
 		$(".conFooter,.conHead").slideToggle(300);
-	})
+	});
 	
 	//添加标签
 	$(".addFlag").click(function(){
@@ -235,11 +241,11 @@ function content(){
 //****************************个人中心**************************************
 function mine(){
 	$("#vip").click(function(){
-		console.log(1)
+		console.log(1);
 		$(".openVip").fadeIn(200,function(){
 			$(".openVip>div").slideDown(400);
 		});
-	})
+	});
 	$(".closeOPen").click(function(){
 		$(".openVip").fadeOut(200);
 		$(".openVip>div").css("display","none")
