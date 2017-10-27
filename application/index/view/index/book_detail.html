@@ -75,9 +75,9 @@
     <div class="row clearfix bg_white mar_top">
         <div class="col-xs-12 gussname">
             <span>喜欢这本书的人还喜欢</span>
-            <span>换一批</span>
+            <span class="replace_book">换一批</span>
         </div>
-        <div class="col-xs-12 gusscon">
+        <div class="col-xs-12 gusscon  love_book">
             {volist name="like_book" id="likebook"}
             <div>
                 <a href="{:url('index/book_detail',array('book_id'=>$likebook->id))}" style="color: #0a0a0a;">
@@ -94,6 +94,38 @@
 {include file="public/foot"/}
 <script src="__STATIC__/system/js/ajax-submit.js" type="text/javascript" charset="utf-8"></script>
 <script src="__STATIC__/system/layer/layer.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    var num = 0;
+    $(".replace_book").click(function(){
+        num++;
+        $.ajax({
+            url:"{:url('index/replace_books')}",
+            data:{ 'num':num,'book_id':"{:isset($book_info)?$book_info->id:''}"},
+            type:'POST',
+            dataType:'JSON',
+            success:function (data) {
+                console.log(data);
+                if(data.code==1){
+                    $(".love_book").html("");
+                    for(var i =0;i<data.data['length'];i++){
+                        $(".love_book").append("<div><a  href=\"{:url('index/book_detail',array('book_id'=>"+data.data[i]['id']+"))}\"  style=\"color: #0a0a0a;\">\n" +
+                            "            <img src='"+data.data[i]['picture']+"' />\n" +
+                            "            <p>"+data.data[i]['title']+"</p>\n" +
+                            "        </a></div>");
+                    }
+                }
+                if(data.code==0){
+                    $(".love_book").html("");
+                    $(".love_book").append('{volist name="like_book" id="likebook"}<div><a  style="color: #0a0a0a;"  href="{:url(\'index/book_detail\',array(\'book_id\'=>$likebook[\'id\']))}"><img src="{$likebook->picture}"/> <p>{$likebook->title}</p></a></div>{/volist}');
+                    num = 0;
+                }
+            },
+            error:function () {
+                layer.msg('数据错误');
+            }
+        })
+    });
+</script>
 </body>
 
 </html>

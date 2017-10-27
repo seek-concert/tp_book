@@ -4,7 +4,9 @@
  * |------------------------------------------------------
  * |
  * | 首页
+ * | 首页（换一批）
  * | 小说详情
+ * | 小说详情（换一批）
  * | 小说目录
  * | 搜索列表页
  * | 小说内容
@@ -75,10 +77,11 @@ class Index extends Auth
             $cate_count = array_count_values($cate_ids);
             $cate_id = array_search(max($cate_count),$cate_count);
             $like_book = model('books')
+                ->field(['id','title','picture'])
                 ->where('cate_id',$cate_id)
                 ->where('online',1)
                 ->limit($data_setting['guess'])
-                ->column('id,title,picture');
+                ->select();
         }else{
             $like_book = [];
         }
@@ -98,6 +101,39 @@ class Index extends Auth
         $datas['qr_code'] = $qr_code;
         $this->assign($datas);
         return view();
+    }
+
+    /* ============ 首页换一批 ============== */
+    public function replace_book(){
+        $data_setting = db('data_setting')->find();
+        $datas['data_setting'] = $data_setting;
+        /*+++++ 猜你喜欢(换一批) +++++*/
+//        $reader_id = $this->reader['id'];
+        $reader_id = 1;
+        $book_ids = db('reader_bookshelf')
+            ->where('reader_id',$reader_id)
+            ->column('book_id');
+        $cate_ids = db('book')
+            ->where('id','in',$book_ids)
+            ->column('cate_id');
+        if($cate_ids){
+            $cate_count = array_count_values($cate_ids);
+            $cate_id = array_search(max($cate_count),$cate_count);
+            $like_book = model('books')
+                ->field(['id','title','picture'])
+                ->where('cate_id',$cate_id)
+                ->where('online',1)
+                ->limit($data_setting['guess']*input('num'),$data_setting['guess'])
+                ->select();
+        }else{
+            $like_book = [];
+        }
+        if($like_book){
+            return $this->success('获取成功','',$like_book);
+        }else{
+            return $this->error('没有了！');
+        }
+
     }
 
     /* ============ 小说详情 ============== */
@@ -157,6 +193,28 @@ class Index extends Auth
         $datas['like_book'] = $like_book;
         $this->assign($datas);
         return view();
+    }
+
+    /* ============ 书籍详情（换一批） ============== */
+    public function replace_books(){
+      $book_id = input('book_id');
+        /*+++++ 本书籍相同类型书籍(换一批) +++++*/
+        $cate_id = db('book')
+            ->where('id',$book_id)
+            ->column('cate_id');
+        $like_book = model('books')
+            ->field(['id','title','picture'])
+            ->where('cate_id',$cate_id[0])
+            ->where('online',1)
+            ->limit(3*input('num'),3)
+            ->select();
+        $datas['like_book'] = $like_book;
+        if($like_book){
+            return $this->success('获取成功','',$like_book);
+        }else{
+            return $this->error('没有了！');
+        }
+
     }
 
     /* ============ 小说目录 ============== */

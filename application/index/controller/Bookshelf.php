@@ -29,6 +29,7 @@ class Bookshelf extends Auth
             ->join('book_content c','b.edited_at = c.edited_at','left')
             ->join('book_content d','s.content_id = d.id','left')
             ->where('reader_id',$reader_id)
+            ->order('s.updated_at desc')
             ->select();
         $datas['bookshelf_list'] = $bookshelf_list;
         $bookshelf_count =count($bookshelf_list);
@@ -42,6 +43,7 @@ class Bookshelf extends Auth
             ->join('book_content c','b.edited_at = c.edited_at','left')
             ->join('book_content d','s.content_id = d.id','left')
             ->where('reader_id',$reader_id)
+            ->order('s.updated_at desc')
             ->select();
         $datas['readerreadlast_list'] = $readerreadlast_list;
         /*+++++ 我的书签 +++++*/
@@ -51,6 +53,7 @@ class Bookshelf extends Auth
             ->join('book b','s.book_id = b.id','left')
             ->join('book_content d','s.content_id = d.id','left')
             ->where('reader_id',$reader_id)
+            ->order('s.updated_at desc')
             ->select();
         $datas['readerbookmark_list'] = $readerbookmark_list;
 
@@ -107,7 +110,6 @@ class Bookshelf extends Auth
         //        $reader_id = $this->reader['id'];
         $reader_id=1;
         $select_bookshelf = model('Readbookshelf')
-            ->fetchSql(true)
             ->where('book_id',$book_id)
             ->where('reader_id',$reader_id)
             ->select();

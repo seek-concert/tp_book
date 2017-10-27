@@ -69,14 +69,14 @@
     </div>
 </div>
 
-<!--三张图一起-->
+<!--三张图一起(主编推荐)-->
 <div class="container bg_white aa mar_top">
     <div class="row clearfix bg_white ">
         <div class="col-xs-6 column main_recommend">
             <p>主编推荐</p>
         </div>
         <div class="col-xs-6 column three_circl main_recommend">
-            <span  class="pull-right" style="color: #ccc;">更多<i class="iconfont icon-gengduo"></i></span>
+            <a href="{:url('morelist/type_list',array('type'=>'is_recommend'))}"><span  class="pull-right" style="color: #ccc;">更多<i class="iconfont icon-gengduo"></i></span></a>
         </div>
     </div>
     <div id="a" class="banner3">
@@ -99,7 +99,7 @@
             <span class="pull-left" style="color: #999;">热门小说</span>
         </div>
         <div class="col-xs-6 column">
-            <span class="pull-right">更多<i class="iconfont icon-gengduo"></i></span>
+            <a href="{:url('morelist/type_list',array('type'=>'is_hot'))}"><span class="pull-right">更多<i class="iconfont icon-gengduo"></i></span></a>
         </div>
     </div>
     {volist name='is_hot' id='ishot'}
@@ -129,7 +129,7 @@
             <span class="pull-left" style="color: #999;">新书推荐</span>
         </div>
         <div class="col-xs-6 column">
-            <span class="pull-right">更多<i class="iconfont icon-gengduo"></i></span>
+            <a href="{:url('morelist/type_list',array('type'=>'newbook'))}"><span class="pull-right">更多<i class="iconfont icon-gengduo"></i></span></a>
         </div>
     </div>
     <div class="row clearfix bg_white">
@@ -204,13 +204,13 @@
             <p>猜你喜欢</p>
         </div>
         <div class="col-xs-8 column three_circl main_recommend">
-            <div>
+            <div class="replace_book">
                 <p style="color:#ccc;"><i class="iconfont icon-shuaxin" style="background: none;color:#ccc;"></i>换一批</p>
             </div>
         </div>
     </div>
-    <div class="changmore bg_white" style="width: 100%;">
-        {volist name='like_book' id='likebook'}
+    <div class="changmore bg_white love_book" style="width: 100%;">
+        {volist name="like_book" id="likebook"}
         <a  href="{:url('index/book_detail',array('book_id'=>$likebook['id']))}">
             <img src="{:isset($likebook)?$likebook['picture']:''}" />
             <p>{:isset($likebook)?$likebook['title']:''}</p>
@@ -271,8 +271,8 @@
 <script src="__STATIC__/system/layer/layer.js" type="text/javascript" charset="utf-8"></script>
 <script>
         indexjs();
-        $(".bannnerduo").css("width", $(".bannnerduo div").length / 3 * $("#a").width() + "px")
-        $(".bannnerduo div").css("width", $("#a").width() / 3 + "px")
+        $(".bannnerduo").css("width", $(".bannnerduo div").length / 3 * $("#a").width() + "px");
+        $(".bannnerduo div").css("width", $("#a").width() / 3 + "px");
         var dd = new Date();
         dd.setDate(dd.getDate()+1);//获取明天的日期
         var y = dd.getFullYear(); //年份
@@ -286,7 +286,38 @@
             var search_url = "{:url('index/search_list')}"+"?title="+title;
             $(".search_title").attr('href',search_url);
         });
-    </script>
+
+        var num = 0;
+        $(".replace_book").click(function(){
+            num++;
+            $.ajax({
+                url:"{:url('index/replace_book')}",
+                data:{ 'num':num},
+                type:'POST',
+                dataType:'JSON',
+                success:function (data) {
+                    console.log(data);
+                    if(data.code==1){
+                        $(".love_book").find("a").remove();
+                        for(var i =0;i<data.data['length'];i++){
+                            $(".love_book").append("<a  href=\"{:url('index/book_detail',array('book_id'=>"+data.data[i]['id']+"))}\">\n" +
+                                "            <img src='"+data.data[i]['picture']+"' />\n" +
+                                "            <p>"+data.data[i]['title']+"</p>\n" +
+                                "        </a>");
+                        }
+                    }
+                    if(data.code==0){
+                        $(".love_book").find("a").remove();
+                        $(".love_book").append('{volist name="like_book" id="likebook"}<a  href="{:url(\'index/book_detail\',array(\'book_id\'=>$likebook[\'id\']))}"><img src="{$likebook->picture}"/> <p>{$likebook->title}</p></a>{/volist}');
+                        num = 0;
+                    }
+                },
+                error:function () {
+                    layer.msg('数据错误');
+                }
+            })
+        });
+</script>
 
 </body>
 </html>
