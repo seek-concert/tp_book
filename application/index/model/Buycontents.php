@@ -1,19 +1,15 @@
 <?php
 /* |------------------------------------------------------
- * | 读者书签管理模型
+ * | 购买章节记录管理模型
  * |------------------------------------------------------
  * */
 namespace app\index\model;
 use think\Model;
 
-class Readerbookmark extends Model
+class Buycontents extends Model
 {
-    protected $table = 'reader_bookmark';
+    protected $table = 'buy_content';
     protected $createTime = 'created_at';
-    protected $updateTime = 'updated_at';
     protected $autoWriteTimestamp = true;
     protected $field = true;
-    protected $type = [
-        'read_at'  =>  'timestamp'
-    ];
 }

@@ -5,13 +5,13 @@ $(window).scroll(function() {
     } else {
         $(".toTop").fadeOut(300);
     }
-})
+});
 $(".toTop").click(function(){
     $("body,html").animate({scrollTop: 0},600);
-})
+});
 //+++++++++++++++++++++++++分类列表页面中的js++++++++++++++++++++++++++++++++++++++++
 function classiFication() {
-    $("#listCon>span:gt(3)").css("display", "none")
+    $("#listCon>span:gt(3)").css("display", "none");
     $("#openlist").click(function() {
         $("#listCon>span:gt(3)").toggle();
     });
@@ -63,7 +63,7 @@ function recharge() {
         if($(this).children('p.topP').html() == '' || $(this).children('p.topP').html() == undefined) {
             $(this).children("p.topBi").css("padding-top", "30px")
         }
-    })
+    });
     $(".recharge>div>div").click(function() {
         $(this).children("div").addClass("on");
         $(this).parent("div").siblings().children("div").children("div").removeClass("on")
@@ -72,7 +72,7 @@ function recharge() {
 
 //**************活动结束倒计时*****************************
 function ShowCountDown(year, month, day, divname) {
-    console.log(month)
+    console.log(month);
     var now = new Date();
     var endDate = new Date(year, month-1, day);
     var leftTime = endDate.getTime() - now.getTime();
@@ -142,9 +142,9 @@ function getMore(num) {
 function bookShelf(){
     $("[la]").click(function(){
         $(this).addClass("on").siblings().removeClass("on");
-        $("[lay]").css("display","none")
+        $("[lay]").css("display","none");
         $("[lay="+$(this).attr('la')+"]").css("display",'block');
-    })
+    });
 
     //编辑
     $("#edit").click(function(){
@@ -152,7 +152,7 @@ function bookShelf(){
         $(".delBtn,.cancelBtn").css("display","inline-block");
         $(".inputDiv").css("display","inline-block");
 
-    })
+    });
 
     //完成
     $("#cancelBtn").click(function(){
@@ -183,6 +183,30 @@ function content(){
             layer.msg("努力加载中...");
             numn = leng-1;
             $("#content>div").css("top",-$("#content").height()*numn+"px");
+            var order_num  = parseInt(order_nums)+1;
+            var data = {
+                'order_num':order_num,
+                'book_id':book_id
+            };
+            $.ajax({
+                url:order_nums_url,
+                data:data,
+                type:'POST',
+                dataType:'JSON',
+                success:function (data) {
+                    console.log(data);
+                    if(data.code==1){
+                        layer.msg(data.msg);
+                        location.href=data.url+"?id="+data.data;
+                    }
+                    if(data.code==0){
+                        layer.msg(data.msg);
+                    }
+                },
+                error:function () {
+                    layer.msg('数据错误');
+                }
+            })
         }else{
             if(numn == 1) {
                 $(".layui-layer-msg").css("display", "none");
@@ -191,13 +215,13 @@ function content(){
             $("#content>div").animate({"left":"0px"},600)
         }
         return numn;
-    })
+    });
     //左翻
     $(".conLeft").click(function() {
         numn--;
         console.log(numn);
         if(numn < 0){
-            layer.msg("已是第一页")
+            layer.msg("已是第一页");
             numn = 0;
             $("#content>div").css({"left":"0px","top":-$("#content").height()*numn+"px"});
             return false;
@@ -209,47 +233,69 @@ function content(){
             $("#content>div").animate({"left":"0px"},600);
         }
 
-    })
+    });
 
     //点击中间出现 头部和底部
     $(".conCenter").click(function(){
         $(".conFooter,.conHead").slideToggle(300);
-    })
+    });
 
     //li背景
     $(".conList li").click(function(){
         $(this).addClass("on").siblings().removeClass("on");
-    })
+    });
     //打开目录
     $(".openList").click(function(){
         $(".contentList").fadeIn();
-    })
+    });
 
     $("[lm]").click(function(){
         $(".contentList").fadeOut();
         $(".conFooter,.conHead").slideToggle(300);
-    })
+    });
 
     //日间和夜间模式切换
     $("[lb]").click(function(){
         $(this).css("display","none").siblings("[lb]").css("display","block");
         $("body").addClass("moshi"+$(this).attr("lb")).removeClass("moshi"+$(this).siblings("[lb]").attr("lb"));
         $(".conFooter,.conHead").slideToggle(300);
-    })
+    });
 
     //添加标签
     $(".addFlag").click(function(){
-        layer.msg("添加书签成功")
+        // layer.msg("添加书签成功");
+        var data = {
+            'order_num':order_nums,
+            'book_id':book_id
+        };
+        $.ajax({
+            url:addFlags_url,
+            data:data,
+            type:'POST',
+            dataType:'JSON',
+            success:function (data) {
+                console.log(data);
+                if(data.code==1){
+                    layer.msg(data.msg);
+                }
+                if(data.code==0){
+                    layer.msg(data.msg);
+                }
+            },
+            error:function () {
+                layer.msg('数据错误');
+            }
+        })
     })
 }
 //****************************个人中心**************************************
 function mine(){
     $("#vip").click(function(){
-        console.log(1)
+        console.log(1);
         $(".openVip").fadeIn(200,function(){
             $(".openVip>div").slideDown(400);
         });
-    })
+    });
     $(".closeOPen").click(function(){
         $(".openVip").fadeOut(200);
         $(".openVip>div").css("display","none")

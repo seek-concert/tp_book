@@ -9,10 +9,16 @@
  * | 小说详情（换一批）
  * | 小说目录
  * | 搜索列表页
+ * | 小说收费
  * | 小说内容
+ * | 添加书签
  * */
 
 namespace app\index\controller;
+
+use app\index\model\Bookcontents;
+use app\index\model\Books;
+use think\Db;
 
 class Index extends Auth
 {
@@ -172,13 +178,13 @@ class Index extends Auth
                   ->where('reader_id',$reader_id)
                   ->find();
        if($readerreadlast){
-           $bookcontent_url = url("index/book_contents",array('book_id'=>$book_id,'content_id'=>$readerreadlast->content_id));
+           $bookcontent_id = $readerreadlast->content_id;
            $url_type = 1;
        }else{
-           $bookcontent_url = url("index/book_contents",array('book_id'=>$book_id));
+           $bookcontent_id = '';
            $url_type = 0;
        }
-       $datas['bookcontent_url'] = $bookcontent_url;
+       $datas['bookcontent_id'] = $bookcontent_id;
        $datas['url_type'] = $url_type;
         /*+++++ 猜你喜欢 +++++*/
         $cate_id = db('book')
@@ -289,8 +295,248 @@ class Index extends Auth
         return view();
     }
 
+    /* ============ 小说收费 ============== */
+    public function bookstatus(){
+        /*+++++ 小说是否存在 +++++*/
+        $book_id = input('book_id');
+        if(empty($book_id)){
+            $this->error('非法操作','');
+        }
+        /*+++++ 章节号是否存在(存在就取出小说内容表ID)【是否通过点击开始阅读进入】 +++++*/
+        $order_num = input('order_num');
+        if($order_num){
+            $content_id = db('book_content')
+                ->where('book_id',$book_id)
+                ->where('order_num',$order_num)
+                ->column('id');
+        }else{
+            $content_id = input('content_id');
+        }
+        /*---------查询章节信息-------*/
+        if($order_num){
+            $bookcontent_price = db('book_content')
+                ->field(['id','price'])
+                ->where('book_id',$book_id)
+                ->where('order_num',$order_num)
+                ->find();
+        }else{
+            $bookcontent_price = db('book_content')
+                ->field(['id','price'])
+                ->where('book_id',$book_id)
+                ->where('order_num',1)
+                ->find();
+        }
+        /*+++++ 当前账号是否为会员 +++++*/
+        //        $reader_id = $this->reader['id'];
+        $reader_id = 1;
+        $reader_vip = model('Readers')
+            ->where('id',$reader_id)
+            ->column('vip_end');
+        $now_time = strtotime(date('Y-m-d H:i:s'));
+        /*---------查询小说免费状态与免费限时时间-------*/
+        $free_status = model('books')
+            ->field(['free_status','free_start','free_end'])
+            ->where('id',$book_id)
+            ->find();
+        /*+++++ 当前账号不为会员或者会员过期,就执行扣费 +++++*/
+        if(empty($reader_vip)||$reader_vip[0]<$now_time){
+            /*---------++++++当小说为 限时免费时++++++-------*/
+            if($free_status['free_status']==1){
+                /*+++++ 今天是否限时免费 +++++*/
+                $freestart = strtotime(date('Y-m-d')." 00:00:00");
+                $freeend = strtotime(date('Y-m-d')." 23:59:59");
+                $time_free = model('books')
+                    ->where('free_start','<=',$freestart)
+                    ->where('free_end','>=',$freeend)
+                    ->where('id',$book_id)
+                    ->count();
+                /*+++++ 如果超过限时免费时间,开始扣费 +++++*/
+                if($time_free==0){
+                    /*---------如果为收费章节-------*/
+                    if($bookcontent_price['price']!=0){
+                        $buy_content = db('buy_content')
+                                    ->where('book_id',$book_id)
+                                    ->where('reader_id',$reader_id)
+                                    ->where('content_id',$bookcontent_price['id'])
+                                    ->count();
+                        if($buy_content==0){
+                            $book_money =db('reader')
+                                ->field(['book_money'])
+                                ->where('id',$reader_id)
+                                ->find();
+                            if($book_money['book_money']>=$bookcontent_price['price']){
+                               /*---开启事务---*/
+                                Db::startTrans();
+                                try{
+                                    /*---------查询章节价格-------*/
+                                    if($order_num){
+                                        $bookcontent_price = db('book_content')
+                                            ->field(['id','price'])
+                                            ->where('book_id',$book_id)
+                                            ->where('order_num',$order_num)
+                                            ->find();
+                                    }else{
+                                        $bookcontent_price = db('book_content')
+                                            ->field(['id','price'])
+                                            ->where('book_id',$book_id)
+                                            ->where('order_num',1)
+                                            ->find();
+                                    }
+                                    $book_model = new Books;
+                                    $bookcontent_model = new Bookcontents;
+                                    /*---扣费---*/
+                                    model('Readers')->save(['book_money'=>$book_money['book_money']-$bookcontent_price['price']],['id'=>$reader_id]);
+                                    /*--- 添加购买章节 ---*/
+                                    model('Buycontents')->save(['book_id'=>$book_id,'reader_id'=>$reader_id,'content_id'=>$bookcontent_price['id']]);
+                                    /*+++ 查询书籍信息 +++*/
+                                    $book_info = $book_model->field(['click_num','buy_num'])->where('id',$book_id)->find();
+                                    $bookcontent_info = $bookcontent_model->field(['click_num','buy_num'])->where('id',$bookcontent_price['id'])->find();
+                                    /*--- 修改购买量 ---*/
+                                    $book_model->save(['buy_num'=>$book_info['buy_num']+1],['id'=>$book_id]);
+                                    $rs = $bookcontent_model->save(['buy_num'=>$bookcontent_info['buy_num']+1],['id'=>$bookcontent_price['id']]);
+                                    Db::commit();
+                                } catch (\Exception $e) {
+                                    $rs = '';
+                                    Db::rollback();
+                                }
+                                if(!$rs){
+                                    return $this->error('数据错误','');
+                                }
+                            }else{
+                                return $this->error('余额不足,自动支付失败！','');
+                            }
+                        }
+                    }
+                }
+            }
+            /*---------++++++当小说为 收费时++++++-------*/
+            if($free_status['free_status']==0){
+                /*---------账户扣费-------*/
+                if($bookcontent_price['price']!=0){
+                    $buy_content = db('buy_content')
+                        ->where('book_id',$book_id)
+                        ->where('reader_id',$reader_id)
+                        ->where('content_id',$bookcontent_price['id'])
+                        ->count();
+                    if($buy_content==0) {
+                        $book_money = db('reader')
+                            ->field(['book_money'])
+                            ->where('id', $reader_id)
+                            ->find();
+                        if ($book_money['book_money'] >= $bookcontent_price['price']) {
+                            /*---开启事务---*/
+                            Db::startTrans();
+                            try{
+                                /*---------查询章节价格-------*/
+                                if($order_num){
+                                    $bookcontent_price = db('book_content')
+                                        ->field(['id','price'])
+                                        ->where('book_id',$book_id)
+                                        ->where('order_num',$order_num)
+                                        ->find();
+                                }else{
+                                    $bookcontent_price = db('book_content')
+                                        ->field(['id','price'])
+                                        ->where('book_id',$book_id)
+                                        ->where('order_num',1)
+                                        ->find();
+                                }
+                                $book_model = new Books;
+                                $bookcontent_model = new Bookcontents;
+                                /*---扣费---*/
+                                model('Readers')->save(['book_money'=>$book_money['book_money']-$bookcontent_price['price']],['id'=>$reader_id]);
+                                /*--- 添加购买章节 ---*/
+                                model('Buycontents')->save(['book_id'=>$book_id,'reader_id'=>$reader_id,'content_id'=>$bookcontent_price['id']]);
+                                /*+++ 查询书籍信息 +++*/
+                                $book_info = $book_model->field(['click_num','buy_num'])->where('id',$book_id)->find();
+                                $bookcontent_info = $bookcontent_model->field(['click_num','buy_num'])->where('id',$bookcontent_price['id'])->find();
+                                /*--- 修改购买量 ---*/
+                                $book_model->save(['buy_num'=>$book_info['buy_num']+1],['id'=>$book_id]);
+                                $rs = $bookcontent_model->save(['buy_num'=>$bookcontent_info['buy_num']+1],['id'=>$bookcontent_price['id']]);
+                                Db::commit();
+                            } catch (\Exception $e) {
+                                $rs = '';
+                                Db::rollback();
+                            }
+                            if(!$rs){
+                                return $this->error('数据错误','');
+                            }
+                        } else {
+                            return $this->error('余额不足,自动支付失败！', '');
+                        }
+                    }
+                }
+            }
+        }
+        /*+++ 查询书籍信息 +++*/
+        $book_infos = model('Books')->field(['click_num','buy_num'])->where('id',$book_id)->find();
+        $bookcontent_infos = model('Bookcontents')->field(['click_num','buy_num'])->where('id',$bookcontent_price['id'])->find();
+        /*--- 修改点击量 ---*/
+        model('Books')->save(['click_num'=>$book_infos['click_num']+1],['id'=>$book_id]);
+        model('Bookcontents')->save(['click_num'=>$bookcontent_infos['click_num']+1],['id'=>$bookcontent_price['id']]);
+
+
+        /*+++++ 查询是否有数据(最近阅读表) +++++*/
+        $readerreadlast = model('Readerreadlast')
+            ->field('content_id')
+            ->where('book_id',$book_id)
+            ->where('reader_id',$reader_id)
+            ->find();
+        if($readerreadlast){
+            /*+++++ 如果阅读过该小说，就修改章节(最近阅读表) +++++*/
+            if($content_id){
+                  $save_content_id = model('Readerreadlast')->save(['content_id'=>$bookcontent_price['id'],'read_at'=>time()],['book_id'=>$book_id,'reader_id'=>$reader_id]);
+            }else{
+                $bookcontent_id = db('book_content')
+                    ->where('book_id',$book_id)
+                    ->where('order_num','1')
+                    ->column('id');
+                $save_content_id = model('Readerreadlast')->save(['content_id'=>$bookcontent_id[0],'read_at'=>time()],['book_id'=>$book_id,'reader_id'=>$reader_id]);
+            }
+        }else{
+            /*+++++ 如果没阅读过该小说，就添加数据(最近阅读表) +++++*/
+            $save_content_id = model('Readerreadlast')->save(['content_id'=>$bookcontent_price['id'],'book_id'=>$book_id,'reader_id'=>$reader_id,'read_at'=>time()]);
+        }
+
+        if(!$save_content_id){
+            return $this->error('数据错误','');
+        }
+        return $this->success('加载成功',url('index/book_contents'),$bookcontent_price['id']);
+    }
+
     /* ============ 小说内容 ============== */
     public function book_contents(){
+        $id = input('id');
+        $content_info = db('book_content')
+            ->field('id,book_id,order_num,name,content')
+            ->where('id',$id)
+            ->find();
+        $this->assign('content_info',$content_info);
+        $content_name = model('Bookcontents')
+            ->field('id,book_id,order_num,name')
+            ->where('book_id',$content_info['book_id'])
+            ->select();
+       $this->assign('content_name',$content_name);
         return view();
+    }
+
+    /* ============ 添加书签 ============== */
+    public function add_flag(){
+        $book_id = input('book_id');
+        $order_num = input('order_num');
+        $bookcontent_id = db('book_content')
+            ->field(['id'])
+            ->where('book_id',$book_id)
+            ->where('order_num',$order_num)
+            ->find();
+        //        $reader_id = $this->reader['id'];
+        $reader_id = 1;
+        $save_flag = model('Readerbookmark')->save(['content_id'=>$bookcontent_id['id'],'book_id'=>$book_id,'reader_id'=>$reader_id,'read_at'=>time()]);
+        if($save_flag){
+            return $this->success('添加书签成功','');
+        }else{
+            return $this->error('添加书签失败','');
+        }
+
     }
 }
