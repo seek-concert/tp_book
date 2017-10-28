@@ -9,9 +9,11 @@ use think\Model;
 class Readerbookmark extends Model
 {
     protected $table = 'reader_bookmark';
+    protected $createTime = 'created_at';
+    protected $updateTime = 'updated_at';
+    protected $autoWriteTimestamp = true;
+    protected $field = true;
     protected $type = [
-        'created_at'  =>  'timestamp',
-        'updated_at'  =>  'timestamp',
         'read_at'  =>  'timestamp'
     ];
 }

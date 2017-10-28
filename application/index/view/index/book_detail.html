@@ -26,6 +26,8 @@
     </div>
 
     <!--BookInfo-->
+    <form action="" method="post"  id="js-ajax-form">
+        <input type="hidden" name="book_id" id="book_id" value="{:isset($book_info)?$book_info->id:''}">
     <div class="row bookInfo clearfix  bg_white">
         <div class="col-xs-3 column no_rpad">
             <img src="{:isset($book_info)?$book_info->picture:''}" />
@@ -40,14 +42,14 @@
                 <span>{:isset($book_info)?$book_info->type:''}</span>
             </p>
         </div>
-
     </div>
-    <div class="row clearfix bg_white	 bookwork text-center mar_top bor_bottom">
+    </form>
+    <div class="row clearfix bg_white bookwork text-center mar_top bor_bottom">
         <div class="col-xs-6 clearfix mar_top no_rpad">
-            <a class="beginLook">开始阅读</a>
+            <a class="beginLook read_book">{if condition="$url_type eq 0"}开始阅读{else/}继续阅读{/if}</a>
         </div>
         <div class="col-xs-6 clearfix text-center mar_top no_lpad">
-            <a class="addBook">加入书架</a>
+            <a class="addBook js-ajax-form-btn" data-form="js-ajax-form" data-action="{:url('bookshelf/add_bookshelf')}">加入书架</a>
         </div>
         <div class="col-xs-12 text-left infoBo mar_top">
             <p>{:isset($book_info)?$book_info->summary:''}<i class="iconfont icon-iconfanning"></i></p>
@@ -73,9 +75,9 @@
     <div class="row clearfix bg_white mar_top">
         <div class="col-xs-12 gussname">
             <span>喜欢这本书的人还喜欢</span>
-            <span>换一批</span>
+            <span class="replace_book">换一批</span>
         </div>
-        <div class="col-xs-12 gusscon">
+        <div class="col-xs-12 gusscon  love_book">
             {volist name="like_book" id="likebook"}
             <div>
                 <a href="{:url('index/book_detail',array('book_id'=>$likebook->id))}" style="color: #0a0a0a;">
@@ -89,7 +91,77 @@
 
 
 </div>
-
-</body>
 {include file="public/foot"/}
+<script src="__STATIC__/system/js/ajax-submit.js" type="text/javascript" charset="utf-8"></script>
+<script src="__STATIC__/system/layer/layer.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    var num = 0;
+    $(".replace_book").click(function(){
+        num++;
+        $.ajax({
+            url:"{:url('index/replace_books')}",
+            data:{ 'num':num,'book_id':"{:isset($book_info)?$book_info->id:''}"},
+            type:'POST',
+            dataType:'JSON',
+            success:function (data) {
+                console.log(data);
+                if(data.code==1){
+                    $(".love_book").html("");
+                    for(var i =0;i<data.data['length'];i++){
+                        $(".love_book").append("<div><a  href=\"{:url('index/book_detail',array('book_id'=>"+data.data[i]['id']+"))}\"  style=\"color: #0a0a0a;\">\n" +
+                            "            <img src='"+data.data[i]['picture']+"' />\n" +
+                            "            <p>"+data.data[i]['title']+"</p>\n" +
+                            "        </a></div>");
+                    }
+                }
+                if(data.code==0){
+                    $(".love_book").html("");
+                    $(".love_book").append('{volist name="like_book" id="likebook"}<div><a  style="color: #0a0a0a;"  href="{:url(\'index/book_detail\',array(\'book_id\'=>$likebook[\'id\']))}"><img src="{$likebook->picture}"/> <p>{$likebook->title}</p></a></div>{/volist}');
+                    num = 0;
+                }
+            },
+            error:function () {
+                layer.msg('数据错误');
+            }
+        })
+    });
+
+    $(".read_book").click(function(){
+
+        var bookcontent_id  = "{$bookcontent_id}";
+        var book_id = $("#book_id").val();
+        if(bookcontent_id){
+           var data = {
+                'content_id':bookcontent_id,
+                'book_id':book_id
+            }
+        }else{
+           var data = {
+                'book_id':book_id
+            }
+        }
+        $.ajax({
+            url:"{:url('index/bookstatus')}",
+            data:data,
+            type:'POST',
+            dataType:'JSON',
+            success:function (data) {
+                console.log(data);
+                if(data.code==1){
+                    layer.msg(data.msg);
+                    location.href=data.url+"?id="+data.data;
+                }
+                if(data.code==0){
+                    layer.msg(data.msg);
+                }
+            },
+            error:function () {
+                layer.msg('数据错误');
+            }
+        })
+    });
+
+</script>
+</body>
+
 </html>

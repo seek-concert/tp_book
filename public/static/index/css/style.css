@@ -387,6 +387,7 @@ small {
 }
 .changmore img{
 	width: 90%;
+	height:146px;
 }
 /*++++++++++++++++++++++++++++分类列表++++++++++++++++++++++++++++++++*/
 .header{
@@ -986,11 +987,17 @@ small {
 }
 .content h3{
 	text-align: center;
+	margin: 0px;
+	line-height: 72px;
 }
 .content p{
 	text-indent: 30px;
 	font-size: 16px;
 	/*color: #5e432e;*/
+	margin: 0px !important;
+	line-height: 24px;
+
+
 }
 .cond{
 	position: fixed;
@@ -1071,6 +1078,13 @@ small {
 .conHead span{
 	display: inline-block;
 	line-height: 36px;
+}
+.conHead .back{
+	text-align: center;
+	margin-left: 10px !important;
+}
+.conHead a:hover{
+	text-decoration: none;
 }
 .conHead .back i{
 	font-size: 18px;

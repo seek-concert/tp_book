@@ -1,19 +1,15 @@
 <?php
 /* |------------------------------------------------------
- * | 读者书架管理模型
+ * | 购买章节记录管理模型
  * |------------------------------------------------------
  * */
 namespace app\index\model;
 use think\Model;
 
-class Readbookshelf extends Model
+class Buycontents extends Model
 {
-    protected $table = 'reader_bookshelf';
+    protected $table = 'buy_content';
     protected $createTime = 'created_at';
-    protected $updateTime = 'updated_at';
     protected $autoWriteTimestamp = true;
     protected $field = true;
-    protected $type = [
-        'read_at'  =>  'timestamp'
-    ];
 }

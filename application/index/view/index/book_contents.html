@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>图书内容页面</title>
+    {include file="public/head" /}
+    <link rel="stylesheet" href="http://at.alicdn.com/t/font_444045_1zwcgrg0o7qlg14i.css" />
+</head>
+
+<body style="overflow: hidden;height: 100%;background: #c1af95;">
+<div class="conLeft cond"></div>
+<div class="conRight cond"></div>
+<div class="conCenter cond"></div>
+<div style="overflow: hidden;position: relative;" id="content">
+    <div class="container content" style="width: 100%; position: absolute;top: 0px;left: 0px;">
+        <h3>第{:isset($content_info)?$content_info['order_num']:''}章  {:isset($content_info)?$content_info['name']:''}</h3>
+        {:isset($content_info)?$content_info['content']:''}
+    </div>
+
+</div>
+<!--***********头部和底部**************-->
+<div class="conHead">
+    <span class="back"><a href="{:url('index/book_detail',array('book_id'=>$content_info['book_id']))}"><i class="iconfont icon-iconfontjiantouzuo"></i></a></span><span>第{:isset($content_info)?$content_info['order_num']:''}章  {:isset($content_info)?$content_info['name']:''}</span>
+</div>
+<div class="conFooter">
+    <a class="openList">
+        <i class="iconfont icon-caidan"></i>
+        <p>目录</p>
+    </a>
+    <a lb="1">
+        <i class="iconfont icon-iconset0454"></i>
+        <p>夜间</p>
+    </a>
+    <a lb="2" style="display: none;">
+        <i class="iconfont icon-taiyang"></i>
+        <p>日间</p>
+    </a>
+    <a class="addFlag">
+        <i class="iconfont icon-shuqian"></i>
+        <p>书签</p>
+    </a>
+    <a href="{:url('index/index')}">
+        <i class="iconfont icon-sr-home"></i>
+        <p>首页</p>
+    </a>
+</div>
+
+<!--********************目录****************************-->
+<div class="contentList">
+    <i class="iconfont icon-iconfontjiantouzuo" lm></i>
+    <div class="conList">
+        <ul class="no_pad">
+            {volist name="content_name" id="contentname"}
+            <li class="on" onclick="readbooks(this)">
+                <input type="hidden" name="order_num" class="ordernum" value="{$contentname->order_num}">
+                <span>第{$contentname->order_num}章</span><span> {$contentname->name}</span>
+            </li>
+            {/volist}
+        </ul>
+    </div>
+</div>
+
+</body>
+<script type="text/javascript">
+   order_nums  = "{:isset($content_info)?$content_info['order_num']:''}";
+   order_nums_url = "{:url('index/bookstatus')}";
+    book_id = "{:isset($content_info)?$content_info['book_id']:''}";
+   addFlags_url = "{:url('index/add_flag')}";
+</script>
+{include file="public/foot"/}
+<script src="__STATIC__/index/layer/layer.js"></script>
+</html>
+<script type="text/javascript">
+    content();
+    function readbooks(obj) {
+        var ordernumss  = $(obj).find('.ordernum').val();
+        var data = {
+            'order_num':ordernumss,
+            'book_id':book_id
+        };
+        $.ajax({
+            url:order_nums_url,
+            data:data,
+            type:'POST',
+            dataType:'JSON',
+            success:function (data) {
+                console.log(data);
+                if(data.code==1){
+                    layer.msg(data.msg);
+                    location.href=data.url+"?id="+data.data;
+                }
+                if(data.code==0){
+                    layer.msg(data.msg);
+                }
+            },
+            error:function () {
+                layer.msg('数据错误');
+            }
+        })
+    }
+
+</script>
