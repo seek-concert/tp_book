@@ -18,8 +18,7 @@ class Bookshelf extends Auth
 {
     /* ============ 小说书架 ============== */
     public function index(){
-//        $reader_id = $this->reader['id'];
-        $reader_id = 1;
+        $reader_id = $this->reader['id'];
         /*+++++ 我的书架 +++++*/
         $bookshelf_list = model('Readbookshelf')
             ->field(['b.id','b.picture','b.online','b.title','b.status','a.name as author_name','s.content_id','c.order_num','c.name','d.order_num as order_nums'])
@@ -84,8 +83,7 @@ class Bookshelf extends Auth
     public function readerbookmark_del(){
         $book_id=input('book_id');
         $content_id=input('content_id');
-//        $reader_id = $this->reader['id'];
-        $reader_id=1;
+        $reader_id = $this->reader['id'];
         if(empty($book_id)||empty($content_id)||empty($reader_id)){
             return $this->error('参数错误');
         }
@@ -107,8 +105,8 @@ class Bookshelf extends Auth
         if(empty($book_id)){
             return $this->error('参数错误');
         }
-        //        $reader_id = $this->reader['id'];
-        $reader_id=1;
+                $reader_id = $this->reader['id'];
+
         $select_bookshelf = model('Readbookshelf')
             ->where('book_id',$book_id)
             ->where('reader_id',$reader_id)
