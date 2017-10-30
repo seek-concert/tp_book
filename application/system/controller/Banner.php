@@ -69,7 +69,6 @@ class Banner  extends Auth
         if(request()->isPost()){
             $datas = input();
             $rule = [
-                ['jump_url', 'require', '跳转地址必须填写'],
                 ['picture', 'require', '请选择Banner图片']
             ];
             $result = $this->validate($datas, $rule);
@@ -108,7 +107,6 @@ class Banner  extends Auth
         }
         $datas = input();
         $rule = [
-            ['jump_url', 'require', '跳转地址必须填写'],
             ['picture', 'require', '请选择Banner图片']
         ];
         $result = $this->validate($datas, $rule);
