@@ -28,6 +28,11 @@ class Index extends Auth
         $book_model = model('Books');
         $data_setting = db('data_setting')->find();
         $datas['data_setting'] = $data_setting;
+        /*+++++ banner图 +++++*/
+        $banner_img = db('banner')->field(['jump_url','picture'])->where('deleted_at is null')->select();
+        $banner_count = count($banner_img);
+        $datas['banner_img'] = $banner_img;
+        $datas['banner_count'] = $banner_count;
         /*+++++ 主编推荐 +++++*/
         $is_recommend = $book_model
             ->field(['id','picture','title'])

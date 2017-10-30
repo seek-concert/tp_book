@@ -19,7 +19,7 @@
             <img src="__STATIC__/system/img/page_white_magnify.png"/>
             查询
         </li>
-        <li class="fgf" onclick="layerIfWindow('添加','{:url(\'insert\')}','520','370')">
+        <li class="fgf" onclick="layerIfWindow('添加','{:url(\'insert\')}','540','370')">
             <img src="__STATIC__/system/img/add.png"/>
             添加
         </li>
@@ -62,7 +62,7 @@
                 <td>{if condition="$info->deleted_at"} <del>{$info->type}</del>{else /}{$info->type}{/if}</td>
                 <td>{if condition="$info->deleted_at"} <del>{$info->jump_url}</del>{else /}{$info->jump_url}{/if}</td>
                 <td>
-                    <button type="button" class="btn" onclick="layerIfWindow('Banner详情','{:url(\'detail\',array(\'id\'=>$info->id))}','530','410')">详情</button>
+                    <button type="button" class="btn" onclick="layerIfWindow('Banner详情','{:url(\'detail\',array(\'id\'=>$info->id))}','540','410')">详情</button>
                     <button type="button" class="btn js-ajax-form-btn" data-action="{:url('del')}" data-notice="确定删除吗？" data-formdata="ids={$info->id}">删除</button>
                 </td>
             </tr>

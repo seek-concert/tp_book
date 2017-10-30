@@ -11,6 +11,7 @@ $form_action=isset($info)?url('modify'):url('insert');
 {/php}
 <form action="{$form_action}" method="post" class="js-ajax-form" onsubmit="return false;">
     <input type="hidden" name="id" value="{:isset($info->id)?$info->id:''}">
+    <h3 style="color: red;">温馨提示：个人中心背景图无需填写跳转地址.</h3>
     <div class="layerCon bg_f">
         <table class="layerTable" border="0">
             <tr class="h50">
@@ -23,7 +24,7 @@ $form_action=isset($info)?url('modify'):url('insert');
             <tr class="h50">
                 <td>跳转地址：</td>
                 <td>
-                    <input class="must" type="text" name="jump_url" id="jump_url" value="{:isset($info->jump_url)?$info->jump_url:''}" placeholder="请输入跳转地址" />
+                    <input class="must" type="text" name="jump_url" id="jump_url" value="{:isset($info->jump_url)?$info->jump_url:''}" placeholder="如果跳转书籍，格式如下：/index/index/book_detail/book_id/书籍ID.html" />
                 </td>
             </tr>
             <tr class="h70">
