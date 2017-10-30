@@ -16,6 +16,9 @@ class Mine extends Auth
 
         $vip_id = db('recharge_price')->field('id')->where('price','365')->find();
         $datas['vip_id']=$vip_id['id'];
+        /*+++++ banner图 +++++*/
+        $banner_img = db('banner')->field(['picture'])->where('type',2)->where('deleted_at is null')->find();
+        $datas['banner_img'] = $banner_img;
         $this->assign($datas);
         return view();
     }

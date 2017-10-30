@@ -60,7 +60,7 @@
                 <td>{if condition="$info->deleted_at"} <del>{$info->id}</del>{else /}{$info->id}{/if}</td>
                 <td>{if condition="$info->deleted_at"} 当前资源已被删除{else /}<img src="{$info->picture}" width="50px" height="50px;">{/if}</td>
                 <td>{if condition="$info->deleted_at"} <del>{$info->type}</del>{else /}{$info->type}{/if}</td>
-                <td>{if condition="$info->deleted_at"} <del>{$info->jump_url}</del>{else /}{$info->jump_url}{/if}</td>
+                <td>{if condition="$info->deleted_at"} <del>{$info->jump_url}{empty name="$info->jump_url"}暂无跳转{/empty}</del>{else /}{empty name="$info->jump_url"}暂无跳转{/empty}{$info->jump_url}{/if}</td>
                 <td>
                     <button type="button" class="btn" onclick="layerIfWindow('Banner详情','{:url(\'detail\',array(\'id\'=>$info->id))}','540','410')">详情</button>
                     <button type="button" class="btn js-ajax-form-btn" data-action="{:url('del')}" data-notice="确定删除吗？" data-formdata="ids={$info->id}">删除</button>

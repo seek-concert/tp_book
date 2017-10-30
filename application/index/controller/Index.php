@@ -29,7 +29,7 @@ class Index extends Auth
         $data_setting = db('data_setting')->find();
         $datas['data_setting'] = $data_setting;
         /*+++++ banner图 +++++*/
-        $banner_img = db('banner')->field(['jump_url','picture'])->where('deleted_at is null')->select();
+        $banner_img = db('banner')->field(['jump_url','picture'])->where('type',1)->where('deleted_at is null')->select();
         $banner_count = count($banner_img);
         $datas['banner_img'] = $banner_img;
         $datas['banner_count'] = $banner_count;
@@ -76,7 +76,8 @@ class Index extends Auth
             ->select();
         $datas['timelimit'] = $timelimit;
         /*+++++ 猜你喜欢 +++++*/
-        $reader_id = $this->reader['id'];
+//        $reader_id = $this->reader['id'];
+        $reader_id = 1;
         $book_ids = db('reader_bookshelf')
             ->where('reader_id',$reader_id)
             ->column('book_id');
