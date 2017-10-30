@@ -8,13 +8,12 @@
     <link rel="stylesheet" href="http://at.alicdn.com/t/font_444045_lol8evtc0kep14i.css" />
 </head>
 <body style="background: #f2f2f2;">
-<div class=" mineHead text-center" style="background: url({$banner_img['picture']}) no-repeat center;">
+<div class=" mineHead text-center" style="background: url({$banner_img['picture']}) no-repeat center;background-size: 100% 100%;">
     <div style="width: 100%;height: 100%;background: rgba(0,0,0,.3);">
         <span><img src="{$headimgurl}" /></span>
         <p>{$nickname}</p>
         {if condition="$vip_end and $vip_end gt time()"}<p style="color: #FA4F3B">VIP:<span style="color: orange">{$vip_end|date='Y-m-d',###}到期</span></p>{/if}
     </div>
-
 </div>
 <div class="container mineCon">
     <div class="row">

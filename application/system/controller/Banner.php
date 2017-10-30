@@ -67,6 +67,13 @@ class Banner  extends Auth
     public function insert()
     {
         if(request()->isPost()){
+            $type = input('type');
+            if($type==2){
+               $rs =  model('Banners')->withTrashed()->where('type',2)->count();
+                if($rs>=1){
+                    return  $this->error('添加失败,已存在一张个人中心背景图', '');
+                }
+            }
             $datas = input();
             $rule = [
                 ['picture', 'require', '请选择Banner图片']
