@@ -545,6 +545,9 @@ class Index extends Auth
     public function add_flag(){
         $book_id = input('book_id');
         $order_num = input('order_num');
+        if(empty($order_num)){
+            $this->error('无内容可添加','');
+        }
         $bookcontent_id = db('book_content')
             ->field(['id'])
             ->where('book_id',$book_id)

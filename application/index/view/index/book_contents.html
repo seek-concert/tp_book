@@ -13,15 +13,20 @@
 <div class="conRight cond"></div>
 <div class="conCenter cond"></div>
 <div style="overflow: hidden;position: relative;" id="content">
+    {if condition="$content_info"}
     <div class="container content" style="width: 100%; position: absolute;top: 0px;left: 0px;">
         <h3>第{:isset($content_info)?$content_info['order_num']:''}章  {:isset($content_info)?$content_info['name']:''}</h3>
         {:isset($content_info)?$content_info['content']:''}
     </div>
-
+    {else/} <div class="container content" style="width: 100%; position: absolute;top: 0px;left: 0px;"><h3>暂无内容</h3></div>
+    {/if}
 </div>
 <!--***********头部和底部**************-->
 <div class="conHead">
+    {if condition="$content_info"}
     <span class="back"><a href="{:url('index/book_detail',array('book_id'=>$content_info['book_id']))}"><i class="iconfont icon-iconfontjiantouzuo"></i></a></span><span>第{:isset($content_info)?$content_info['order_num']:''}章  {:isset($content_info)?$content_info['name']:''}</span>
+    {else/}<span> 当前书籍暂无内容</span>
+    {/if}
 </div>
 <div class="conFooter">
     <a class="openList">
@@ -50,7 +55,7 @@
 <div class="contentList">
     <i class="iconfont icon-iconfontjiantouzuo" lm></i>
     <div class="conList" style="overflow-y: scroll;">
-        <ul class="no_pad"></ul>
+        <ul class="no_pad">{if condition="empty($content_info)"}<li>暂无章节</li>{/if}</ul>
     </div>
 </div>
 
