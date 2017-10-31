@@ -70,7 +70,7 @@ class Bookshelf extends Auth
         }
         $res=model('Readbookshelf')
             ->whereIn('book_id',$ids)
-            ->where('reader_id',1)
+            ->where('reader_id',$this->reader['id'])
             ->delete(true);
         if($res){
             return $this->success('删除成功','');
