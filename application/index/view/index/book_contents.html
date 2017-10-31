@@ -25,7 +25,7 @@
 <div class="conHead">
     {if condition="$content_info"}
     <span class="back"><a href="{:url('index/book_detail',array('book_id'=>$content_info['book_id']))}"><i class="iconfont icon-iconfontjiantouzuo"></i></a></span><span>第{:isset($content_info)?$content_info['order_num']:''}章  {:isset($content_info)?$content_info['name']:''}</span>
-    {else/}<span> 当前书籍暂无内容</span>
+    {else/}<span class="back"><a href="javascript:window.history.back();"><i class="iconfont icon-iconfontjiantouzuo"></i></a></span><span> 当前书籍暂无内容</span>
     {/if}
 </div>
 <div class="conFooter">

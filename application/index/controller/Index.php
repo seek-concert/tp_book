@@ -191,6 +191,7 @@ class Index extends Auth
        $datas['url_type'] = $url_type;
         /*+++++ 猜你喜欢 +++++*/
         $cate_id = db('book')
+            ->fetchSql(true)
             ->where('id',$book_id)
             ->column('cate_id');
         $like_book = model('books')
@@ -512,8 +513,12 @@ class Index extends Auth
                     ->where('book_id',$book_id)
                     ->where('order_num','1')
                     ->column('id');
-                $save_content_id = model('Readerreadlast')->save(['content_id'=>$bookcontent_id[0],'read_at'=>time()],['book_id'=>$book_id,'reader_id'=>$reader_id]);
-            }
+                if($bookcontent_id){
+                    $save_content_id = model('Readerreadlast')->save(['content_id'=>$bookcontent_id[0],'read_at'=>time()],['book_id'=>$book_id,'reader_id'=>$reader_id]);
+                }else{
+                    $save_content_id = model('Readerreadlast')->save(['read_at'=>time()],['book_id'=>$book_id,'reader_id'=>$reader_id]);
+                }
+              }
         }else{
             /*+++++ 如果没阅读过该小说，就添加数据(最近阅读表) +++++*/
             $save_content_id = model('Readerreadlast')->save(['content_id'=>$bookcontent_price['id'],'book_id'=>$book_id,'reader_id'=>$reader_id,'read_at'=>time()]);
