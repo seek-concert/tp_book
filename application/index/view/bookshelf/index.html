@@ -65,8 +65,8 @@
                     </div>
                     <div class=" MyBookIn">
                         <p class="firP">{$readerreadlastlist->title} <i class="iconfont icon-tuijian"> </i></p>
-                        <p class="huip"><i class="iconfont icon-yonghu"></i> <span>{$readerreadlastlist->author_name}</span> | <span>已看到第{$readerreadlastlist->order_nums}章</span></p>
-                        <p class="huip"><i class="iconfont icon-dian"></i><span>更新至 第{$readerreadlastlist->order_num}章 {$readerreadlastlist->name}</span><span>{if condition="$readerreadlastlist->status eq 1"}(全书完){/if}</span></p>
+                        <p class="huip"><i class="iconfont icon-yonghu"></i> <span>{$readerreadlastlist->author_name}</span> | <span>{if condition="$readerreadlastlist->order_nums"}已看到第{$readerreadlastlist->order_nums}章{else/}章节已被删除{/if}</span></p>
+                        <p class="huip">{if condition="$readerreadlastlist->order_nums neq $readerreadlastlist->order_num"}<i class="iconfont icon-dian"></i>{/if}{if condition="$readerreadlastlist->order_num"}<span>更新至 第{$readerreadlastlist->order_num}章 {$readerreadlastlist->name}</span><span>{if condition="$readerreadlastlist->status eq 1"}(全书完){/if}</span>{else/}<span>暂无章节</span>{/if}</p>
                     </div>
                 </div>
                 <div class="col-xs-3 padLeft0 text-right">
