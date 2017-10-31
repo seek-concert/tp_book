@@ -279,14 +279,18 @@ class Index extends Auth
         $book_model = model('books');
         $title = input('title');
         $datas['title'] = $title;
-        $where['title'] = array('LIKE',"%$title%");
-        $where['online'] = 1;
-        $book_list = $book_model
-            ->field(['b.id','b.picture','b.title','a.name as author_name','b.summary'])
-            ->alias('b')
-            ->join('author a','b.author_id = a.id','left')
-            ->where($where)
-            ->select();
+        if($title){
+            $where['title'] = array('LIKE',"%$title%");
+            $where['online'] = 1;
+            $book_list = $book_model
+                ->field(['b.id','b.picture','b.title','a.name as author_name','b.summary'])
+                ->alias('b')
+                ->join('author a','b.author_id = a.id','left')
+                ->where($where)
+                ->select();
+        }else{
+            $book_list = [];
+        }
         $datas['book_list'] = $book_list;
         /*+++++ 搜索结果数量 +++++*/
         $search_count = count($book_list);

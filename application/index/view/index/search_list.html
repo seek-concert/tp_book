@@ -21,7 +21,11 @@
     </div>
     <div class="row clearfix bg_white">
         <div class="col-xs-12 result_p">
+            {if condition="input('title')"}
             搜索&nbsp;&nbsp;"<span>{:input('title')}</span>"&nbsp;&nbsp;结果，共<span>{$search_count}</span>条
+            {else/}
+            请输入搜索内容
+            {/if}
         </div>
     </div>
 </div>
