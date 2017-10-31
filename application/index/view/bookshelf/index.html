@@ -132,6 +132,7 @@
             type:'POST',
             dataType:'JSON',
             success:function (data) {
+                $('.jilu').find("b").html(data.data);
                 for(var i in book_ids){
                     $('input[name="ids[]"]').each(function(){
                         if($(this).val()==book_ids[i]){

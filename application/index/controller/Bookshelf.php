@@ -73,7 +73,11 @@ class Bookshelf extends Auth
             ->where('reader_id',$this->reader['id'])
             ->delete(true);
         if($res){
-            return $this->success('删除成功','');
+            /*+++++ 我的书架 +++++*/
+            $bookshelf_count = model('Readbookshelf')
+                ->where('reader_id',$this->reader['id'])
+                ->count();
+            return $this->success('删除成功','',$bookshelf_count);
         }else{
             return $this->error('删除失败！','');
         }
