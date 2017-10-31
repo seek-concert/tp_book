@@ -28,6 +28,11 @@ class Index extends Auth
         $book_model = model('Books');
         $data_setting = db('data_setting')->find();
         $datas['data_setting'] = $data_setting;
+        /*+++++ banner图 +++++*/
+        $banner_img = db('banner')->field(['jump_url','picture'])->where('type',1)->where('deleted_at is null')->select();
+        $banner_count = count($banner_img);
+        $datas['banner_img'] = $banner_img;
+        $datas['banner_count'] = $banner_count;
         /*+++++ 主编推荐 +++++*/
         $is_recommend = $book_model
             ->field(['id','picture','title'])
@@ -114,8 +119,8 @@ class Index extends Auth
         $data_setting = db('data_setting')->find();
         $datas['data_setting'] = $data_setting;
         /*+++++ 猜你喜欢(换一批) +++++*/
-//        $reader_id = $this->reader['id'];
-        $reader_id = 1;
+        $reader_id = $this->reader['id'];
+
         $book_ids = db('reader_bookshelf')
             ->where('reader_id',$reader_id)
             ->column('book_id');
@@ -170,8 +175,7 @@ class Index extends Auth
             ->find();
         $datas['update_content'] = $update_content;
         /*+++++ 是否阅读与阅读章节位置(阅读地址) +++++*/
-//        $reader_id = $this->reader['id'];
-        $reader_id = 1;
+        $reader_id = $this->reader['id'];
         $readerreadlast = model('Readerreadlast')
                   ->field(['content_id'])
                   ->where('book_id',$book_id)
@@ -269,8 +273,7 @@ class Index extends Auth
         $search_count = count($book_list);
         $datas['search_count'] = $search_count;
         /*+++++ 猜你喜欢 +++++*/
-//        $reader_id = $this->reader['id'];
-        $reader_id = 1;
+        $reader_id = $this->reader['id'];
         $book_ids = db('reader_bookshelf')
             ->where('reader_id',$reader_id)
             ->column('book_id');
@@ -327,8 +330,8 @@ class Index extends Auth
                 ->find();
         }
         /*+++++ 当前账号是否为会员 +++++*/
-        //        $reader_id = $this->reader['id'];
-        $reader_id = 1;
+                $reader_id = $this->reader['id'];
+
         $reader_vip = model('Readers')
             ->where('id',$reader_id)
             ->column('vip_end');
@@ -529,8 +532,8 @@ class Index extends Auth
             ->where('book_id',$book_id)
             ->where('order_num',$order_num)
             ->find();
-        //        $reader_id = $this->reader['id'];
-        $reader_id = 1;
+                $reader_id = $this->reader['id'];
+
         $save_flag = model('Readerbookmark')->save(['content_id'=>$bookcontent_id['id'],'book_id'=>$book_id,'reader_id'=>$reader_id,'read_at'=>time()]);
         if($save_flag){
             return $this->success('添加书签成功','');

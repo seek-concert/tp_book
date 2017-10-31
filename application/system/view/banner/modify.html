@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Banner管理</title>
+    {include file="public/head" /}
+</head>
+<body>
+{php}
+$form_action=isset($info)?url('modify'):url('insert');
+{/php}
+<form action="{$form_action}" method="post" class="js-ajax-form" onsubmit="return false;">
+    <input type="hidden" name="id" value="{:isset($info->id)?$info->id:''}">
+    <h3 style="color: red;">温馨提示：个人中心背景图无需填写跳转地址.</h3>
+    <div class="layerCon bg_f">
+        <table class="layerTable" border="0">
+            <tr class="h50">
+                <td>Banner位置：</td>
+                <td>
+                    <label><input name="type" class="va_m" type="radio" value="1" {if condition="!isset($info) or $info->getData('type') eq 1"}checked{/if}>首页轮播图</label>
+                    <label><input name="type" class="va_m" type="radio" value="2" {if condition="isset($info) and $info->getData('type') eq 2"}checked{/if}>个人中心背景图</label>
+                </td>
+            </tr>
+            <tr class="h50">
+                <td>跳转地址：</td>
+                <td>
+                    <input class="must" type="text" name="jump_url" id="jump_url" value="{:isset($info->jump_url)?$info->jump_url:''}" placeholder="如果跳转书籍，格式如下：/index/index/book_detail/book_id/书籍ID.html" />
+                </td>
+            </tr>
+            <tr class="h70">
+                <td>Banner图片：</td>
+                <td class="imgCon">
+                    {if condition="isset($info->picture)"}
+                    <div class="img">
+                        <img src="{$info->picture}" class="w_100 h_100" onclick="bigimg(this)">
+                        <p><span onclick="picremove(this);">删除</span></p>
+                        <input type="hidden" name="picture" value="{$info->picture}"/>
+                    </div>
+                    {/if}
+                    <div class="img upload-btn">
+                        <input type="file" name="upload_files" style="display: none" class="upload_files" data-hiddenname="picture" data-url="{:url('tools/upload_img')}">
+                        <a>+</a>
+                    </div>
+                </td>
+            </tr>
+            <tr class="h50">
+                <td>排序：</td>
+                <td><input class="must" type="text" name="sort" id="sort" value="{:isset($info->sort)?$info->sort:0}" placeholder="请输入排序" /></td>
+            </tr>
+            {if condition="$form_action eq url('modify')"}
+            <tr class="h50">
+                <td>操作时间：</td>
+                <td>
+                    创建时间:{$info->created_at}<br/>
+                    更新时间:{$info->updated_at}<br/>
+                    {if condition="isset($info) and $info->deleted_at"}
+                    删除于：{$info->deleted_at|date='Y-m-d H:i:s',###}
+                    {/if}
+                </td>
+            </tr>
+            {/if}
+        </table>
+    </div>
+    <div class="layerBtns">
+        <a class="btn js-ajax-form-btn" data-layer="true" >立即提交</a>
+        <button class="btn" type="reset">重置</button>
+    </div></form>
+<script src="__STATIC__/system/js/ajax-submit.js" type="text/javascript" charset="utf-8"></script>
+<script src="__STATIC__/system/js/upload.js" type="text/javascript" charset="utf-8"></script>
+</body>
+</html>
