@@ -14,6 +14,14 @@ function classiFication() {
     $("#listCon>span:gt(3)").css("display", "none");
     $("#openlist").click(function() {
         $("#listCon>span:gt(3)").toggle();
+        $(this).children("i").toggleClass("icon-iconfanning")
+        if($(this).children("i").hasClass("icon-iconfanning")){
+            $(this).children("span").text("展开");
+            $(this).children("i").removeClass("icon-iconputaway")
+        }else{
+            $(this).children("span").text("收起");
+            $(this).children("i").addClass("icon-iconputaway")
+        }
     });
     $(".listCon>span").click(function() {
         $(this).addClass("on").siblings("span").removeClass("on");
