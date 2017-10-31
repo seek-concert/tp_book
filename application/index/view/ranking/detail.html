@@ -23,28 +23,59 @@
         </div>
     </div>
 </div>
-<div class="container" style="margin-top: 40px;">
-    {volist name="ranking_list" id="rankinglist"}
-    <div class="row clearfix bg_white h_delh pad_top">
-        <div class="col-xs-4 column del_height">
-            <img src="{:isset($rankinglist)?$rankinglist->picture:''}" alt="图片显示错误" class="img_out" />
-        </div>
-        <div class="col-xs-8 column del_height">
-            <div class="row clearfix date_span">
-                <div class="col-xs-12 column no_lpad" style="height: 40%;">
-                    <span class="pull-left" style="font-size: 14px;">{:isset($rankinglist)?$rankinglist->title:''}<br><i>{:isset($rankinglist)?$rankinglist->author_name:''}</i></span>
-                    <a href="{:url('index/book_detail',array('book_id'=>$rankinglist->id))}"><span class="pull-right read_right">立即阅读</span></a>
-                </div>
-                <div class="col-xs-12 column no_lpad" style="height: 60%;overflow: hidden;">
-                    <!--CSS改动(加省略号)-->
-                    <span style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 3;overflow: hidden;">{:isset($rankinglist)?$rankinglist->summary:''}</span>
-                </div>
-            </div>
-        </div>
-    </div>
-    {/volist}
+<div class="container ranking_list" id="rankinglist" style="margin-top: 40px;">
 </div>
 
 </body>
 {include file="public/foot"/}
+<script>
+    var win_h = $(window).height();
+    var num = 1;
+    getMore(num);
+    $(document).scroll(function(e) {
+        var scr_h = $(window).scrollTop();
+        var body_h = $("body").height();
+        if(body_h - win_h - scr_h < 10) {
+            num++;
+            getMore(num);
+        }
+    });
+
+    function getMore(num) {
+        var types = "{:input('type')}";
+        $.ajax({
+            url: "{:url('ranking/getnext')}",
+            data: { 'type':types},
+            type:'POST',
+            dataType:'JSON',
+            success: function(data) {
+                for(var i = data.data['pagenum'] * (num - 1); i < (data.data['pagenum'] * num > data.data.length ? data.data.length : data.data['pagenum'] * num); i++) {
+                    var bookidss_arr=data.data.ranking_list[i];
+                    if(bookidss_arr){
+                        var bookidss = bookidss_arr.id;
+                        $(".ranking_list").append('<div class="row clearfix bg_white h_delh pad_top">\n'+
+                            '<div class="col-xs-4 column del_height">\n'+
+                            '<img src="'+data.data['ranking_list'][i]['picture']+'" alt="图片显示错误" class="img_out" />\n'+
+                            '</div>\n'+
+                            '<div class="col-xs-8 column del_height">\n'+
+                            '<div class="row clearfix date_span">\n'+
+                            '<div class="col-xs-12 column no_lpad" style="height: 40%;">\n'+
+                            '<span class="pull-left" style="font-size: 14px;">'+data.data['ranking_list'][i]['title']+'<br><i>'+data.data['ranking_list'][i]['author_name']+'</i></span>\n'+
+                            '<a href="{:url(\'index/book_detail\')}?book_id='+bookidss+'"><span class="pull-right read_right">立即阅读</span></a>\n'+
+                            '</div>\n'+
+                            '<div class="col-xs-12 column no_lpad" style="height: 60%;overflow: hidden;">\n'+
+                            '<span style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 3;overflow: hidden;">'+data.data['ranking_list'][i]['summary']+'</span>\n'+
+                            '</div>\n'+
+                            '</div>\n'+
+                            '</div>\n'+
+                            '</div>');
+                    }
+                }
+            },
+            error:function () {
+                layer.msg('数据错误');
+            }
+        });
+    }
+</script>
 </html>

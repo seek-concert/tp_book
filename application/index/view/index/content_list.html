@@ -33,17 +33,46 @@
         </div>
     </div>
     <div class="row clearfix zongList2 bg_white" id="muList">
-        {volist name="book_content_list" id="cont_list"}
-        <div class="col-xs-12" >
-            <span>第{:isset($cont_list)?$cont_list['order_num']:''}章</span><span>{:isset($cont_list)?$cont_list['name']:''}</span>{if condition="$cont_list['price'] neq 0  or $cont_list['price'] neq null"}<i class="iconfont icon-zuanshi"></i>{/if}
-        </div>
-        {/volist}
+
+
     </div>
     <div class="row clearfix mar_top bg_white" style="height: 40px;"></div>
 </div>
 </body>
+<script>
+    bookid = "{:input('book_id')}";
+    mulu_url = "{:url('index/content_lists')}";
+</script>
 {include file="public/foot"/}
+<script src="__STATIC__/system/layer/layer.js" type="text/javascript" charset="utf-8"></script>
 </html>
 <script type="text/javascript">
     directoryList();
+    function readbooks(obj) {
+        var ordernums  = $(obj).find('.ordernum').val();
+       var book_id = "{:input('book_id')}";
+        var data = {
+            'order_num':ordernums,
+            'book_id':book_id
+        };
+        $.ajax({
+            url:"{:url('index/bookstatus')}",
+            data:data,
+            type:'POST',
+            dataType:'JSON',
+            success:function (data) {
+                console.log(data);
+                if(data.code==1){
+                    layer.msg(data.msg);
+                    location.href=data.url+"?id="+data.data;
+                }
+                if(data.code==0){
+                    layer.msg(data.msg);
+                }
+            },
+            error:function () {
+                layer.msg('数据错误');
+            }
+        })
+    }
 </script>

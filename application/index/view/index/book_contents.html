@@ -49,15 +49,8 @@
 <!--********************目录****************************-->
 <div class="contentList">
     <i class="iconfont icon-iconfontjiantouzuo" lm></i>
-    <div class="conList">
-        <ul class="no_pad">
-            {volist name="content_name" id="contentname"}
-            <li class="on" onclick="readbooks(this)">
-                <input type="hidden" name="order_num" class="ordernum" value="{$contentname->order_num}">
-                <span>第{$contentname->order_num}章</span><span> {$contentname->name}</span>
-            </li>
-            {/volist}
-        </ul>
+    <div class="conList" style="overflow-y: scroll;">
+        <ul class="no_pad"></ul>
     </div>
 </div>
 
@@ -98,6 +91,36 @@
                 layer.msg('数据错误');
             }
         })
+    }
+
+    var win_h = $(window).height();
+    var num = 1;
+    getMore(num);
+    $(".conList").scroll(function(e) {
+        var scr_h = $(window).scrollTop();
+        var body_h = $("body").height();
+        if(body_h - win_h - scr_h < 10) {
+            num++;
+            getMore(num);
+        }
+    });
+
+    function getMore(num) {
+        var bookid = "{:isset($content_info)?$content_info['book_id']:''}";
+        $.ajax({
+            url: "{:url('index/content_lists')}",
+            data: { 'book_id':bookid},
+            type:'POST',
+            dataType:'JSON',
+            success: function(data) {
+                for(var i = 20 * (num - 1); i < (20 * num > data.data.length ? data.data.length : 20 * num); i++) {
+                    $(".no_pad").append('<li class="on" onclick="readbooks(this)"><input type="hidden" name="order_num" class="ordernum" value="'+data.data[i]['order_num']+'"> <span>第'+data.data[i]['order_num']+'章</span><span>'+data.data[i]['name']+'</span></li>');
+                }
+            },
+            error:function () {
+                layer.msg('数据错误');
+            }
+        });
     }
 
 </script>

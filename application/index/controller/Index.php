@@ -76,8 +76,7 @@ class Index extends Auth
             ->select();
         $datas['timelimit'] = $timelimit;
         /*+++++ 猜你喜欢 +++++*/
-//        $reader_id = $this->reader['id'];
-        $reader_id = 1;
+        $reader_id = $this->reader['id'];
         $book_ids = db('reader_bookshelf')
             ->where('reader_id',$reader_id)
             ->column('book_id');
@@ -240,8 +239,8 @@ class Index extends Auth
             ->find();
         $datas['book_name'] = $book_name;
         /*+++++ 小说目录列表 +++++*/
-        $book_content_list = db('book_content')
-                        ->field(['b.status as book_status','c.order_num','c.name','c.price'])
+        $book_content_list = model('Bookcontents')
+                        ->field(['b.status as book_status'])
                         ->alias('c')
                         ->join('book b','c.book_id = b.id','left')
                         ->where('c.book_id',$book_id)
@@ -251,6 +250,25 @@ class Index extends Auth
         $datas['content_count'] = $content_count;
         $this->assign($datas);
         return view();
+
+    }
+
+    /* ============ 小说目录滑动加载 ============== */
+    public function content_lists(){
+        $book_id = input('book_id');
+        if(empty($book_id)){
+            $this->error('数据异常','');
+        }
+        /*+++++ 小说目录列表 +++++*/
+        $bookcontent_list = model('Bookcontents')
+            ->field(['order_num','name','price'])
+            ->where('book_id',$book_id)
+            ->select();
+        if($bookcontent_list){
+            $this->success('加载成功','',$bookcontent_list);
+        }else{
+            $this->error('暂无数据','');
+        }
 
     }
 

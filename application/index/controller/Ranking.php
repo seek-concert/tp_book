@@ -63,19 +63,6 @@ class Ranking extends Auth
         if(!in_array($type,['click','submit','buy'])){
             return $this->error('操作错误！');
         }
-        $book_model=new Books();
-        $ranking_list=$book_model->field(['b.id','b.title','b.picture','b.summary','b.author_id','b.online','b.'.$type.'_num','a.name as author_name'])
-            ->alias('b')
-            ->join('author a','a.id=b.author_id','left')
-            ->where('b.online',1)
-            ->order('b.'.$type.'_num desc')
-            ->paginate($this->data_setting['pagenum'],$this->data_setting['ranking_total']);
-
-        $this->assign([
-            'data_setting'=>$this->data_setting,
-            'ranking_list'=>$ranking_list,
-        ]);
-
         return view();
     }
 
@@ -91,9 +78,11 @@ class Ranking extends Auth
             ->join('author a','a.id=b.author_id','left')
             ->where('b.online',1)
             ->order('b.'.$type.'_num desc')
-            ->paginate($this->data_setting['pagenum'],$this->data_setting['ranking_total']);
+            ->select();
+        $datas['ranking_list'] = $ranking_list;
+        $datas['pagenum'] = $this->data_setting['pagenum'];
         if($ranking_list){
-            return $this->success('获取成功','',$ranking_list);
+            return $this->success('获取成功','',$datas);
         }else{
             return $this->error('没有了！');
         }

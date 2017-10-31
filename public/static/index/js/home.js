@@ -106,15 +106,12 @@ function checkTime(i) {
 
 //******************目录页*********************
 function directoryList() {
-    console.log($(window).height());
-    console.log($("body").height());
     var win_h = $(window).height();
-    var body_h = $("body").height();
     var num = 1;
     getMore(num);
     $(document).scroll(function(e) {
-        console.log($(window).scrollTop());
         var scr_h = $(window).scrollTop();
+        var body_h = $("body").height();
         if(body_h - win_h - scr_h < 10) {
             num++;
             getMore(num);
@@ -125,16 +122,22 @@ function directoryList() {
 
 function getMore(num) {
     $.ajax({
-        type: "get",
-        url: "new_file.json",
-        async: true,
-        success: function(json) {
-            console.log(json);
-            for(var i = 12 * (num - 1); i < (12 * num > json.books.length ? json.books.length : 12 * num); i++) {
-                $("#muList").append(`<div class="col-xs-12" id="a1">
-				<span>${json.books[i].muLu}</span><span>${json.books[i].book}</span><i class="iconfont icon-zuanshi">
-			</div>`);
+        url: mulu_url,
+        data: { 'book_id':bookid},
+        type:'POST',
+        dataType:'JSON',
+        success: function(data) {
+            for(var i = 20 * (num - 1); i < (20 * num > data.data.length ? data.data.length : 20 * num); i++) {
+                if(data.data[i]['price']==0){
+                    var img_zs = '';
+                }else{
+                    img_zs = '<i class="iconfont icon-zuanshi"></i>';
+                }
+                $("#muList").append('<div class="col-xs-12"  onclick="readbooks(this)" id="a1"><input type="hidden" name="ordernum" class="ordernum" value="'+data.data[i]['order_num']+'"> <span>第'+data.data[i]['order_num']+'章</span><span>'+data.data[i]['name']+'</span>'+img_zs+'</div>');
             }
+        },
+        error:function () {
+            layer.msg('数据错误');
         }
     });
 }
