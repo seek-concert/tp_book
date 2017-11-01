@@ -27,6 +27,8 @@ class Morelist extends Auth
         if(!in_array($type,['is_recommend','is_hot','newbook'])){
             return $this->error('操作错误！');
         }
+        $datas['pagenum'] = $this->data_setting['pagenum'];
+        $this->assign($datas);
         return view();
     }
 
@@ -35,6 +37,12 @@ class Morelist extends Auth
         $type=input('type');
         if(!in_array($type,['is_recommend','is_hot','newbook'])){
             return $this->error('操作错误！');
+        }
+        $fenye_conut = input('fenye_conut');
+        if($fenye_conut){
+            $pagenum = $this->data_setting['pagenum']*$fenye_conut;
+        }else{
+            $pagenum = $this->data_setting['pagenum'];
         }
         $book_model=new Books();
         if($type=='is_recommend'||$type=='is_hot'){
@@ -45,7 +53,7 @@ class Morelist extends Auth
                 ->where('b.online',1)
                 ->where($type,1)
                 ->order('b.sort desc')
-                ->select();
+                ->paginate($pagenum);
         }
         if($type=='newbook'){
             $more_list = $book_model
@@ -54,12 +62,10 @@ class Morelist extends Auth
                 ->join('author a','b.author_id = a.id','left')
                 ->where('online',1)
                 ->order('b.created_at desc,b.sort asc')
-                ->select();
+                ->paginate($pagenum);
         }
-        $datas['more_list'] = $more_list;
-        $datas['pagenum'] = $this->data_setting['pagenum'];
         if($more_list){
-            return $this->success('获取成功','',$datas);
+            return $this->success('获取成功','',$more_list);
         }else{
             return $this->error('没有了！');
         }

@@ -25,10 +25,10 @@
     </div>
 
     <div class="row clearfix bg_white mar_top" style="margin-top: 40px;">
-        <div class="col-xs-4 column main_recommend">
-            <p>限时免费</p>
+        <div class="col-xs-5 column main_recommend">
+            <p>今日限时免费</p>
         </div>
-        <div class="col-xs-8 column three_circl main_recommend">
+        <div class="col-xs-7 column three_circl main_recommend">
             <div>
                 <p style="color: orange;" class="time_p timer-simple-seconds" timer="10" id="countdown">倒计时：<i class="hour"></i>：<i class="minute"></i>：<i class="second"></i></p>
             </div>
@@ -75,35 +75,15 @@
 
 </div>
 
-<div class="container mar_top">
+<div class="container mar_top freeinfo">
     <div class="row clearfix bg_white mar_top" style="border-bottom: 1px solid #eeeeee;">
         <div class="col-xs-4 main_recommend">
             <p>完全免费</p>
         </div>
     </div>
-    {volist name="free_book" id="freebook"}
-    <div class="row clearfix bg_white h_delh pad_top">
-        <div class="col-xs-4 column del_height">
-            <img src="{$freebook->picture}" alt="图片显示错误" class="img_out" />
-        </div>
-        <div class="col-xs-8 column del_height">
-            <div class="row clearfix date_span">
-                <div class="col-xs-12 column no_lpad" style="height: 40%;">
-                    <span class="pull-left" style="font-size: 14px;">{$freebook->title}<br><i>{$freebook->author_name}</i></span>
-                    <a href="{:url('index/book_detail',array('book_id'=>$freebook->id))}"><span class="pull-right read_right">立即阅读</span></a>
-                </div>
-                <div class="col-xs-12 column no_lpad" style="height: 60%;overflow: hidden;">
-                    <!--CSS改动(加省略号)-->
-                    <span style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 3;overflow: hidden;">{$freebook->summary}</span>
-                </div>
-            </div>
-        </div>
-    </div>
-    {/volist}
+
 </div>
-
-
-
+<div id="dibu" style="display: none;text-align: center;">~已经到底了~</div>
 
 </body>
 {include file="public/foot"/}
@@ -115,7 +95,74 @@
     var d = dd.getDate(); //日期
     window.setInterval(function() {
         ShowCountDown(y, m, d, 'countdown');
-    }, 1000)
+    }, 1000);
+
+    var win_h = $(window).height();
+    var num = 1;
+    /*----第一次进页面判断加载几次分页---*/
+    var pagenum = "{$pagenum}";
+    var jz_count = win_h/(pagenum*120);
+    var nums = Math.ceil(jz_count);
+    getMore(num);
+    $(document).scroll(function(e) {
+        var scr_h = $(window).scrollTop();
+        var body_h = $("body").height();
+        if(body_h - win_h - scr_h < 10) {
+            nums++;
+            getMore(nums);
+        }
+    });
+
+    function getMore(num) {
+        if(num==1){
+            var data = {
+                'page':num,
+                'fenye_conut':nums
+            };
+        }else{
+            var data = {
+                'page':nums
+            };
+        }
+        $.ajax({
+            url: "{:url('free/getnext')}",
+            data: data,
+            type:'GET',
+            dataType:'JSON',
+            success: function(rs) {
+                if(rs.data.data.length<1){
+                    $(document).off("scroll");
+                    $("#dibu").css('display','block');
+                    return false;
+                }
+                for(var i = 0; i < rs.data.data.length; i++) {
+                    var bookidss_arr=rs.data.data[i];
+                    if(bookidss_arr){
+                        var bookidss = bookidss_arr.id;
+                        $(".freeinfo").append('<div class="row clearfix bg_white h_delh pad_top">\n'+
+                            '<div class="col-xs-4 column del_height">\n'+
+                            '<img src="'+bookidss_arr['picture']+'" alt="图片显示错误" class="img_out" />\n'+
+                            '</div>\n'+
+                            '<div class="col-xs-8 column del_height">\n'+
+                            '<div class="row clearfix date_span">\n'+
+                            '<div class="col-xs-12 column no_lpad" style="height: 40%;">\n'+
+                            '<span class="pull-left" style="font-size: 14px;">'+bookidss_arr['title']+'<br><i>'+bookidss_arr['author_name']+'</i></span>\n'+
+                            '<a href="{:url(\'index/book_detail\')}?book_id='+bookidss+'"><span class="pull-right read_right">立即阅读</span></a>\n'+
+                            '</div>\n'+
+                            '<div class="col-xs-12 column no_lpad" style="height: 60%;overflow: hidden;">\n'+
+                            '<span style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 3;overflow: hidden;">'+bookidss_arr['summary']+'</span>\n'+
+                            '</div>\n'+
+                            '</div>\n'+
+                            '</div>\n'+
+                            '</div>');
+                    }
+                }
+            },
+            error:function () {
+                layer.msg('数据错误');
+            }
+        });
+    }
 </script>
 
 </html>

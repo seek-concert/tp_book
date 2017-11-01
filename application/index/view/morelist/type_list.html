@@ -25,48 +25,70 @@
 </div>
 <div class="container morelists" style="margin-top: 40px;">
 </div>
-
+<div id="dibu" style="display: none;text-align: center;">~已经到底了~</div>
 </body>
 {include file="public/foot"/}
+<script src="__STATIC__/system/layer/layer.js" type="text/javascript" charset="utf-8"></script>
 <script>
     var win_h = $(window).height();
     var num = 1;
+    /*----第一次进页面判断加载几次分页---*/
+    var pagenum = "{$pagenum}";
+    var jz_count = win_h/(pagenum*120);
+    var nums = Math.ceil(jz_count);
     getMore(num);
-    console.log('111');
+
     $(document).scroll(function(e) {
-        console.log('22222');
         var scr_h = $(window).scrollTop();
         var body_h = $("body").height();
         if(body_h - win_h - scr_h < 10) {
-            num++;
-            getMore(num);
+            nums++;
+            getMore(nums);
         }
     });
 
-    function getMore(num) {
+    function getMore(num){
         var types = "{:input('type')}";
+        if(num==1){
+            var data = {
+                'page':num,
+                'type':types,
+                'fenye_conut':nums
+            };
+        }else{
+            var data = {
+                'page':nums,
+                'type':types
+            };
+        }
+
         $.ajax({
             url: "{:url('morelist/morenext')}",
-            data: { 'type':types},
-            type:'POST',
+            data: data,
+            type:'GET',
             dataType:'JSON',
-            success: function(data) {
-                for(var i = data.data['pagenum'] * (num - 1); i < (data.data['pagenum'] * num > data.data.length ? data.data.length : data.data['pagenum'] * num); i++) {
-                    var bookidss_arr=data.data.more_list[i];
+            success: function(rs) {
+                if(rs.data.data.length<1){
+                    $(document).off("scroll");
+                    $("#dibu").css('display','block');
+                    return false;
+                }
+                for(var j= 0;j<rs.data.data.length;j++){
+                    var bookidss_arr=rs.data.data[j];
                     if(bookidss_arr){
                         var bookidss = bookidss_arr.id;
                         $(".morelists").append('<div class="row clearfix bg_white h_delh pad_top">\n'+
                             '<div class="col-xs-4 column del_height">\n'+
-                            '<img src="'+data.data['more_list'][i]['picture']+'" alt="图片显示错误" class="img_out" />\n'+
+                            '<img src="'+bookidss_arr['picture']+'" alt="图片显示错误" class="img_out" />\n'+
                             '</div>\n'+
                             '<div class="col-xs-8 column del_height">\n'+
                             '<div class="row clearfix date_span">\n'+
                             '<div class="col-xs-12 column no_lpad" style="height: 40%;">\n'+
-                            '<span class="pull-left" style="font-size: 14px;">'+data.data['more_list'][i]['title']+'<br><i>'+data.data['more_list'][i]['author_name']+'</i></span>\n'+
+                            '<span class="pull-left" style="font-size: 14px;">'+bookidss_arr['title']+'<br><i>'+bookidss_arr['author_name']+'</i></span>\n'+
                             '<a href="{:url(\'index/book_detail\')}?book_id='+bookidss+'"><span class="pull-right read_right">立即阅读</span></a>\n'+
                             '</div>\n'+
                             '<div class="col-xs-12 column no_lpad" style="height: 60%;overflow: hidden;">\n'+
-                            '<span style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 3;overflow: hidden;">'+data.data['more_list'][i]['summary']+'</span>\n'+
+                            '<span style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 3;overflow: hidden;">'+bookidss_arr['summary']+'</span>\n'+
                             '</div>\n'+
                             '</div>\n'+
                             '</div>\n'+
@@ -79,5 +101,6 @@
             }
         });
     }
+
 </script>
 </html>
