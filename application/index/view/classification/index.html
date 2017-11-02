@@ -190,6 +190,9 @@
             }
         });
     }
+    $(".class_list").on('click','span.toTop',function () {
+        $("body,html").animate({scrollTop: 0},600);
+    });
     /*-----进页面执行 滑动执行-----*/
     function getMore(num) {
         var cate_id = $("#cate_id").val();

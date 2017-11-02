@@ -22,6 +22,12 @@ use think\Db;
 
 class Index extends Auth
 {
+    public $data_setting;
+    public function _initialize()
+    {
+        parent::_initialize();
+        $this->data_setting=db('data_setting')->field(['ranking_top','ranking_total','pagenum'])->find();
+    }
     /* ============ 首页 ============== */
     public function index()
     {
@@ -250,7 +256,6 @@ class Index extends Auth
         $datas['content_count'] = $content_count;
         $this->assign($datas);
         return view();
-
     }
 
     /* ============ 小说目录滑动加载 ============== */
@@ -259,11 +264,17 @@ class Index extends Auth
         if(empty($book_id)){
             $this->error('数据异常','');
         }
+        $fenye_conut = input('fenye_conut');
+        if($fenye_conut){
+            $pagenum = 20*$fenye_conut;
+        }else{
+            $pagenum = 20;
+        }
         /*+++++ 小说目录列表 +++++*/
         $bookcontent_list = model('Bookcontents')
             ->field(['order_num','name','price'])
             ->where('book_id',$book_id)
-            ->select();
+            ->paginate($pagenum);
         if($bookcontent_list){
             $this->success('加载成功','',$bookcontent_list);
         }else{

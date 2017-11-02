@@ -36,7 +36,8 @@
 
 
     </div>
-    <div class="row clearfix mar_top bg_white" style="height: 40px;"></div>
+    <div class="row clearfix mar_top bg_white" style="height: 40px;"> <div id="dibu" style="display: none;text-align: center;">~已经到底了~</div></div>
+
 </div>
 </body>
 <script>
@@ -47,7 +48,72 @@
 <script src="__STATIC__/system/layer/layer.js" type="text/javascript" charset="utf-8"></script>
 </html>
 <script type="text/javascript">
-    directoryList();
+    var win_h = $(window).height();
+    var num = 1;
+    /*----第一次进页面判断加载几次分页---*/
+    var pagenum = 20;
+    var jz_count = win_h/(pagenum*40);
+    var nums = Math.ceil(jz_count);
+    getMore(num);
+    $(document).scroll(function(e) {
+        var scr_h = $(window).scrollTop();
+        var body_h = $("body").height();
+        if(body_h - win_h - scr_h < 10) {
+            nums++;
+            getMore(nums);
+            return false;
+        }
+    });
+$("#muList").on('click','span.toTop',function () {
+    $("body,html").animate({scrollTop: 0},600);
+});
+    function getMore(num) {
+        if(num==1){
+            var data = {
+                'page':num,
+                'book_id':bookid,
+                'fenye_conut':nums
+            };
+        }else{
+            var data = {
+                'page':nums,
+                'book_id':bookid
+            };
+        }
+        $.ajax({
+            url: mulu_url,
+            data: data,
+            type:'GET',
+            dataType:'JSON',
+            success: function(rs) {
+                console.log(rs);
+                if(rs.data.data.length<1){
+                    $(document).off("scroll");
+                    $("#dibu").css('display','block');
+                    return false;
+                }
+                for(var i = 0; i < rs.data.data.length; i++) {
+                    var bookidss_arr=rs.data.data[i];
+                    if(bookidss_arr['price']==0){
+                        var img_zs = '';
+                    }else{
+                        img_zs = '<i class="iconfont icon-zuanshi"></i>';
+                    }
+                    if(bookidss_arr){
+                        var bookidss = bookidss_arr.id;
+                        $("#muList").append('<div class="col-xs-12"  onclick="readbooks(this)" id="a1">' +
+                            '<input type="hidden" name="ordernum" class="ordernum" value="'+bookidss_arr['order_num']+'"> ' +
+                            '<span>第'+bookidss_arr['order_num']+'章</span><span>'+bookidss_arr['name']+'</span>'+img_zs+'</div>' +
+                            '<span class="toTop"><i class="iconfont icon-huidingbu"></i> </span>');
+                    }
+                }
+            },
+            error:function () {
+                layer.msg('数据错误');
+            }
+        });
+    }
+
     function readbooks(obj) {
         var ordernums  = $(obj).find('.ordernum').val();
        var book_id = "{:input('book_id')}";
