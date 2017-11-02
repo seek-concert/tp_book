@@ -26,14 +26,14 @@
 
 </div>
 <!--**分类列表**-->
-<form action="{:url('index')}" method="post" class="js-ajax-form" >
+<form action="{:url('cate_list')}" method="post" class="js-ajax-form" >
 <div class="container ">
     <div class="row clearfix bg_white padT5 bor_bottom" style="margin-top: 34px;">
         <div class="col-xs-2 column padRight0 quPad listP">
             分类
         </div>
         <div class="col-xs-8 column listCon" id="listCon">
-            <input type="hidden" name="cate_id" value="{:isset($cate_id)?$cate_id:''}">
+            <input type="hidden" name="cate_id" id="cate_id" value="{:isset($cate_id)?$cate_id:''}">
             <span class="{:isset($cate_id)?'':'on'} btn">全部</span>
                 {volist name="cate_name" id="catename"}
                      <span class="btn {if condition="isset($cate_id) and $cate_id  eq $catename['id']"}on{/if}" data-value="{$catename.id}">{$catename.name}</span>
@@ -48,7 +48,7 @@
             状态
         </div>
         <div class="col-xs-10 column listCon">
-            <input type="hidden" name="status" value="{:isset($status)?$status:''}">
+            <input type="hidden" name="status" id="status" value="{:isset($status)?$status:''}">
             <span class="{:isset($status)?'':'on'} btn">全部</span>
             <span class="btn {if condition="isset($status) and $status eq 0"}on{/if}"  data-value="0">连载</span>
             <span class="btn {if condition="isset($status) and $status eq 1"}on{/if}"  data-value="1">完结</span>
@@ -59,7 +59,7 @@
             类型
         </div>
         <div class="col-xs-10 column listCon">
-            <input type="hidden" name="type" value="{:isset($type)?$type:''}">
+            <input type="hidden" name="type" id="type" value="{:isset($type)?$type:''}">
             <span class="{:isset($type)?'':'on'} btn" data-value="">全部</span>
             <span class="btn {if condition="isset($type) and $type eq 0"}on{/if}" data-value="0">男生</span>
             <span class="btn {if condition="isset($type) and $type eq 1"}on{/if}" data-value="1">女生</span>
@@ -68,48 +68,186 @@
 
 </div>
 <!--***************列表********************-->
-<div class="container ">
-    {volist name="book_list" id="booklist"}
-    <div class="row clearfix bg_white h_delh pad_top mar_top">
-        <div class="col-xs-4 column del_height">
-            <img src="{$booklist.picture}" alt="图片显示错误" class="img_out listImg" />
-        </div>
-        <div class="col-xs-8 column del_height">
-            <div class="row clearfix date_span">
-                <div class="col-xs-12 column no_lpad" style="height: 40%;">
-                    <span class="pull-left" style="font-size: 14px;">{:isset($booklist)?$booklist->title:''}<br><i>{:isset($booklist)?$booklist->author_name:''}</i></span>
-                    <a href="{:url('index/book_detail',array('book_id'=>$booklist->id))}"><span class="pull-right read_right">立即阅读</span></a>
-                </div>
-                <div class="col-xs-12 column no_lpad" style="height: 60%;overflow: hidden;">
-                    <!--CSS改动(加省略号)-->
-                    <span style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 3;overflow: hidden;">{:isset($booklist)?$booklist->summary:''}</span>
-                </div>
-            </div>
-        </div>
-    </div>
-    <span class="toTop"><i class="iconfont icon-huidingbu"></i> </span>
-    {/volist}
+<div class="container class_list">
+
 </div>
 </form>
+<div id="dibu" style="display: none;text-align: center;">~已经到底了~</div>
+<div id="bottum" style="display: none;text-align: center;">~暂无相关数据~</div>
 </body>
 {include file="public/foot"/}
+<script src="__STATIC__/system/layer/layer.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
     classiFication();
     /**--**判断页面分类是否展开**--*/
-    var cate_id = "{:isset($cate_id)?$cate_id:''}";
-    if(!isNaN(cate_id)&&cate_id!==''){
+    var cate_id = $("#cate_id").val();
+    if(!isNaN(cate_id)&&cate_id){
         $("#listCon").find('span').attr('style','display:block;');
-    }
+        if($("#openlist").children("i").hasClass("icon-iconfanning")){
+            $("#openlist").children("span").text("收起");
+            $("#openlist").children("i").removeClass("icon-iconfanning");
+            $("#openlist").children("i").addClass("icon-iconputaway");
+        }else{
+            $("#openlist").children("span").text("展开");
+            $("#openlist").children("i").removeClass("icon-iconputaway");
+            $("#openlist").children("i").addClass("icon-iconfanning");
+        }
+     }
+
+    var win_h = $(window).height();
+    var num = 1;
+    /*----第一次进页面判断加载几次分页---*/
+    var pagenum = "{$pagenum}";
+    var jz_count = win_h/(pagenum*120);
+    var nums = Math.ceil(jz_count);
+    getMore(num);
 
     $('.btn').click(function () {
+        /*----- 点击按钮给隐藏input赋值 -----*/
         var _btn = $(this);
         var _value=_btn.data('value');
         if(isNaN(_value)){
             _value=' ';
         }
         _btn.parent().find('input:first').val(_value);
-        var _form = _btn.data('form') ? $(_btn.data('form')) : _btn.parents('form:first'); //获取表单
-        _form.submit();
+        /*--- 加载数据 ---*/
+        var cate_id = $("#cate_id").val();
+        var status = $("#status").val();
+        var type = $("#type").val();
+        $(".class_list").html("");
+        if(!cate_id&&!status&&!type){
+            var datas = {
+                'page':num,
+                'fenye_conut':nums
+            };
+            click_more(datas);
+        }else{
+            var datas = {
+                'page':num,
+                'fenye_conut':nums,
+                'cate_id':cate_id,
+                'status':status,
+                'type':type
+            };
+            click_more(datas);
+        }
+
     });
+
+    /*---- 滑动加载 -----*/
+    $(document).scroll(function(e) {
+        var scr_h = $(window).scrollTop();
+        var body_h = $("body").height();
+        if(body_h - win_h - scr_h < 10) {
+            nums++;
+            getMore(nums);
+            return false;
+        }
+    });
+
+    /*----- 点击执行 -----*/
+    function click_more(datas) {
+        $.ajax({
+            url: "{:url('cate_list')}",
+            data: datas,
+            type:'GET',
+            dataType:'JSON',
+            success: function(rs) {
+               if(rs.data.data.length==0){
+                   $("#dibu").css('display','none');
+                   $("#bottum").css('display','block');
+                   return false;
+               }else{
+                    $("#dibu").css('display','block');
+                    $("#bottum").css('display','none');
+               }
+                for(var i = 0; i < rs.data.data.length; i++) {
+                    var bookidss_arr=rs.data.data[i];
+                    if(bookidss_arr){
+                        var bookidss = bookidss_arr.id;
+                        $(".class_list").append('<div class="row clearfix bg_white h_delh pad_top mar_top">\n'+
+                            '<div class="col-xs-4 column del_height">\n'+
+                            '<img src="'+bookidss_arr['picture']+'" alt="图片显示错误" class="img_out" />\n'+
+                            '</div>\n'+
+                            '<div class="col-xs-8 column del_height">\n'+
+                            '<div class="row clearfix date_span">\n'+
+                            '<div class="col-xs-12 column no_lpad" style="height: 40%;">\n'+
+                            '<span class="pull-left" style="font-size: 14px;">'+bookidss_arr['title']+'<br><i>'+bookidss_arr['author_name']+'</i></span>\n'+
+                            '<a href="{:url(\'index/book_detail\')}?book_id='+bookidss+'"><span class="pull-right read_right">立即阅读</span></a>\n'+
+                            '</div>\n'+
+                            '<div class="col-xs-12 column no_lpad" style="height: 60%;overflow: hidden;">\n'+
+                            '<span style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 3;overflow: hidden;">'+bookidss_arr['summary']+'</span>\n'+
+                            '</div>\n'+
+                            '</div>\n'+
+                            '</div>\n'+
+                            '</div>\n' +
+                            '<span class="toTop"><i class="iconfont icon-huidingbu"></i> </span>');
+                    }
+                }
+            },
+            error:function () {
+                layer.msg('数据错误');
+            }
+        });
+    }
+    /*-----进页面执行 滑动执行-----*/
+    function getMore(num) {
+        var cate_id = $("#cate_id").val();
+        var status = $("#status").val();
+        var type = $("#type").val();
+        if(num==1){
+            var data = {
+                'page':num,
+                'fenye_conut':nums
+            };
+        }else{
+            var data = {
+                'page':nums,
+                'cate_id':cate_id,
+                'status':status,
+                'type':type
+            };
+        }
+        $.ajax({
+            url: "{:url('cate_list')}",
+            data: data,
+            type:'GET',
+            dataType:'JSON',
+            success: function(rs) {
+                if(rs.data.data.length<1){
+                    $("#bottum").css('display','none');
+                    $(document).off("scroll");
+                    $("#dibu").css('display','block');
+                    return false;
+                }
+                for(var i = 0; i < rs.data.data.length; i++) {
+                    var bookidss_arr=rs.data.data[i];
+                    if(bookidss_arr){
+                        var bookidss = bookidss_arr.id;
+                        $(".class_list").append('<div class="row clearfix bg_white h_delh pad_top mar_top">\n'+
+                            '<div class="col-xs-4 column del_height">\n'+
+                            '<img src="'+bookidss_arr['picture']+'" alt="图片显示错误" class="img_out" />\n'+
+                            '</div>\n'+
+                            '<div class="col-xs-8 column del_height">\n'+
+                            '<div class="row clearfix date_span">\n'+
+                            '<div class="col-xs-12 column no_lpad" style="height: 40%;">\n'+
+                            '<span class="pull-left" style="font-size: 14px;">'+bookidss_arr['title']+'<br><i>'+bookidss_arr['author_name']+'</i></span>\n'+
+                            '<a href="{:url(\'index/book_detail\')}?book_id='+bookidss+'"><span class="pull-right read_right">立即阅读</span></a>\n'+
+                            '</div>\n'+
+                            '<div class="col-xs-12 column no_lpad" style="height: 60%;overflow: hidden;">\n'+
+                            '<span style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 3;overflow: hidden;">'+bookidss_arr['summary']+'</span>\n'+
+                            '</div>\n'+
+                            '</div>\n'+
+                            '</div>\n'+
+                            '</div>\n' +
+                            '<span class="toTop"><i class="iconfont icon-huidingbu"></i> </span>');
+                    }
+                }
+            },
+            error:function () {
+                layer.msg('数据错误');
+            }
+        });
+    }
 </script>
 </html>
