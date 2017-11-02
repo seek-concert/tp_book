@@ -98,7 +98,7 @@
     var num = 1;
     /*----第一次进页面判断加载几次分页---*/
     var pagenum = "{$pagenum}";
-    var jz_count = win_h/(pagenum*120);
+    var jz_count = (win_h-151)/(pagenum*120);
     var nums = Math.ceil(jz_count);
     getMore(num);
 
