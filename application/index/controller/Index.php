@@ -191,7 +191,6 @@ class Index extends Auth
        $datas['url_type'] = $url_type;
         /*+++++ 猜你喜欢 +++++*/
         $cate_id = db('book')
-            ->fetchSql(true)
             ->where('id',$book_id)
             ->column('cate_id');
         $like_book = model('books')

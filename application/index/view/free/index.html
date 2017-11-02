@@ -40,7 +40,7 @@
                 <div class="carousel-inner text-center">
                     <div class="item active recommend_del zhuBanner">
                         <div>
-                            {if condition="empty($timelimits)"}<p style="text-align: center;">暂无限时免费</p>{/if}
+                            {if condition="empty($timelimit)"}<p style="text-align: center;">暂无限时免费</p>{/if}
                             {volist name='timelimit' id='timelimits' offset="0" length='3'}
                             <a href="{:url('index/book_detail',array('book_id'=>$timelimits->id))}"><img src="{$timelimits->picture}" alt="图片显示错误" /><p>{$timelimits->title}</p></a>
                             {/volist}
