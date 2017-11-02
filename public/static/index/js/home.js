@@ -116,19 +116,19 @@ function checkTime(i) {
 function directoryList() {
     var win_h = $(window).height();
     var num = 1;
-    getMore(num);
+    getMores(num);
     $(document).scroll(function(e) {
         var scr_h = $(window).scrollTop();
         var body_h = $("body").height();
         if(body_h - win_h - scr_h < 10) {
             num++;
-            getMore(num);
+            getMores(num);
         }
     });
 
 }
 
-function getMore(num) {
+function getMores(num) {
     $.ajax({
         url: mulu_url,
         data: { 'book_id':bookid},
