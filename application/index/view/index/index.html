@@ -120,7 +120,7 @@
     </div>
 </div>
 <!--热门小说-->
-<div class="container">
+<div class="container newWidth">
     <div class="row clearfix more_novel bg_white mar_top">
         <div class="col-xs-6 column">
             <span class="pull-left" style="color: #999;">热门小说</span>
@@ -142,7 +142,7 @@
                 </div>
                 <div class="col-xs-12 column no_lpad" style="height: 60%;overflow: hidden;">
                     <!--CSS改动(加省略号)-->
-                    <span style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 3;overflow: hidden;">{:isset($ishot)?$ishot->summary:''}</span>
+                    <span style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 4;overflow: hidden;">{:isset($ishot)?$ishot->summary:''}</span>
                 </div>
             </div>
         </div>
@@ -150,7 +150,7 @@
     {/volist}
 </div>
 <!--新书推荐-->
-<div class="container">
+<div class="container newWidth">
     <div class="row clearfix more_novel bg_white mar_top">
         <div class="col-xs-6 column">
             <span class="pull-left" style="color: #999;">新书推荐</span>
@@ -164,9 +164,14 @@
             <div class="carousel slide" style="padding-bottom: 15px;border-bottom: 1px solid #eeeeee;">
                 <div class="carousel-inner text-center">
                     <div class="item active recommend_del zhuBanner">
-                        <div>
+                        <div class="changmore">
                             {volist name='created_at' id='createdat' offset="0" length='3'}
-                            <a href="{:url('index/book_detail',array('book_id'=>$createdat->id))}"><img src="{:isset($createdat)?$createdat->picture:''}" alt="图片显示错误" /><p>{:isset($createdat)?$createdat->title:''}</p></a>
+                            <a href="{:url('index/book_detail',array('book_id'=>$createdat->id))}">
+                               <span>
+                                    <img src="{:isset($createdat)?$createdat->picture:''}" alt="图片显示错误" />
+                                <p>{:isset($createdat)?$createdat->title:''}</p>
+                               </span>
+                            </a>
                             {/volist}
                         </div>
                     </div>
@@ -188,7 +193,7 @@
                 </div>
                 <div class="col-xs-12 column no_lpad" style="height: 60%;overflow: hidden;">
                     <!--CSS改动(加省略号)-->
-                    <span style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 3;overflow: hidden;">{:isset($createdats)?$createdats->summary:''}</span>
+                    <span style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 4;overflow: hidden;">{:isset($createdats)?$createdats->summary:''}</span>
                 </div>
             </div>
         </div>
@@ -213,10 +218,15 @@
             <div class="carousel slide" style="padding-bottom: 15px;border-bottom: 1px solid #eeeeee;">
                 <div class="carousel-inner text-center">
                     <div class="item active recommend_del zhuBanner">
-                        <div>
+                        <div class="changmore">
                             {if condition="empty($timelimit)"}<p style="text-align: center;">暂无限时免费</p>{/if}
                             {volist name='timelimit' id='timelimits'}
-                            <a href="{:url('index/book_detail',array('book_id'=>$timelimits->id))}"><img src="{:isset($timelimits)?$timelimits->picture:''}" alt="图片显示错误" /><p>{:isset($timelimits)?$timelimits->title:''}</p></a>
+                            <a href="{:url('index/book_detail',array('book_id'=>$timelimits->id))}">
+                                <span>
+                                    <img src="{:isset($timelimits)?$timelimits->picture:''}" alt="图片显示错误" />
+                                    <p>{:isset($timelimits)?$timelimits->title:''}</p>
+                                </span>
+                            </a>
                             {/volist}
                         </div>
                     </div>
@@ -241,8 +251,10 @@
     <div class="changmore bg_white love_book" style="width: 100%;">
         {volist name="like_book" id="likebook"}
         <a  href="{:url('index/book_detail',array('book_id'=>$likebook['id']))}">
-            <img src="{:isset($likebook)?$likebook['picture']:''}" />
+            <span>
+                <img src="{:isset($likebook)?$likebook['picture']:''}" />
             <p>{:isset($likebook)?$likebook['title']:''}</p>
+            </span>
         </a>
         {/volist}
     </div>

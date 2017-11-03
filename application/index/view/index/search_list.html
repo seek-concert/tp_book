@@ -30,7 +30,7 @@
     </div>
 </div>
 {if condition="$search_count eq 0"}
-<div class="container">
+<div class="container newWidth">
     {if condition="$like_book"}
     <div class="row clearfix more_novel bg_white ">
         <div class="col-xs-12 column">
@@ -38,7 +38,7 @@
         </div>
     </div>
     {volist name="like_book" id="likebook"}
-    <div class="row clearfix bg_white h_delh" style="height: 110px;">
+    <div class="row clearfix bg_white h_delh">
         <div class="col-xs-4 column del_height">
             <img src="{:isset($likebook)?$likebook->picture:''}" alt="图片显示错误" class="img_out" />
         </div>
@@ -50,7 +50,7 @@
                 </div>
                 <div class="col-xs-12 column no_lpad" style="height: 60%;overflow: hidden;">
                     <!--CSS改动(加省略号)-->
-                    <span style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 3;overflow: hidden;">{:isset($likebook)?$likebook->summary:''}</span>
+                    <span style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 4;overflow: hidden;">{:isset($likebook)?$likebook->summary:''}</span>
                 </div>
             </div>
         </div>
@@ -61,14 +61,14 @@
 </div>
 {/if}
 {if condition="is_numeric($search_count) and $search_count neq 0"}
-<div class="container">
+<div class="container newWidth">
     <div class="row clearfix more_novel bg_white ">
         <div class="col-xs-12 column">
             <span class="pull-left" style="color: #999;">搜索结果</span>
         </div>
     </div>
 {volist name="book_list" id="booklist"}
-    <div class="row clearfix bg_white h_delh" style="height: 110px;">
+    <div class="row clearfix bg_white h_delh">
         <div class="col-xs-4 column del_height">
             <img src="{:isset($booklist)?$booklist->picture:''}" alt="图片显示错误" class="img_out" />
         </div>
@@ -80,7 +80,7 @@
                 </div>
                 <div class="col-xs-12 column no_lpad" style="height: 60%;overflow: hidden;">
                     <!--CSS改动(加省略号)-->
-                    <span style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 3;overflow: hidden;">{:isset($booklist)?$booklist->summary:''}</span>
+                    <span style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 4;overflow: hidden;">{:isset($booklist)?$booklist->summary:''}</span>
                 </div>
             </div>
         </div>

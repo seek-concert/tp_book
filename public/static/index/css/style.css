@@ -14,25 +14,25 @@ a{
 }
 
 .top_pad {
-	padding-top: 10px;
+	padding-top: 0.715rem;
 }
 .t_b_pad{
-	padding-top: 10px;
-	padding-bottom: 10px;
+	padding-top: 0.715rem;
+	padding-bottom: 0.715rem;
 }
 .bg_white {
 	background-color: white;
 }
 
 .mar_top {
-	margin-top: 10px;
+	margin-top: 0.715rem;
 }
 
 .pad_top {
-	padding-top: 10px;
+	padding-top: 0.715rem;
 }
 .pad_bot {
-	padding-bottom: 10px;
+	padding-bottom: 0.715rem;
 }
 small {
 	color: #CCCCCC;
@@ -47,13 +47,13 @@ small {
 	padding-left: 0px !important;
 }
 .padRight10{
-	padding-right: 10px !important;
+	padding-right: 0.715rem !important;
 }
 .padLeft10{
-	padding-left: 10px !important;
+	padding-left: 0.715rem !important;
 }
 .padT5{
-	padding-top: 5px;
+	padding-top: 0.357rem;
 }
 .f16{
 	font-size: 16px;
@@ -69,8 +69,8 @@ small {
 .top_out_div {
 	width: 100%;
 	height: 35px;
-	padding-top: 5px;
-	padding-right: 5px;
+	padding-top: 0.357rem;
+	padding-right: 0.357rem;
 	position: relative;
 	color: #999;
 	font-size: 12px;
@@ -85,7 +85,7 @@ small {
 	height: 25px;
 	outline: none;
 	border: 1px solid #eeeeee;
-	border-radius: 10px;
+	border-radius: 0.715rem;
 	padding-left: 25px;
 	padding-right: 15px;
 }
@@ -98,7 +98,7 @@ small {
 	line-height: 25px;
 	white-space: nowrap;
 	border: 1px solid transparent;
-	border-radius: 5px;
+	border-radius: 0.357rem;
 }
 
 .top_search_btn:hover {
@@ -134,7 +134,7 @@ small {
 	border-radius: 50%;
 	line-height: 40px;
 	position: absolute;
-	top: 10px;
+	top: 0.715rem;
 	left: 50%;
 	margin-left: -20px;
 }
@@ -171,8 +171,8 @@ small {
 
 .three_circl div span {
 	display: inline-block;
-	width: 5px;
-	height: 5px;
+	width: 0.357rem;
+	height: 0.357rem;
 	background: #ccc;
 	border-radius: 50%;
 }
@@ -192,14 +192,16 @@ small {
 	width: 33.33%;
 	font-size: 12px;
 	color: #666;
-	padding: 0 5px;
+	padding: 0 0.357rem;
 }
 
 .recommend_del a img {
-	box-shadow: 3px 2px 5px #bbb;
-	width: 90px;
-	height: 122px;
-	margin-bottom: 5px;
+	box-shadow: 3px 2px 0.357rem #bbb;
+	width: 100%;
+	min-width: 90px;
+	max-width: 116px;
+	height: 146px;
+	margin-bottom: 0.357rem;
 }
 
 .more_novel div {
@@ -213,7 +215,8 @@ small {
 
 .img_out {
 	width: 100%;
-	height: 100%;
+	/*height: 100%;*/
+	max-height: 160px;
 }
 
 .date_span {
@@ -232,19 +235,21 @@ small {
 .read_right {
 	color: orange;
 	line-height: 25px;
-	padding: 0 10px;
+	padding: 0 0.715rem;
 	height: 25px;
-	border-radius: 5px;
+	border-radius: 0.357rem;
 	border: 1px solid orange;
 }
 
 .del_height {
-	height: 100px;
+	/*height: 7.143rem;*/
+	max-height: 160px;
 }
 
 .h_delh {
-	height: 120px;
-	padding-bottom: 10px;
+	/*height: 120px;*/
+	max-height: 180px;
+	padding-bottom: 0.715rem;
 	border-bottom: 1px solid #eeeeee;
 }
 .h_delh img{
@@ -261,7 +266,7 @@ small {
 }
 
 .booklist p.bottom {
-	padding-bottom: 10px;
+	padding-bottom: 0.715rem;
 	border-bottom: 1px solid #CCCCCC;
 }
 
@@ -273,14 +278,14 @@ small {
 }
 
 .booklist p span {
-	margin-left: 10px;
+	margin-left: 14px;
 }
 
 .booklist p em {
 	font-size: 12px;
 	color: #ccc;
 	font-style: normal;
-	margin-left: 5px;
+	margin-left: 0.357rem;
 }
 
 .pm_icon {
@@ -294,7 +299,7 @@ small {
 
 .footer a {
 	color: #333;
-	padding: 0 10px;
+	padding: 0 0.715rem;
 }
 
 .footer .right_bor {
@@ -331,7 +336,7 @@ small {
 .banner3{
 	width: 100%;
 	overflow: overlay;
-	padding-bottom: 10px;
+	padding-bottom: 0.715rem;
 }
 .bannnerduo>div{
 	display: inline-block;
@@ -349,7 +354,7 @@ small {
 	width: 90px;
 	margin: 0 auto;
 	word-break: break-word;
-	margin-top: 5px;
+	margin-top: 0.357rem;
 }
 .bannnerduo>div:nth-of-type(3n+1){
 	text-align: center;
@@ -363,10 +368,10 @@ small {
 .bannnerduo img{
 	height: 124px;
 	width:88px ;
-	box-shadow: 1px 2px 5px #666;
+	box-shadow: 1px 2px 0.357rem #666;
 }
 .changmore{
-	
+
 	overflow: hidden;
 }
 .changmore a{
@@ -379,18 +384,26 @@ small {
 	font-size: 14px;
 	color: #666;
 }
+.changmore a span{
+	display: inline-block;
+	width: 100%;
+	max-width: 116px;
+}
 .changmore a:nth-of-type(3n+1){
 	text-align: left;
 }
+
 .changmore a:nth-of-type(3n+2){
 	text-align: center;
 }
-.changmore a:nth-of-type(3n+3){
+.changmore a:nth-of-type(3n){
 	text-align: right;
 }
 .changmore img{
-	width: 90%;
-	height:146px;
+	max-width: 116px;
+	max-height:146px;
+	height:120px;
+
 }
 /*++++++++++++++++++++++++++++分类列表++++++++++++++++++++++++++++++++*/
 .header{
@@ -410,7 +423,7 @@ small {
 	line-height: 25px;
 	white-space: nowrap;
 	border: 1px solid transparent;
-	border-radius: 5px;
+	border-radius: 0.357rem;
 	color: #888;
 }
 .toback span i{
@@ -424,8 +437,8 @@ small {
 	padding: 3px 8px;
 	border-radius: 4px;
 	color: #333;
-	margin-bottom: 5px;
-	margin-right: 5px;
+	margin-bottom: 0.357rem;
+	margin-right: 0.357rem;
 	float: left;
 }
 .listCon span.on{
@@ -437,8 +450,8 @@ small {
 	margin-left: 2px;
 }
 .quPad{
-	padding-left: 10px !important;
-	padding-right: 10px !important;
+	padding-left: 0.715rem !important;
+	padding-right: 0.715rem !important;
 }
 .listP{
 	line-height: 26px;
@@ -451,7 +464,7 @@ small {
 	height: 40px;
 	border-radius: 100%;
 	border: 1px solid rgb(187,187,187);
-	box-shadow: 0px 0px 5px rgb(187,187,187);
+	box-shadow: 0px 0px 0.357rem rgb(187,187,187);
 	background: rgba(255,255,255,.7);
 	text-align: center;
 	line-height: 33px;
@@ -459,9 +472,9 @@ small {
 	display: none;
 	color: #666;
 	position: fixed;
-	right: 10px;
-	bottom: 10px;
-	
+	right: 0.715rem;
+	bottom: 0.715rem;
+
 }
 .listImg{
 	box-shadow:2px 2px 3px rgb(150,150,150);
@@ -480,7 +493,7 @@ small {
 	font-size: 12px;
 	color: rgb(208,208,208);
 	font-family: "arial narrow";
-	margin-left: 5px;
+	margin-left: 0.357rem;
 }
 .bangimg i{
 	font-size: 60px;
@@ -499,7 +512,7 @@ small {
 .bangCon>p{
 	border-left: 1px solid #eee;
 	margin-bottom: 0px !important;
-	padding-left: 10px;
+	padding-left: 0.715rem;
 }
 .bangCon>p:first-child{
 	padding-bottom: 8px;
@@ -513,12 +526,12 @@ small {
 .bangCon>p>i{
 	position: relative;
 	font-size: 18px;
-	
+
 }
 .bangCon>p>i>b{
 	position: absolute;
 	top: 2px;
-	left: 5px;
+	left: 0.357rem;
 	color: white;
 	z-index: 2;
 	transform: rotate(-90deg);
@@ -537,25 +550,25 @@ small {
 	position: relative;
 }
 .bangRow>div{
-	padding-bottom: 5px;
-	padding-top:5px;
+	padding-bottom: 0.357rem;
+	padding-top:0.357rem;
 }
 .bangCon>p>span:nth-of-type(1){
 	font-size: 16px;
 	color: #666;
-	margin-left: 5px;
+	margin-left: 0.357rem;
 }
 .bangCon>p>span:last-child{
 	font-size: 12px;
 	color: #999;
-	margin-left: 5px;
+	margin-left: 0.357rem;
 }
 .bangnext{
 	text-align: right;
 	position: absolute;
 	top: 50%;
 	margin-top: -11px;
-	right: 10px;
+	right: 0.715rem;
 }
 .bangnext>i{
 	color: #999;
@@ -568,12 +581,12 @@ small {
 	text-align: center;
 }
 .recharge>div{
-	margin-top: 10px;
-	margin-bottom: 10px;
+	margin-top: 0.715rem;
+	margin-bottom: 0.715rem;
 }
 .recharge>div>div{
 	border: 1px solid rgb(246,110,100);
-	border-radius: 5px 5px 5px 5px;
+	border-radius: 0.357rem 0.357rem 0.357rem 0.357rem;
 	box-shadow: 0px 0px 2px rgb(246,110,100);
 	overflow: hidden;
 }
@@ -584,7 +597,7 @@ small {
 .recharge>div>div>div{
 	height: 74px;
 	background:#fff6f5 ;
-	/*border-radius:5px 5px 0px 0px ;*/
+	/*border-radius:0.357rem 0.357rem 0px 0px ;*/
 	border-bottom: 1px dashed rgb(246,110,100);
 }
 .recharge>div>div>p{
@@ -622,7 +635,7 @@ small {
 .result_p{
 	font-size: 16px;
 	color: #888;
-	padding-top: 10px;
+	padding-top: 0.715rem;
 }
 .result_p span{
 	color: rgb(52,203,208) !important;
@@ -643,7 +656,7 @@ small {
 }
 .bookInfo>div{
 	top: 20px;
-	
+
 }
 .bookInfo>div p{
 	margin-bottom:2px;
@@ -653,8 +666,8 @@ small {
 	color: rgb(24,213,233);
 }
 .bookname{
-	padding-top:5px ;
-	padding-bottom:5px ;
+	padding-top:0.357rem ;
+	padding-bottom:0.357rem ;
 }
 .looknum{
 	color: #ccc !important;
@@ -666,7 +679,7 @@ small {
 }
 .flagP>span{
 	display: inline-block;
-	padding: 3px 5px;
+	padding: 3px 0.357rem;
 	border-radius: 26px;
 	color: white;
 }
@@ -681,16 +694,16 @@ small {
 	height: 36px;
 	line-height: 36px;
 	color: white;
-	border-radius: 5px;
+	border-radius: 0.357rem;
 	font-size: 16px;
 }
 .beginLook{
 	background: #ff730b;
-	margin-right: 5px;
+	margin-right: 0.357rem;
 }
 .addBook{
 	background:#4bd398 ;
-	margin-left: 5px;
+	margin-left: 0.357rem;
 }
 .infoBo{
 	/*text-overflow: ellipsis;*/
@@ -702,7 +715,7 @@ small {
 .infoBo i{
 	font-size: 12px;
 	color: #999;
-	margin-left: 5px;
+	margin-left: 0.357rem;
 }
 .mulu{
 	height: 44px;
@@ -717,7 +730,7 @@ small {
 	float: left;
 }
 .mulu span:nth-of-type(2){
-	margin-left: 5px;
+	margin-left: 0.357rem;
 	color: #999;
 	width:50%;
 	overflow: hidden;
@@ -731,11 +744,11 @@ small {
 }
 .mulu span i{
 	font-size: 12px;
-	margin-left: 5px;
+	margin-left: 0.357rem;
 }
 .gussname{
-	padding-bottom: 10px;
-	padding-top: 10px;
+	padding-bottom: 0.715rem;
+	padding-top: 0.715rem;
 }
 .gussname span:last-child{
 	float: right;
@@ -746,7 +759,7 @@ small {
 	color: #333;
 }
 .gusscon{
-	padding-bottom: 10px;
+	padding-bottom: 0.715rem;
 }
 .gusscon div{
 	width: 33.333%;
@@ -782,14 +795,14 @@ small {
 .zongList div{
 	font-size: 18px;
 	color: #999;
-	padding-top: 10px;
+	padding-top: 0.715rem;
 	padding-bottom: 25px;
 }
 .zongList2 div{
 	font-size: 16px;
 	color: #333333;
-	padding-top:10px;
-	padding-bottom: 10px;
+	padding-top:0.715rem;
+	padding-bottom: 0.715rem;
 	padding-left: 0px;
 	padding-right: 0px;
 	width: calc(100% - 30px);
@@ -799,10 +812,10 @@ small {
 	margin-left: 15px;
 }
 .zongList2 div span:nth-of-type(2){
-	margin-left: 10px;
+	margin-left: 0.715rem;
 }
 .zongList2 div i{
-	margin-left: 5px;
+	margin-left: 0.357rem;
 	font-size: 16px;
 	color: pink;
 }
@@ -813,7 +826,7 @@ small {
 	margin: 0 auto;
 	display: flex;
 	border: 1px solid #FF730B;
-	border-radius: 5px;
+	border-radius: 0.357rem;
 }
 .bookTab span{
 	display: inline-block;
@@ -837,7 +850,7 @@ small {
 }
 .jilu b{
 	color: #555;
-	padding: 0px 3px;	
+	padding: 0px 3px;
 }
 .edit{
 	float: right;
@@ -871,8 +884,8 @@ small {
 .myBook .col-xs-12.no_rpad div:nth-of-type(2){
 	width: 90px;
 	height: 120px;
-	margin-right: 5px;
-	margin-left: 5px;
+	margin-right: 0.357rem;
+	margin-left: 0.357rem;
 }
 .myBook .col-xs-12.no_rpad div:nth-of-type(2) img{
 	width: 100%;
@@ -886,38 +899,38 @@ small {
 
 /****new*/
 .inputDiv>input{
-	display: inline-block;  
-    vertical-align: middle;  
-    /*width: 20px;  
+	display: inline-block;
+	vertical-align: middle;
+	/*width: 20px;
     height: 20px;  */
-    margin-left: 5px;  
-    -webkit-appearance: none;  
-    background-color: transparent;  
-    border: 0;  
-    outline: 0 !important;  
-    line-height: 20px;  
-    color: #d8d8d8;  
-    position: relative;
-    left: -10px;
+	margin-left: 0.357rem;
+	-webkit-appearance: none;
+	background-color: transparent;
+	border: 0;
+	outline: 0 !important;
+	line-height: 20px;
+	color: #d8d8d8;
+	position: relative;
+	left: -0.715rem;
 }
 .inputDiv>input:after{
-	  content: "";  
-    display:block;  
-    width: 20px;  
-    height: 20px;  
-    text-align: center;  
-    line-height: 14px;  
-    font-size: 16px;  
-    color: #fff;  
-    border: 2px solid #ddd;  
-    background-color: #fff;  
-    box-sizing:border-box;  
-    border-radius: 100%;
+	content: "";
+	display:block;
+	width: 20px;
+	height: 20px;
+	text-align: center;
+	line-height: 14px;
+	font-size: 16px;
+	color: #fff;
+	border: 2px solid #ddd;
+	background-color: #fff;
+	box-sizing:border-box;
+	border-radius: 100%;
 }
-.inputDiv>input[type=checkbox]:checked:after  {  
-    background-color: #ed424b; 
-    border: 2px solid #ed424b;
-} 
+.inputDiv>input[type=checkbox]:checked:after  {
+	background-color: #ed424b;
+	border: 2px solid #ed424b;
+}
 
 /****new*/
 .myBook .col-xs-12.no_rpad div{
@@ -944,15 +957,15 @@ small {
 	color: #999;
 	font-size: 16px;
 	margin-bottom: 0px ;
-	padding: 5px 0px;
+	padding: 0.357rem 0px;
 }
 .huip .icon-dian{
 	color: red !important;
 }
 .noData{
-	font-size: 18px;  
+	font-size: 18px;
 	position: absolute;
-	top: 50%;  
+	top: 50%;
 	width: 100%;
 }
 .none{
@@ -967,7 +980,7 @@ small {
 .myFlag>div>div span{
 	font-size: 16px;
 	color: #666;
-	margin-right: 5px;
+	margin-right: 0.357rem;
 }
 
 
@@ -975,9 +988,9 @@ small {
 	height: 30px;
 	line-height: 30px;
 	width: 50px;
-	margin-top: 5px;
+	margin-top: 0.357rem;
 	background: red;
-	border-radius: 5px;
+	border-radius: 0.357rem;
 	color: white;
 	text-align: center;
 }
@@ -1045,7 +1058,7 @@ small {
 .zzDiv em{
 	/*color: #888;*/
 	font-style: normal;
-	padding-left: 10px;
+	padding-left: 0.715rem;
 }
 .conFooter{
 	background: black;
@@ -1061,9 +1074,9 @@ small {
 	width: 25%;
 	text-align: center;
 	color: white;
-	padding: 5px 0px;
+	padding: 0.357rem 0px;
 	float: left;
-	
+
 }
 .conFooter a p{
 	font-size: 12px;
@@ -1084,8 +1097,8 @@ small {
 	display: inline-block;
 	width: 20px;
 	height: 20px;
-	margin-right: 10px;
-	
+	margin-right: 0.715rem;
+
 }
 .conHead span{
 	display: inline-block;
@@ -1093,7 +1106,7 @@ small {
 }
 .conHead .back{
 	text-align: center;
-	margin-left: 10px !important;
+	margin-left: 0.715rem !important;
 }
 .conHead a:hover{
 	text-decoration: none;
@@ -1104,7 +1117,7 @@ small {
 
 .conHead a{
 	float: right;
-	margin-right: 10px;
+	margin-right: 0.715rem;
 	color: white;
 	line-height: 36px;
 }
@@ -1133,7 +1146,7 @@ small {
 	height: 100%;
 	float: right;
 	background: #c1af95;
-	
+
 }
 .conList li{
 	text-align: center;
@@ -1168,7 +1181,7 @@ small {
 	text-align: left !important;
 }
 .sHead a:first-child i{
-	margin-left: 10px;
+	margin-left: 0.715rem;
 }
 .sHead a:last-child{
 	border: none;
@@ -1217,7 +1230,7 @@ small {
 	border-radius: 100%;
 	border: 2px solid white;
 	margin-top: 25px;
-	margin-bottom: 10px;
+	margin-bottom: 0.715rem;
 }
 
 .mineHead span img{
@@ -1231,7 +1244,7 @@ small {
 	margin-bottom: 0px !important;
 }
 .mineHead p span{
-	margin-left: 10px;
+	margin-left: 0.715rem;
 }
 .mineCon p{
 	margin-bottom: 0px !important;
@@ -1242,7 +1255,7 @@ small {
 	font-size: 16px;
 }
 .mineCon p span>i{
-	margin-right: 10px;
+	margin-right: 0.715rem;
 	font-size: 18px;
 }
 .mineCon p.yue span:nth-of-type(1) i{
@@ -1265,14 +1278,14 @@ small {
 .mineCon p>i.pull-right{
 	color: #999;
 	font-size: 14px !important;
-	margin-left: 5px;
+	margin-left: 0.357rem;
 }
 .mineCon p>i.icon-dian{
 	color: red;
 	font-size: 8px !important;
 	margin-left: 3px !important;
 	position: relative;
-	top: -5px;
+	top: -0.357rem;
 }
 .openVip{
 	width: 100%;
@@ -1294,9 +1307,9 @@ small {
 	background: white;
 	top: 50%;
 	margin-top: -110px;
-	border-radius: 5px;
+	border-radius: 0.357rem;
 	display: none;
-	
+
 }
 .openVip .openDiv p{
 	text-align: center;
@@ -1318,14 +1331,14 @@ small {
 	width: -moz-calc(100% - 40px);
 	margin: 0 auto;
 	background: #45a8eb;
-	border-radius: 5px;
+	border-radius: 0.357rem;
 	height: 36px;
 	line-height: 36px;
 	color: white !important;
 }
 /*****************客服中心************************/
 .kefuHead{
-	
+
 }
 .erweima{
 	width: 90%;
@@ -1338,14 +1351,14 @@ small {
 	font-size: 30px;
 	color: red;
 	text-align: center;
-	letter-spacing:10px ;
+	letter-spacing:0.715rem ;
 }
 
 
 /******************立即支付页面**********************/
 .zhifu_box{
 	width: 90%;
-	border-radius: 5px;
+	border-radius: 0.357rem;
 	padding: 15px 20px;
 	background: white;
 	margin: 50px auto;
@@ -1357,7 +1370,7 @@ small {
 	letter-spacing: 3px;
 	font-size: 15px;
 	color: #888;
-	
+
 }
 .zhifu_box>p>span:last-child{
 	display: inline-block;
@@ -1374,3 +1387,18 @@ small {
 	width: 100%;
 }
 
+
+.newWidth .col-xs-4.del_height{
+	max-width: 137px;
+}
+.newWidth .col-xs-4 img{
+	max-width: 107px;
+	height:120px;
+}
+@media screen and (min-width: 768px) {
+	.newWidth .col-xs-8.del_height{
+		width: calc(100%);
+		width: -webkit-calc(100% - 137px);
+		width: -moz-calc(100%);
+	}
+}

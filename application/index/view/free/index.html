@@ -39,18 +39,22 @@
             <div class="carousel slide" style="padding-bottom: 15px;border-bottom: 1px solid #eeeeee;">
                 <div class="carousel-inner text-center">
                     <div class="item active recommend_del zhuBanner">
-                        <div>
+                        <div class="changmore">
                             {if condition="empty($timelimit)"}<p style="text-align: center;">暂无限时免费</p>{/if}
                             {volist name='timelimit' id='timelimits' offset="0" length='3'}
-                            <a href="{:url('index/book_detail',array('book_id'=>$timelimits->id))}"><img src="{$timelimits->picture}" alt="图片显示错误" /><p>{$timelimits->title}</p></a>
-                            {/volist}
+                            <a href="{:url('index/book_detail',array('book_id'=>$timelimits->id))}">
+                               <span>
+                                    <img src="{$timelimits->picture}" alt="图片显示错误" />
+                                <p>{$timelimits->title}</p>
+                               </span>
+                            </a>{/volist}
                         </div>
                     </div>
                 </div>
             </div>
             {if condition="$timelimit_count > 3"}
             {volist name='timelimit' id='timelimit_list' offset="3" length='$timelimit_count-3'}
-            <div class="row clearfix bg_white h_delh pad_top">
+            <div class="row clearfix bg_white h_delh pad_top newWidth">
                 <div class="col-xs-4 column del_height">
                     <img src="{$timelimit_list->picture}" alt="图片显示错误" class="img_out" />
                 </div>
@@ -62,7 +66,7 @@
                         </div>
                         <div class="col-xs-12 column no_lpad" style="height: 60%;overflow: hidden;">
                             <!--CSS改动(加省略号)-->
-                            <span style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 3;overflow: hidden;">{$timelimit_list->summary}</span>
+                            <span style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 4;overflow: hidden;">{$timelimit_list->summary}</span>
                         </div>
                     </div>
                 </div>
@@ -75,7 +79,7 @@
 
 </div>
 
-<div class="container mar_top freeinfo">
+<div class="container mar_top freeinfo newWidth">
     <div class="row clearfix bg_white mar_top" style="border-bottom: 1px solid #eeeeee;">
         <div class="col-xs-4 main_recommend">
             <p>完全免费</p>
@@ -150,7 +154,7 @@
                             '<a href="{:url(\'index/book_detail\')}?book_id='+bookidss+'"><span class="pull-right read_right">立即阅读</span></a>\n'+
                             '</div>\n'+
                             '<div class="col-xs-12 column no_lpad" style="height: 60%;overflow: hidden;">\n'+
-                            '<span style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 3;overflow: hidden;">'+bookidss_arr['summary']+'</span>\n'+
+                            '<span style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 4;overflow: hidden;">'+bookidss_arr['summary']+'</span>\n'+
                             '</div>\n'+
                             '</div>\n'+
                             '</div>\n'+
