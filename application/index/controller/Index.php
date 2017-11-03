@@ -363,7 +363,7 @@ class Index extends Auth
                 ->find();
         }
         /*+++++ 当前账号是否为会员 +++++*/
-                $reader_id = $this->reader['id'];
+        $reader_id = $this->reader['id'];
 
         $reader_vip = model('Readers')
             ->where('id',$reader_id)
@@ -533,15 +533,18 @@ class Index extends Auth
                     $save_content_id = model('Readerreadlast')->save(['read_at'=>time()],['book_id'=>$book_id,'reader_id'=>$reader_id]);
                 }
               }
+            if(!$save_content_id){
+                return $this->error('数据错误','');
+            }
+            return $this->success('加载成功',url('index/book_contents'),$content_id);
         }else{
             /*+++++ 如果没阅读过该小说，就添加数据(最近阅读表) +++++*/
             $save_content_id = model('Readerreadlast')->save(['content_id'=>$bookcontent_price['id'],'book_id'=>$book_id,'reader_id'=>$reader_id,'read_at'=>time()]);
+            if(!$save_content_id){
+                return $this->error('数据错误','');
+            }
+            return $this->success('加载成功',url('index/book_contents'),$bookcontent_price['id']);
         }
-
-        if(!$save_content_id){
-            return $this->error('数据错误','');
-        }
-        return $this->success('加载成功',url('index/book_contents'),$bookcontent_price['id']);
     }
 
     /* ============ 小说内容 ============== */
