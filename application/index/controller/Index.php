@@ -345,6 +345,7 @@ class Index extends Auth
                 ->where('book_id',$book_id)
                 ->where('order_num',$order_num)
                 ->column('id');
+            $content_id = $content_id[0];
         }else{
             $content_id = input('content_id');
         }
@@ -521,7 +522,7 @@ class Index extends Auth
         if($readerreadlast){
             /*+++++ 如果阅读过该小说，就修改章节(最近阅读表) +++++*/
             if($content_id){
-                  $save_content_id = model('Readerreadlast')->save(['content_id'=>$bookcontent_price['id'],'read_at'=>time()],['book_id'=>$book_id,'reader_id'=>$reader_id]);
+                  $save_content_id = model('Readerreadlast')->save(['content_id'=>$content_id,'read_at'=>time()],['book_id'=>$book_id,'reader_id'=>$reader_id]);
             }else{
                 $bookcontent_id = db('book_content')
                     ->where('book_id',$book_id)
