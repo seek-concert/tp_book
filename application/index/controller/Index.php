@@ -599,9 +599,10 @@ class Index extends Auth
             ->where('book_id',$book_id)
             ->where('content_id',$bookcontent_id['id'])
             ->where('reader_id',$reader_id)
-            ->count();
+            ->find();
         if($rs){
-            return $this->error('当前章节书签已存在!','');
+            $rs->save(['updated_at'=>time()]);
+            return $this->error('书签更新成功!','');
         }
         $save_flag = model('Readerbookmark')->save(['content_id'=>$bookcontent_id['id'],'book_id'=>$book_id,'reader_id'=>$reader_id,'read_at'=>time()]);
         if($save_flag){

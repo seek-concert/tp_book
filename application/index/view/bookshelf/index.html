@@ -200,8 +200,7 @@
             'order_num':b,
             'book_id':a
         };
-        $.cookie('flag','flag',{path: '/'});
-        alert($.cookie('flag'));
+        $.cookie('flag','flags',{path: "/"});
         $.ajax({
             url:"{:url('index/bookstatus')}",
             data:data,
