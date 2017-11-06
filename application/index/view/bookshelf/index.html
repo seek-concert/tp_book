@@ -70,7 +70,7 @@
                     </div>
                 </div>
                 <div class="col-xs-3 padLeft0 text-right">
-                    {if condition="$readerreadlastlist->online eq 0"}<p class="huip">已下架</p>{else/}<a href="{:url('index/book_detail',array('book_id'=>$readerreadlastlist->id))}"><p class="huip">继续阅读</p></a>{/if}
+                    {if condition="$readerreadlastlist->online eq 0"}<p class="huip">已下架</p>{else/}<p class="huip" onclick="reader_books({$readerreadlastlist->id},{$readerreadlastlist->order_nums})">继续阅读</p>{/if}
                 </div>
             </div>
         </div>
@@ -94,7 +94,9 @@
         <div class="col-xs-12">
             <input type="hidden" name="book_id" class="book_id" value="{$readerbookmarklist->id}">
             <input type="hidden" name="content_id" class="content_id" value="{$readerbookmarklist->content_id}">
-            <a href="{:url('index/book_detail',array('book_id'=>$readerbookmarklist->id))}" ><span>《{$readerbookmarklist->title}》</span> <span>第{$readerbookmarklist->order_num}章 </span><span>{$readerbookmarklist->name}</span></a> <a class="pull-right del" onclick="sq_del(this)">删除</a>
+            <a onclick="reader_flag({$readerbookmarklist->id},{$readerbookmarklist->order_num})" >
+                <span>《{$readerbookmarklist->title}》</span> <span>第{$readerbookmarklist->order_num}章 </span><span>{$readerbookmarklist->name}</span></a>
+            <a class="pull-right del" onclick="sq_del(this)">删除</a>
         </div>
         {/if}
         {/volist}
@@ -117,6 +119,7 @@
 </body>
 {include file="public/foot"/}
 <script src="__STATIC__/system/layer/layer.js" type="text/javascript" charset="utf-8"></script>
+<script src="__STATIC__/index/js/jquery.cookie.js"></script>
 <script type="text/javascript">
     bookShelf();
     $(".del_bookshelf").click(function(){
@@ -161,6 +164,57 @@
                         $(this).remove();
                     }
                 });
+            },
+            error:function () {
+                layer.msg('数据错误');
+            }
+        })
+    }
+
+    function  reader_books(a,b) {
+        var data = {
+            'order_num':b,
+            'book_id':a
+        };
+        $.ajax({
+            url:"{:url('index/bookstatus')}",
+            data:data,
+            type:'POST',
+            dataType:'JSON',
+            success:function (e) {
+                if(e.code==1){
+                    layer.msg(e.msg);
+                    location.href=e.url+"?id="+e.data;
+                }
+                if(e.code==0){
+                    layer.msg(e.msg);
+                }
+            },
+            error:function () {
+                layer.msg('数据错误');
+            }
+        })
+    }
+    function  reader_flag(a,b) {
+        var data = {
+            'order_num':b,
+            'book_id':a
+        };
+        $.cookie('flag','flag',{path: '/'});
+        alert($.cookie('flag'));
+        $.ajax({
+            url:"{:url('index/bookstatus')}",
+            data:data,
+            type:'POST',
+            dataType:'JSON',
+            success:function (e) {
+                if(e.code==1){
+                    layer.msg(e.msg);
+                    location.href=e.url+"?id="+e.data;
+                }
+                if(e.code==0){
+                    layer.msg(e.msg);
+                }
             },
             error:function () {
                 layer.msg('数据错误');
