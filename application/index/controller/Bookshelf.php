@@ -109,8 +109,7 @@ class Bookshelf extends Auth
         if(empty($book_id)){
             return $this->error('参数错误');
         }
-                $reader_id = $this->reader['id'];
-
+        $reader_id = $this->reader['id'];
         $select_bookshelf = model('Readbookshelf')
             ->where('book_id',$book_id)
             ->where('reader_id',$reader_id)
@@ -118,7 +117,17 @@ class Bookshelf extends Auth
         if(count($select_bookshelf)!==0){
             return $this->error('书架已存在该书籍！','');
         }
-        $res=model('Readbookshelf')->save(['book_id'=>$book_id,'reader_id'=>$reader_id]);
+        $readerreadlast = model('Readerreadlast')
+            ->field(['content_id','read_at'])
+            ->where('book_id',$book_id)
+            ->where('reader_id',$reader_id)
+            ->find();
+        if($readerreadlast){
+            $res=model('Readbookshelf')->save(['book_id'=>$book_id,'reader_id'=>$reader_id,'content_id'=>$readerreadlast['content_id'],'read_at'=>$readerreadlast['read_at']]);
+        }else{
+            $res=model('Readbookshelf')->save(['book_id'=>$book_id,'reader_id'=>$reader_id]);
+        }
+
         if($res){
             return $this->success('加入成功','');
         }else{

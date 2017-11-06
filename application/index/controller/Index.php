@@ -512,7 +512,28 @@ class Index extends Auth
         model('Books')->save(['click_num'=>$book_infos['click_num']+1],['id'=>$book_id]);
         model('Bookcontents')->save(['click_num'=>$bookcontent_infos['click_num']+1],['id'=>$bookcontent_price['id']]);
 
-
+        /*+++++ 查询是否有数据(我的书架表) +++++*/
+        $reader_bookshelf = model('Readbookshelf')
+            ->field('content_id')
+            ->where('book_id',$book_id)
+            ->where('reader_id',$reader_id)
+            ->find();
+        if($reader_bookshelf){
+            /*+++++ 如果存在该小说，就修改章节(我的书架表) +++++*/
+            if($content_id){
+                 model('Readbookshelf')->save(['content_id'=>$content_id,'read_at'=>time()],['book_id'=>$book_id,'reader_id'=>$reader_id]);
+            }else{
+                $bookcontent_id = db('book_content')
+                    ->where('book_id',$book_id)
+                    ->where('order_num','1')
+                    ->column('id');
+                if($bookcontent_id){
+                    model('Readbookshelf')->save(['content_id'=>$bookcontent_id[0],'read_at'=>time()],['book_id'=>$book_id,'reader_id'=>$reader_id]);
+                }else{
+                    model('Readbookshelf')->save(['read_at'=>time()],['book_id'=>$book_id,'reader_id'=>$reader_id]);
+                }
+            }
+        }
         /*+++++ 查询是否有数据(最近阅读表) +++++*/
         $readerreadlast = model('Readerreadlast')
             ->field('content_id')
@@ -573,8 +594,15 @@ class Index extends Auth
             ->where('book_id',$book_id)
             ->where('order_num',$order_num)
             ->find();
-                $reader_id = $this->reader['id'];
-
+        $reader_id = $this->reader['id'];
+        $rs = model('Readerbookmark')
+            ->where('book_id',$book_id)
+            ->where('content_id',$bookcontent_id['id'])
+            ->where('reader_id',$reader_id)
+            ->count();
+        if($rs){
+            return $this->error('当前章节书签已存在!','');
+        }
         $save_flag = model('Readerbookmark')->save(['content_id'=>$bookcontent_id['id'],'book_id'=>$book_id,'reader_id'=>$reader_id,'read_at'=>time()]);
         if($save_flag){
             return $this->success('添加书签成功','');
