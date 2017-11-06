@@ -86,7 +86,6 @@ $("#muList").on('click','span.toTop',function () {
             type:'GET',
             dataType:'JSON',
             success: function(rs) {
-                console.log(rs);
                 if(rs.data.data.length<1){
                     $(document).off("scroll");
                     $("#dibu").css('display','block');
@@ -127,7 +126,6 @@ $("#muList").on('click','span.toTop',function () {
             type:'POST',
             dataType:'JSON',
             success:function (data) {
-                console.log(data);
                 if(data.code==1){
                     layer.msg(data.msg);
                     location.href=data.url+"?id="+data.data;

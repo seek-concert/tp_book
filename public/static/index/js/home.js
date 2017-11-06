@@ -180,19 +180,32 @@ function bookShelf(){
 
 //**************************图书内容页面*********************************
 function content(){
-    var numn=0;
+    if($.cookie('numn_'+book_id+'_'+reader_id+'_'+order_nums)){
+        var numn = $.cookie('numn_'+book_id+'_'+reader_id+'_'+order_nums);
+    }else{
+        var numn=0;
+    }
     var viewH=$(window).height();
     $("#content").css("width",$(window).width()+"px");
     $("#content").css({"height":(Math.floor(viewH / 24)-2)*24+"px","margin-top":"36px"});
     $("#content").css("width",$(window).width()*$("#content>div").length+"px");
 
     var leng = Math.ceil($("#content>div").height()/$("#content").height());
+    if($.cookie('numn_'+book_id+'_'+reader_id+'_'+order_nums)){
+        if(numn == 1) {
+            $(".layui-layer-msg").css("display", "none");
+        }
+        $("#content>div").css({"left":$(window).width()+"px","top":-$("#content").height()*numn+"px"});
+        $("#content>div").animate({"left":"0px"},600);
+    }
     //右翻
     $(".conRight").click(function() {
         numn++;
+        $.cookie('numn_'+book_id+'_'+reader_id+'_'+order_nums,numn);
         if(numn >= leng){
             layer.msg("努力加载中...");
             numn = leng-1;
+            $.cookie('numn_'+book_id+'_'+reader_id+'_'+order_nums,numn);
             $("#content>div").css("top",-$("#content").height()*numn+"px");
             var order_num  = parseInt(order_nums)+1;
             var data = {
@@ -231,11 +244,43 @@ function content(){
     $(".conLeft").click(function() {
         numn--;
         console.log(numn);
+        $.cookie('numn_'+book_id+'_'+reader_id+'_'+order_nums,numn);
         if(numn < 0){
-            layer.msg("已是第一页");
-            numn = 0;
-            $("#content>div").css({"left":"0px","top":-$("#content").height()*numn+"px"});
-            return false;
+            $.cookie('numn_'+book_id+'_'+reader_id+'_'+order_nums,0);
+            if(order_nums==1){
+                layer.msg("已是第一页");
+                numn = 0;
+                $("#content>div").css({"left":"0px","top":-$("#content").height()*numn+"px"});
+                return false;
+            }else{
+                layer.msg("努力加载中...");
+                $("#content>div").css("top",-$("#content").height()*(numn-1)+"px");
+                var order_num  = parseInt(order_nums)-1;
+                var data = {
+                    'order_num':order_num,
+                    'book_id':book_id
+                };
+                $.ajax({
+                    url:order_nums_url,
+                    data:data,
+                    type:'POST',
+                    dataType:'JSON',
+                    success:function (data) {
+                        console.log(data);
+                        if(data.code==1){
+                            layer.msg(data.msg);
+                            location.href=data.url+"?id="+data.data;
+                        }
+                        if(data.code==0){
+                            layer.msg(data.msg);
+                        }
+                    },
+                    error:function () {
+                        layer.msg('数据错误');
+                    }
+                })
+            }
+
         }else{
             if(numn == leng-2){
                 $(".layui-layer-msg").css("display", "none");
@@ -265,11 +310,28 @@ function content(){
         $(".conFooter,.conHead").slideToggle(300);
     });
 
+
+    if($.cookie('moshi')){
+        $("body").attr('class',$.cookie('moshi'));
+        if($.cookie('moshi')=='moshi1'){
+            $(".rijian").attr('style','display:block');
+            $(".yejian").attr('style','display:none');
+        }else{
+            $(".rijian").attr('style','display:block');
+            $(".yejian").attr('style','display:none');
+        }
+    }
     //日间和夜间模式切换
     $("[lb]").click(function(){
         $(this).css("display","none").siblings("[lb]").css("display","block");
         $("body").addClass("moshi"+$(this).attr("lb")).removeClass("moshi"+$(this).siblings("[lb]").attr("lb"));
         $(".conFooter,.conHead").slideToggle(300);
+        var display =$('.rijian').css('display');
+        if(display == 'none'){
+           $.cookie('moshi','moshi2');
+        }else{
+            $.cookie('moshi','moshi1');
+        }
     });
 
     //添加标签

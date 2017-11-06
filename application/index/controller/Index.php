@@ -556,11 +556,8 @@ class Index extends Auth
             ->where('id',$id)
             ->find();
         $this->assign('content_info',$content_info);
-        $content_name = model('Bookcontents')
-            ->field('id,book_id,order_num,name')
-            ->where('book_id',$content_info['book_id'])
-            ->select();
-       $this->assign('content_name',$content_name);
+        $reader_id = $this->reader['id'];
+        $this->assign($reader_id);
         return view();
     }
 
