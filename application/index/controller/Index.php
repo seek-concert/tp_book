@@ -112,9 +112,10 @@ class Index extends Auth
             ->limit($data_setting['buy'])
             ->select();
         $datas['buy_num_book'] = $buy_num_book;
-        /*+++++ 二维码 +++++*/
-        $qr_code = db('setting')->field('qr_code')->find();
-        $datas['qr_code'] = $qr_code;
+        /*+++++ 网站信息 +++++*/
+        $set_info = db('setting')->field(['name','title','qr_code'])->find();
+        $datas['set_info'] = $set_info;
+//        dump($qr_code['qr_code']);
         $this->assign($datas);
         return view();
     }

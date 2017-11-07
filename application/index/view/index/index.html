@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
-    <title>小说首页</title>
+    <title>{:isset($set_info)?$set_info['title']:''}</title>
     {include file="public/head" /}
 </head>
 
@@ -283,13 +283,13 @@
         </div>
     </div>
     <div class="row clearfix bg_white text-center" style="padding: 5px 0px;">
-        <small>@2017小说</small>
+        <small>@{:date('Y')}{:isset($set_info)?$set_info['name']:''}</small>
     </div>
     <div class="row clearfix bg_white text-center">
         <small>免责声明：小说均源于互联网-所有版权股属于原作者</small>
     </div>
     <div class="row clearfix bg_white text-center erwm" style="padding: 5px 0px;">
-        <img src="{:isset($qr_code)?$qr_code['qr_code']:''}" alt="图片显示错误" />
+        <img src="{:isset($set_info)?$set_info['qr_code']:''}" alt="图片显示错误" />
     </div>
     <div class="row clearfix bg_white text-center" style="padding-bottom: 53px;">
         <small>本公总号仅提供页面服务，如有侵权请于我们联系</small>

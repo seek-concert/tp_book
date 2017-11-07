@@ -180,11 +180,8 @@ function bookShelf(){
 
 //**************************图书内容页面*********************************
 function content(){
-
-    alert($.cookie('flag'));
     if($.cookie('flag')){
        numn =  $.cookie('flag_'+book_id+'_'+reader_id+'_'+order_nums);
-       alert(numn);
     }else{
         if($.cookie('numn_'+book_id+'_'+reader_id+'_'+order_nums)){
             numn = $.cookie('numn_'+book_id+'_'+reader_id+'_'+order_nums);
@@ -192,6 +189,7 @@ function content(){
             numn=0;
         }
     }
+    $.cookie('numn_'+book_id+'_'+reader_id+'_'+order_nums,numn);
     var viewH=$(window).height();
     $("#content").css("width",$(window).width()+"px");
     $("#content").css({"height":(Math.floor(viewH / 24)-2)*24+"px","margin-top":"36px"});
@@ -199,14 +197,13 @@ function content(){
 
     var leng = Math.ceil($("#content>div").height()/$("#content").height());
     if($.cookie('numn_'+book_id+'_'+reader_id+'_'+order_nums)||$.cookie('flag')){
-        alert('222');
         if(numn == 1) {
             $(".layui-layer-msg").css("display", "none");
         }
         $("#content>div").css({"left":$(window).width()+"px","top":-$("#content").height()*numn+"px"});
         $("#content>div").animate({"left":"0px"},600);
     }
-    $.cookie('flag','');
+    $.cookie('flag','',{path:"/"});
     //右翻
     $(".conRight").click(function() {
         numn++;
@@ -319,7 +316,7 @@ function content(){
         $(".conFooter,.conHead").slideToggle(300);
     });
 
-
+    //日间和夜间模式切换
     if($.cookie('moshi')){
         $("body").attr('class',$.cookie('moshi'));
         if($.cookie('moshi')=='moshi1'){
@@ -330,7 +327,6 @@ function content(){
             $(".yejian").attr('style','display:none');
         }
     }
-    //日间和夜间模式切换
     $("[lb]").click(function(){
         $(this).css("display","none").siblings("[lb]").css("display","block");
         $("body").addClass("moshi"+$(this).attr("lb")).removeClass("moshi"+$(this).siblings("[lb]").attr("lb"));
