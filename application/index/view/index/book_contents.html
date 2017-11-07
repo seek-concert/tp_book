@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
-    <title>图书内容页面</title>
+    <title>{:isset($content_info)?$content_info['title']:''}</title>
     {include file="public/head" /}
     <link rel="stylesheet" href="http://at.alicdn.com/t/font_444045_1zwcgrg0o7qlg14i.css" />
 </head>
@@ -88,7 +88,6 @@
             dataType:'JSON',
             success:function (e) {
                 if(e.code==1){
-                    layer.msg(e.msg);
                     location.href=e.url+"?id="+e.data;
                 }
                 if(e.code==0){
@@ -96,7 +95,7 @@
                 }
             },
             error:function () {
-                layer.msg('数据错误');
+                layer.msg('网络故障,请重试');
             }
         })
     }
@@ -162,7 +161,7 @@
                 }
             },
             error:function () {
-                layer.msg('数据错误');
+                layer.msg('网络故障,请重试');
             }
         });
     }

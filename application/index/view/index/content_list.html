@@ -127,7 +127,6 @@ $("#muList").on('click','span.toTop',function () {
             dataType:'JSON',
             success:function (data) {
                 if(data.code==1){
-                    layer.msg(data.msg);
                     location.href=data.url+"?id="+data.data;
                 }
                 if(data.code==0){
@@ -135,7 +134,7 @@ $("#muList").on('click','span.toTop',function () {
                 }
             },
             error:function () {
-                layer.msg('数据错误');
+                layer.msg('网络故障,请重试');
             }
         })
     }

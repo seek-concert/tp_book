@@ -348,12 +348,13 @@ class Index extends Auth
                 ->where('book_id',$book_id)
                 ->where('order_num',$order_num)
                 ->value('id');
+            if(!$content_id){
+                return $this->error('已是最新章节','');
+            }
         }else{
             $content_id = input('content_id');
         }
-        if(!$content_id){
-            return $this->error('已是最新章节','');
-        }
+
         /*---------查询章节信息-------*/
         if($order_num){
             $bookcontent_price = db('book_content')
@@ -578,8 +579,10 @@ class Index extends Auth
     public function book_contents(){
         $id = input('id');
         $content_info = db('book_content')
-            ->field('id,book_id,order_num,name,content')
-            ->where('id',$id)
+            ->field(['c.id','c.book_id','c.order_num','c.name','c.content','b.title as title'])
+            ->alias('c')
+            ->join('book b','b.id = c.book_id','left')
+            ->where('c.id',$id)
             ->find();
         $this->assign('content_info',$content_info);
         $reader_id = $this->reader['id'];

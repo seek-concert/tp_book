@@ -205,8 +205,13 @@ function content(){
     $.cookie('flag','',{path:"/"});
     //右翻
     $(".conRight").click(function() {
+        if($(this).data('loading')){
+            return false;
+        }
+        $(this).data('loading',true);
         numn++;
         $.cookie('numn_'+book_id+'_'+reader_id+'_'+order_nums,numn);
+
         if(numn >= leng){
             numn = leng-1;
             $.cookie('numn_'+book_id+'_'+reader_id+'_'+order_nums,numn);
@@ -216,10 +221,7 @@ function content(){
                 'order_num':order_num,
                 'book_id':book_id
             };
-            if($(this).data('loading')){
-                return false;
-            }
-            $(this).data('loading',true);
+
             $.ajax({
                 url:order_nums_url,
                 data:data,
@@ -244,14 +246,20 @@ function content(){
                 $(".layui-layer-msg").css("display", "none");
             }
             $("#content>div").css({"left":$(window).width()+"px","top":-$("#content").height()*numn+"px"});
-            $("#content>div").animate({"left":"0px"},600)
+            $("#content>div").animate({"left":"0px"},600);
+            $(this).data('loading',false);
         }
         return numn;
     });
     //左翻
     $(".conLeft").click(function() {
+        if($(this).data('loading')){
+            return false;
+        }
+        $(this).data('loading',true);
         numn--;
         $.cookie('numn_'+book_id+'_'+reader_id+'_'+order_nums,numn);
+
         if(numn < 0){
             $.cookie('numn_'+book_id+'_'+reader_id+'_'+order_nums,0);
             if(order_nums==1){
@@ -267,10 +275,6 @@ function content(){
                     'order_num':order_num,
                     'book_id':book_id
                 };
-                if($(this).data('loading')){
-                    return false;
-                }
-                $(this).data('loading',true);
                 $.ajax({
                     url:order_nums_url,
                     data:data,
@@ -298,6 +302,7 @@ function content(){
             }
             $("#content>div").css({"left":-$(window).width()+"px","top":-$("#content").height()*numn+"px"});
             $("#content>div").animate({"left":"0px"},600);
+            $(this).data('loading',false);
         }
 
     });
