@@ -28,7 +28,7 @@
     <!--BookInfo-->
     <form action="" method="post"  id="js-ajax-form">
         <input type="hidden" name="book_id" id="book_id" value="{:isset($book_info)?$book_info->id:''}">
-    <div class="row bookInfo clearfix  bg_white" {if condition="isset($banner_img)"}style="background: url({$banner_img['picture']}) no-repeat center;"{/if}>
+    <div class="row bookInfo clearfix  bg_white" {if condition="isset($banner_img)"}style="background: url({$banner_img['picture']}) no-repeat center;background-size: 100% 100%;"{/if}>
         <div class="col-xs-3 column no_rpad">
             <img src="{:isset($book_info)?$book_info->picture:''}" />
         </div>
