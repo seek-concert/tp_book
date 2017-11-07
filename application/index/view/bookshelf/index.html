@@ -183,7 +183,6 @@
             dataType:'JSON',
             success:function (e) {
                 if(e.code==1){
-                    layer.msg(e.msg);
                     location.href=e.url+"?id="+e.data;
                 }
                 if(e.code==0){
@@ -191,7 +190,7 @@
                 }
             },
             error:function () {
-                layer.msg('数据错误');
+                layer.msg('网络故障，请重试');
             }
         })
     }
@@ -208,7 +207,6 @@
             dataType:'JSON',
             success:function (e) {
                 if(e.code==1){
-                    layer.msg(e.msg);
                     location.href=e.url+"?id="+e.data;
                 }
                 if(e.code==0){
@@ -216,7 +214,7 @@
                 }
             },
             error:function () {
-                layer.msg('数据错误');
+                layer.msg('网络故障，请重试');
             }
         })
     }
