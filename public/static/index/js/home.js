@@ -224,9 +224,7 @@ function content(){
                 type:'POST',
                 dataType:'JSON',
                 success:function (data) {
-                    console.log(data);
                     if(data.code==1){
-                        layer.msg(data.msg);
                         location.href=data.url+"?id="+data.data;
                     }
                     if(data.code==0){
@@ -272,9 +270,7 @@ function content(){
                     type:'POST',
                     dataType:'JSON',
                     success:function (data) {
-                        console.log(data);
                         if(data.code==1){
-                            layer.msg(data.msg);
                             location.href=data.url+"?id="+data.data;
                         }
                         if(data.code==0){
@@ -296,6 +292,57 @@ function content(){
         }
 
     });
+
+    //滑动加载
+    var startX1;
+    var startY1;
+    var moveEndX;
+    var moveEndY;
+    $("body").on('touchstart', function(e) {
+        // 手指触摸开始时记录一下手指所在的坐标x
+        e.preventDefault();
+        startX1 = e.originalEvent.touches[0].clientX;
+        startY1 = e.originalEvent.touches[0].clientY;
+    });
+    $("body").on("touchmove", function(e) {
+        e.preventDefault();
+        moveEndX = e.originalEvent.changedTouches[0].pageX,
+            moveEndY = e.originalEvent.changedTouches[0].pageY;
+    });
+
+
+    $("body").on("touchend", function(e) {
+        e.preventDefault();
+        X = moveEndX - startX1;
+        Y = moveEndY - startY1;
+        //左翻
+        if ( X > 30 ) {
+            $(".conLeft").click()
+
+        }
+        //右翻
+        else if ( X <-30 ) {
+            $(".conRight").click();
+        }
+        else if ( Y > 0) {
+            return false;
+//	        alert("top 2 bottom");
+        }
+        else if ( Y < 0 ) {
+            return false;
+//	        alert("bottom 2 top");
+        }
+        else{
+            if(startX1 > ($(window).width()/3)*2){
+                $(".conRight").click();
+            }else if(startX1 < $(window).width()/3){
+                $(".conLeft").click();
+            }else{
+                $(".conCenter").click()
+            }
+        }
+    });
+
 
     //点击中间出现 头部和底部
     $(".conCenter").click(function(){
