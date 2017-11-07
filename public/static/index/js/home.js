@@ -80,7 +80,6 @@ function recharge() {
 
 //**************活动结束倒计时*****************************
 function ShowCountDown(year, month, day, divname) {
-    console.log(month);
     var now = new Date();
     var endDate = new Date(year, month-1, day);
     var leftTime = endDate.getTime() - now.getTime();
@@ -209,7 +208,6 @@ function content(){
         numn++;
         $.cookie('numn_'+book_id+'_'+reader_id+'_'+order_nums,numn);
         if(numn >= leng){
-            layer.msg("努力加载中...");
             numn = leng-1;
             $.cookie('numn_'+book_id+'_'+reader_id+'_'+order_nums,numn);
             $("#content>div").css("top",-$("#content").height()*numn+"px");
@@ -218,12 +216,17 @@ function content(){
                 'order_num':order_num,
                 'book_id':book_id
             };
+            if($(this).data('loading')){
+                return false;
+            }
+            $(this).data('loading',true);
             $.ajax({
                 url:order_nums_url,
                 data:data,
                 type:'POST',
                 dataType:'JSON',
                 success:function (data) {
+                    $(this).data('loading',false);
                     if(data.code==1){
                         location.href=data.url+"?id="+data.data;
                     }
@@ -232,7 +235,8 @@ function content(){
                     }
                 },
                 error:function () {
-                    layer.msg('数据错误');
+                    $(this).data('loading',false);
+                    layer.msg('网络错误，请重试');
                 }
             })
         }else{
@@ -247,7 +251,6 @@ function content(){
     //左翻
     $(".conLeft").click(function() {
         numn--;
-        console.log(numn);
         $.cookie('numn_'+book_id+'_'+reader_id+'_'+order_nums,numn);
         if(numn < 0){
             $.cookie('numn_'+book_id+'_'+reader_id+'_'+order_nums,0);
@@ -257,19 +260,24 @@ function content(){
                 $("#content>div").css({"left":"0px","top":-$("#content").height()*numn+"px"});
                 return false;
             }else{
-                layer.msg("努力加载中...");
+
                 $("#content>div").css("top",-$("#content").height()*(numn-1)+"px");
                 var order_num  = parseInt(order_nums)-1;
                 var data = {
                     'order_num':order_num,
                     'book_id':book_id
                 };
+                if($(this).data('loading')){
+                    return false;
+                }
+                $(this).data('loading',true);
                 $.ajax({
                     url:order_nums_url,
                     data:data,
                     type:'POST',
                     dataType:'JSON',
                     success:function (data) {
+                        $(this).data('loading',false);
                         if(data.code==1){
                             location.href=data.url+"?id="+data.data;
                         }
@@ -278,7 +286,8 @@ function content(){
                         }
                     },
                     error:function () {
-                        layer.msg('数据错误');
+                        $(this).data('loading',false);
+                        layer.msg('网络错误，请重试');
                     }
                 })
             }
@@ -298,20 +307,20 @@ function content(){
     var startY1;
     var moveEndX;
     var moveEndY;
-    $("body").on('touchstart', function(e) {
+    $("#content").on('touchstart', function(e) {
         // 手指触摸开始时记录一下手指所在的坐标x
         e.preventDefault();
         startX1 = e.originalEvent.touches[0].clientX;
         startY1 = e.originalEvent.touches[0].clientY;
     });
-    $("body").on("touchmove", function(e) {
+    $("#content").on("touchmove", function(e) {
         e.preventDefault();
         moveEndX = e.originalEvent.changedTouches[0].pageX,
             moveEndY = e.originalEvent.changedTouches[0].pageY;
     });
 
 
-    $("body").on("touchend", function(e) {
+    $("#content").on("touchend", function(e) {
         e.preventDefault();
         X = moveEndX - startX1;
         Y = moveEndY - startY1;
@@ -416,7 +425,6 @@ function content(){
 //****************************个人中心**************************************
 function mine(){
     $("#vip").click(function(){
-        console.log(1);
         $(".openVip").fadeIn(200,function(){
             $(".openVip>div").slideDown(400);
         });

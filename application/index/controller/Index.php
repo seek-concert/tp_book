@@ -347,10 +347,12 @@ class Index extends Auth
             $content_id = db('book_content')
                 ->where('book_id',$book_id)
                 ->where('order_num',$order_num)
-                ->column('id');
-            $content_id = $content_id[0];
+                ->value('id');
         }else{
             $content_id = input('content_id');
+        }
+        if(!$content_id){
+            return $this->error('已是最新章节','');
         }
         /*---------查询章节信息-------*/
         if($order_num){

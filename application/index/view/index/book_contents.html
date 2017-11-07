@@ -136,9 +136,8 @@
             type:'GET',
             dataType:'JSON',
             success: function(rs) {
-                console.log(rs);
                 if(rs.data.data.length<1){
-                    $(document).off("scroll");
+                    $('.conList').off("scroll");
                     $("#dibu").css('display','block');
                     return false;
                 }
