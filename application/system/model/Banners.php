@@ -21,7 +21,7 @@ class Banners extends Model
     protected $field = true;
     public function getTypeAttr($value)
     {
-        $status = [1=>'首页轮播图',2=>'个人中心背景图'];
+        $status = [1=>'首页轮播图',2=>'个人中心背景图',3=>'书籍详情背景图'];
         return $status[$value];
     }
     public function add(){

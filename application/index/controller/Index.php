@@ -115,7 +115,6 @@ class Index extends Auth
         /*+++++ 网站信息 +++++*/
         $set_info = db('setting')->field(['name','title','qr_code'])->find();
         $datas['set_info'] = $set_info;
-//        dump($qr_code['qr_code']);
         $this->assign($datas);
         return view();
     }
@@ -207,6 +206,9 @@ class Index extends Auth
             ->limit(3)
             ->select();
         $datas['like_book'] = $like_book;
+        /*+++++背景图 +++++*/
+        $banner_img = db('banner')->field(['picture'])->where('type',3)->where('deleted_at is null')->find();
+        $datas['banner_img'] = $banner_img;
         $this->assign($datas);
         return view();
     }

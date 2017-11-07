@@ -11,7 +11,7 @@ $form_action=isset($info)?url('modify'):url('insert');
 {/php}
 <form action="{$form_action}" method="post" class="js-ajax-form" onsubmit="return false;">
     <input type="hidden" name="id" value="{:isset($info->id)?$info->id:''}">
-    <h3 style="color: red;">温馨提示：个人中心背景图无需填写跳转地址.</h3>
+    <h3 style="color: red;">温馨提示：个人中心背景图和书籍详情背景图无需填写跳转地址.</h3>
     <div class="layerCon bg_f">
         <table class="layerTable" border="0">
             <tr class="h50">
@@ -19,6 +19,7 @@ $form_action=isset($info)?url('modify'):url('insert');
                 <td>
                     <label><input name="type" class="va_m" type="radio" value="1" {if condition="!isset($info) or $info->getData('type') eq 1"}checked{/if}>首页轮播图</label>
                     <label><input name="type" class="va_m" type="radio" value="2" {if condition="isset($info) and $info->getData('type') eq 2"}checked{/if}>个人中心背景图</label>
+                    <label><input name="type" class="va_m" type="radio" value="3" {if condition="isset($info) and $info->getData('type') eq 3"}checked{/if}>书籍详情背景图</label>
                 </td>
             </tr>
             <tr class="h50">

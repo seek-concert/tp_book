@@ -74,6 +74,12 @@ class Banner  extends Auth
                     return  $this->error('添加失败,已存在一张个人中心背景图', '');
                 }
             }
+            if($type==3){
+                $rs1 =  model('Banners')->withTrashed()->where('type',3)->count();
+                if($rs1>=1){
+                    return  $this->error('添加失败,已存在一张书籍详情背景图', '');
+                }
+            }
             $datas = input();
             $rule = [
                 ['picture', 'require', '请选择Banner图片']
