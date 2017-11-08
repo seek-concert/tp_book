@@ -44,7 +44,7 @@
             </td>
             <td>{$info->id}</td>
             <td>{$info->book_name}</td>
-            <td>第{$info->ordernum}章 {$info->content_name}</td>
+            <td>{if condition="$info->ordernum"}第{$info->ordernum}章 {$info->content_name}{/if}</td>
             <td>{$info->read_at}</td>
             <td>{$info->created_at}</td>
             <td>{$info->updated_at}</td>
