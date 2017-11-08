@@ -24,12 +24,61 @@ class Book extends Auth
     public function index()
     {
         $book_model = model('Books');
+        /*--- 所有分类 ---*/
+        $bookcate_name = model('Bookcates')->field('id,name')->select();
+        $this->assign('bookcate_name',$bookcate_name);
+        /*--- 所有作者 ---*/
+        $author_name = model('Authors')->field('id,name')->select();
+        $this->assign('author_name',$author_name);
+
         $where = [];
         /* ----- 查询条件(小说名称) -----*/
         $title = input('title');
         if($title){
             $where['b.title'] = array('LIKE',"%$title%");
             $this->assign('title',$title);
+        }
+        /* ----- 查询条件(作者) -----*/
+        $author_id = input('author_id');
+        if($author_id){
+            $where['author_id'] = $author_id;
+            $this->assign('author_id',$author_id);
+        }
+        /* ----- 查询条件(小说分类) -----*/
+        $cate_id = input('cate_id');
+        if($cate_id){
+            $where['cate_id'] = $cate_id;
+            $this->assign('cate_id',$cate_id);
+        }
+        /* ----- 查询条件(小说状态) -----*/
+        $status = input('status');
+        if(is_numeric($status)){
+            $where['status'] = "$status";
+            $this->assign('status',$status);
+        }
+        /* ----- 查询条件(免费状态) -----*/
+        $free_status = input('free_status');
+        if(is_numeric($free_status)){
+            $where['free_status'] = "$free_status";
+            $this->assign('free_status',$free_status);
+        }
+        /* ----- 查询条件(推荐状态) -----*/
+        $is_recommend = input('is_recommend');
+        if(is_numeric($is_recommend)){
+            $where['is_recommend'] = "$is_recommend";
+            $this->assign('is_recommend',$is_recommend);
+        }
+        /* ----- 查询条件(热门状态) -----*/
+        $is_hot = input('is_hot');
+        if(is_numeric($is_hot)){
+            $where['is_hot'] = "$is_hot";
+            $this->assign('is_hot',$is_hot);
+        }
+        /* ----- 查询条件(当前状态) -----*/
+        $online = input('online');
+        if(is_numeric($online)){
+            $where['online'] = "$online";
+            $this->assign('online',$online);
         }
         /* ++++++++++ 排序 ++++++++++ */
         $ordername=input('ordername');

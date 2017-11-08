@@ -21,6 +21,12 @@ class Rechargeprice extends Auth
     {
         $rechargeprice_model = model('Rechargeprices');
         $where = [];
+        /* ++++++++++ 充值类型 ++++++++++ */
+        $type=input('type');
+        if(is_numeric($type)){
+            $where['type'] = "$type";
+            $datas['type']=$type;
+        }
         /* ++++++++++ 排序 ++++++++++ */
         $ordername=input('ordername');
         $ordername=$ordername?$ordername:'id';

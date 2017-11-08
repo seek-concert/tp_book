@@ -15,7 +15,7 @@
                 <img src="__STATIC__/system/img/arrow_refresh.png"/>
                 刷新</a>
         </li>
-        <li class="fgf" onclick="layerPage('小说查询',$('#search'),'500','240')" >
+        <li class="fgf" onclick="layerPage('小说查询',$('#search'),'580','280')" >
             <img src="__STATIC__/system/img/page_white_magnify.png"/>
             查询
         </li>
@@ -121,7 +121,72 @@
         <table class="layerTable">
             <tr class="h50">
                 <td>小说名称：</td>
-                <td colspan="3"><input type="text" name="title" id="title" value="{:isset($title)?$title:''}" placeholder="请输入查询的小说名称"/></td>
+                <td><input type="text" name="title" id="title" value="{:isset($title)?$title:''}" placeholder="请输入查询的小说名称"/></td>
+                <td>小说作者：</td>
+                <td>
+                    <select name="author_id" id="author_id" data-placeholder="请选择作者">
+                        <option value="">----- 全部 -----</option>
+                        {volist name="author_name" id="authorname"}
+                        <option value="{$authorname->id}"  {if condition="isset($author_id) and $authorname->id eq $author_id"}selected{/if}>{$authorname->name}</option>
+                        {/volist}
+                    </select>
+                </td>
+            </tr>
+            <tr class="h50">
+                <td>小说分类：</td>
+                <td>
+                    <select name="cate_id" id="cate_id">
+                        <option value="">----- 全部 -----</option>
+                        {volist name="bookcate_name" id="cate_name"}
+                        <option value="{$cate_name->id}" {if condition="isset($cate_id) and $cate_name->id eq $cate_id"}selected{/if}>----- {$cate_name->name} -----</option>
+                        {/volist}
+                    </select>
+                </td>
+                <td>小说状态：</td>
+                <td>
+                    <select name="status" id="status">
+                        <option value="">----- 全部 -----</option>
+                        <option value="0" {if condition="isset($status) and $status eq 0"}selected{/if}>----- 连载 -----</option>
+                        <option value="1" {if condition="isset($status) and $status eq 1"}selected{/if}>----- 完结 -----</option>
+                    </select>
+                </td>
+            </tr>
+            <tr class="h50">
+                <td>免费状态：</td>
+                <td>
+                    <select name="free_status" id="free_status">
+                        <option value="">----- 全部 -----</option>
+                        <option value="0" {if condition="isset($free_status) and $free_status eq 0"}selected{/if}>----- 收费 -----</option>
+                        <option value="1" {if condition="isset($free_status) and $free_status eq 1"}selected{/if}>----- 限时免费 -----</option>
+                        <option value="2" {if condition="isset($free_status) and $free_status eq 2"}selected{/if}>----- 完全免费 -----</option>
+                    </select>
+                </td>
+                <td>推荐状态：</td>
+                <td>
+                    <select name="is_recommend" id="is_recommend">
+                        <option value="">----- 全部 -----</option>
+                        <option value="0" {if condition="isset($is_recommend) and $is_recommend eq 0"}selected{/if}>----- 否 -----</option>
+                        <option value="1" {if condition="isset($is_recommend) and $is_recommend eq 1"}selected{/if}>----- 是 -----</option>
+                    </select>
+                </td>
+            </tr>
+            <tr class="h50">
+                <td>热门状态：</td>
+                <td>
+                    <select name="is_hot" id="is_hot">
+                        <option value="">----- 全部 -----</option>
+                        <option value="0" {if condition="isset($is_hot) and $is_hot eq 0"}selected{/if}>----- 否 -----</option>
+                        <option value="1" {if condition="isset($is_hot) and $is_hot eq 1"}selected{/if}>----- 是 -----</option>
+                    </select>
+                </td>
+                <td>当前状态：</td>
+                <td>
+                    <select name="online" id="online">
+                        <option value="">----- 全部 -----</option>
+                        <option value="0" {if condition="isset($online) and $online eq 0"}selected{/if}>----- 下架 -----</option>
+                        <option value="1" {if condition="isset($online) and $online eq 1"}selected{/if}>----- 在架 -----</option>
+                    </select>
+                </td>
             </tr>
             <tr class="h50">
                 <td>是否删除：</td>
@@ -190,6 +255,8 @@
 </div>
 <script src="__STATIC__/system/js/ajax-submit.js" type="text/javascript" charset="utf-8"></script>
 <script src="__STATIC__/system/js/datejs/laydate.js" type="text/javascript" charset="utf-8"></script>
+<link rel="stylesheet" href="__STATIC__/system/css/chosen.css" charset="utf-8">
+<script src="__STATIC__/system/js/chosen.jquery.js" type="text/javascript" charset="utf-8"></script>
 <script>
     /*----- 时间控件 -----*/
     !function(){
@@ -197,12 +264,18 @@
         laydate({elem: '#free_start'});//绑定元素
         laydate({elem: '#free_end'});//绑定元素
     }();
+    /*----- 下拉搜索 -----*/
+    $(function(){
+        $('#author_id').chosen();
+    });
+
     $(function () {
         $('.pageCon').find('a').on('click',function () {
             $('#search-form').attr('action',$(this).attr('href')).submit();
             return false;
         });
     });
+    /*----- 限时免费 -----*/
     $(".free_times").on('click',function(){
         var ids = '';
         var book_ids = $("input[name='ids[]']:checked");

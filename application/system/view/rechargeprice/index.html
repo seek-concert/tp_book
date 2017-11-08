@@ -81,6 +81,16 @@
     <form action="" method="post" id="search-form">
         <table class="layerTable">
             <tr class="h50">
+                <td>充值类型：</td>
+                <td colspan="3">
+                    <select name="type" id="type">
+                        <option value="">--全部--</option>
+                        <option value="1" {if condition="isset($type) and $type==1"}selected{/if}>--会员--</option>
+                        <option value="0" {if condition="isset($type) and $type==0"}selected{/if}>--书币--</option>
+                    </select>
+                </td>
+            </tr>
+            <tr class="h50">
                 <td>是否删除：</td>
                 <td>
                     <select name="deleted" id="deleted">
