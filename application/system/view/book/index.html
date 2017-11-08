@@ -31,6 +31,10 @@
             <img src="__STATIC__/system/img/off_the_shelf.png"/>
             下架
         </li>
+        <li class="fgf free_times" >
+            <img src="__STATIC__/system/img/time_free.png"/>
+            限时免费
+        </li>
         <li class="fgf js-ajax-form-btn" data-form="js-ajax-form" data-action="{:url('modify_recommend',array('is_recommend'=>'1'))}">
             <img src="__STATIC__/system/img/recommend.png"/>
             推荐小说
@@ -161,13 +165,58 @@
         </div>
     </form>
 </div>
+<!-- 限时免费 -->
+<div id="freetime" class="layerCon bg_f hide">
+    <form action="{:url('modify_freetime')}" method="post" class="js-ajax-form" id="freetime-form">
+        <input type="hidden" class="book_idss" name="book_ids" value="">
+        <table class="layerTable">
+            <tr class="h50 is_free_status">
+                <td>免费开始时间：</td>
+                <td>
+                    <input class="laydate-icon" id="free_start" name="free_start" value="" placeholder="请输入免费开始时间"  onClick="laydate({istime: true, format: 'YYYY-MM-DD 00:00:00'})">
+                </td>
+            </tr>
+            <tr class="h50 is_free_status">
+                <td>免费结束时间：</td>
+                <td>
+                    <input class="laydate-icon" id="free_end" name="free_end" value="" placeholder="请输入免费结束时间" onClick="laydate({istime: true, format: 'YYYY-MM-DD 23:59:59'})">
+                </td>
+            </tr>
+        </table>
+        <div class="layerBtns">
+            <button class="btn  js-ajax-form-btn">修改</button>
+        </div>
+    </form>
+</div>
 <script src="__STATIC__/system/js/ajax-submit.js" type="text/javascript" charset="utf-8"></script>
+<script src="__STATIC__/system/js/datejs/laydate.js" type="text/javascript" charset="utf-8"></script>
 <script>
+    /*----- 时间控件 -----*/
+    !function(){
+        laydate.skin('molv');//切换皮肤，请查看skins下面皮肤库
+        laydate({elem: '#free_start'});//绑定元素
+        laydate({elem: '#free_end'});//绑定元素
+    }();
     $(function () {
         $('.pageCon').find('a').on('click',function () {
             $('#search-form').attr('action',$(this).attr('href')).submit();
             return false;
         });
+    });
+    $(".free_times").on('click',function(){
+        var ids = '';
+        var book_ids = $("input[name='ids[]']:checked");
+        for (var i = 0; i < book_ids.length; i++) {
+            ids += $(book_ids[i]).val();
+            if (i < book_ids.length - 1) ids += ",";
+        }
+      if(ids){
+            $(".book_idss").val(ids);
+          layerPage('限时免费',$('#freetime'),'450','180');
+      }else{
+          layer.msg('请至少选中一项');
+      }
+
     });
 </script>
 </body>

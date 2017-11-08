@@ -280,4 +280,19 @@ class Book extends Auth
         }
     }
 
+    /* ========== 设置小说限时免费 ========== */
+    public function modify_freetime(){
+        $ids = input('book_ids');
+        $where['id'] = array('in',$ids);
+        if(!input('free_start')||!input('free_end')){
+            return $this->error('请选择限时免费时间','');
+        }
+       $rs = model('Books')->save(['free_status'=>1,'free_start'=>input('free_start'),'free_end'=>input('free_end')],$where);
+        if($rs){
+            return $this->success('修改成功','');
+        }else{
+            return $this->error('修改失败');
+        }
+    }
+
 }
