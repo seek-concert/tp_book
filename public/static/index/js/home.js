@@ -312,55 +312,42 @@ function content(){
     var startY1;
     var moveEndX;
     var moveEndY;
-    $("#content").on('touchstart', function(e) {
+    var _dom=$("#content");
+    var window_width=window.screen.width;
+    _dom.on('touchstart', function(e) {
         // 手指触摸开始时记录一下手指所在的坐标x
-        e.preventDefault();
-        startX1 = e.originalEvent.touches[0].clientX;
-        startY1 = e.originalEvent.touches[0].clientY;
-    });
-    $("#content").on("touchmove", function(e) {
-        e.preventDefault();
-        moveEndX = e.originalEvent.changedTouches[0].pageX,
-            moveEndY = e.originalEvent.changedTouches[0].pageY;
+        startX1 = window.event.touches[0].clientX;
+        startY1 = window.event.touches[0].clientY;
     });
 
-
-    $("#content").on("touchend", function(e) {
-        e.preventDefault();
+    _dom.on("touchend", function(e) {
+        moveEndX =e.originalEvent.changedTouches[0].clientX;
         X = moveEndX - startX1;
-        Y = moveEndY - startY1;
         //左翻
-        if ( X > 30 ) {
-            $(".conLeft").click()
-
+        if ( X > 50 ) {
+            $(".conLeft").click();
         }
         //右翻
-        else if ( X <-30 ) {
+        else if ( X < -50 ) {
             $(".conRight").click();
         }
-        else if ( Y > 0) {
-            return false;
-//	        alert("top 2 bottom");
-        }
-        else if ( Y < 0 ) {
-            return false;
-//	        alert("bottom 2 top");
-        }
         else{
-            if(startX1 > ($(window).width()/3)*2){
-                $(".conRight").click();
-            }else if(startX1 < $(window).width()/3){
+            var a = window_width/4;
+            var b= window_width-a;
+            if(startX1 >= b){
+                $(".conRight").click()
+            }else if(startX1 <= a){
                 $(".conLeft").click();
             }else{
-                $(".conCenter").click()
+                $(".conCenter").click();
             }
         }
-    });
 
+    });
 
     //点击中间出现 头部和底部
     $(".conCenter").click(function(){
-        $(".conFooter,.conHead").slideToggle(300);
+        $(".conFooter,.conHead").stop().slideToggle(300);
     });
 
     //li背景
