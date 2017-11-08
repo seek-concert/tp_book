@@ -340,19 +340,20 @@
                 success:function (data) {
                     console.log(data);
                     if(data.code==1){
-                        $(".love_book").find("a").remove();
+                       var _a='';
                         for(var i =0;i<data.data['length'];i++){
-                            $(".love_book").append("<a  href=\"{:url('index/book_detail',array('book_id'=>"+data.data[i]['id']+"))}\">\n" +
-                                "            <img src='"+data.data[i]['picture']+"' />\n" +
-                                "            <p>"+data.data[i]['title']+"</p>\n" +
-                                "        </a>");
+                            _a +="<a  href=\"{:url('index/book_detail',array('book_id'=>"+data.data[i]['id']+"))}\"><span>" +
+                                "            <img src='"+data.data[i]['picture']+"' />" +
+                                "            <p style='width: 88px;'>"+data.data[i]['title']+"</p>" +
+                                "         </span></a>";
                         }
+                        $(".love_book").html(_a);
                     }
                     if(data.code==0){
-                        $(".love_book").find("a").remove();
-                        $(".love_book").append('{volist name="like_book" id="likebook"}<a  href="{:url(\'index/book_detail\',array(\'book_id\'=>$likebook[\'id\']))}"><img src="{$likebook->picture}"/> <p>{$likebook->title}</p></a>{/volist}');
+                        $(".love_book").html('{volist name="like_book" id="likebook"}<a  href="{:url(\'index/book_detail\',array(\'book_id\'=>$likebook[\'id\']))}"><span><img src="{$likebook->picture}"/> <p>{$likebook->title}</p></span></a>{/volist}');
                         num = 0;
                     }
+
                 },
                 error:function () {
                     layer.msg('数据错误');
